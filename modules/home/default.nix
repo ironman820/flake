@@ -5,20 +5,73 @@ with lib;
 let
   cfg = config.ironman.home;
 in {
-  imports = with inputs; [
-    home-manager.nixosModules.home-manager
-  ];
-
   options.ironman.home = with types; {
     file = mkOpt attrs {} "Files that need added to the home manager's file settings.";
     extraOptions = mkOpt attrs { } "Extra attributes to add to the home config.";
   };
 
   config = {
+    ironman.home.file = {
+      ".ssh/id_ed25519_sk.pub".source = ./keys/id_ed25519_sk.pub;
+      ".ssh/id_ed25519_sk_work.pub".source = ./keys/id_ed25519_sk_work.pub;
+      ".ssh/github_home.pub".source = ./keys/github_home.pub;
+      ".ssh/id_rsa_yubikey.pub".source = ./keys/id_rsa_yubikey.pub;
+    };
     ironman.home.extraOptions = {
+      gtk = {
+        enable = true;
+        iconTheme = {
+          package = pkgs.tela-icon-theme;
+          name = "Tela-black-dark";
+        };
+        theme = {
+          package = pkgs.orchis-theme;
+          name = "Orchis-Dark-Compact";
+        };
+      };
       home = {
         file = mkAliasDefinitions options.ironman.home.file;
         homeDirectory = "/home/${config.ironman.user.name}";
+        packages = with pkgs; [
+          age
+          birdtray
+          chezmoi
+          devbox
+          duf
+          fzf
+          git
+          git-filter-repo
+          github-cli
+          glab
+          google-chrome
+          htop
+          jq
+          just
+          lazygit
+          neofetch
+          (nerdfonts.override { fonts = [ "FiraCode" ]; })
+          networkmanagerapplet
+          nodejs_20
+          poppler_utils
+          putty
+          pv
+          restic
+          ripgrep
+          teamviewer
+          teams
+          virt-manager
+          virt-viewer
+          vscode
+          yq
+          zip
+        ];
+        sessionPath = [
+          "$HOME/bin"
+          "$HOME/.local/bin"
+        ];
+        sessionVariables = {
+          EDITOR = "vim";
+        };
         shellAliases = {
           "ca" = "chezmoi add";
           "cc" = "chezmoi cd";
@@ -37,26 +90,6 @@ in {
         };
         stateVersion = "23.05";
         username = config.ironman.user.name;
-        packages = with pkgs; [
-          age
-          chezmoi
-          duf
-          fzf
-          htop
-          just
-          neofetch
-          poppler_utils
-          pv
-          ripgrep
-          zip
-        ];
-        sessionPath = [
-          "$HOME/bin"
-          "$HOME/.local/bin"
-        ];
-        sessionVariables = {
-          EDITOR = "vim";
-        };
       };
       programs = {
         atuin.enable = true;
@@ -73,6 +106,27 @@ in {
             "--group-directories-first"
             "--header"
           ];
+        };
+        git = {
+          aliases = {
+            pushall = "!git remote | xargs -L1 git push --all";
+            graph = "log --decorate --oneline --graph";
+            add-nowhitespace = "!git diff -U0 -w --no-color | git apply --cached --ignore-whitespace --undiff-zero -";
+          };
+          enable = true;
+          extraConfig = {
+            feature.manyFiles = true;
+            init.defaultBranch = "main";
+            gpg.format = "ssh";
+          };
+          ignores = [ ".direnv" "result" ];
+          lfs.enable = true;
+          signing = {
+            key = "~/.ssh/github_home";
+            signByDefault = builtins.stringLength "~/.ssh/github_home" > 0;
+          };
+          userName = config.ironman.user.fullName;
+          userEmail = config.ironman.user.email;
         };
         home-manager = enabled;
         starship = {

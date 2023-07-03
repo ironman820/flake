@@ -3,18 +3,23 @@
 
   inputs = {
     # agenix.url = "github:ryantm/agenix";
+    flake = {
+      url = "github:snowfallorg/flake";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     home-manager = {
       url = "github:nix-community/home-manager/release-23.05";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    nixpkgs.url = "github:nixos/nixpkgs/nixos-23.05";
+    # nix-alien.url = "github:thiagokokada/nix-alien";
+    # nix-ld = {
+    #   url = "github:Mic92/nix-ld";
+    #   inputs.nixpkgs.follows = "nixpkgs";
+    # };
     nixos-hardware.url = "github:nixos/nixos-hardware";
+    nixpkgs.url = "github:nixos/nixpkgs/nixos-23.05";
     snowfall-lib = {
       url = "github:snowfallorg/lib";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-    flake = {
-      url = "github:snowfallorg/flake";
       inputs.nixpkgs.follows = "nixpkgs";
     };
     unstable.url = "github:nixos/nixpkgs/nixos-unstable";

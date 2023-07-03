@@ -46,13 +46,20 @@ in {
     };
     console = {
       font = "Lat2-Terminus16";
+      packages = with pkgs; [
+        terminus-nerdfont
+      ];
       useXkbConfig = true; # use xkbOptions in tty.
     };
     environment = {
-      gnome.excludePackages = with pkgs; [
+      gnome.excludePackages = (with pkgs; [
         gnome-tour
         gnome-photos
-      ];
+      ]) ++ (with pkgs.gnome; [
+        cheese
+        gnome-maps
+        gnome-software
+      ]);
       shellInit = ''
         gpg-connect-agent /bye
         export SSH_AUTH_SOCK=$(gpgconf --list-dirs agent-ssh-socket)
@@ -60,66 +67,81 @@ in {
       systemPackages = (with pkgs; [
         devbox
         distrobox
-        gnome.gnome-tweaks
-        gnome-extension-manager
+        fzf
         gnupg
+        networkmanagerapplet
         ntfs3g
         podman-compose
+        snowfallorg.flake
+        terminus-nerdfont
         vim
         wget
         yubikey-personalization
-      ]) ++ (with pkgs.gnomeExtensions; [
-        syncthing-indicator
-        appindicator
-        caffeine
-        compact-top-bar
-        lock-keys
-        no-overview
-        pano
-        power-profile-switcher
-        tactile
-        wallpaper-switcher
-        weather-oclock
       ]);
     };
     hardware = {
-      opengl = enabled;
-      pulseaudio = enabled;
+      opengl = {
+        enable = true;
+        extraPackages = with pkgs; [
+          intel-media-driver
+          libvdpau-va-gl
+          vaapiIntel
+          vaapiVdpau
+        ];
+      };
+      pulseaudio = disabled;
     };
     i18n.defaultLocale = "en_US.UTF-8";
     ironman = {
       user.extraGroups = [
         "dialout"
+        "libvirtd"
       ];
     };
     location.provider = "geoclue2";
     networking = {
-      networkmanager.profiles = {
-        "DumbledoresArmy" = {
-          connection = {
-            type = "wifi";
-            permissions = "";
-            id = "DumbledoresArmy";
-            uuid = "9725c49f-5808-4663-8d9f-d8d7bd38cf7d";
-          };
-          wifi = {
-            mac-address-blacklist = "";
-            mode = "infrastructure";
-            ssid = "DumbledoresArmy";
-          };
-          wifi-security = {
-            auth-alg = "open";
-            key-mgmt = "wpa-psk";
-            psk = "Alohomora";
-          };
-          ipv4 = {
-            dns-search = "";
-            method = "auto";
-          };
-          ipv6 = {
-            addr-gen-mode = "stable-privacy";
-            dns-search = "";
-            method = "auto";
+      enableIPv6 = false;
+      firewall = {
+        allowedTCPPorts = [
+          22000
+        ];
+        allowedUDPPorts = [
+          21027
+          22000
+        ];
+      };
+      networkmanager = {
+        enable = true;
+        plugins = with pkgs.gnome; [
+          networkmanager-openvpn
+        ];
+        profiles = {
+          "DumbledoresArmy" = {
+            connection = {
+              type = "wifi";
+              permissions = "";
+              id = "DumbledoresArmy";
+              uuid = "9725c49f-5808-4663-8d9f-d8d7bd38cf7d";
+            };
+            wifi = {
+              mac-address-blacklist = "";
+              mode = "infrastructure";
+              ssid = "DumbledoresArmy";
+            };
+            wifi-security = {
+              auth-alg = "open";
+              key-mgmt = "wpa-psk";
+              psk = "Alohomora";
+            };
+            ipv4 = {
+              dns-search = "";
+              method = "auto";
+            };
+            ipv6 = {
+              addr-gen-mode = "stable-privacy";
+              dns-search = "";
+              method = "auto";
+            };
           };
         };
       };
@@ -132,7 +154,8 @@ in {
       linkInputs = true;
       optimise.automatic = true;
       settings = {
-        cores = 3;
+        auto-optimise-store = true;
+        cores = 2;
         experimental-features = [ "nix-command" "flakes" ];
         trusted-users = [
           "root"
@@ -143,43 +166,49 @@ in {
     nixpkgs.config.allowUnfree = true;
     programs = {
       dconf = enabled;
-      git = enabled;
+      git = {
+        enable = true;
+        lfs = enabled;
+      };
       gnupg.agent = {
         enable = true;
         enableSSHSupport = true;
       };
       mtr = enabled;
+      # nix-ld is needed for gloCOM
+      # nix-ld.dev = enabled;
       ssh.startAgent = false;
       vim.defaultEditor = true;
+      xwayland = enabled;
     };
     security.sudo = {
       execWheelOnly = true;
-      extraRules = mkBefore [
-        {
-          commands = [
-            {
-              command = "${pkgs.nixos-rebuild}/bin/nixos-rebuild";
-              options = [ "NOPASSWD" ];
-            }
-          ];
-          runAs = "ALL";
-          users = [ "${config.ironman.user.name}" ];
-        }
-      ];
+      wheelNeedsPassword = false;
     };
     services = {
       flatpak = enabled;
       gnome.gnome-keyring = enabled;
       logind.killUserProcesses = true;
-      openssh = enabled;
-      pcscd.enable = true;
-      printing = enabled;
-      syncthing = {
-        dataDir = "/home/${config.ironman.user.name}";
+      openssh = {
         enable = true;
-        user = config.ironman.user.name;
-        openDefaultPorts = true;
+        settings = {
+          PasswordAuthentication = false;
+          PermitRootLogin = "no";
+        };
       };
+      pcscd.enable = true;
+      pipewire = {
+        alsa = enabled;
+        enable = true;
+        pulse = enabled;
+      };
+      printing = enabled;
+      # syncthing = {
+      #   dataDir = "/home/${config.ironman.user.name}";
+      #   enable = true;
+      #   user = config.ironman.user.name;
+      #   openDefaultPorts = true;
+      # };
       udev.packages = with pkgs; [
         yubikey-personalization
       ];
@@ -193,7 +222,7 @@ in {
         layout = "us";
         libinput = {
           enable = true;
-          touchpad.tapping = true;
+          touchpad.naturalScrolling = true;
         };
       };
     };
@@ -207,12 +236,18 @@ in {
         enable = true;
         qemu.package = pkgs.qemu_kvm;
       };
-      podman = enabled;
+      podman = {
+        enable = true;
+        dockerCompat = true;
+        dockerSocket = enabled;
+      };
     };
-    xdg.portal = enabled;
+    xdg.portal = {
+      enable = true;
+      xdgOpenUsePortal = true;
+    };
     zramSwap = {
       enable = true;
-      algorithm = "zstd";
       memoryPercent = 90;
     };
   };

@@ -2,7 +2,9 @@
   description = "My Nix Flakes";
 
   inputs = {
-    # agenix.url = "github:ryantm/agenix";
+    # agenix = {
+    #   url = "github:ryantm/agenix";
+    # };
     flake = {
       url = "github:snowfallorg/flake";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -22,6 +24,7 @@
       url = "github:snowfallorg/lib";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    sops-nix.url = "github:Mic92/sops-nix";
     unstable.url = "github:nixos/nixpkgs/nixos-unstable";
   };
 
@@ -33,7 +36,7 @@
       channels-config.allowUnfree = true;
 
       overlays = with inputs; [
-        flake.overlay
+        flake.overlays.default
       ];
 
       systems.modules = with inputs; [
@@ -41,6 +44,7 @@
       ];
 
       systems.hosts.ironman-laptop.modules = with inputs; [
+        # agenix.nixosModules.default
         nixos-hardware.nixosModules.dell-inspiron-5509
       ];
     };

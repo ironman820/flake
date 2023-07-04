@@ -1,4 +1,4 @@
-{ pkgs, config, lib, ... }:
+{ config, lib, pkgs, system, ... }:
 
 with lib;
 let
@@ -65,14 +65,18 @@ in {
         export SSH_AUTH_SOCK=$(gpgconf --list-dirs agent-ssh-socket)
       '';
       systemPackages = (with pkgs; [
+        age
         devbox
         distrobox
         fzf
         gnupg
+        libva-utils
         networkmanagerapplet
         ntfs3g
         podman-compose
+        ssh-to-age
         snowfallorg.flake
+        sops
         terminus-nerdfont
         vim
         wget
@@ -96,6 +100,7 @@ in {
       user.extraGroups = [
         "dialout"
         "libvirtd"
+        "networkmanager"
       ];
     };
     location.provider = "geoclue2";
@@ -106,6 +111,7 @@ in {
           22000
         ];
         allowedUDPPorts = [
+          5678
           21027
           22000
         ];
@@ -203,12 +209,6 @@ in {
         pulse = enabled;
       };
       printing = enabled;
-      # syncthing = {
-      #   dataDir = "/home/${config.ironman.user.name}";
-      #   enable = true;
-      #   user = config.ironman.user.name;
-      #   openDefaultPorts = true;
-      # };
       udev.packages = with pkgs; [
         yubikey-personalization
       ];

@@ -1,0 +1,8 @@
+keys:
+  - &ironman age1nny857q3ujh77zved353ufzte5clv444783m6jc4xthmn43r75wqcputn0
+  - &ironman-laptop age1605s27hz87zl5grs8eqdp6xcupx8g6c9p3vru0v0twklhdne748sd7hsa6
+creation_rules:
+  - path: "*"
+    key_groups:
+      - age:
+          - *ironman

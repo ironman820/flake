@@ -79,7 +79,6 @@ in {
     };
     security.sudo = {
       execWheelOnly = true;
-      wheelNeedsPassword = false;
     };
     services = {
       logind.killUserProcesses = true;

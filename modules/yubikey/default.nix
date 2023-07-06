@@ -26,6 +26,10 @@ in {
       };
       ssh.startAgent = false;
     };
+    security.pam.u2f = {
+      enable = true;
+      cue = true;
+    };
     services = {
       pcscd.enable = true;
       udev.packages = with pkgs; [

@@ -24,37 +24,6 @@ in {
       ironman = {
         sops = {
           age.keyFile = "/home/${config.ironman.user.name}/.config/sops/age/keys.txt";
-          secrets = mkMerge [
-            ({
-              github_home = {
-                mode = "0400";
-                path = "/home/${config.ironman.user.name}/.ssh/github_home";
-                sopsFile = ./secrets/ssh.yaml;
-              };
-              ed25519_sk = {
-                mode = "0400";
-                path = "/home/${config.ironman.user.name}/.ssh/id_ed25519_sk";
-                sopsFile = ./secrets/ssh.yaml;
-              };
-              my_config = {
-                format = "binary";
-                path = "/home/${config.ironman.user.name}/.ssh/my-config";
-                sopsFile = ./secrets/my-config;
-              };
-            })
-            (mkIf config.ironman.work-laptop.enable {
-              github_work = {
-                mode = "0400";
-                path = "/home/${config.ironman.user.name}/.ssh/github_work";
-                sopsFile = ./secrets/ssh.yaml;
-              };
-              ed25519_sk_work = {
-                mode = "0400";
-                path = "/home/${config.ironman.user.name}/.ssh/id_ed25519_sk_work";
-                sopsFile = ./secrets/ssh.yaml;
-              };
-            })
-          ];
         };
         root-sops.enable = config.ironman.wireless-profiles.enable;
       };

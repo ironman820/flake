@@ -9,9 +9,12 @@ in {
   };
 
   config = mkIf cfg.enable {
-    boot.loader = {
-      grub = disabled;
-      systemd-boot = enabled;
+    boot = {
+      loader = {
+        grub = disabled;
+        systemd-boot = enabled;
+      };
+      plymouth = disabled;
     };
   };
 }

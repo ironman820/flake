@@ -39,12 +39,23 @@ in {
             remember-recent-files = true;
             remove-old-trash-files = true;
           };
+          "org/gnome/desktop/wm/keybindings" = {
+            close = ["<Super>q"];
+          };
           "org/gnome/desktop/session" = {
             idle-delay = "unit32 300";
           };
           "org/gnome/desktop/screensaver" = {
             lock-delay = "unit32 30";
             lock-enabled = true;
+          };
+          "org/gnome/settings-daemon/plugins/media-keys" = {
+            home = ["<Super>f"];
+          };
+          "org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0" = {
+            binding = ["<Super>t"];
+            name = "Console";
+            command = "kgx";
           };
           "org/gnome/shell/extensions/lockkeys" = {
             style = "show-hide";

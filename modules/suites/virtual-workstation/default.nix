@@ -10,9 +10,11 @@ in {
 
   config = mkIf cfg.enable {
     ironman = {
+      chezmoi = enabled;
       gnome = enabled;
       sync = enabled;
       sops = enabled;
+      virtual.guest = enabled;
     };
     zramSwap = {
       enable = true;

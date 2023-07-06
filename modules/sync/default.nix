@@ -12,6 +12,7 @@ in {
   config = mkIf cfg.enable {
     networking.firewall = {
       allowedTCPPorts = [
+        8384
         22000
       ];
       allowedUDPPorts = [

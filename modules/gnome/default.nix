@@ -53,7 +53,7 @@ in {
             home = ["<Super>f"];
           };
           "org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0" = {
-            binding = ["<Super>t"];
+            binding = "<Super>t";
             name = "Console";
             command = "kgx";
           };

@@ -10,6 +10,7 @@ in {
 
   config = mkIf cfg.enable {
     ironman = {
+      firmware = enabled;
       intel-video = enabled;
       suites.workstation = enabled;
       wireless-profiles = enabled;

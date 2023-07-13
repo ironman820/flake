@@ -3,21 +3,26 @@
 
   inputs = {
     flake = {
-      url = "github:snowfallorg/flake";
       inputs.nixpkgs.follows = "nixpkgs";
+      url = "github:snowfallorg/flake";
     };
     home-manager = {
-      url = "github:nix-community/home-manager/release-23.05";
       inputs.nixpkgs.follows = "nixpkgs";
+      url = "home-manager/release-23.05";
     };
-    nixos-hardware.url = "github:nixos/nixos-hardware";
-    nixpkgs.url = "github:nixos/nixpkgs/nixos-23.05";
+    nixos-hardware.url = "nixos-hardware";
+    nixpkgs.url = "nixpkgs/nixos-23.05";
+    nixpkgs-acc5f.url = "nixpkgs/acc5f7b18a60bc9b1024e5e1882bf7362e6492e6";
+    # nixpkgs-11ff7.url = "nixpkgs/b70a4436c617de1576c56b85c8338b5b51c18994";
     snowfall-lib = {
-      url = "github:snowfallorg/lib";
       inputs.nixpkgs.follows = "nixpkgs";
+      url = "github:snowfallorg/lib";
     };
-    sops-nix.url = "github:Mic92/sops-nix";
-    unstable.url = "github:nixos/nixpkgs/nixos-unstable";
+    sops-nix = {
+      inputs.nixpkgs.follows = "nixpkgs";
+      url = "sops-nix";
+    };
+    unstable.url = "nixpkgs";
   };
 
   outputs = inputs:

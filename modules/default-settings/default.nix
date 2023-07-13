@@ -31,6 +31,7 @@ in {
         devbox
         distrobox
         fzf
+        nix-index
         podman-compose
         ssh-to-age
         snowfallorg.flake
@@ -41,9 +42,12 @@ in {
       ]);
     };
     i18n.defaultLocale = "en_US.UTF-8";
-    ironman.user.extraGroups = [
-      "dialout"
-    ];
+    ironman = {
+      # java = enabled;
+      user.extraGroups = [
+        "dialout"
+      ];
+    };
     location.provider = "geoclue2";
     networking = {
       enableIPv6 = false;

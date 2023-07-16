@@ -10,7 +10,7 @@ in {
 
   config = mkIf cfg.enable {
     ironman = {
-      firmware = enabled;
+      # firmware = enabled;
     };
   };
 }

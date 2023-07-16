@@ -11,7 +11,6 @@ in {
   config = mkIf cfg.enable {
     ironman = {
       boot.grub = enabled;
-      chezmoi = enabled;
       gnome = enabled;
       gui-apps = enabled;
       sops = enabled;

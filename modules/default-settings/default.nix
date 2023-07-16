@@ -31,6 +31,7 @@ in {
         devbox
         distrobox
         fzf
+        git-extras
         nix-index
         podman-compose
         ssh-to-age

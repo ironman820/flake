@@ -16,6 +16,7 @@ in {
         file = mkAliasDefinitions options.ironman.home.file;
         homeDirectory = "/home/${config.ironman.user.name}";
         packages = (with pkgs; [
+          chezmoi
           devbox
           duf
           fzf
@@ -118,10 +119,6 @@ in {
           };
           ignores = [ ".direnv" "result" ];
           lfs = enabled;
-          signing = {
-            key = "~/.ssh/github_home";
-            signByDefault = builtins.stringLength "~/.ssh/github_home" > 0;
-          };
           userName = config.ironman.user.fullName;
           userEmail = config.ironman.user.email;
         };

@@ -9,8 +9,10 @@ in {
   };
 
   config = mkIf cfg.enable {
-    ironman = {
-      # firmware = enabled;
+    ironman.home.extraOptions.programs.git.signing = {
+      key = "~/.ssh/github_servers";
+      signByDefault = builtins.stringLength "~/.ssh/github_servers" > 0;
     };
+    security.sudo.wheelNeedsPassword = false;
   };
 }

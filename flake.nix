@@ -8,11 +8,11 @@
     };
     home-manager = {
       inputs.nixpkgs.follows = "nixpkgs";
-      url = "home-manager/release-23.05";
+      url = "github:nix-community/home-manager/release-23.05";
     };
-    nixos-hardware.url = "nixos-hardware";
-    nixpkgs.url = "nixpkgs/nixos-23.05";
-    nixpkgs-acc5f7b.url = "nixpkgs/acc5f7b";
+    nixos-hardware.url = "github:nixos/nixos-hardware";
+    nixpkgs.url = "github:nixos/nixpkgs/nixos-23.05";
+    nixpkgs-acc5f7b.url = "github:nixos/nixpkgs/acc5f7b";
     # nixpkgs-11ff7.url = "nixpkgs/b70a4436c617de1576c56b85c8338b5b51c18994";
     snowfall-lib = {
       inputs.nixpkgs.follows = "nixpkgs";
@@ -20,9 +20,9 @@
     };
     sops-nix = {
       inputs.nixpkgs.follows = "nixpkgs";
-      url = "sops-nix";
+      url = "github:mic92/sops-nix";
     };
-    unstable.url = "nixpkgs";
+    unstable.url = "github:nixos/nixpkgs/nixos-unstable";
   };
 
   outputs = inputs:

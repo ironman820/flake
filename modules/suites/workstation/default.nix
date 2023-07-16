@@ -16,6 +16,7 @@ in {
       gui-apps = enabled;
       sops = enabled;
       sync = enabled;
+      video-tools = enabled;
       virtual.host = enabled;
       yubikey = enabled;
     };

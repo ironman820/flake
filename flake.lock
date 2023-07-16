@@ -185,7 +185,7 @@
         "type": "indirect"
       }
     },
-    "nixpkgs-acc5f": {
+    "nixpkgs-acc5f7b": {
       "locked": {
         "lastModified": 1611367057,
         "narHash": "sha256-K2txoIzvWQ9B8CiccqOSU1zWUaEbK4dsGBeDKH3lf6Q=",
@@ -196,7 +196,7 @@
       },
       "original": {
         "id": "nixpkgs",
-        "rev": "acc5f7b18a60bc9b1024e5e1882bf7362e6492e6",
+        "ref": "acc5f7b",
         "type": "indirect"
       }
     },
@@ -222,7 +222,7 @@
         "home-manager": "home-manager",
         "nixos-hardware": "nixos-hardware",
         "nixpkgs": "nixpkgs",
-        "nixpkgs-acc5f": "nixpkgs-acc5f",
+        "nixpkgs-acc5f7b": "nixpkgs-acc5f7b",
         "snowfall-lib": "snowfall-lib_2",
         "sops-nix": "sops-nix",
         "unstable": "unstable_2"

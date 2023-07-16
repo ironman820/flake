@@ -23,9 +23,9 @@ in {
     hardware.opengl = {
       enable = true;
       extraPackages = with pkgs; [
+        vaapiIntel
         intel-media-driver
         libvdpau-va-gl
-        vaapiIntel
         vaapiVdpau
       ];
     };

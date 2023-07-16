@@ -12,7 +12,7 @@
     };
     nixos-hardware.url = "nixos-hardware";
     nixpkgs.url = "nixpkgs/nixos-23.05";
-    nixpkgs-acc5f.url = "nixpkgs/acc5f7b18a60bc9b1024e5e1882bf7362e6492e6";
+    nixpkgs-acc5f7b.url = "nixpkgs/acc5f7b";
     # nixpkgs-11ff7.url = "nixpkgs/b70a4436c617de1576c56b85c8338b5b51c18994";
     snowfall-lib = {
       inputs.nixpkgs.follows = "nixpkgs";

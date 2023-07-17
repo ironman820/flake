@@ -6,6 +6,7 @@
 
   config = {
     ironman = {
+      servers.tftpd.enable = true;
       suites.server.enable = true;
       virtual.guest.enable = true;
     };

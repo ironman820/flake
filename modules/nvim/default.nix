@@ -10,7 +10,7 @@ in {
   config = mkIf cfg.enable {
     ironman.home.extraOptions.home = {
       packages = with pkgs; [
-        nvim
+        neovim
       ];
       shellAliases = {
         "vim" = "nvim";

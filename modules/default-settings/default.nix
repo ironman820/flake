@@ -33,6 +33,7 @@ in {
         fzf
         git-extras
         nix-index
+        p7zip
         podman-compose
         ssh-to-age
         snowfallorg.flake

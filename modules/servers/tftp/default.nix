@@ -13,7 +13,7 @@ in {
     ];
     services.atftpd = {
       enable = true;
-      root = "/home/${config.ironman.home.user}/tftp";
+      root = "/home/${config.ironman.user.name}/tftp";
     };
   };
 }

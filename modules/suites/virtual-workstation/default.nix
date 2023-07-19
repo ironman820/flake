@@ -11,6 +11,9 @@ in {
   config = mkIf cfg.enable {
     ironman = {
       gnome = enabled;
+      home.extraOptions.home.file = {
+        ".config/is_server".text = ''false'';
+      };
       sync = enabled;
       sops = enabled;
       virtual.guest = enabled;

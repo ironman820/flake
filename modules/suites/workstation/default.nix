@@ -13,6 +13,9 @@ in {
       boot.grub = enabled;
       gnome = enabled;
       gui-apps = enabled;
+      home.extraOptions.home.file = {
+        ".config/is_server".text = ''false'';
+      };
       sops = enabled;
       sync = enabled;
       video-tools = enabled;

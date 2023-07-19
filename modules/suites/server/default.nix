@@ -11,6 +11,9 @@ in {
   config = mkIf cfg.enable {
     ironman = {
       home.extraOptions = {
+        home.file = {
+          ".config/is_server".text = ''true'';
+        };
         programs = {
           git.signing = {
             key = "~/.ssh/github_servers";

@@ -29,7 +29,6 @@ in {
           just
           lazygit
           neofetch
-          (nerdfonts.override { fonts = [ "FiraCode" ]; })
           nodejs_20
           poppler_utils
           pv
@@ -42,9 +41,6 @@ in {
           "$HOME/bin"
           "$HOME/.local/bin"
         ];
-        sessionVariables = {
-          EDITOR = "vim";
-        };
         shellAliases = {
           "ca" = "chezmoi add";
           "cc" = "chezmoi cd";
@@ -55,7 +51,7 @@ in {
           "cu" = "chezmoi update";
           "df" = "duf";
           "ducks" = "du -chs * 2>/dev/null | sort -rh | head -11";
-          "nano" = "vim";
+          "nano" = "nvim";
           "pdi" = "podman images";
           "pdo" = "podman images | awk '{print \$3,\$2}' | grep '<none>' | awk '{print \$1}' | xargs -t podman rmi";
           "pdr" = "podman rmi";
@@ -73,14 +69,11 @@ in {
         };
         bash = {
           bashrcExtra = ''
-            export EDITOR=vim
+            chezmoi update -a
           '';
           enable = true;
           enableCompletion = true;
           enableVteIntegration = true;
-          initExtra = ''
-            EDITOR=vim
-          '';
         };
         bat = {
           config.theme = "TwoDark";
@@ -165,10 +158,6 @@ in {
               show_always = true;
             };
           };
-        };
-        vim = {
-          defaultEditor = true;
-          enable = true;
         };
         zoxide = enabled;
       };

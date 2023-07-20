@@ -18,6 +18,7 @@ in {
       sops = enabled;
       virtual.guest = enabled;
     };
+    powerManagement.cpuFreqGovernor = "performance";
     zramSwap = {
       enable = true;
       memoryPercent = 90;

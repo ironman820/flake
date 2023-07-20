@@ -21,7 +21,7 @@ in {
     console = {
       font = "Lat2-Terminus16";
       packages = with pkgs; [
-        terminus-nerdfont
+        inconsolata-nerdfont
       ];
       useXkbConfig = true; # use xkbOptions in tty.
     };
@@ -32,6 +32,12 @@ in {
         distrobox
         fzf
         git-extras
+        (nerdfonts.override {
+          fonts = [
+            "FiraCode"
+            "Inconsolata"
+          ];
+        })
         nix-index
         p7zip
         podman-compose
@@ -39,7 +45,6 @@ in {
         snowfallorg.flake
         sops
         terminus-nerdfont
-        vim
         wget
       ]);
     };
@@ -81,7 +86,6 @@ in {
         lfs = enabled;
       };
       mtr = enabled;
-      vim.defaultEditor = true;
     };
     security.sudo = {
       execWheelOnly = true;

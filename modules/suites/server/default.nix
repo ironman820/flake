@@ -19,18 +19,8 @@ in {
             key = "~/.ssh/github_servers";
             signByDefault = builtins.stringLength "~/.ssh/github_servers" > 0;
           };
-          tmux = {
-            clock24 = true;
-            enable = true;
-            keyMode = "vi";
-            newSession = true;
-            plugins = with pkgs.tmuxPlugins; [
-              onedark-theme
-            ];
-          };
         };
       };
-      nvim = enabled;
     };
     security.sudo.wheelNeedsPassword = false;
   };

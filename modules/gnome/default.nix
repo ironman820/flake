@@ -29,6 +29,10 @@ in {
           "org/gnome/desktop/interface" = {
             color-scheme = "prefer-dark";
             enable-hot-corners = false;
+            monospace-font-name = "Inconsolata Nerd Font 10";
+            font-name = "FiraCode Nerd Font weight=450 11";
+            document-font-name = "FiraCode Nerd Font weight=450 11";
+            font-antialiasing = "rgba";
           };
           "org/gnome/desktop/notifications" = {
             show-in-lock-screen = false;
@@ -39,15 +43,18 @@ in {
             remember-recent-files = true;
             remove-old-trash-files = true;
           };
-          "org/gnome/desktop/wm/keybindings" = {
-            close = ["<Super>q"];
+          "org/gnome/desktop/screensaver" = {
+            lock-delay = "unit32 30";
+            lock-enabled = true;
           };
           "org/gnome/desktop/session" = {
             idle-delay = "unit32 300";
           };
-          "org/gnome/desktop/screensaver" = {
-            lock-delay = "unit32 30";
-            lock-enabled = true;
+          "org/gnome/desktop/wm/keybindings" = {
+            close = ["<Super>q"];
+          };
+          "org/gnome/desktop/wm/preferences" = {
+            titlebar-font = "FiraCode Nerd Font Bold 11";
           };
           "org/gnome/settings-daemon/plugins/media-keys" = {
             home = ["<Super>f"];
@@ -56,17 +63,6 @@ in {
             binding = "<Super>t";
             name = "Console";
             command = "kgx";
-          };
-          "org/gnome/shell/extensions/lockkeys" = {
-            style = "show-hide";
-          };
-          "org/gnome/shell/extensions/pano" = {
-            paste-on-select = false;
-            play-audio-on-copy = false;
-            send-notification-on-copy = false;
-          };
-          "org/gnome/shell/extensions/tactile" = {
-            show-tiles = ["<Super>w"];
           };
           "org/gnome/shell" = {
             disable-user-extensions = false;
@@ -86,6 +82,17 @@ in {
               "user-theme@gnome-shell-extensions.gcampax.github.com"
               "weatheroclock@CleoMenezesJr.github.io"
             ];
+          };
+          "org/gnome/shell/extensions/lockkeys" = {
+            style = "show-hide";
+          };
+          "org/gnome/shell/extensions/pano" = {
+            paste-on-select = false;
+            play-audio-on-copy = false;
+            send-notification-on-copy = false;
+          };
+          "org/gnome/shell/extensions/tactile" = {
+            show-tiles = ["<Super>w"];
           };
           "org/gnome/system/location" = {
             enabled = false;

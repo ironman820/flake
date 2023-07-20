@@ -4,16 +4,30 @@ let
   cfg = config.ironman.nvim;
 in {
   options.ironman.nvim = {
-    enable = mkBoolOpt false "Enable or disable tftp support";
+    enable = mkBoolOpt true "Enable or disable tftp support";
   };
 
   config = mkIf cfg.enable {
-    ironman.home.extraOptions.home = {
-      packages = with pkgs; [
-        neovim
-      ];
-      shellAliases = {
-        "vim" = "nvim";
+    ironman = {
+      gcc = enabled;
+      home.extraOptions = {
+        programs.neovim = {
+          coc = enabled;
+          defaultEditor = true;
+          enable = true;
+          plugins = with pkgs.vimPlugins; [
+            nvchad
+            vim-tmux-navigator
+          ];
+          viAlias = true;
+          vimAlias = true;
+          vimdiffAlias = true;
+        };
+        xdg.configFile."nvim" = {
+          # mode = "0600";
+          recursive = true;
+          source = "${pkgs.vimPlugins.nvchad}";
+        };
       };
     };
   };

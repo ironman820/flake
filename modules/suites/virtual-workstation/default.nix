@@ -19,6 +19,7 @@ in {
       virtual.guest = enabled;
     };
     powerManagement.cpuFreqGovernor = "performance";
+    security.sudo.wheelNeedsPassword = false;
     zramSwap = {
       enable = true;
       memoryPercent = 90;

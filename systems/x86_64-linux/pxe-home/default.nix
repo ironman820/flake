@@ -7,6 +7,7 @@
 
   config = {
     ironman = {
+      home.extraOptions.home.file.".config/is_personal".text = ''true'';
       servers.pxe.enable = true;
       suites.server.enable = true;
       virtual.guest.enable = true;

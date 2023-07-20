@@ -29,6 +29,12 @@ in {
           just
           lazygit
           neofetch
+          (nerdfonts.override {
+            fonts = [
+              "FiraCode"
+              "Inconsolata"
+            ];
+          })
           nodejs_20
           poppler_utils
           pv

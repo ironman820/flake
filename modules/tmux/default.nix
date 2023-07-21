@@ -38,6 +38,7 @@ in {
         vim-tmux-navigator
         yank
       ];
+      secureSocket = false;
       shortcut = "Space";
     };
   };

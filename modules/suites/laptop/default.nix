@@ -9,6 +9,7 @@ in {
   };
 
   config = mkIf cfg.enable {
+    hardware.bluetooth = enabled;
     ironman = {
       firmware = enabled;
       intel-video = enabled;

@@ -12,7 +12,6 @@ in {
       baseIndex = 1;
       clock24 = true;
       enable = true;
-      escapeTime = 0;
       extraConfig = ''
         # Enable Mouse Navigation
         set -g mouse on
@@ -31,7 +30,6 @@ in {
         bind % split-window -h -c "#{pane_current_path}"
       '';
       keyMode = "vi";
-      newSession = true;
       plugins = with pkgs.tmuxPlugins; [
         onedark-theme
         sensible

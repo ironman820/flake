@@ -91,7 +91,6 @@ in {
       execWheelOnly = true;
     };
     services = {
-      logind.killUserProcesses = true;
       openssh = {
         enable = true;
         settings = {

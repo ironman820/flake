@@ -16,9 +16,15 @@ in {
       suites.workstation = enabled;
       wireless-profiles = enabled;
     };
-    services.xserver.libinput = {
-      enable = true;
-      touchpad.naturalScrolling = true;
+    services = {
+      logind = {
+        killUserProcesses = true;
+        lidSwitchExternalPower = "ignore";
+      };
+      xserver.libinput = {
+        enable = true;
+        touchpad.naturalScrolling = true;
+      };
     };
   };
 }

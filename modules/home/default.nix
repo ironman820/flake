@@ -4,9 +4,10 @@ with lib;
 # with lib.internal;
 let
   cfg = config.ironman.home;
-in {
+in
+{
   options.ironman.home = with types; {
-    file = mkOpt attrs {} "Files that need added to the home manager's file settings.";
+    file = mkOpt attrs { } "Files that need added to the home manager's file settings.";
     extraOptions = mkOpt attrs { } "Extra attributes to add to the home config.";
   };
 
@@ -57,6 +58,7 @@ in {
           "cu" = "chezmoi update";
           "df" = "duf";
           "ducks" = "du -chs * 2>/dev/null | sort -rh | head -11";
+          "js" = "just switch";
           "nano" = "nvim";
           "pdi" = "podman images";
           "pdo" = "podman images | awk '{print \$3,\$2}' | grep '<none>' | awk '{print \$1}' | xargs -t podman rmi";

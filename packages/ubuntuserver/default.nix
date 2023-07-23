@@ -13,11 +13,11 @@ stdenv.mkDerivation rec {
   '';
 
   name = "${pname}";
-  pname = "nixiso";
+  pname = "ubuntuserver";
 
   src = builtins.fetchurl {
-    url = "https://channels.nixos.org/nixos-23.05/latest-nixos-minimal-x86_64-linux.iso";
-    sha256 = "sha256:a5015d93bf0f1232cdc698170e5e77c1ce7c2f952739cbf8e9853cb6d5f8927f";
+    url = "https://cdimage.ubuntu.com/ubuntu-server/jammy/daily-live/current/jammy-live-server-amd64.iso";
+    sha256 = "sha256:ddbd459ffcaae42d907b5d017d85bad193033a92af669c3daa16d454baadc373";
   };
 
   unpackPhase = ''

@@ -1,20 +1,18 @@
 { config, inputs, lib, options, pkgs, ... }:
 with lib;
 let
-  cfg = config.ironman.servers.tftp;
-in
-{
-  options.ironman.servers.tftp = {
+  cfg = config.ironman.servers.pixiecore;
+in {
+  options.ironman.servers.pixiecore = {
     enable = mkBoolOpt false "Enable or disable tftp support";
   };
 
   config = mkIf cfg.enable {
-    networking.firewall.allowedUDPPorts = [
-      69
-    ];
-    services.atftpd = {
+    services.pixiecore = {
+      dhcpNoBind = true;
       enable = true;
-      root = "/etc/tftp";
+      mode = "quick";
+      openFirewall = true;
     };
   };
 }

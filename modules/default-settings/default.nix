@@ -41,6 +41,7 @@ in {
         nix-index
         p7zip
         podman-compose
+        rnix-lsp
         ssh-to-age
         snowfallorg.flake
         sops

@@ -12,7 +12,6 @@ in {
       gcc = enabled;
       home.extraOptions = {
         programs.neovim = {
-          coc = enabled;
           defaultEditor = true;
           enable = true;
           plugins = with pkgs.vimPlugins; [

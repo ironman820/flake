@@ -3,7 +3,8 @@
 with lib;
 let
   cfg = config.ironman.default-settings;
-in {
+in
+{
   options.ironman.default-settings = with types; {
     enable = mkBoolOpt true "Enable the default settings?";
   };
@@ -29,7 +30,6 @@ in {
       systemPackages = (with pkgs; [
         age
         devbox
-        distrobox
         fzf
         git-extras
         (nerdfonts.override {
@@ -40,7 +40,6 @@ in {
         })
         nix-index
         p7zip
-        podman-compose
         rnix-lsp
         ssh-to-age
         snowfallorg.flake
@@ -104,12 +103,5 @@ in {
       DefaultTimeoutStopSec=10s
     '';
     time.timeZone = "America/Chicago";
-    virtualisation = {
-      podman = {
-        enable = true;
-        dockerCompat = true;
-        dockerSocket = enabled;
-      };
-    };
   };
 }

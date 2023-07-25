@@ -41,8 +41,10 @@
         sops-nix.nixosModules.sops
       ];
 
-      systems.hosts.ironman-laptop.modules = with inputs; [
-        nixos-hardware.nixosModules.dell-inspiron-5509
-      ];
+      systems.hosts = {
+        ironman-laptop.modules = with inputs; [
+          nixos-hardware.nixosModules.dell-inspiron-5509
+        ];
+      };
     };
 }

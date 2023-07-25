@@ -14,6 +14,7 @@
         };
       };
       suites.laptop.enable = true;
+      vitual.podman.enable = true;
     };
     system.stateVersion = "23.05";
   };

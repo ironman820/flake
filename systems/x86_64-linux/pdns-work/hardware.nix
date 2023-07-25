@@ -14,12 +14,12 @@
   boot.extraModulePackages = [ ];
 
   fileSystems."/" =
-    { device = "/dev/disk/by-uuid/3b6e85e8-677c-42ab-b3e9-0cf78ff72115";
+    { device = "/dev/disk/by-uuid/f0597ee5-4dd1-47c3-8e8c-c763ab602fa3";
       fsType = "ext4";
     };
 
   fileSystems."/boot" =
-    { device = "/dev/disk/by-uuid/F5BB-A62D";
+    { device = "/dev/disk/by-uuid/CAD3-7FCA";
       fsType = "vfat";
     };
 
@@ -29,7 +29,7 @@
   # (the default) this is the recommended approach. When using systemd-networkd it's
   # still possible to use this option, but it's recommended to use it in conjunction
   # with explicit per-interface declarations with `networking.interfaces.<interface>.useDHCP`.
-  networking.useDHCP = lib.mkDefault true;
+  # networking.useDHCP = lib.mkDefault true;
   # networking.interfaces.ens18.useDHCP = lib.mkDefault true;
 
   nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";

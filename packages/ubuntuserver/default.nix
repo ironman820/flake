@@ -1,16 +1,16 @@
 { config, lib, pkgs, stdenv, ... }:
 
 stdenv.mkDerivation rec {
-  buildInputs = with pkgs; [
-    p7zip
-  ];
+  # buildInputs = with pkgs; [
+  #   p7zip
+  # ];
 
-  dontBuild = true;
-  dontFixup = true;
+  # dontBuild = true;
+  # dontFixup = true;
 
-  installPhase = ''
-    rm -rf $out/iso/\[BOOT]
-  '';
+  # installPhase = ''
+  #   rm -rf $out/iso/\[BOOT]
+  # '';
 
   name = "${pname}";
   pname = "ubuntuserver";
@@ -20,7 +20,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256:ddbd459ffcaae42d907b5d017d85bad193033a92af669c3daa16d454baadc373";
   };
 
-  unpackPhase = ''
-    7z x $src -o$out/iso
-  '';
+  # unpackPhase = ''
+  #   7z x $src -o$out/iso
+  # '';
 }

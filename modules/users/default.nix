@@ -42,9 +42,9 @@ in {
   config = {
     users.users.${cfg.name} = {
       isNormalUser = true;
-      inherit (cfg) name initialPassword;
       home = "/home/${cfg.name}";
       group = "users";
+      passwordFile = config.sops.secrets.user_pass.path;
       shell = pkgs.bash;
       uid = 1000;
       extraGroups = [ "wheel" ] ++ cfg.extraGroups;

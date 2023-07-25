@@ -54,6 +54,7 @@ in
           "ce" = "chezmoi edit --apply";
           "cf" = "chezmoi forget";
           "ci" = "chezmoi init";
+          "cleanup" = "sudo systemctl stop postgresql; sudo rm -rf /usr/lib/postgres";
           "cr" = "chezmoi re-add";
           "cu" = "chezmoi update";
           "df" = "duf";

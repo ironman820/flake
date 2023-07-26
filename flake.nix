@@ -10,6 +10,9 @@
       inputs.nixpkgs.follows = "nixpkgs";
       url = "github:nix-community/home-manager/release-23.05";
     };
+    # nixgl = {
+    #   inputs.nixpkgs.follows = "nixpkgs";
+    # };
     nixos-hardware.url = "github:nixos/nixos-hardware";
     nixpkgs.url = "github:nixos/nixpkgs/nixos-23.05";
     nixpkgs-acc5f7b.url = "github:nixos/nixpkgs/acc5f7b";

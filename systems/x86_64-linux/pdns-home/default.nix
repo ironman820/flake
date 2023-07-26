@@ -12,10 +12,12 @@
       servers.dns = {
         auth = true;
         enable = true;
-        recursor.forwards = {
-          "niceastman.com" = "127.0.0.1:5300";
-          "home.niceastman.com" = "127.0.0.1:5300";
-          "desk.niceastman.com" = "192.168.20.2";
+        recursor = {
+          forwards = {
+            "niceastman.com" = "127.0.0.1:5300";
+            "home.niceastman.com" = "127.0.0.1:5300";
+            "desk.niceastman.com" = "192.168.20.2";
+          };
         };
       };
     };

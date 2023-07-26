@@ -56,7 +56,7 @@ in
     services = {
       pgadmin = {
         enable = config.ironman.servers.postgresql.pgadmin.enable;
-        initialEmail = mkAliasDefinitions options.ironman.server.postgresql.pgadmin.email;
+        initialEmail = mkAliasDefinitions options.ironman.servers.postgresql.pgadmin.email;
         initialPasswordFile = config.sops.secrets.pg_pass.path;
         openFirewall = mkAliasDefinitions options.ironman.servers.postgresql.pgadmin.firewall;
         settings = mkAliasDefinitions options.ironman.servers.postgresql.pgadmin.settings;

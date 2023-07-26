@@ -3,7 +3,8 @@
 with lib;
 let
   cfg = config.ironman.gnome;
-in {
+in
+{
   options.ironman.gnome = with types; {
     enable = mkBoolOpt false "Enable the default settings?";
   };
@@ -45,12 +46,14 @@ in {
           "org/gnome/desktop/session" = {
             idle-delay = "unit32 300";
           };
-          "org/gnome/desktop/screensaver" = {
-            lock-delay = "unit32 30";
-            lock-enabled = true;
+          "org/gnome/desktop/wm/keybindings" = {
+            close = [ "<Super>q" ];
+          };
+          "org/gnome/desktop/wm/preferences" = {
+            titlebar-font = "FiraCode Nerd Font Bold 11";
           };
           "org/gnome/settings-daemon/plugins/media-keys" = {
-            home = ["<Super>f"];
+            home = [ "<Super>f" ];
           };
           "org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0" = {
             binding = "<Super>t";
@@ -87,6 +90,17 @@ in {
               "weatheroclock@CleoMenezesJr.github.io"
             ];
           };
+          "org/gnome/shell/extensions/lockkeys" = {
+            style = "show-hide";
+          };
+          "org/gnome/shell/extensions/pano" = {
+            paste-on-select = false;
+            play-audio-on-copy = false;
+            send-notification-on-copy = false;
+          };
+          "org/gnome/shell/extensions/tactile" = {
+            show-tiles = [ "<Super>w" ];
+          };
           "org/gnome/system/location" = {
             enabled = false;
           };
@@ -106,6 +120,7 @@ in {
           brave
           gnome.gnome-tweaks
           gnome-extension-manager
+          remmina
           vscode
         ]) ++ (with pkgs.gnomeExtensions; [
           appindicator

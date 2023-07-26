@@ -1,14 +1,13 @@
 { config, ... }:
 {
   ironman.networking = {
-    gateway = "192.168.254.1";
+    gateway = "192.168.20.1";
     dhcp = false;
     interface = "ens18";
-    address = "192.168.254.8";
+    address = "192.168.20.4";
     prefix = 24;
     nameservers = [
-      "208.80.144.50"
-      "208.80.144.51"
+      "192.168.20.2"
     ];
   };
 }

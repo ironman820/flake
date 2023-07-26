@@ -11,6 +11,7 @@
         signByDefault = builtins.stringLength "~/.ssh/github_home" > 0;
       };
       suites.laptop.enable = true;
+      virtual.podman.enable = true;
     };
     system.stateVersion = "23.05";
   };

@@ -1,15 +1,15 @@
 { autoPatchelfHook, channels, gcc-unwrapped, lib, pkgs, stdenv, ... }:
 let
   myBuildInputs = (with pkgs; [
-    alsa-lib
-    dbus.lib
-    expat
-    ffmpeg
-    fontconfig.lib
-    freetype
-    glib.out
-    gtk2-x11
-    libxkbcommon
+    # alsa-lib
+    # dbus.lib
+    # expat
+    # ffmpeg
+    # fontconfig.lib
+    # freetype
+    # glib.out
+    # gtk2-x11
+    # libxkbcommon
     nixgl.auto.nixGLDefault
     nss
     nspr

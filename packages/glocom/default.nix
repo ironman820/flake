@@ -11,46 +11,46 @@ let
     # gtk2-x11
     # libxkbcommon
     nixgl.auto.nixGLDefault
-    nss
-    nspr
-    openssl
-    pulseaudio
-    postgresql.lib
-    qgnomeplatform
-    unixODBC
-  ]) ++ (with pkgs.xorg; [
-    libX11
-    libxcb
-    libXcomposite
-    libXfixes
-    libXi
-    libXScrnSaver
-    libXrandr
-    libXrender
-    libXtst
-    libXcursor
-    libXdamage
+    #   nss
+    #   nspr
+    #   openssl
+    #   pulseaudio
+    #   postgresql.lib
+    #   qgnomeplatform
+    #   unixODBC
+    # ]) ++ (with pkgs.xorg; [
+    #   libX11
+    #   libxcb
+    #   libXcomposite
+    #   libXfixes
+    #   libXi
+    #   libXScrnSaver
+    #   libXrandr
+    #   libXrender
+    #   libXtst
+    #   libXcursor
+    #   libXdamage
   ]) ++ qtInputs;
 
   qtInputs = (with pkgs.ironman; [
     libQt5RemoteObjects
-  ]) ++ (with pkgs.libsForQt5; [
-    # full
-    qt3d
-    qt5ct
-    qtbase
-    qtdeclarative
-    qtgamepad
-    qtlocation
-    qtquick1
-    qtquickcontrols
-    qtquickcontrols2
-    qtstyleplugins
-    qtsvg
-    qtwayland
-    qtwebengine
-    qtx11extras
-    qtxmlpatterns
+    # ]) ++ (with pkgs.libsForQt5; [
+    #   # full
+    #   qt3d
+    #   qt5ct
+    #   qtbase
+    #   qtdeclarative
+    #   qtgamepad
+    #   qtlocation
+    #   qtquick1
+    #   qtquickcontrols
+    #   qtquickcontrols2
+    #   qtstyleplugins
+    #   qtsvg
+    #   qtwayland
+    #   qtwebengine
+    #   qtx11extras
+    #   qtxmlpatterns
   ]);
 
   sha256 = "sha256-QbTEjkgASd86CJrOTFFhw1t+TKPEHKl2P045lHQB0pA=";
@@ -58,9 +58,9 @@ let
 
 in
 stdenv.mkDerivation rec {
-  autoPatchelfIgnoreMissingDeps = [
-    "libQt5RemoteObjects.so.5"
-  ];
+  # autoPatchelfIgnoreMissingDeps = [
+  #   "libQt5RemoteObjects.so.5"
+  # ];
 
   dontBuild = true;
   dontConfigure = true;
@@ -94,11 +94,13 @@ stdenv.mkDerivation rec {
     platforms = [ "x86_64-linux" ];
   };
 
-  nativeBuildInputs = (with pkgs; [
+  buildInputs = with pkgs; [
     # autoPatchelfHook
     dpkg
     qt512.wrapQtAppsHook
-  ]) ++ myBuildInputs;
+  ];
+
+  nativeBuildInputs = myBuildInputs;
 
   pname = "glocom";
 

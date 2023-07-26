@@ -113,15 +113,15 @@ stdenv.mkDerivation rec {
     sed -i "s|\$APP_NAME|gloCOM|g" ${scriptName}
     sed -i "s|/opt/gloCOM|$out|" ${scriptName}
     sed -i "s/\$1//" ${scriptName}
-    sed -i "s|QT_PLUGIN_PATH.*|QT_PLUGIN_PATH=\"${qtPath}\"\nexport QT_QPA_PLATFORM=wayland|" ${scriptName}
     sed -i "s|LD_LIBRARY_PATH.*$|NIX_LD_LIBRARY_PATH=\"${libPath}\"\nexport NIX_LD=${nixLd}|" ${scriptName}
+    sed -i "/QT_PLUGIN_PATH/d" ${scriptName}
     sed -i "s|$out/bin/gloCOM|${pkgs.nixgl.auto.nixGLDefault}/bin/nixGL $out/bin/gloCOM|" ${scriptName}
     sed -i "s|/opt/gloCOM|$out|" $out/share/applications/gloCOM.desktop
     sed -i "s|/usr|$out|" $out/share/applications/gloCOM.desktop
     sed -i "s|/opt/gloCOM|$out|" $out/bin/qt.conf
     wrapQtApp "$out/bin/gloCOM"
   '';
-  # sed -i "/QT_PLUGIN_PATH/d" ${scriptName}
+  # sed -i "s|QT_PLUGIN_PATH.*|QT_PLUGIN_PATH=\"${qtPath}\"\nexport QT_QPA_PLATFORM=wayland|" ${scriptName}
 
   # preFixup = ''
   #   for path in $(echo "${lib.makeLibraryPath myBuildInputs}" | sed -r "s/:/ /g"); do

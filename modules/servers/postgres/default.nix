@@ -67,6 +67,7 @@ in
         ensureDatabases = mkAliasDefinitions options.ironman.servers.postgresql.dbs;
         ensureUsers = mkAliasDefinitions options.ironman.servers.postgresql.users;
         initialScript = pkgs.writeText "init-script" (strings.concatStringsSep "\n" config.ironman.servers.postgresql.script);
+        package = pkgs.postgresql_14;
       };
     };
     systemd.services.pgadmin.serviceConfig.SupplimentaryGroups = [ config.users.groups.keys.name ];

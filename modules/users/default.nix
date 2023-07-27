@@ -1,4 +1,4 @@
-{ pkgs, config, lib, ...}:
+{ pkgs, config, lib, ... }:
 
 with lib;
 # with lib.internal;
@@ -18,13 +18,14 @@ let
     passthrough = { fileName = defaultIconFileName; };
   };
   propogatedIcon = pkgs.runCommandNoCC "propogated-icon" { passtrhu = { fileName = cfg.icon.fileName; }; }
-  ''
-    local target="$out/share/ironman-icons/user/${cfg.name}"
-    mkdir -p "$target"
+    ''
+      local target="$out/share/ironman-icons/user/${cfg.name}"
+      mkdir -p "$target"
 
-    cp ${cfg.icon} "$target/${cfg.icon.fileName}"
-  '';
-in {
+      cp ${cfg.icon} "$target/${cfg.icon.fileName}"
+    '';
+in
+{
   options.ironman.user = with types; {
     name = mkOpt str "ironman" "The name to use for the user account.";
     fullName = mkOpt str "Nicholas Eastman" "The full name of the user.";
@@ -44,7 +45,7 @@ in {
       isNormalUser = true;
       home = "/home/${cfg.name}";
       group = "users";
-      passwordFile = config.sops.secrets.user_pass.path;
+      initialPassword = cfg.initialPassword;
       shell = pkgs.bash;
       uid = 1000;
       extraGroups = [ "wheel" ] ++ cfg.extraGroups;

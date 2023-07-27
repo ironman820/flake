@@ -2,6 +2,7 @@
 with lib;
 let
   cfg = config.ironman.servers.pxe;
+  nwk = config.ironman.networking;
   sys = inputs.nixpkgs.lib.nixosSystem {
     system = "x86_64-linux";
     modules = [
@@ -18,8 +19,11 @@ let
   build = sys.config.system.build;
 in
 {
-  options.ironman.servers.pxe = {
+  options.ironman.servers.pxe = with types; {
     enable = mkBoolOpt false "Enable or disable pxe support";
+    nix = mkBoolOpt true "Set up Nix Netboot";
+    ubuntu = mkBoolOpt false "Set up Ubuntu Netboot";
+    menu = mkOpt attrs { } "Menu options (will be concatenated together)";
   };
 
   config = mkIf cfg.enable {
@@ -29,11 +33,33 @@ in
           enable = true;
           root = "/etc/tftp";
         };
-        nfs = {
+        nfs = mkIf cfg.ubuntu {
           enable = true;
           exports = ''
             /etc/tftp/ubuntu  192.168.0.0/16(ro,insecure,no_root_squash,no_subtree_check)
           '';
+        };
+        pxe.menu = {
+          nix = mkIf cfg.nix {
+            label = "Nix";
+            kernel = "http://${nwk.address}/nix/bzImage";
+            append = "init=${build.toplevel}/init initrd=http://${nwk.address}/nix/initrd nohibernate loglevel=4";
+          };
+          nixConsole = mkIf cfg.nix {
+            label = "Nix with Console";
+            kernel = "http://${nwk.address}/nix/bzImage";
+            append = "init=${build.toplevel}/init initrd=http://${nwk.address}/nix/initrd nohibernate loglevel=4 console=tty0 console=ttyS0,115200n8";
+          };
+          ubuntu = mkIf cfg.ubuntu {
+            label = "Ubuntu";
+            kernel = "http://${nwk.address}/ubuntu/casper/vmlinuz";
+            append = "initrd=http://${nwk.address}/ubuntu/casper/initrd nfsroot=${nwk.address}:/etc/tftp/ubuntu ro netboot=nfs boot=casper ip=dhcp ---";
+          };
+          ubuntuConsole = mkIf cfg.ubuntu {
+            label = "Ubuntu Console Mode";
+            kernel = "http://${nwk.address}/ubuntu/casper/vmlinuz";
+            append = "initrd=http://${nwk.address}/ubuntu/casper/initrd nfsroot=${nwk.address}:/etc/tftp/ubuntu ro netboot=nfs boot=casper ip=dhcp console=tty0 console=ttyS0,115200n8";
+          };
         };
         tftp = {
           enable = true;
@@ -44,33 +70,15 @@ in
       etc = {
         "tftp/pxelinux.0".source = "${pkgs.syslinux}/share/syslinux/pxelinux.0";
         "tftp/ldlinux.c32".source = "${pkgs.syslinux}/share/syslinux/ldlinux.c32";
-        "tftp/libutil.c32".source = "${pkgs.syslinux}/share/syslinux/libutil.c32";
-        "tftp/menu.c32".source = "${pkgs.syslinux}/share/syslinux/menu.c32";
+        "tftp/ldlinux.e64".source = "${pkgs.syslinux}/share/syslinux/efi64/ldlinux.e64";
+        "tftp/libutil.c32".source = "${pkgs.syslinux}/share/syslinux/efi64/libutil.c32";
+        "tftp/menu.c32".source = "${pkgs.syslinux}/share/syslinux/efi64/menu.c32";
         "tftp/syslinux.efi".source = "${pkgs.syslinux}/share/syslinux/efi64/syslinux.efi";
-        "tftp/ubuntu".source = "${pkgs.ubuntuserver}/iso";
-        "tftp/nix/bzImage".source = "${build.kernel}/bzImage";
-        "tftp/nix/initrd".source = "${build.netbootRamdisk}/initrd";
-        "tftp/nix/init".source = "${build.toplevel}/init";
-        "tftp/pxelinux.cfg/default".text = ''
-          UI menu.c32
-          TIMEOUT 300
-          LABEL Nix Netboot
-            MENU LABEL Nix
-            KERNEL http://192.168.258.8/nix/bzImage
-            append init=${build.toplevel}/init initrd=http://192.168.258.8/nix/initrd nohibernate loglevel=4
-          LABEL Nix Netboot With Console
-            MENU LABEL Nix with Console
-            KERNEL http://192.168.258.8/nix/bzImage
-            append init=${build.toplevel}/init initrd=http://192.168.258.8/nix/initrd nohibernate loglevel=4 console=tty0 console=ttyS0,115200n8
-          LABEL Ubuntu NFS boot
-            MENU LABEL Ubuntu
-            kernel http://192.168.254.8/ubuntu/casper/vmlinuz
-            append initrd=http://192.168.254.8/ubuntu/casper/initrd nfsroot=192.168.254.8:/etc/tftp/ubuntu ro netboot=nfs boot=casper ip=dhcp ---
-          LABEL Ubuntu Console NFS boot
-            MENU LABEL Ubuntu Console Mode
-            kernel http://192.168.254.8/ubuntu/casper/vmlinuz
-            append initrd=http://192.168.254.8/ubuntu/casper/initrd nfsroot=192.168.254.8:/etc/tftp/ubuntu ro netboot=nfs boot=casper ip=dhcp console=tty0 console=ttyS0,115200n8
-        '';
+        "tftp/pxelinux.cfg/default".text = mkPxeMenu cfg.menu;
+        "tftp/nix/bzImage" = mkIf cfg.nix { source = "${build.kernel}/bzImage"; };
+        "tftp/nix/initrd" = mkIf cfg.nix { source = "${build.netbootRamdisk}/initrd"; };
+        "tftp/nix/init" = mkIf cfg.nix { source = "${build.toplevel}/init"; };
+        "tftp/ubuntu" = mkIf cfg.ubuntu { source = "${pkgs.ubuntuserver}/iso"; };
       };
     };
   };

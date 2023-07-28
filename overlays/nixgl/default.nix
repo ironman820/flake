@@ -1,7 +1,7 @@
 { channels, ... }:
 final: prev:
 {
-  nixGLDefault = prev.nixGLDefault.overrideAttrs (old: {
+  nixgl.auto.nixGLDefault = prev.nixgl.auto.nixGLDefault.overrideAttrs (old: {
     patches = (old.patches or [ ]) ++ [
       ./nixgl-purity.patch
     ];

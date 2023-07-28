@@ -10,6 +10,13 @@
       inputs.nixpkgs.follows = "nixpkgs";
       url = "github:nix-community/home-manager/release-23.05";
     };
+    nixgl = fetchTree {
+      type = "github";
+      owner = "guibou";
+      repo = "nixgl";
+      rev = "489d6b095ab9d289fe11af0219a9ff00fe87c7c5";
+      patches = [ ./nixgl-purity.patch ];
+    };
     # nixgl = {
     #   inputs.nixpkgs.follows = "nixpkgs";
     # };

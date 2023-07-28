@@ -26,6 +26,13 @@
                 service = "proxmox";
                 tls = true;
               };
+              rcm = {
+                entryPoints = "https";
+                middlewares = "secured";
+                rule = "Host(`rcm.desk.niceastman.com`)";
+                service = "rcm";
+                tls = true;
+              };
             };
             services = {
               pdns.loadBalancer = {
@@ -41,6 +48,14 @@
                 servers = [
                   {
                     url = "https://192.168.20.253:8006";
+                  }
+                ];
+              };
+              rcm.loadBalancer = {
+                passHostHeader = true;
+                servers = [
+                  {
+                    url = "https://192.168.20.5";
                   }
                 ];
               };

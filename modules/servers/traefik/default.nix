@@ -43,15 +43,10 @@ in
                 "default-headers"
               ];
               sslheader.headers.customrequestheaders.X-Forwarded-Proto = "https";
-              traefik-auth.basicauth.users = "ironman:$$apr1$$Z7GHKYem$$/i9jllK7/e0cblgn3ofkQ/";
-              traefik-secured.chain.middlewares = [
-                "traefik-auth"
-                "secured"
-              ];
             };
             routers.traefik-secure = {
               entryPoints = "https";
-              middlewares = "traefik-secured";
+              middlewares = "secured";
               rule = "Host(`proxy.desk.niceastman.com`)";
               service = "api@internal";
               tls = {
@@ -75,7 +70,6 @@ in
                 "1.0.0.1:53"
               ];
             };
-            # email = "$(cat ${config.sops.secrets.cloudflare_email.path})";
             storage = "${config.services.traefik.dataDir}/acme.json";
           };
           entrypoints = {

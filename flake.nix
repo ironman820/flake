@@ -12,7 +12,11 @@
     };
     nixos-hardware.url = "github:nixos/nixos-hardware";
     nixpkgs.url = "github:nixos/nixpkgs/nixos-23.05";
+    # acc5f7b - IcedTea v8 Stable
     nixpkgs-acc5f7b.url = "github:nixos/nixpkgs/acc5f7b";
+    # ba45a55 - The last stable update of PHP 7.4
+    nixpkgs-ba45a55.url = "github:nixos/nixpkgs/ba45a55";
+    # 11ff7 - Oracle JDK 8
     # nixpkgs-11ff7.url = "nixpkgs/b70a4436c617de1576c56b85c8338b5b51c18994";
     snowfall-lib = {
       inputs.nixpkgs.follows = "nixpkgs";

@@ -97,7 +97,7 @@ stdenv.mkDerivation rec {
   buildInputs = with pkgs; [
     # autoPatchelfHook
     dpkg
-    qt512.wrapQtAppsHook
+    qt5.wrapQtAppsHook
   ];
 
   nativeBuildInputs = myBuildInputs;

@@ -7,7 +7,8 @@ let
     gcc-unwrapped
   ];
 
-in stdenv.mkDerivation rec {
+in
+stdenv.mkDerivation rec {
   dontBuild = true;
   dontConfigure = true;
 
@@ -29,12 +30,14 @@ in stdenv.mkDerivation rec {
     platforms = [ "x86_64-linux" ];
   };
 
-  nativeBuildInputs = (with pkgs; [
+  buildInputs = with pkgs; [
     autoPatchelfHook
     dpkg
     zstd
-    qt512.wrapQtAppsHook
-  ]) ++ myBuildInputs;
+    qt5.wrapQtAppsHook
+  ];
+
+  nativeBuildInputs = myBuildInputs;
 
   pname = "libQt5RemoteObjects";
 

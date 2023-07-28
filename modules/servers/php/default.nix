@@ -30,8 +30,11 @@ in
             mkAliasDefinitions options.ironman.servers.php.extraConfig
           )
         ];
-        user = "nobody";
+        user = config.services.nginx.user;
       };
     };
+    environment.systemPackages = with pkgs; [
+      php74
+    ];
   };
 }

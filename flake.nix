@@ -49,6 +49,7 @@
 
       overlays = with inputs; [
         flake.overlays.default
+        nixgl.overlays.default
       ];
 
       systems.modules = with inputs; [

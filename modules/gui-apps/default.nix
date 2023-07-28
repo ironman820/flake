@@ -3,7 +3,8 @@
 with lib;
 let
   cfg = config.ironman.gui-apps;
-in {
+in
+{
   options.ironman.gui-apps = with types; {
     enable = mkBoolOpt false "Enable the default settings?";
   };
@@ -21,6 +22,7 @@ in {
       obs-studio
       obsidian
       putty
+      remmina
       telegram-desktop
       vlc
       virt-viewer

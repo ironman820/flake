@@ -43,6 +43,7 @@ in
       };
       nvim = enabled;
     };
+    powerManagement.cpuFreqGovernor = lib.mkDefault "performance";
     security.sudo.wheelNeedsPassword = false;
   };
 }

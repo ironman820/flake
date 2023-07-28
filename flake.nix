@@ -49,7 +49,7 @@
 
       overlays = with inputs; [
         flake.overlays.default
-        nixgl.overlays.default
+        nixgl.overlay
       ];
 
       systems.modules = with inputs; [
@@ -57,8 +57,13 @@
         sops-nix.nixosModules.sops
       ];
 
-      systems.hosts.ironman-laptop.modules = with inputs; [
-        nixos-hardware.nixosModules.dell-inspiron-5509
-      ];
+      systems.hosts = {
+        e105-laptop.modules = with inputs; [
+          nixos-hardware.nixosModules.system76
+        ];
+        ironman-laptop.modules = with inputs; [
+          nixos-hardware.nixosModules.dell-inspiron-5509
+        ];
+      };
     };
 }

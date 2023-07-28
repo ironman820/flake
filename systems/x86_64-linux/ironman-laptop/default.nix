@@ -5,6 +5,9 @@
   ];
 
   config = {
+    environment.systemPackages = with pkgs; [
+      glocom
+    ];
     ironman = {
       home.extraOptions.programs.git.signing = {
         key = "~/.ssh/github_home";

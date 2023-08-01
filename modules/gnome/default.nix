@@ -30,7 +30,7 @@ in
           "org/gnome/desktop/interface" = {
             color-scheme = "prefer-dark";
             enable-hot-corners = false;
-            monospace-font-name = "Inconsolata Nerd Font 10";
+            monospace-font-name = "Inconsolata Nerd Font 11";
             font-name = "FiraCode Nerd Font weight=450 11";
             document-font-name = "FiraCode Nerd Font weight=450 11";
             font-antialiasing = "rgba";

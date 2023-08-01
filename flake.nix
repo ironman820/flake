@@ -46,6 +46,9 @@
       ];
 
       systems.hosts = {
+        e105-laptop.modules = with inputs; [
+          nixos-hardware.nixosModules.system76
+        ];
         ironman-laptop.modules = with inputs; [
           nixos-hardware.nixosModules.dell-inspiron-5509
         ];

@@ -33,6 +33,7 @@ in
         };
       };
     };
+    powerManagement.cpuFreqGovernor = lib.mkDefault "performance";
     security.sudo.wheelNeedsPassword = false;
   };
 }

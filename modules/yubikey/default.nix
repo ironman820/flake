@@ -3,7 +3,8 @@
 with lib;
 let
   cfg = config.ironman.yubikey;
-in {
+in
+{
   options.ironman.yubikey = with types; {
     enable = mkBoolOpt false "Enable the default settings?";
   };
@@ -29,6 +30,7 @@ in {
     security.pam.u2f = {
       enable = true;
       cue = true;
+      origin = "pam://ironman";
     };
     services = {
       pcscd.enable = true;

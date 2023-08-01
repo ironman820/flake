@@ -4,17 +4,14 @@ with lib;
 # with lib.internal;
 let
   cfg = config.ironman.work-laptop;
-in {
+in
+{
   options.ironman.work-laptop = with types; {
     enable = mkBoolOpt false "Enable the Work Machine Tools";
   };
 
   config = mkIf cfg.enable {
     ironman.home = {
-      file = {
-        ".ssh/github_work.pub".source = ./keys/github_work.pub;
-        ".ssh/id_ed25519_sk_work.pub".source = ./keys/id_ed25519_sk_work.pub;
-      };
       extraOptions = {
         home = {
           packages = (with pkgs; [
@@ -22,7 +19,6 @@ in {
             birdtray
             # glocom
             qgis
-            remmina
             teamviewer
             teams
             thunderbird
@@ -42,5 +38,8 @@ in {
         };
       };
     };
+    networking.firewall.allowedTCPPorts = [
+      24800
+    ];
   };
 }

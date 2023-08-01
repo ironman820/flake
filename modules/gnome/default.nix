@@ -114,7 +114,6 @@ in
           brave
           gnome.gnome-tweaks
           gnome-extension-manager
-          remmina
           vscode
         ]) ++ (with pkgs.gnomeExtensions; [
           appindicator

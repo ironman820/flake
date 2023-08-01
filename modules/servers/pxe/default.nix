@@ -23,6 +23,7 @@ in
     enable = mkBoolOpt false "Enable or disable pxe support";
     nix = mkBoolOpt true "Set up Nix Netboot";
     ubuntu = mkBoolOpt false "Set up Ubuntu Netboot";
+    netboot = mkBoolOpt false "Set up Netboot.xyz";
     menu = mkOpt attrs { } "Menu options (will be concatenated together)";
   };
 
@@ -33,13 +34,13 @@ in
           enable = true;
           root = "/etc/tftp";
         };
-        nfs = mkIf cfg.ubuntu {
+        nfs = mkIf (cfg.ubuntu && (cfg.netboot == false)) {
           enable = true;
           exports = ''
             /etc/tftp/ubuntu  192.168.0.0/16(ro,insecure,no_root_squash,no_subtree_check)
           '';
         };
-        pxe.menu = {
+        pxe.menu = mkIf (cfg.netboot == false) {
           nix = mkIf cfg.nix {
             label = "Nix";
             kernel = "http://${nwk.address}/nix/bzImage";
@@ -67,19 +68,24 @@ in
       };
     };
     environment = {
-      etc = {
-        "tftp/pxelinux.0".source = "${pkgs.syslinux}/share/syslinux/pxelinux.0";
-        "tftp/ldlinux.c32".source = "${pkgs.syslinux}/share/syslinux/ldlinux.c32";
-        "tftp/ldlinux.e64".source = "${pkgs.syslinux}/share/syslinux/efi64/ldlinux.e64";
-        "tftp/libutil.c32".source = "${pkgs.syslinux}/share/syslinux/efi64/libutil.c32";
-        "tftp/menu.c32".source = "${pkgs.syslinux}/share/syslinux/efi64/menu.c32";
-        "tftp/syslinux.efi".source = "${pkgs.syslinux}/share/syslinux/efi64/syslinux.efi";
-        "tftp/pxelinux.cfg/default".text = mkPxeMenu cfg.menu;
-        "tftp/nix/bzImage" = mkIf cfg.nix { source = "${build.kernel}/bzImage"; };
-        "tftp/nix/initrd" = mkIf cfg.nix { source = "${build.netbootRamdisk}/initrd"; };
-        "tftp/nix/init" = mkIf cfg.nix { source = "${build.toplevel}/init"; };
-        "tftp/ubuntu" = mkIf cfg.ubuntu { source = "${pkgs.ubuntuserver}/iso"; };
-      };
+      etc = mkMerge [
+        (mkIf (cfg.netboot == false) {
+          "tftp/pxelinux.0".source = "${pkgs.syslinux}/share/syslinux/pxelinux.0";
+          "tftp/ldlinux.c32".source = "${pkgs.syslinux}/share/syslinux/ldlinux.c32";
+          "tftp/ldlinux.e64".source = "${pkgs.syslinux}/share/syslinux/efi64/ldlinux.e64";
+          "tftp/libutil.c32".source = "${pkgs.syslinux}/share/syslinux/efi64/libutil.c32";
+          "tftp/menu.c32".source = "${pkgs.syslinux}/share/syslinux/efi64/menu.c32";
+          "tftp/syslinux.efi".source = "${pkgs.syslinux}/share/syslinux/efi64/syslinux.efi";
+          "tftp/pxelinux.cfg/default".text = mkPxeMenu cfg.menu;
+          "tftp/nix/bzImage" = mkIf cfg.nix { source = "${build.kernel}/bzImage"; };
+          "tftp/nix/initrd" = mkIf cfg.nix { source = "${build.netbootRamdisk}/initrd"; };
+          "tftp/nix/init" = mkIf cfg.nix { source = "${build.toplevel}/init"; };
+          "tftp/ubuntu" = mkIf cfg.ubuntu { source = "${pkgs.ubuntuserver}/iso"; };
+        })
+        (mkIf cfg.netboot {
+          "tftp/syslinux.efi".source = "${pkgs.netbootxyz-efi}";
+        })
+      ];
     };
   };
 }

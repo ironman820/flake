@@ -3,7 +3,8 @@
 with lib;
 let
   cfg = config.ironman.intel-video;
-in {
+in
+{
   options.ironman.intel-video = with types; {
     enable = mkBoolOpt false "Enable the default settings?";
   };
@@ -22,12 +23,6 @@ in {
     ]);
     hardware.opengl = {
       enable = true;
-      extraPackages = with pkgs; [
-        vaapiIntel
-        intel-media-driver
-        libvdpau-va-gl
-        vaapiVdpau
-      ];
     };
   };
 }

@@ -20,12 +20,14 @@ in
         address = cfg.gateway;
       };
       dhcpcd.enable = cfg.dhcp;
-      interfaces.${cfg.interface}.ipv4.addresses = [
-        {
-          address = cfg.address;
-          prefixLength = cfg.prefix;
-        }
-      ];
+      interfaces = mkIf (builtins.stringLength cfg.interface > 0) {
+        ${cfg.interface}.ipv4.addresses = [
+          {
+            address = cfg.address;
+            prefixLength = cfg.prefix;
+          }
+        ];
+      };
       nameservers = mkAliasDefinitions options.ironman.networking.nameservers;
     };
   };

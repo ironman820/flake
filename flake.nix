@@ -47,10 +47,12 @@
 
       systems.hosts = {
         e105-laptop.modules = with inputs; [
-          nixos-hardware.nixosModules.system76
+          # nixos-hardware.nixosModules.system76
+          nixos-hardware.nixosModules.common-gpu-intel
         ];
         ironman-laptop.modules = with inputs; [
           nixos-hardware.nixosModules.dell-inspiron-5509
+          nixos-hardware.nixosModules.common-gpu-intel
         ];
       };
     };

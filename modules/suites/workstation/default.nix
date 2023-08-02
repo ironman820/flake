@@ -3,7 +3,8 @@
 with lib;
 let
   cfg = config.ironman.suites.workstation;
-in {
+in
+{
   options.ironman.suites.workstation = with types; {
     enable = mkBoolOpt false "Enable the default settings?";
   };
@@ -16,6 +17,7 @@ in {
       home.extraOptions.home.file = {
         ".config/is_server".text = ''false'';
       };
+      java = enabled;
       sops = enabled;
       sync = enabled;
       video-tools = enabled;
@@ -25,9 +27,5 @@ in {
     environment.systemPackages = with pkgs; [
       ntfs3g
     ];
-    zramSwap = {
-      enable = true;
-      memoryPercent = 90;
-    };
   };
 }

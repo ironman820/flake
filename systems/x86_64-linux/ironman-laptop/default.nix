@@ -16,6 +16,10 @@
       suites.laptop.enable = true;
       virtual.podman.enable = true;
     };
+    zramSwap = {
+      enable = true;
+      memoryPercent = 90;
+    };
     system.stateVersion = "23.05";
   };
 }

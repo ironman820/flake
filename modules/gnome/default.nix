@@ -150,6 +150,7 @@ in
       dconf = enabled;
       xwayland = enabled;
     };
+    security.rtkit = enabled;
     services = {
       flatpak = enabled;
       gnome.gnome-keyring = enabled;

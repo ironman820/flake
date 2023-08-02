@@ -1,7 +1,7 @@
 { channels, ... }:
 final: prev:
 {
-  vaapiIntel = prev.vaapiIntel.override {
-    enableHybridCodec = true;
-  };
+  # vaapiIntel = prev.vaapiIntel.override {
+  #   enableHybridCodec = true;
+  # };
 }

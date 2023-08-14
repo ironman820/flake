@@ -172,6 +172,7 @@ in
       services = {
         gpg-agent = {
           enable = true;
+          enableScDaemon = true;
           enableSshSupport = true;
           extraConfig = ''
             ttyname $GPG_TTY

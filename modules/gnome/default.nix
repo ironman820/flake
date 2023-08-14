@@ -114,7 +114,6 @@ in
           brave
           gnome.gnome-tweaks
           gnome-extension-manager
-          vscode
         ]) ++ (with pkgs.gnomeExtensions; [
           appindicator
           caffeine
@@ -148,6 +147,7 @@ in
     };
     programs = {
       dconf = enabled;
+      gnupg.agent.pinentryFlavor = "gnome3";
       xwayland = enabled;
     };
     security.rtkit = enabled;

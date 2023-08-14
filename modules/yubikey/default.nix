@@ -20,12 +20,16 @@ in
         yubikey-personalization
       ];
     };
+    hardware.gpgSmartcards = enabled;
     programs = {
       gnupg.agent = {
         enable = true;
         enableSSHSupport = true;
       };
-      ssh.startAgent = false;
+      ssh = {
+        enableAskPassword = true;
+        startAgent = false;
+      };
     };
     security.pam.u2f = {
       enable = true;
@@ -37,6 +41,7 @@ in
       udev.packages = with pkgs; [
         yubikey-personalization
       ];
+      yubikey-agent = enabled;
     };
     ironman.home.extraOptions = {
       home.packages = with pkgs; [

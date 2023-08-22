@@ -51,9 +51,12 @@ in
     i18n.defaultLocale = "en_US.UTF-8";
     ironman = {
       # java = enabled;
-      user.extraGroups = [
-        "dialout"
-      ];
+      user = {
+        extraGroups = [
+          "dialout"
+        ];
+        passFile = config.sops.secrets.user_pass.path;
+      };
     };
     location.provider = "geoclue2";
     networking = {
@@ -64,7 +67,11 @@ in
       nftables = enabled;
     };
     nix = {
-      gc.automatic = true;
+      gc = {
+        automatic = true;
+        dates = "weekly";
+        options = "--delete-older-than 7d";
+      };
       generateNixPathFromInputs = true;
       generateRegistryFromInputs = true;
       linkInputs = true;

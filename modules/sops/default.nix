@@ -40,14 +40,13 @@ in
     })
     (mkIf rcfg.enable {
       ironman.root-sops = {
-        age.keyFile = "/home/${config.ironman.user.name}/.config/sops/age/keys.txt";
+        age.keyFile = "/etc/nixos/keys.txt";
         secrets = mkMerge [
           {
             user_pass = {
-              format = "binary";
               mode = "0400";
               neededForUsers = true;
-              sopsFile = ./secrets/pass;
+              sopsFile = ./secrets/sops.yaml;
             };
           }
         ];

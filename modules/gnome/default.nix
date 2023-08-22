@@ -20,6 +20,7 @@ in
         gnome-software
       ]);
       systemPackages = with pkgs; [
+        gnome.seahorse
         networkmanagerapplet
       ];
     };
@@ -160,6 +161,7 @@ in
         pulse = enabled;
       };
       printing = enabled;
+      udev.packages = with pkgs.gnome; [ gnome-settings-daemon ];
       xserver = {
         desktopManager.gnome = enabled;
         displayManager = {

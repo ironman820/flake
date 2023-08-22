@@ -16,10 +16,8 @@ in
         home = {
           packages = (with pkgs; [
             barrier
-            birdtray
             # glocom
             qgis
-            teamviewer
             teams
             thunderbird
             wireshark

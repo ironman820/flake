@@ -18,6 +18,8 @@
     nixpkgs-ba45a55.url = "github:nixos/nixpkgs/ba45a55";
     # 11ff7 - Oracle JDK 8
     # nixpkgs-11ff7.url = "nixpkgs/b70a4436c617de1576c56b85c8338b5b51c18994";
+    # ba6292f - msodbcsql17 v 17.5.1.1
+    # nixpkgs-ba6292f.url = "github:nixos/nixpkgs/ba6292f";
     snowfall-lib = {
       inputs.nixpkgs.follows = "nixpkgs";
       url = "github:snowfallorg/lib";
@@ -34,7 +36,12 @@
       inherit inputs;
       src = ./.;
 
-      channels-config.allowUnfree = true;
+      channels-config = {
+        allowUnfree = true;
+        permittedInsecurePackages = [
+          "openssl-1.1.1v"
+        ];
+      };
 
       overlays = with inputs; [
         flake.overlays.default

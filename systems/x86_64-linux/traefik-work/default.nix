@@ -33,6 +33,13 @@
                 service = "rcm";
                 tls = true;
               };
+              rcm2 = {
+                entryPoints = "https";
+                middlewares = "secured";
+                rule = "Host(`rcm2.desk.niceastman.com`)";
+                service = "rcm2";
+                tls = true;
+              };
             };
             services = {
               pdns.loadBalancer = {
@@ -56,6 +63,14 @@
                 servers = [
                   {
                     url = "https://192.168.20.5";
+                  }
+                ];
+              };
+              rcm2.loadBalancer = {
+                passHostHeader = true;
+                servers = [
+                  {
+                    url = "http://192.168.20.6";
                   }
                 ];
               };

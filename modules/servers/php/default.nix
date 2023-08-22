@@ -5,7 +5,7 @@ let
 in
 {
   options.ironman.servers.php = with types; {
-    enable = mkBoolOpt false "Enable or disable tftp support";
+    enable = mkBoolOpt false "Enable or disable php support";
     extraConfig = mkOpt attrs { } "PHPFPM Config options";
     ini = mkOpt (listOf str) [ ] "PHP INI settings";
     mssql = mkBoolOpt false "Install the mssql extension";

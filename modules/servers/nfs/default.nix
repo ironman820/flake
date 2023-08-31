@@ -5,8 +5,12 @@ let
 in
 {
   options.ironman.servers.nfs = with types; {
-    enable = mkBoolOpt false "Enable or disable tftp support";
-    exports = mkOpt str "" "NFS Export Definitions";
+    enable = mkEnableOption "Enable or disable tftp support";
+    exports = mkOption {
+      default = "";
+      description = "NFS Export Definitions";
+      type = str;
+    };
   };
 
   config = mkIf cfg.enable {

@@ -2,12 +2,26 @@
 with lib;
 let
   cfg = config.ironman.servers.pxe;
+  mkPxeMenu = args: ''
+    UI menu.c32
+    TIMEOUT 300
+  '' +
+  strings.concatStringsSep "\n" (mapAttrsToList
+    (name: value:
+      ''
+        LABEL ${name}
+          MENU LABEL ${value.content.label}
+          KERNEL ${value.content.kernel}
+          append ${value.content.append}
+      ''
+    )
+    (filterAttrs (_: v: v.condition) args));
   nwk = config.ironman.networking;
   sys = inputs.nixpkgs.lib.nixosSystem {
     system = "x86_64-linux";
     modules = [
       ({ config, pkgs, lib, modulesPath, ... }: {
-        imports = [
+       imports = [
           (modulesPath + "/installer/netboot/netboot-minimal.nix")
         ];
         config = {
@@ -20,11 +34,27 @@ let
 in
 {
   options.ironman.servers.pxe = with types; {
-    enable = mkBoolOpt false "Enable or disable pxe support";
-    nix = mkBoolOpt true "Set up Nix Netboot";
-    ubuntu = mkBoolOpt false "Set up Ubuntu Netboot";
-    netboot = mkBoolOpt false "Set up Netboot.xyz";
-    menu = mkOpt attrs { } "Menu options (will be concatenated together)";
+    enable = mkEnableOption "Enable or disable pxe support";
+    nix = mkOption {
+      default = true;
+      description = "Set up Nix Netboot";
+      type = bool;
+    };
+    ubuntu = mkOption {
+      default = false;
+      description = "Set up Ubuntu Netboot";
+      type = bool;
+    };
+    netboot = mkOption {
+      default = false;
+      description = "Set up Netboot.xyz";
+      type = bool;
+    };
+    menu = mkOption {
+      default = { };
+      description = "Menu options (will be concatenated together)";
+      type = attrsOf (either str (listOf str));
+    };
   };
 
   config = mkIf cfg.enable {

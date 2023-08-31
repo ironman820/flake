@@ -5,9 +5,17 @@ let
 in
 {
   options.ironman.servers.traefik = with types; {
-    config = mkOpt attrs { } "Dynamic Config Options";
-    enable = mkBoolOpt false "Enable or disable tftp support";
-    static = mkOpt attrs { } "Static Config Options";
+    config = mkOption {
+      default = { };
+      description = "Dynamic Config Options";
+      type = attrsOf (either str (listOf str));
+    };
+    enable = mkEnableOption "Enable or disable tftp support";
+    static = mkOption {
+      default = { };
+      description = "Static Config Options";
+      type = attrsOf (either str (listOf str));
+    };
   };
 
   config = mkIf cfg.enable {

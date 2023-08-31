@@ -5,10 +5,22 @@ let
 in
 {
   options.ironman.servers.php = with types; {
-    enable = mkBoolOpt false "Enable or disable php support";
-    extraConfig = mkOpt attrs { } "PHPFPM Config options";
-    ini = mkOpt (listOf str) [ ] "PHP INI settings";
-    mssql = mkBoolOpt false "Install the mssql extension";
+    enable = mkEnableOption "Enable or disable php support";
+    extraConfig = mkOption {
+      default = { };
+      description = "PHPFPM Config options";
+      type = attrsOf (either str (listOf str));
+    };
+    ini = mkOption {
+      default = [ ];
+      description = "PHP INI settings";
+      type = (listOf str);
+    };
+    mssql = mkOption {
+      default = false;
+      description = "Install the mssql extension";
+      type = bool;
+    };
   };
 
   config = mkIf cfg.enable {

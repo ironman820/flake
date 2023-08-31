@@ -1,0 +1,3 @@
+{
+  guest = import ./guest;
+}

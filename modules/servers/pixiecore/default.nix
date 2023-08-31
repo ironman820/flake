@@ -4,7 +4,7 @@ let
   cfg = config.ironman.servers.pixiecore;
 in {
   options.ironman.servers.pixiecore = {
-    enable = mkBoolOpt false "Enable or disable tftp support";
+    enable = mkEnableOption "Enable or disable tftp support";
   };
 
   config = mkIf cfg.enable {

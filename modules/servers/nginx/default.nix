@@ -6,8 +6,12 @@ let
 in
 {
   options.ironman.servers.nginx = with types; {
-    enable = mkBoolOpt false "Enable or disable tftp support";
-    virtualHosts = mkOpt attrs { } "List of virtual host settings";
+    enable = mkEnableOption "Enable or disable tftp support";
+    virtualHosts = mkOption {
+      default = { };
+      description = "List of virtual host settings";
+      type = attrsOf (either str (listOf str));
+    };
   };
 
   config = mkIf cfg.enable {

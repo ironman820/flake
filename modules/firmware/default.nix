@@ -5,7 +5,7 @@ let
 in
 {
   options.ironman.firmware = {
-    enable = mkBoolOpt false "Enable or disable sops support";
+    enable = mkEnableOption "Enable or disable sops support";
   };
 
   config = mkIf cfg.enable {
@@ -13,6 +13,6 @@ in
     #   firmware-manager
     #   gnome-firmware
     # ];
-    services.fwupd = enabled;
+    services.fwupd.enable = true;
   };
 }

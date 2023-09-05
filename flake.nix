@@ -21,10 +21,14 @@
       inputs.nixpkgs.follows = "nixpkgs";
       url = "github:mic92/sops-nix";
     };
+    stylix = {
+      inputs.nixpkgs.follows = "nixpkgs";
+      url = "github:danth/stylix/release-23.05";
+    };
     unstable.url = "github:nixos/nixpkgs/nixos-unstable";
   };
 
-  outputs = inputs@{ self, home-manager, nixos-hardware, nixpkgs, nixpkgs-acc5f7b, nixpkgs-ba45a55, sops-nix, unstable }:
+  outputs = inputs@{ self, home-manager, nixos-hardware, nixpkgs, nixpkgs-acc5f7b, nixpkgs-ba45a55, sops-nix, stylix, unstable }:
   let
     channels = {
       home-manager = import home-manager {
@@ -45,6 +49,9 @@
       sops-nix = import sops-nix {
         inherit config system;
       };
+      stylix = import stylix {
+        inherit config system;
+      };
       unstable = import unstable {
         inherit config system;
       };
@@ -58,44 +65,50 @@
     nixosModules = import ./modules;
     overlays = import ./overlays { inherit channels; };
     pkgs = import nixpkgs { inherit config overlays system; };
+    suites.shared = [
+      home-manager.nixosModules.home-manager {
+        home-manager = {
+          sharedModules = [
+            sops-nix.homeManagerModules.sops
+          ];
+          useGlobalPkgs = true;
+          useUserPackages = true;
+        };
+      }
+      nixos-hardware.nixosModules.common-gpu-intel
+      nixosModules.ironman.stylix
+      sops-nix.nixosModules.sops
+      stylix.nixosModules.stylix
+      {
+        ironman.sops.enable = true;
+      }
+    ] ++ (with nixosModules.ironman; [
+      default
+      sops
+    ]);
     system = "x86_64-linux";
   in
   {
     inherit nixosModules;
+
     nixosConfigurations = {
       "e105-laptop" = nixpkgs.lib.nixosSystem {
         inherit pkgs system;
         modules = [
           ./systems/e105-laptop
-          home-manager.nixosModules.home-manager
-          {
-            home-manager = {
-              sharedModules = [
-                sops-nix.homeManagerModules.sops
-              ];
-              useGlobalPkgs = true;
-              useUserPackages = true;
-            };
-          }
-          nixos-hardware.nixosModules.common-gpu-intel
           nixosModules.ironman.user {
             ironman.user.name = "niceastman";
           }
-          sops-nix.nixosModules.sops
-        ];
+        ] ++ suites.shared;
       };
-      # "ironman-laptop" = lib.nixosSystem {
-      #   inherit system;
-      #   # suites.nixosModules.personal-apps
-      #   # suites.nixosModules.podman
-      #   modules = [
-      #     nixos-hardware.nixosModules.dell-inspiron-5509
-      #     nixos-hardware.nixosModules.common-gpu-intel
-      #     self.nixosModules.suites.laptop
-      #     ./systems/ironman-laptop
-      #   ] ++ self.defaultModules;
-      # # ] ++ suites.laptopModules;
-      # };
+      "ironman-laptop" = nixpkgs.lib.nixosSystem {
+        inherit pkgs system;
+        modules = [
+          ./systems/ironman-laptop
+          nixos-hardware.nixosModules.dell-inspiron-5509
+          nixosModules.ironman.user
+        ] ++ suites.shared;
+      };
     };
   };
 }

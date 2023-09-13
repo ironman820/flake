@@ -4,7 +4,7 @@ let
   cfg = config.ironman.tmux;
 in {
   options.ironman.tmux = {
-    enable = mkEnableOption "Enable or disable tftp support";
+    enable = mkBoolOpt true "Enable or disable tftp support";
   };
 
   config = mkIf cfg.enable {

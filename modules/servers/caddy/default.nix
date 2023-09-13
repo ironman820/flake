@@ -1,16 +1,12 @@
 { config, inputs, lib, options, pkgs, ... }:
 with lib;
 let
-  cfg = config.ironman.caddy;
+  cfg = config.ironman.servers.caddy;
 in
 {
-  options.ironman.caddy = with types; {
-    enable = mkEnableOption "Enable Caddy";
-    virtualHosts = mkOptions {
-      default = { };
-      description = "List of virtual host settings";
-      type = attrsOf (eitherOf str (listOf str));
-    };
+  options.ironman.servers.caddy = with types; {
+    enable = mkBoolOpt false "Enable Caddy";
+    virtualHosts = mkOpt attrs { } "List of virtual host settings";
   };
 
   config = mkIf cfg.enable {

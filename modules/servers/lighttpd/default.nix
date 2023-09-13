@@ -5,16 +5,8 @@ let
 in
 {
   options.ironman.servers.lighttpd = with types; {
-    enable = mkOption {
-      default = false;
-      description = "Enable or disable tftp support";
-      type = bool;
-    };
-    root = mkOption {
-      default = "";
-      description = "HTTP Document Root";
-      type = str;
-    };
+    enable = mkBoolOpt false "Enable or disable tftp support";
+    root = mkOpt str "" "HTTP Document Root";
   };
 
   config = mkIf cfg.enable {

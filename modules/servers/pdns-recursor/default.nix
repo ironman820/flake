@@ -5,17 +5,9 @@ let
 in
 {
   options.ironman.servers.dns.recursor = with types; {
-    enable = mkEnableOption "Enable or disable tftp support";
-    forwards = mkOption {
-      default = "";
-      description = "Forward Zone Definitions";
-      type = str;
-    };
-    lua = mkOption {
-      default = [ ];
-      description = "LUA Configuration file override";
-      type = (listOf str);
-    };
+    enable = mkBoolOpt false "Enable or disable tftp support";
+    forwards = mkOpt str "" "Forward Zone Definitions";
+    lua = mkOpt (listOf str) [ ] "LUA Configuration file override";
   };
 
   config = mkIf cfg.enable {

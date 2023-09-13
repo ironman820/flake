@@ -5,54 +5,23 @@ let
 in
 {
   options.ironman.servers.postgresql = with types; {
-    authentication = mkOption {
-      default = "";
-      description = "Authentication options";
-      type = str;
-    };
-    dbs = mkOption {
-      default = [ ];
-      description = "Databases to ensure are added to the server";
-      type = (listOf str);
-    };
-    enable = mkEnableOption "Enable or disable postgresql service";
+    authentication = mkOpt str "" "Authentication options";
+    dbs = mkOpt (listOf str) [ ] "Databases to ensure are added to the server";
+    enable = mkBoolOpt false "Enable or disable postgresql service";
     pgadmin = {
-      enable = mkOption {
-        default = false;
-        description = "Enable PGAdmin";
-        type = bool;
-      };
-      email = mkOption {
-        default = config.ironman.user.email;
-        description = "Initial admin Email";
-        type = str;
-      };
-      firewall = mkOption {
-        default = true;
-        description = "Open the firewall?";
-        type = bool;
-      };
-      settings = mkOption {
-        default = {
+      enable = mkBoolOpt false "Enable PGAdmin";
+      email = mkOpt str config.ironman.user.email "Initial admin Email";
+      firewall = mkBoolOpt true "Open the firewall?";
+      settings = mkOpt attrs
+        {
           "ALLOWED_HOSTS" = [
             "192.168.0.0/16"
           ];
           "CONFIG_DATABASE_URI" = "postgresql://${config.ironman.user.name}:${config.ironman.user.name}@localhost/${config.ironman.user.name}";
-        };
-        description = "Settings for PGAdmin";
-        type = attrs (either str (listOf str));
-      };
+        } "Settings for PGAdmin";
     };
-    script = mkOption {
-      default = "";
-      description = "Postgres Initial startup script.";
-      type = listOf str;
-    };
-    users = mkOption {
-      default = [ ];
-      description = "ensureUsers variables";
-      type = listOf attrs;
-    };
+    script = mkOpt (listOf str) "" "Postgres Initial startup script.";
+    users = mkOpt (listOf attrs) [ ] "ensureUsers variables";
   };
 
   config = mkIf cfg.enable {

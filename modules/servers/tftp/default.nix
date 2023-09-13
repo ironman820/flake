@@ -5,7 +5,7 @@ let
 in
 {
   options.ironman.servers.tftp = {
-    enable = mkEnableOption "Enable or disable tftp support";
+    enable = mkBoolOpt false "Enable or disable tftp support";
   };
 
   config = mkIf cfg.enable {

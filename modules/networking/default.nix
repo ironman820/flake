@@ -5,37 +5,14 @@ let
 in
 {
   options.ironman.networking = with types; {
-    address = mkOption {
-      default = "";
-      description = "IP Address";
-      type = str;
-    };
-    dhcp = mkOption {
-      default = true;
-      description = "Enable DHCP?";
-      type = bool;
-    };
-    enable = mkEnableOption "Enable or disable sops support";
-    gateway = mkOption {
-      default = "";
-      description = "Default Gateway";
-      type = str;
-    };
-    interface = mkOption {
-      default = "";
-      description = "Interface to configure";
-      type = str;
-    };
-    nameservers = mkOption {
-      default = [ ];
-      description = "Nameservers";
-      type = listOf str;
-    };
-    prefix = mkOption {
-      default = 24;
-      description = "Subnet Mask Prefix";
-      type = int;
-    };
+    address = mkOpt str "" "IP Address";
+    dhcp = mkBoolOpt true "Enable DHCP?";
+    enable = mkBoolOpt true "Enable or disable sops support";
+    gateway = mkOpt str "" "Default Gateway";
+    interface = mkOpt str "" "Interface to configure";
+    nameservers = mkOpt (listOf str) [ ] "Nameservers";
+    network = mkOpt str "" "Network listing used for services.";
+    prefix = mkOpt int 24 "Subnet Mask Prefix";
   };
 
   config = mkIf cfg.enable {

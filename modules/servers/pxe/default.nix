@@ -2,26 +2,12 @@
 with lib;
 let
   cfg = config.ironman.servers.pxe;
-  mkPxeMenu = args: ''
-    UI menu.c32
-    TIMEOUT 300
-  '' +
-  strings.concatStringsSep "\n" (mapAttrsToList
-    (name: value:
-      ''
-        LABEL ${name}
-          MENU LABEL ${value.content.label}
-          KERNEL ${value.content.kernel}
-          append ${value.content.append}
-      ''
-    )
-    (filterAttrs (_: v: v.condition) args));
   nwk = config.ironman.networking;
   sys = inputs.nixpkgs.lib.nixosSystem {
     system = "x86_64-linux";
     modules = [
       ({ config, pkgs, lib, modulesPath, ... }: {
-       imports = [
+        imports = [
           (modulesPath + "/installer/netboot/netboot-minimal.nix")
         ];
         config = {
@@ -31,30 +17,18 @@ let
     ];
   };
   build = sys.config.system.build;
+  netbootxyzpxe = pkgs.fetchurl {
+    url = "https://boot.netboot.xyz/ipxe/netboot.xyz.kpxe";
+    sha256 = "sha256-RZhq+sdc5KgRjkc3Vapz8ov2pKXX9Zd7I8cEy/0hlp0=";
+  };
 in
 {
   options.ironman.servers.pxe = with types; {
-    enable = mkEnableOption "Enable or disable pxe support";
-    nix = mkOption {
-      default = true;
-      description = "Set up Nix Netboot";
-      type = bool;
-    };
-    ubuntu = mkOption {
-      default = false;
-      description = "Set up Ubuntu Netboot";
-      type = bool;
-    };
-    netboot = mkOption {
-      default = false;
-      description = "Set up Netboot.xyz";
-      type = bool;
-    };
-    menu = mkOption {
-      default = { };
-      description = "Menu options (will be concatenated together)";
-      type = attrsOf (either str (listOf str));
-    };
+    enable = mkBoolOpt false "Enable or disable pxe support";
+    nix = mkBoolOpt true "Set up Nix Netboot";
+    ubuntu = mkBoolOpt false "Set up Ubuntu Netboot";
+    netboot = mkBoolOpt false "Set up Netboot.xyz";
+    menu = mkOpt attrs { } "Menu options (will be concatenated together)";
   };
 
   config = mkIf cfg.enable {
@@ -114,6 +88,7 @@ in
         })
         (mkIf cfg.netboot {
           "tftp/syslinux.efi".source = "${pkgs.netbootxyz-efi}";
+          "tftp/netboot.xyz.kpxe".source = netbootxyzpxe;
         })
       ];
     };

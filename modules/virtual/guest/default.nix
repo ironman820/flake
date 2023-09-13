@@ -5,14 +5,14 @@ let
   cfg = config.ironman.virtual.guest;
 in {
   options.ironman.virtual.guest = with types; {
-    enable = mkEnableOption "Enable the default settings?";
+    enable = mkBoolOpt false "Enable the default settings?";
   };
 
   config = mkIf cfg.enable {
     services = {
-      qemuGuest.enable = true;
-      spice-vdagentd.enable = true;
-      spice-webdavd.enable = true;
+      qemuGuest = enabled;
+      spice-vdagentd = enabled;
+      spice-webdavd = enabled;
     };
   };
 }

@@ -36,7 +36,7 @@ in
     ironman = {
       home.extraOptions = {
         home.shellAliases = {
-          "cover" = "coverage run && coverage xml";
+          "cover" = "coverage run && coverage xml && coverage html";
         };
         programs.git.extraConfig.safe.directory = "/data/rcm";
       };
@@ -53,7 +53,7 @@ in
             extraConfig = ''
               root * /data/rcm
               @notStatic {
-                not path /static/* /media/*
+                not path /static/* /media/* /htmlcov/*
               }
               reverse_proxy @notStatic localhost:8000
               file_server

@@ -1,4 +1,4 @@
-{ config, lib, pkgs, system, ... }:
+{ config, lib, options, pkgs, system, ... }:
 
 with lib;
 let
@@ -8,6 +8,7 @@ let
     black
     channels
     channels-redis
+    coverage
     daphne
     django
     django-extensions
@@ -18,10 +19,13 @@ let
     pillow
     psycopg2
     pyodbc
+    pytest
+    pytest-django
     pytz
     redis
     sqlalchemy
   ];
+  python = pkgs.python310.withPackages my-python-packages;
 in
 {
   options.ironman.suites.servers.rcm2 = with types; {
@@ -30,7 +34,12 @@ in
 
   config = mkIf cfg.enable {
     ironman = {
-      home.extraOptions.programs.git.extraConfig.safe.directory = "/data/rcm";
+      home.extraOptions = {
+        home.shellAliases = {
+          "cover" = "coverage run && coverage xml";
+        };
+        programs.git.extraConfig.safe.directory = "/data/rcm";
+      };
       root-sops.secrets.rcm2-env = {
         format = "binary";
         mode = "0400";
@@ -87,8 +96,8 @@ in
             ''
           ];
         };
+        redis = enabled;
       };
-      redis = enabled;
       # suites.servers.rcm = enabled;
       # user.extraGroups = [
       #   "caddy"
@@ -115,12 +124,12 @@ in
         set -a
         source ${config.sops.secrets.rcm2-env.path}
         set +a
+        ln -sf ${python} /data/rcm/.python
       '';
       systemPackages = (with pkgs; [
-        (python310.withPackages my-python-packages)
         sonar-scanner-cli
         unixODBC
-      ]);
+      ]) ++ ([ python ]);
     };
     networking.firewall.allowedTCPPorts = [
       80

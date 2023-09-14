@@ -1,14 +1,14 @@
-{ config, lib, pkgs, system, ... }:
+{ config, inputs, lib, options, pkgs, ... }:
 with lib;
 let
   cfg = config.ironman.servers.redis;
 in
 {
-  options.ironmna.servers.redis = {
+  options.ironman.servers.redis = with types; {
     enable = mkBoolOpt false "Install and enable Redis";
   };
 
   config = mkIf cfg.enable {
-    services.redis."" = enabled;
+    services.redis.servers."".enable = true;
   };
 }

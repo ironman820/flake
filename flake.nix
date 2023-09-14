@@ -62,5 +62,9 @@
         stylix.nixosModules.stylix
       ];
     };
+
+    outputs-builder = channels: {
+      devShells.default = "ironman-shell";
+    };
   };
 }

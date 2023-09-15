@@ -28,6 +28,7 @@ in
             github-cli
             glab
             htop
+            inetutils
             jq
             just
             lazygit

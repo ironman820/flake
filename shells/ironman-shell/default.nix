@@ -1,5 +1,6 @@
-{ pkgs, ... }:
-pkgs.mkShell {
+{ lib, inputs, pkgs, stdenv, ... }:
+stdenv.mkDerivation {
+  name = "ironman-shell";
   nativeBuildInputs = with pkgs; [
     nix-index
     nix-tree

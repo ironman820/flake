@@ -10,6 +10,10 @@
       inputs.nixpkgs.follows = "nixpkgs";
       url = "github:nix-community/home-manager/release-23.05";
     };
+    nix-ld = {
+      inputs.nixpkgs.follows = "nixpkgs";
+      url = "github:mic92/nix-ld";
+    };
     nixos-hardware.url = "github:nixos/nixos-hardware";
     nixpkgs.url = "github:nixos/nixpkgs/nixos-23.05";
     # acc5f7b - IcedTea v8 Stable
@@ -31,10 +35,20 @@
     unstable.url = "github:nixos/nixpkgs/nixos-unstable";
   };
 
-  outputs = inputs: inputs.snowfall-lib.mkFlake {
-    inherit inputs;
-    src = ./.;
+  outputs = inputs: let
+    lib = inputs.snowfall-lib.mkLib {
+      inherit inputs;
+      src = ./.;
 
+      snowfall = {
+        meta = {
+          name = "ironman";
+          title = "Ironman Config";
+        };
+        namespace = "ironman";
+      };
+    };
+  in lib.mkFlake {
     channels-config = {
       allowUnfree = true;
       permittedInsecurePackages = [
@@ -42,12 +56,17 @@
       ];
     };
 
+    # homes.modules = with inputs; [
+    #   sops-nix.homeManagerModules.sops
+    # ];
+
     overlays = with inputs; [
       flake.overlays.default
     ];
 
-    systems.modules = with inputs; [
+    systems.modules.nixos = with inputs; [
       home-manager.nixosModules.home-manager
+      nix-ld.nixosModules.nix-ld
       sops-nix.nixosModules.sops
     ];
 
@@ -63,8 +82,6 @@
       ];
     };
 
-    outputs-builder = channels: {
-      devShells.default = "ironman-shell";
-    };
+    alias.shells.default = "ironman-shell";
   };
 }

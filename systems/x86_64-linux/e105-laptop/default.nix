@@ -1,4 +1,6 @@
-{ pkgs, config, ... }:
+{ config, format, inputs, lib, pkgs, system, systems, target, virtual, ... }:
+with lib;
+with lib.ironman;
 {
   imports = [
     ./hardware.nix
@@ -7,11 +9,10 @@
 
   config = {
     ironman = {
-      home.extraOptions.home.file.".config/is_personal".text = ''false'';
-      suites.laptop.enable = true;
+      suites.laptop = enabled;
       user.name = "niceastman";
-      work-tools.enable = true;
-      virtual.podman.enable = true;
+      work-tools = enabled;
+      virtual.podman = enabled;
       wireless-profiles.work = true;
     };
     stylix.image = ./voidbringer.png;

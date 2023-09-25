@@ -30,7 +30,6 @@ in
     environment = {
       systemPackages = (with pkgs; [
         age
-        devbox
         fzf
         git-extras
         (nerdfonts.override {
@@ -70,6 +69,10 @@ in
     };
     nixpkgs.config.allowUnfree = true;
     programs = {
+      direnv = {
+        enable = true;
+        nix-direnv = enabled;
+      };
       git = {
         enable = true;
         lfs = enabled;

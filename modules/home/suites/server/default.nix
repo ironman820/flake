@@ -11,9 +11,7 @@ in
   };
 
   config = mkIf cfg.enable {
-    home.file = {
-      ".config/is_server".text = ''true'';
-    };
+    home.file.".config/is_server".text = ''true'';
     programs = {
       git.signing = {
         key = "~/.ssh/github_servers";

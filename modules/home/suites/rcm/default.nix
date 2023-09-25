@@ -3,10 +3,10 @@
 with lib;
 with lib.ironman;
 let
-  cfg = config.ironman.home.suites.servers.rcm;
+  cfg = config.ironman.home.suites.server.rcm;
 in
 {
-  options.ironman.home.suites.servers.rcm = with types; {
+  options.ironman.home.suites.server.rcm = with types; {
     enable = mkBoolOpt false "Enable the default settings?";
   };
 

@@ -12,7 +12,9 @@ let
     coverage
     daphne
     django
+    django-environ
     django-extensions
+    faker
     flake8
     numpy
     pandas
@@ -37,8 +39,13 @@ in
     ironman = {
       sops.secrets.rcm2-env = {
         format = "binary";
+        group = config.users.groups.users.name;
         mode = "0400";
         owner = config.ironman.user.name;
+        path = "/data/rcm/.env";
+        restartUnits = [
+          "django.service"
+        ];
         sopsFile = ./secrets/rcm2.env.age;
       };
       servers = {
@@ -60,6 +67,7 @@ in
             local all rcm2 peer
           '';
           enable = true;
+          pgadmin = enabled;
           script = [
             ''
               CREATE ROLE rcm2 WITH PASSWORD 'rcm2' CREATEDB LOGIN;
@@ -70,6 +78,9 @@ in
         };
         redis = enabled;
       };
+      user.extraGroups = [
+        config.users.groups.keys.name
+      ];
     };
     environment = {
       etc."ssl/openssl.cnf".text = ''
@@ -92,6 +103,7 @@ in
         set -a
         source ${config.sops.secrets.rcm2-env.path}
         set +a
+        rm -f /data/rcm/.python
         ln -sf ${python} /data/rcm/.python
       '';
       systemPackages = (with pkgs; [
@@ -103,5 +115,21 @@ in
       80
     ];
     services.caddy.group = "users";
+    systemd.services.django = {
+      aliases = [
+        "django.service"
+      ];
+      path = [
+        python
+      ];
+      requires = [
+        "caddy.service"
+        "postgresql.service"
+        "redis.service"
+      ];
+      script = "cd /data/rcm && ${python}/bin/python manage.py runserver";
+      startLimitBurst = 5;
+      startLimitIntervalSec = 10;
+    };
   };
 }

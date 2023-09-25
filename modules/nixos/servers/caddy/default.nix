@@ -13,7 +13,7 @@ in
   config = mkIf cfg.enable {
     services.caddy = {
       enable = true;
-      logDir = "/data/caddy/log";
+      # logDir = "/data/caddy/log";
       virtualHosts = mkAliasDefinitions options.ironman.servers.caddy.virtualHosts;
     };
   };

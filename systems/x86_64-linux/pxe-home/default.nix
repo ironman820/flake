@@ -7,7 +7,6 @@
 
   config = {
     ironman = {
-      home.extraOptions.home.file.".config/is_personal".text = ''true'';
       servers.pxe = {
         enable = true;
         netboot = true;

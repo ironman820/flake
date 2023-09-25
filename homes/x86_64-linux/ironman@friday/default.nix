@@ -4,7 +4,7 @@ with lib.ironman;
 {
   ironman.home = {
     personal-apps.enable = true;
-    suites.workstation = enabled;
+    suites.virtual-workstation = enabled;
     user.name = config.snowfallorg.user.name;
   };
   programs.git.signing = {

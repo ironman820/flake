@@ -3,10 +3,10 @@
 with lib;
 with lib.ironman;
 let
-  cfg = config.ironman.home.suites.servers.rcm2;
+  cfg = config.ironman.home.suites.server.rcm2;
 in
 {
-  options.ironman.home.suites.servers.rcm2 = with types; {
+  options.ironman.home.suites.server.rcm2 = with types; {
     enable = mkBoolOpt false "Enable the suite";
   };
 

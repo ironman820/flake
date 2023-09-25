@@ -16,7 +16,6 @@ in
       settings = mkOpt attrs
         {
           "ALLOWED_HOSTS" = [
-            "192.168.0.0/16"
           ];
           "CONFIG_DATABASE_URI" = "postgresql://${config.ironman.user.name}:${config.ironman.user.name}@localhost/${config.ironman.user.name}";
         } "Settings for PGAdmin";
@@ -55,8 +54,8 @@ in
       };
     };
     services = {
-      pgadmin = {
-        enable = config.ironman.servers.postgresql.pgadmin.enable;
+      pgadmin = mkIf cfg.pgadmin.enable {
+        enable = true;
         initialEmail = mkAliasDefinitions options.ironman.servers.postgresql.pgadmin.email;
         initialPasswordFile = config.sops.secrets.pg_pass.path;
         openFirewall = mkAliasDefinitions options.ironman.servers.postgresql.pgadmin.firewall;
@@ -71,6 +70,8 @@ in
         package = pkgs.postgresql_14;
       };
     };
-    systemd.services.pgadmin.serviceConfig.SupplimentaryGroups = [ config.users.groups.keys.name ];
+    users.users.pgadmin = mkIf cfg.pgadmin.enable {
+      extraGroups = [ config.users.groups.keys.name ];
+    };
   };
 }

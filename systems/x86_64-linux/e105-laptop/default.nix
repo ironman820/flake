@@ -1,4 +1,7 @@
-{ pkgs, config, lib, ... }:
+{ config, format, inputs, lib, pkgs, system, systems, target, virtual, ... }:
+let
+  inherit (lib.ironman) enabled;
+in
 {
   imports = [
     ./hardware.nix
@@ -6,11 +9,10 @@
 
   config = {
     ironman = {
-      home.extraOptions.home.file.".config/is_personal".text = ''false'';
-      suites.laptop.enable = true;
+      configurations.work-samba = enabled;
+      suites.laptop = enabled;
       user.name = "niceastman";
-      work-laptop.enable = true;
-      virtual.podman.enable = true;
+      work-tools = enabled;
       wireless-profiles.work = true;
     };
     system.stateVersion = "23.05";

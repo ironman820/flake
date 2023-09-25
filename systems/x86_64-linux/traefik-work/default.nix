@@ -7,7 +7,6 @@
 
   config = {
     ironman = {
-      home.extraOptions.home.file.".config/is_personal".text = ''false'';
       servers.traefik = {
         config = {
           http = {
@@ -31,6 +30,20 @@
                 middlewares = "secured";
                 rule = "Host(`rcm.desk.niceastman.com`)";
                 service = "rcm";
+                tls = true;
+              };
+              rcm2 = {
+                entryPoints = "https";
+                middlewares = "secured";
+                rule = "Host(`rcm2.desk.niceastman.com`)";
+                service = "rcm2";
+                tls = true;
+              };
+              sonarqube = {
+                entryPoints = "https";
+                middlewares = "secured";
+                rule = "Host(`qc.desk.niceastman.com`)";
+                service = "sonarqube";
                 tls = true;
               };
             };
@@ -58,6 +71,20 @@
                     url = "https://192.168.20.5";
                   }
                 ];
+              };
+              rcm2.loadBalancer = {
+                passHostHeader = true;
+                servers = [
+                  {
+                    url = "http://192.168.20.6";
+                  }
+                ];
+              };
+              sonarqube.loadBalancer = {
+                passHostHeader = true;
+                servers = [{
+                  url = "http://192.168.20.7:9000";
+                }];
               };
             };
           };

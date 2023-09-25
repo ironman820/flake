@@ -1,4 +1,7 @@
 { pkgs, config, lib, ... }:
+let
+  inherit (lib.ironman) enabled;
+in
 {
   imports = [
     ./hardware.nix
@@ -9,13 +12,12 @@
       glocom
     ];
     ironman = {
-      home.extraOptions.programs.git.signing = {
-        key = "~/.ssh/github_home";
-        signByDefault = builtins.stringLength "~/.ssh/github_home" > 0;
-      };
-      suites.laptop.enable = true;
-      virtual.podman.enable = true;
+      suites.laptop = enabled;
     };
     system.stateVersion = "23.05";
+    zramSwap = {
+      enable = true;
+      memoryPercent = 90;
+    };
   };
 }

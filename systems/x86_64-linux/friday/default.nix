@@ -5,7 +5,9 @@
   ];
 
   config = {
-    ironman.suites.virtual-workstation.enable = true;
+    ironman = {
+      suites.virtual-workstation.enable = true;
+    };
     system.stateVersion = "23.05";
   };
 }

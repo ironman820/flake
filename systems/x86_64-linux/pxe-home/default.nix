@@ -7,7 +7,11 @@
 
   config = {
     ironman = {
-      servers.pxe.enable = true;
+      servers.pxe = {
+        enable = true;
+        netboot = true;
+        nix = false;
+      };
       suites.server.enable = true;
       virtual.guest.enable = true;
     };

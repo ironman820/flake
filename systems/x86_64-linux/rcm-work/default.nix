@@ -1,16 +1,17 @@
 { config, inputs, lib, pkgs, ... }:
+with lib;
+with lib.ironman;
 {
   imports = [
     ./hardware.nix
     ./networking.nix
   ];
 
-  config = with lib; {
+  config = {
     environment.systemPackages = with pkgs; [
       openssl
     ];
     ironman = {
-      home.extraOptions.home.file.".config/is_personal".text = ''false'';
       suites = {
         server.enable = true;
         servers.rcm = enabled;

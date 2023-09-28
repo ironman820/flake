@@ -2,10 +2,10 @@
 with lib;
 with lib.ironman;
 let
-  cfg = config.ironman.sops;
+  cfg = config.ironman.home.sops;
 in
 {
-  options.ironman.sops = with types; {
+  options.ironman.home.sops = with types; {
     enable = mkBoolOpt true "Enable root secrets";
     age = mkOpt attrs { } "Age Attributes";
     defaultSopsFile = mkOpt path ./secrets/sops.yaml "Default SOPS file path.";
@@ -13,7 +13,7 @@ in
   };
 
   config = mkIf cfg.enable {
-    ironman.sops = {
+    ironman.home.sops = {
       age.keyFile = "/etc/nixos/keys.txt";
       secrets = mkMerge [
         {

@@ -26,6 +26,22 @@ in
             sopsFile = ./secrets/sops.yaml;
           };
         }
+        {
+          github = mkDefault {
+            group = config.users.groups.users.name;
+            mode = "0400";
+            path = "/home/${config.ironman.user.name}/.ssh/github";
+            sopsFile = ./secrets/github_personal.age;
+            user = config.ironman.user.name;
+          };
+          github_servers_pub = {
+            group = config.users.groups.users.name;
+            mode = "0400";
+            path = "/home/${config.ironman.user.name}/.ssh/github_servers.pub";
+            sopsFile = ./secrets/github_servers.pub.age;
+            user = config.ironman.user.name;
+          };
+        }
       ];
     };
     sops = {

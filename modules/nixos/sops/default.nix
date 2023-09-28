@@ -31,7 +31,7 @@ in
             group = config.users.groups.users.name;
             mode = "0400";
             path = "/home/${config.ironman.user.name}/.ssh/github";
-            sopsFile = ./secrets/github_personal.age;
+            sopsFile = ./secrets/github_home.age;
             user = config.ironman.user.name;
           };
           github_servers_pub = {

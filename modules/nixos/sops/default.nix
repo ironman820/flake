@@ -14,7 +14,10 @@ in
 
   config = mkIf cfg.enable {
     ironman.sops = {
-      age.keyFile = "/etc/nixos/keys.txt";
+      age = {
+        keyFile = "/etc/nixos/keys.txt";
+        sshKeyPaths = [];
+      };
       secrets = mkMerge [
         {
           user_pass = {
@@ -28,6 +31,7 @@ in
     sops = {
       age = mkAliasDefinitions options.ironman.sops.age;
       defaultSopsFile = mkAliasDefinitions options.ironman.sops.defaultSopsFile;
+      gnupg.sshKeyPaths = [];
       secrets = mkAliasDefinitions options.ironman.sops.secrets;
     };
   };

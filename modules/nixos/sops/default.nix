@@ -34,6 +34,13 @@ in
             sopsFile = ./secrets/github_home.age;
             user = config.ironman.user.name;
           };
+          github_home_pub = {
+            group = config.users.groups.users.name;
+            mode = "0400";
+            path = "/home/${config.ironman.user.name}/.ssh/github_home.pub";
+            sopsFile = ./secrets/github_home.pub.age;
+            user = config.ironman.user.name;
+          };
           github_servers_pub = {
             group = config.users.groups.users.name;
             mode = "0400";

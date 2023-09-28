@@ -55,7 +55,8 @@
         "openssl-1.1.1v"
       ];
     };
-    home-manager.sharedModules = [
+
+    homeModules = [
       <sops-nix/modules/home-manager/sops.nix>
     ];
 

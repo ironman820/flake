@@ -189,6 +189,10 @@ with lib.ironman;
         };
         ignores = [ ".direnv" "result" ];
         lfs = enabled;
+        signing = {
+          key = "~/.ssh/github";
+          signByDefault = true;
+        };
         userName = config.ironman.home.user.fullName;
         userEmail = config.ironman.home.user.email;
       };

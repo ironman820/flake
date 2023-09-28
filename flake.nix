@@ -56,7 +56,7 @@
       ];
     };
 
-    homeModules = [
+    homeModules = with inputs; [
       sops-nix.modules.home-manager.sops
     ];
 

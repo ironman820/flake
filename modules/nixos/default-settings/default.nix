@@ -32,6 +32,7 @@ in
         age
         fzf
         git-extras
+        ironman.myalarm
         (nerdfonts.override {
           fonts = [
             "FiraCode"

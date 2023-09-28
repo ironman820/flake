@@ -78,6 +78,8 @@
       ];
     };
 
-    alias.shells.default = "ironman-shell";
+    alias = {
+      shells.default = "ironman-shell";
+    };
   };
 }

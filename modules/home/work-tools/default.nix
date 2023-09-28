@@ -15,6 +15,7 @@ in
     home = {
       packages = (with pkgs; [
         barrier
+        dia
         # glocom
         qgis
         teams

@@ -11,13 +11,6 @@ in
   };
 
   config = mkIf cfg.enable {
-    ironman.home.sops.secrets = {
-      github_servers = {
-        mode = "0400";
-        path = "/home/${config.snowfallorg.user.name}/.ssh/github";
-        sopsFile = ./secrets/github_servers.age;
-      };
-    };
     home.file.".config/is_server".text = ''true'';
     programs = {
       git.signing = {

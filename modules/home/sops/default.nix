@@ -26,6 +26,7 @@ in
       ];
     };
     sops = {
+      enable = true;
       age = mkAliasDefinitions options.ironman.sops.age;
       defaultSopsFile = mkAliasDefinitions options.ironman.sops.defaultSopsFile;
       secrets = mkAliasDefinitions options.ironman.sops.secrets;

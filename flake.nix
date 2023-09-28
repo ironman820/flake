@@ -56,10 +56,6 @@
       ];
     };
 
-    homeModules = with inputs; [
-      <sops-nix/modules/home-manager/sops.nix>
-    ];
-
     overlays = with inputs; [
       flake.overlays.default
     ];

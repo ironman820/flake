@@ -12,11 +12,5 @@ in
 
   config = mkIf cfg.enable {
     home.file.".config/is_server".text = ''true'';
-    programs = {
-      git.signing = {
-        key = "~/.ssh/github";
-        signByDefault = builtins.stringLength "~/.ssh/github" > 0;
-      };
-    };
   };
 }

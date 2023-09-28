@@ -6,7 +6,7 @@ let
 in
 {
   options.ironman.home.sops = with types; {
-    enable = mkBoolOpt true "Enable root secrets";
+    enable = mkBoolOpt false "Enable root secrets";
     age = mkOpt attrs { } "Age Attributes";
     defaultSopsFile = mkOpt path ./secrets/sops.yaml "Default SOPS file path.";
     secrets = mkOpt attrs { } "SOPS secrets.";

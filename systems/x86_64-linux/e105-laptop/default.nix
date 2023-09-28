@@ -9,6 +9,7 @@ with lib.ironman;
 
   config = {
     ironman = {
+      sops.secrets.github.sopsFile = ./secrets/github_work.age;
       suites.laptop = enabled;
       user.name = "niceastman";
       work-tools = enabled;

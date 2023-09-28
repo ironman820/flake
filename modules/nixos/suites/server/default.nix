@@ -11,6 +11,7 @@ in
   };
 
   config = mkIf cfg.enable {
+    ironman.sops.secrets.github.sopsFile = ./secrets/github_servers.age;
     environment = {
       shellInit = ''
         export NIX_LD=$(cat "${pkgs.stdenv.cc}/nix-support/dynamic-linker")

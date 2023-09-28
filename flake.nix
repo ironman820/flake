@@ -60,11 +60,12 @@
       flake.overlays.default
     ];
 
-    systems.modules.nixos = with inputs; [
-      home-manager.nixosModules.home-manager
-      nix-ld.nixosModules.nix-ld
-      sops-nix.nixosModules.sops
-    ];
+    systems.modules = {
+      nixos = with inputs; [
+        nix-ld.nixosModules.nix-ld
+        sops-nix.nixosModules.sops
+      ];
+    };
 
     systems.hosts = {
       e105-laptop.modules = with inputs; [

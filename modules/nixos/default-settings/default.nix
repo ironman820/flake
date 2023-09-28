@@ -53,12 +53,9 @@ in
     ironman = {
       # java = enabled;
       nix = enabled;
-      user = {
-        extraGroups = [
-          "dialout"
-        ];
-        passFile = config.sops.secrets.user_pass.path;
-      };
+      user.extraGroups = [
+        "dialout"
+      ];
     };
     location.provider = "geoclue2";
     networking = {

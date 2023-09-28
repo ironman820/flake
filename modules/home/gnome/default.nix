@@ -1,12 +1,11 @@
 { config, lib, pkgs, system, ... }:
-
-with lib;
-with lib.ironman;
 let
+  inherit (lib) mkIf types;
+  inherit (lib.ironman) enabled mkBoolOpt;
   cfg = config.ironman.home.gnome;
 in
 {
-  options.ironman.home.gnome = with types; {
+  options.ironman.home.gnome = {
     enable = mkBoolOpt false "Enable the default settings?";
   };
 

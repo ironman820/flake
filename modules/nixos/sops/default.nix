@@ -14,13 +14,43 @@ in
 
   config = mkIf cfg.enable {
     ironman.sops = {
-      age.keyFile = "/etc/nixos/keys.txt";
+      age = {
+        keyFile = "/etc/nixos/keys.txt";
+        sshKeyPaths = [];
+      };
       secrets = mkMerge [
         {
-          user_pass = {
+          github = {
+            group = config.users.groups.users.name;
             mode = "0400";
-            neededForUsers = true;
-            sopsFile = ./secrets/sops.yaml;
+            owner = config.ironman.user.name;
+            path = "/home/${config.ironman.user.name}/.ssh/github";
+            sopsFile = mkDefault ./secrets/github_home.age;
+            format = "binary";
+          };
+          github_home_pub = {
+            group = config.users.groups.users.name;
+            mode = "0400";
+            owner = config.ironman.user.name;
+            path = "/home/${config.ironman.user.name}/.ssh/github_home.pub";
+            sopsFile = ./secrets/github_home.pub.age;
+            format = "binary";
+          };
+          github_servers_pub = {
+            group = config.users.groups.users.name;
+            mode = "0400";
+            owner = config.ironman.user.name;
+            path = "/home/${config.ironman.user.name}/.ssh/github_servers.pub";
+            sopsFile = ./secrets/github_servers.pub.age;
+            format = "binary";
+          };
+          github_work_pub = {
+            group = config.users.groups.users.name;
+            mode = "0400";
+            owner = config.ironman.user.name;
+            path = "/home/${config.ironman.user.name}/.ssh/github_work.pub";
+            sopsFile = ./secrets/github_work.pub.age;
+            format = "binary";
           };
         }
       ];
@@ -28,6 +58,7 @@ in
     sops = {
       age = mkAliasDefinitions options.ironman.sops.age;
       defaultSopsFile = mkAliasDefinitions options.ironman.sops.defaultSopsFile;
+      gnupg.sshKeyPaths = [];
       secrets = mkAliasDefinitions options.ironman.sops.secrets;
     };
   };

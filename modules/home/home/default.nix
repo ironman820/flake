@@ -1,8 +1,8 @@
 { options, pkgs, config, lib, inputs, ... }:
-
-with lib;
-with lib.ironman;
-# with lib.internal;
+let
+  inherit (lib) mkDefault;
+  inherit (lib.ironman) enabled;
+in
 {
   config = {
     home = {
@@ -83,7 +83,6 @@ with lib.ironman;
             distrobox upgrade -a
         '';
       };
-      homeDirectory = "/home/${config.ironman.home.user.name}";
       packages = (with pkgs; [
         chezmoi
         dig
@@ -135,7 +134,6 @@ with lib.ironman;
         "cat" = "bat";
       };
       stateVersion = "23.05";
-      username = config.ironman.home.user.name;
     };
     programs = {
       atuin = {
@@ -189,6 +187,10 @@ with lib.ironman;
         };
         ignores = [ ".direnv" "result" ];
         lfs = enabled;
+        signing = {
+          key = "~/.ssh/github";
+          signByDefault = true;
+        };
         userName = config.ironman.home.user.fullName;
         userEmail = config.ironman.home.user.email;
       };

@@ -6,7 +6,7 @@ let
 in
 {
   options.ironman.gcc = {
-    enable = mkBoolOpt true "Enable or disable tftp support";
+    enable = mkBoolOpt false "Enable gcc utilities";
   };
 
   config = mkIf cfg.enable {

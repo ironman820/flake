@@ -16,6 +16,7 @@ in
       element-desktop-wayland
       firefox
       gimp
+      github-desktop
       google-chrome
       libreoffice-fresh
       microsoft-edge

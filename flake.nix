@@ -57,7 +57,7 @@
     };
 
     homeModules = [
-      <sops-nix/modules/home-manager/sops.nix>
+      sops-nix.modules.home-manager.sops
     ];
 
     overlays = with inputs; [

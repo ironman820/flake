@@ -27,9 +27,9 @@ in
     };
     sops = {
       enable = true;
-      age = mkAliasDefinitions options.ironman.sops.age;
-      defaultSopsFile = mkAliasDefinitions options.ironman.sops.defaultSopsFile;
-      secrets = mkAliasDefinitions options.ironman.sops.secrets;
+      age = mkAliasDefinitions options.ironman.home.sops.age;
+      defaultSopsFile = mkAliasDefinitions options.ironman.home.sops.defaultSopsFile;
+      secrets = mkAliasDefinitions options.ironman.home.sops.secrets;
     };
   };
 }

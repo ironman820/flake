@@ -55,6 +55,9 @@
         "openssl-1.1.1v"
       ];
     };
+    home-manager.sharedModules = [
+      <sops-nix/modules/home-manager/sops.nix>
+    ];
 
     overlays = with inputs; [
       flake.overlays.default

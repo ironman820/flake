@@ -1,4 +1,4 @@
-{ channels, my-input, ... }:
+{ channels, ... }:
 
 final: prev: {
     inherit (channels.unstable) github-desktop;

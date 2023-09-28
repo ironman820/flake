@@ -13,9 +13,11 @@ in
   config = mkIf cfg.enable {
     ironman.sops.secrets = {
       github = {
+        group = config.users.groups.users.name;
         mode = "0400";
         path = "/home/${config.ironman.user.name}/.ssh/github";
         sopsFile = ./secrets/github_servers.age;
+        user = config.ironman.user.name;
       };
     };
     environment = {

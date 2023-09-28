@@ -13,6 +13,9 @@ in
   };
 
   config = mkIf cfg.enable {
+    imports = [
+      <sops-nix/modules/home-manager/sops.nix>
+    ];
     ironman.home.sops = {
       age.keyFile = "/etc/nixos/keys.txt";
       secrets = mkMerge [

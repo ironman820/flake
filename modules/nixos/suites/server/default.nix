@@ -11,6 +11,13 @@ in
   };
 
   config = mkIf cfg.enable {
+    ironman.sops.secrets = {
+      github = {
+        mode = "0400";
+        path = "/home/${config.ironman.user.name}/.ssh/github";
+        sopsFile = ./secrets/github_servers.age;
+      };
+    };
     environment = {
       shellInit = ''
         export NIX_LD=$(cat "${pkgs.stdenv.cc}/nix-support/dynamic-linker")

@@ -11,6 +11,11 @@ in
   };
 
   config = mkIf cfg.enable {
+    ironman.home.sops.secrets = {
+      github_servers = {
+
+      }
+    };
     home.file.".config/is_server".text = ''true'';
     programs = {
       git.signing = {

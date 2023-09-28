@@ -62,7 +62,7 @@
 
     systems.modules = {
       home = with inputs; [
-        sops-nix.modules.home-manager.sops
+        <sops-nix/modules/home-manager/sops.nix>
       ];
       nixos = with inputs; [
         home-manager.nixosModules.home-manager

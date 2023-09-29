@@ -557,9 +557,6 @@ in {
       defaultEditor = true;
       enable = true;
       extraLuaConfig = initLua;
-      extraLuaPackages = ps: with ps; [
-        "ibl"
-      ];
       viAlias = true;
       vimAlias = true;
       vimdiffAlias = true;

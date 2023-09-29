@@ -26,10 +26,6 @@ in
     };
     programs = {
       git = {
-        signing = {
-          key = "~/.ssh/github_work";
-          signByDefault = builtins.stringLength "~/.ssh/github_work" > 0;
-        };
         userName = config.ironman.home.user.fullName;
         userEmail = config.ironman.home.user.email;
       };

@@ -1,7 +1,7 @@
 { config, inputs, lib, options, pkgs, ... }:
 let
   inherit (lib) mkIf types;
-  inherit (lib.ironman) mkBoolOpt mkOpt;
+  inherit (lib.ironman) enabled mkBoolOpt mkOpt;
   inherit (lib.types) lines;
 
   cfg = config.ironman.home.nvim;
@@ -531,6 +531,7 @@ in {
   };
 
   config = mkIf cfg.enable {
+    ironman.home.build-utils = enabled;
     programs.neovim = {
       defaultEditor = true;
       enable = true;

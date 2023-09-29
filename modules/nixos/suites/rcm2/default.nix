@@ -31,7 +31,7 @@ let
   python = pkgs.python310.withPackages my-python-packages;
 in
 {
-  options.ironman.suites.servers.rcm2 = with types; {
+  options.ironman.suites.server.rcm2 = with types; {
     enable = mkBoolOpt false "Enable the suite";
   };
 

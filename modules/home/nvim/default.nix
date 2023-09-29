@@ -1,7 +1,8 @@
 { config, inputs, lib, options, pkgs, ... }:
-with lib;
-with lib.ironman;
 let
+  inherit (lib) mkAliasDefinitions;
+  inherit (lib.ironman) mkBoolOpt mkOpt;
+
   cfg = config.ironman.home.nvim;
   initLua = ''
     --[[
@@ -550,13 +551,14 @@ let
 in {
   options.ironman.home.nvim = {
     enable = mkBoolOpt true "Enable or disable tftp support";
+    extraLuaConfig = mkOpt str initLua "Extra Config";
   };
 
   config = mkIf cfg.enable {
     programs.neovim = {
       defaultEditor = true;
       enable = true;
-      extraLuaConfig = initLua;
+      extraLuaConfig = mkAliasDefinitions cfg.extraLuaConfig;
       viAlias = true;
       vimAlias = true;
       vimdiffAlias = true;

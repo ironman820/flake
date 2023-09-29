@@ -459,6 +459,7 @@ let
 
     mason_lspconfig.setup {
       ensure_installed = vim.tbl_keys(servers),
+      log_level = vim.log.levels.DEBUG
     }
 
     mason_lspconfig.setup_handlers {
@@ -534,6 +535,7 @@ in {
     ironman.home.build-utils = enabled;
     home.packages = with pkgs; [
       cargo
+      nil
       rnix-lsp
     ];
     programs.neovim = {

@@ -1,6 +1,6 @@
 { config, inputs, lib, options, pkgs, ... }:
 let
-  inherit (lib) mkAliasDefinitions;
+  inherit (lib) mkAliasDefinitions mkIf;
   inherit (lib.ironman) mkBoolOpt mkOpt;
 
   cfg = config.ironman.home.nvim;

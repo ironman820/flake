@@ -3,6 +3,7 @@ with lib;
 with lib.ironman;
 let
   cfg = config.ironman.home.nvim;
+  initLua = '''';
 in {
   options.ironman.home.nvim = {
     enable = mkBoolOpt true "Enable or disable tftp support";
@@ -12,14 +13,10 @@ in {
     programs.neovim = {
       defaultEditor = true;
       enable = true;
+      extraLuaConfig = initLua;
       viAlias = true;
       vimAlias = true;
       vimdiffAlias = true;
-    };
-    xdg.configFile."nvim" = {
-      # mode = "0600";
-      recursive = true;
-      source = config.lib.file.mkOutOfStoreSymlink "/home/${config.snowfallorg.user.name}/.config/flake/modules/home/nvim/config";
     };
   };
 }

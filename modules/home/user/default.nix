@@ -1,6 +1,6 @@
 { config, host, lib, pkgs, system, ... }:
 let
-  inherit (lib) types;
+  inherit (lib) mkIf types;
   inherit (lib.ironman) mkBoolOpt mkOpt;
   cfg = config.ironman.home.user;
   home-directory =

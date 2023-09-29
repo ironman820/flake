@@ -3,7 +3,7 @@ with lib;
 with lib.ironman;
 {
   ironman.home = {
-    personal-apps.enable = true;
+    home.file.".config/is_personal".text = ''false'';
     suites.virtual-workstation = enabled;
     user.name = config.snowfallorg.user.name;
   };

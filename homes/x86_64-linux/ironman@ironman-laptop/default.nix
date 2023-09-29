@@ -5,7 +5,7 @@ with lib.ironman;
   ironman.home = {
     personal-apps.enable = true;
     suites.workstation = enabled;
-    user.name = config.snowfallorg.user.name;
+    user = enabled;
   };
   systemd.user = {
     services = {

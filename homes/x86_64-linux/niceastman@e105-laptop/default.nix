@@ -1,12 +1,13 @@
 { config, format, home, host, inputs, lib, pkgs, systems, target, virtual, ...}:
-with lib;
-with lib.ironman;
+let
+  inherit (lib.ironman) enabled;
+in
 {
   home.file.".config/is_personal".text = ''false'';
   ironman = {
     home = {
       suites.workstation = enabled;
-      user.name = config.snowfallorg.user.name;
+      user = enabled;
       work-tools = enabled;
     };
   };

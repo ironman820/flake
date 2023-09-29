@@ -2,6 +2,7 @@
 let
   inherit (lib) mkIf types;
   inherit (lib.ironman) mkBoolOpt mkOpt;
+  inherit (lib.types) lines;
 
   cfg = config.ironman.home.nvim;
   initLua = ''
@@ -524,7 +525,7 @@ let
 
   '';
 in {
-  options.ironman.home.nvim = with types; {
+  options.ironman.home.nvim = {
     enable = mkBoolOpt true "Enable or disable tftp support";
     extraLuaConfig = mkOpt lines initLua "Extra Config";
   };

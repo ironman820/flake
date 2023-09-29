@@ -7,10 +7,6 @@ with lib.ironman;
     suites.workstation = enabled;
     user.name = config.snowfallorg.user.name;
   };
-  programs.git.signing = {
-    key = "~/.ssh/github_home";
-    signByDefault = builtins.stringLength "~/.ssh/github_home" > 0;
-  };
   systemd.user = {
     services = {
       "gotobed" = {

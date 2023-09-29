@@ -1,6 +1,6 @@
 { config, lib, pkgs, system, ... }:
 let
-  inherit (lib) types;
+  inherit (lib) mkIf types;
   inherit (lib.ironman) enabled mkBoolOpt;
   cfg = config.ironman.home.gnome;
 in

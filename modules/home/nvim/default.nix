@@ -558,7 +558,7 @@ in {
     programs.neovim = {
       defaultEditor = true;
       enable = true;
-      extraLuaConfig = mkAliasDefinitions cfg.extraLuaConfig;
+      extraLuaConfig = cfg.extraLuaConfig;
       viAlias = true;
       vimAlias = true;
       vimdiffAlias = true;

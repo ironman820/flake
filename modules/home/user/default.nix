@@ -19,7 +19,7 @@ in
   };
 
   config = mkIf cfg.enable {
-    home = {
+    home = with cfg; {
       username = name;
       homeDirectory = home;
     };

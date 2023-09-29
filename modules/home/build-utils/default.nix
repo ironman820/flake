@@ -10,7 +10,7 @@ in {
   };
 
   config = mkIf cfg.enable {
-    packages = with pkgs; [
+    home.packages = with pkgs; [
       gnumake
     ];
   };

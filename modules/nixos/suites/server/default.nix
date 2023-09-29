@@ -11,15 +11,7 @@ in
   };
 
   config = mkIf cfg.enable {
-    ironman.sops.secrets = {
-      github = {
-        group = config.users.groups.users.name;
-        mode = "0400";
-        path = "/home/${config.ironman.user.name}/.ssh/github";
-        sopsFile = ./secrets/github_servers.age;
-        user = config.ironman.user.name;
-      };
-    };
+    ironman.sops.secrets.github.sopsFile = ./secrets/github_servers.age;
     environment = {
       shellInit = ''
         export NIX_LD=$(cat "${pkgs.stdenv.cc}/nix-support/dynamic-linker")

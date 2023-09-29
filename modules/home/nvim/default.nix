@@ -526,7 +526,7 @@ let
   '';
 in {
   options.ironman.home.nvim = {
-    enable = mkBoolOpt true "Enable or disable tftp support";
+    enable = mkBoolOpt true "Install NeoVim";
     extraLuaConfig = mkOpt lines initLua "Extra Config";
   };
 

@@ -1,8 +1,7 @@
 { config, inputs, lib, options, pkgs, ... }:
 let
-  inherit (lib) mkIf types;
-  inherit (lib.ironman) mkBoolOpt mkOpt;
-  inherit (lib.types) lines;
+  inherit (lib) mkIf;
+  inherit (lib.ironman) mkBoolOpt;
 
   cfg = config.ironman.home.build-utils;
 in {

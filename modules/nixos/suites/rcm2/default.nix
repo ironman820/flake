@@ -3,7 +3,7 @@
 with lib;
 with lib.ironman;
 let
-  cfg = config.ironman.suites.servers.rcm2;
+  cfg = config.ironman.suites.server.rcm2;
   my-python-packages = ps: with ps; [
     asgiref
     black

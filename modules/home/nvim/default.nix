@@ -532,6 +532,9 @@ in {
 
   config = mkIf cfg.enable {
     ironman.home.build-utils = enabled;
+    home.packages = with pkgs; [
+      rnix-lsp
+    ];
     programs.neovim = {
       defaultEditor = true;
       enable = true;

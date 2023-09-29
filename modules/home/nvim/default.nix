@@ -12,10 +12,6 @@ in {
     programs.neovim = {
       defaultEditor = true;
       enable = true;
-      plugins = with pkgs.vimPlugins; [
-        nvchad
-        vim-tmux-navigator
-      ];
       viAlias = true;
       vimAlias = true;
       vimdiffAlias = true;
@@ -23,7 +19,7 @@ in {
     xdg.configFile."nvim" = {
       # mode = "0600";
       recursive = true;
-      source = "${pkgs.vimPlugins.nvchad}";
+      source = mkOutOfStoreSymlink "/home/${config.snowfallorg.user.name}/.config/nvim";
     };
   };
 }

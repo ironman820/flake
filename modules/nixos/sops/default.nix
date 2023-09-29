@@ -23,7 +23,6 @@ in
           user_pass = {
             mode = "0400";
             neededForUsers = true;
-            sopsFile = ./secrets/sops.yaml;
           };
           github = {
             group = config.users.groups.users.name;

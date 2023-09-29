@@ -533,6 +533,7 @@ in {
   config = mkIf cfg.enable {
     ironman.home.build-utils = enabled;
     home.packages = with pkgs; [
+      cargo
       rnix-lsp
     ];
     programs.neovim = {

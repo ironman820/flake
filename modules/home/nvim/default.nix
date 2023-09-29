@@ -549,7 +549,7 @@ let
 
   '';
 in {
-  options.ironman.home.nvim = {
+  options.ironman.home.nvim = with types; {
     enable = mkBoolOpt true "Enable or disable tftp support";
     extraLuaConfig = mkOpt str initLua "Extra Config";
   };

@@ -1,8 +1,7 @@
 { config, lib, pkgs, system, ... }:
-
-with lib;
-with lib.ironman;
 let
+  inherit (lib) types;
+  inherit (lib.ironman) enabled mkBoolOpt;
   cfg = config.ironman.home.gnome;
 in
 {

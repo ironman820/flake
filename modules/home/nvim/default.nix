@@ -537,6 +537,7 @@ in {
       cargo
       nil
       rnix-lsp
+      rustc
     ];
     programs.neovim = {
       defaultEditor = true;

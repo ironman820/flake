@@ -25,8 +25,6 @@ in
             neededForUsers = true;
             sopsFile = ./secrets/sops.yaml;
           };
-        }
-        {
           github = {
             group = config.users.groups.users.name;
             mode = "0400";

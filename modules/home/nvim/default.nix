@@ -19,7 +19,7 @@ in {
     xdg.configFile."nvim" = {
       # mode = "0600";
       recursive = true;
-      source = mkOutOfStoreSymlink "/home/${config.snowfallorg.user.name}/.config/nvim";
+      source = mkOutOfStoreSymlink "/home/${config.snowfallorg.user.name}/.config/flake/modules/home/nvim/config";
     };
   };
 }

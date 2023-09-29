@@ -32,28 +32,28 @@ in
             mode = "0400";
             path = "/home/${config.ironman.user.name}/.ssh/github";
             sopsFile = mkDefault ./secrets/github_home.age;
-            # user = config.ironman.user.name;
+            type = "binary";
           };
           github_home_pub = {
             group = config.users.groups.users.name;
             mode = "0400";
             path = "/home/${config.ironman.user.name}/.ssh/github_home.pub";
             sopsFile = ./secrets/github_home.pub.age;
-            # user = config.ironman.user.name;
+            type = "binary";
           };
           github_servers_pub = {
             group = config.users.groups.users.name;
             mode = "0400";
             path = "/home/${config.ironman.user.name}/.ssh/github_servers.pub";
             sopsFile = ./secrets/github_servers.pub.age;
-            # user = config.ironman.user.name;
+            type = "binary";
           };
           github_work_pub = {
             group = config.users.groups.users.name;
             mode = "0400";
             path = "/home/${config.ironman.user.name}/.ssh/github_work.pub";
             sopsFile = ./secrets/github_work.pub.age;
-            # user = config.ironman.user.name;
+            type = "binary";
           };
         }
       ];

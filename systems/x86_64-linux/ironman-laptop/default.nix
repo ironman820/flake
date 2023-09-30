@@ -1,4 +1,7 @@
 { pkgs, config, lib, ... }:
+let
+  inherit (lib.ironman) enabled;
+in
 {
   imports = [
     ./hardware.nix
@@ -7,10 +10,10 @@
 
   config = {
     ironman = {
-      suites.laptop.enable = true;
-      virtual.podman.enable = true;
+      suites.laptop = enabled;
+      virtual.podman = enabled;
     };
-    stylix.image = ./girl-mech.png;
+    stylix.image = ./scream.jpg;
     system.stateVersion = "23.05";
     zramSwap = {
       enable = true;

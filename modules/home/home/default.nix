@@ -9,79 +9,6 @@ in
       file = {
         ".config/is_personal".text = mkDefault ''true'';
         ".config/is_server".text = mkDefault ''false'';
-        ".justfile".text = ''
-          default:
-            @just --list
-
-          apps:
-            flatpak --user remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
-            flatpak install -uy com.usebottles.bottles
-            flatpak install -uy com.github.tchx84.Flatseal
-
-          bios:
-            systemctl reboot --firmware-setup
-
-          changelogs:
-            rpm-ostree db diff --changelogs
-
-          distrobox-debian:
-            echo 'Creating Debian distrobox ...'
-            distrobox create --image quay.io/toolbx-images/debian-toolbox:unstable -n debian -Y
-
-          distrobox-fedora:
-            ./scripts/just/stop-fedora
-            distrobox create -i fedora -n fedora -Y
-
-          distrobox-opensuse:
-            echo 'Creating openSUSE distrobox ...'
-            distrobox create --image quay.io/toolbx-images/opensuse-toolbox:tumbleweed -n opensuse -Y
-
-          distrobox-u16:
-            ./scripts/just/stop-u16
-            echo 'Creating Ubuntu 16.04 distrobox...'
-            distrobox create --image ghcr.io/ironman820/ubuntu-toolbox:16.04 -n u16 --init-hooks 'echo "$(uname -n)" > /etc/hostname; unset SESSION_MANAGER' -Y
-
-          distrobox-u18:
-            ./scripts/just/stop-u18
-            echo 'Creating Ubuntu 18.04 distrobox...'
-            distrobox create --image ghcr.io/ironman820/ubuntu-toolbox:18.04 -n u18 --init-hooks 'echo "$(uname -n)" > /etc/hostname; unset SESSION_MANAGER' -Y
-
-          distrobox-ubuntu:
-            ./scripts/just/stop-ubuntu
-            echo 'Creating Ubuntu distrobox ...'
-            distrobox create --image ghcr.io/ironman820/ubuntu-toolbox:latest -n ubuntu -I --init-hooks 'echo "$(uname -n)" > /etc/hostname' -Y
-
-          distrobox-universal:
-            echo 'Creating Universal Development distrobox ...'
-            distrobox create --image mcr.microsoft.com/devcontainers/universal:latest -n universal -Y
-
-          switch:
-            flake switch ~/.config/flake#
-
-          touch:
-            pip install --upgrade gnome-extensions-cli
-            gext install improvedosk@nick-shmyrev.dev
-            gext install gestureImprovements@gestures
-
-          update:
-            #!/usr/bin/env bash
-            cd ~/.config/flake
-            flake update
-            flake switch
-            flatpak update -y
-            distrobox upgrade -a
-
-          upgrade:
-            #!/usr/bin/env bash
-            just distrobox-ubuntu
-            just distrobox-u16
-            just distrobox-u18
-            cd ~/.config/flake
-            flake update
-            flake switch
-            flatpak update -y
-            distrobox upgrade -a
-        '';
       };
       packages = (with pkgs; [
         chezmoi
@@ -95,7 +22,6 @@ in
         htop
         inetutils
         jq
-        just
         lazygit
         neofetch
         (nerdfonts.override {
@@ -126,7 +52,6 @@ in
         "cu" = "chezmoi update";
         "df" = "duf";
         "ducks" = "du -chs * 2>/dev/null | sort -rh | head -11 && du -chs .* 2>/dev/null | sort -rh | head -11";
-        "js" = "just switch";
         "nano" = "nvim";
         "pdi" = "podman images";
         "pdo" = "podman images | awk '{print \$3,\$2}' | grep '<none>' | awk '{print \$1}' | xargs -t podman rmi";

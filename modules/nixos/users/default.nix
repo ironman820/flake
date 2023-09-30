@@ -33,7 +33,7 @@ in
     email = mkOpt str "29488820+ironman820@users.noreply.github.com" "The email of the user.";
     initialPassword = mkOpt str "password"
       "The initial password to use when the user is first created.";
-    passFile = mkOpt str "/run/secrets/user_pass" "Password File Path";
+    passFile = mkOpt str "" "Password File Path";
     icon = mkOpt (nullOr package) defaultIcon
       "The profile picture to use for the user.";
     extraGroups = mkOpt (listOf str) [

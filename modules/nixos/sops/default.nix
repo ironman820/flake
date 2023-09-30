@@ -20,10 +20,6 @@ in
       };
       secrets = mkMerge [
         {
-          user_pass = {
-            mode = "0400";
-            neededForUsers = true;
-          };
           github = {
             group = config.users.groups.users.name;
             mode = "0400";

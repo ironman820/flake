@@ -10,7 +10,12 @@ in
   };
   systemd.user = {
     services = {
-      "gotobed" = {
+      "gotobedweekdays" = {
+        Unit.Description = "myalarm Go to bed";
+        Install.WantedBy = [ "default.target" ];
+        Service.ExecStart = ''${pkgs.ironman.myalarm}/bin/myalarm.py "Go To Bed!"'';
+      };
+      "gotobedweekends" = {
         Unit.Description = "myalarm Go to bed";
         Install.WantedBy = [ "default.target" ];
         Service.ExecStart = ''${pkgs.ironman.myalarm}/bin/myalarm.py "Go To Bed!"'';
@@ -18,17 +23,21 @@ in
       "shouldhaveleft" = {
         Unit.Description = "myalarm Leave!";
         Install.WantedBy = [ "default.target" ];
-        Service.ExecStart = ''${pkgs.ironman.myalarm}/bin/myalarm.py "You should have left! GO!"'';
+        Service.ExecStart = ''${pkgs.ironman.myalarm}/bin/myalarm.py "Leave for Work"'';
       };
     };
     timers = {
-      "gotobed" = {
+      "gotobedweekdays" = {
         Install.WantedBy = [ "timers.target" ];
-        Timer.OnCalendar = "Mon..Fri 23:00:00";
+        Timer.OnCalendar = "Mon..Thu,Sun 22:00,15:00";
+      };
+      "gotobedweekends" = {
+        Install.WantedBy = [ "timers.target" ];
+        Timer.OnCalendar = "Fri,Sat 23:00,15:00";
       };
       "shouldhaveleft" = {
         Install.WantedBy = [ "timers.target" ];
-        Timer.OnCalendar = "Mon..Fri 23:00:00";
+        Timer.OnCalendar = "Mon..Fri 07:10,20:00";
       };
     };
   };

@@ -19,7 +19,7 @@ in
     };
     timers."leave" = {
       Install.WantedBy = [ "timers.target" ];
-      Timer.OnCalendar = "Mon..Fri 17:00:00";
+      Timer.OnCalendar = "Mon..Fri 17:00,15:00";
     };
   };
 }

@@ -12,14 +12,18 @@
     python310Packages,
     ...
 }:
-with python310Packages;
+let
+  inherit (python310Packages) buildPythonApplication pydbus six tendo tkinter;
+in
 buildPythonApplication {
   name = "myalarm";
   pname = "myalarm.py";
-  version = "1.0";
+  version = "1.1";
 
   propagatedBuildInputs = ([
     pydbus
+    six
+    tendo
     tkinter
   ]);
 

@@ -5,6 +5,7 @@ import argparse
 from functools import partial
 from math import floor
 from random import choice
+from tendo import singleton
 from threading import Thread
 from tkinter import IntVar, messagebox, Tk
 from tkinter.ttk import Button, Frame, Label, Progressbar, Style
@@ -240,6 +241,7 @@ timer_running: bool = False
 valid_quit: bool = False
 
 if __name__ == '__main__':
+    me = singleton.SingleInstance()
     parser = argparse.ArgumentParser(
         'myalarm',
         description=' '.join(

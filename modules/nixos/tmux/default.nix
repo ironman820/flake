@@ -15,7 +15,7 @@ in {
       enable = true;
       extraConfig = ''
         # Enable Mouse Navigation
-        set -g mouse on
+        # set -g mouse on
 
         # Alt+H/L to navigate Windows
         bind -n M-H previous-window

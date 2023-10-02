@@ -53,6 +53,7 @@
       allowUnfree = true;
       permittedInsecurePackages = [
         "openssl-1.1.1v"
+        "teams-1.5.00.23861"
       ];
     };
 

@@ -15,14 +15,9 @@ in
         dig
         duf
         fzf
-        git
-        git-filter-repo
-        github-cli
-        glab
         htop
         inetutils
         jq
-        lazygit
         neofetch
         (nerdfonts.override {
           fonts = [
@@ -52,7 +47,6 @@ in
         "cu" = "chezmoi update";
         "df" = "duf";
         "ducks" = "du -chs * 2>/dev/null | sort -rh | head -11 && du -chs .* 2>/dev/null | sort -rh | head -11";
-        "nano" = "nvim";
         "pdi" = "podman images";
         "pdo" = "podman images | awk '{print \$3,\$2}' | grep '<none>' | awk '{print \$1}' | xargs -t podman rmi";
         "pdr" = "podman rmi";
@@ -96,28 +90,6 @@ in
         ];
         git = true;
         icons = true;
-      };
-      git = {
-        aliases = {
-          pushall = "!git remote | xargs -L1 git push --all";
-          graph = "log --decorate --oneline --graph";
-          add-nowhitespace = "!git diff -U0 -w --no-color | git apply --cached --ignore-whitespace --undiff-zero -";
-        };
-        diff-so-fancy = enabled;
-        enable = true;
-        extraConfig = {
-          feature.manyFiles = true;
-          init.defaultBranch = "main";
-          gpg.format = "ssh";
-        };
-        ignores = [ ".direnv" "result" ];
-        lfs = enabled;
-        signing = {
-          key = "~/.ssh/github";
-          signByDefault = true;
-        };
-        userName = config.ironman.home.user.fullName;
-        userEmail = config.ironman.home.user.email;
       };
       gpg = {
         enable = true;

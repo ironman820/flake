@@ -24,11 +24,5 @@ in
         zoom-us
       ]);
     };
-    programs = {
-      git = {
-        userName = config.ironman.home.user.fullName;
-        userEmail = config.ironman.home.user.email;
-      };
-    };
   };
 }

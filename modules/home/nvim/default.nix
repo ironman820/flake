@@ -14,6 +14,7 @@ let
     require "lazy-config"
     require "autopairs-config"
     require "bufferline-config"
+    require "dressing-config"
     require "git-config"
     require "hop-config"
     require "indentline-config"

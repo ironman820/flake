@@ -47,4 +47,4 @@ opt.wrap = true -- Line wrap
 -- Fix markdown indentation settings
 vim.g.markdown_recommended_style = 0
 
-vim.cmd[[colorscheme tokyonight-night]] -- Color scheme
+vim.cmd[[colorscheme codedark]] -- Color scheme

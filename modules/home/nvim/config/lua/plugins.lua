@@ -10,10 +10,17 @@ return {
   },
   -- Color Scheme
   {
-    "folke/tokyonight.nvim",
+    -- "folke/tokyonight.nvim",
+    -- opts = {},
+    -- "lunarvim/synthwave84.nvim",
+    "tomasiser/vim-code-dark",
     lazy = false,
     priority = 1000,
-    opts = {},
+  },
+  -- Dressing
+  {
+    "stevearc/dressing.nvim",
+    lazy = true,
   },
   -- Git Integration
   {
@@ -41,9 +48,10 @@ return {
       "hrsh7th/nvim-cmp",
       "hrsh7th/cmp-nvim-lsp",
       "hrsh7th/cmp-buffer",
-      "hrsh7th/cmp-path",
+      "FelipeLema/cmp-async-path",
       "saadparwaiz1/cmp_luasnip",
       "hrsh7th/cmp-nvim-lua",
+      "chrisgrieser/cmp-nerdfont",
       -- Snippets
       "L3MON4D3/LuaSnip",
       "rafamadriz/friendly-snippets",

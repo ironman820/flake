@@ -1,6 +1,7 @@
 { config, format, home, host, inputs, lib, pkgs, systems, target, virtual, ...}:
-with lib;
-with lib.ironman;
+let
+  inherit (lib.ironman) enabled;
+in
 {
   ironman.home = {
     suites.virtual-workstation = enabled;

@@ -1,21 +1,23 @@
--- local status_ok, nvim_tree = pcall(require, "nvim-tree")
--- if not status_ok then
---   return
--- end
--- 
--- local config_status_ok, nvim_tree_config = pcall(require, "nvim-tree.config")
--- if not config_status_ok then
---   return
--- end
--- 
--- local tree_cb = nvim_tree_config.nvim_tree_callback
+vim.g.loaded_netrw = 1
+vim.g.loaded_netrwPlugin = 1
+vim.opt.termguicolors = true
 
 require("nvim-tree").setup({
-  update_focused_file = {
+  diagnostics = {
     enable = true,
-    update_cwd = true,
+    show_on_dirs = true,
+    icons = {
+      hint = "H",
+      info = "",
+      warning = "",
+      error = "",
+    },
+  },
+  filters = {
+    dotfiles = true,
   },
   renderer = {
+    group_empty = true,
     highlight_git = true,
  -- These icons are visible when you install web-devicons
     icons = {
@@ -45,15 +47,9 @@ require("nvim-tree").setup({
     },
     root_folder_modifier = ":t",
   },
-  diagnostics = {
+  update_focused_file = {
     enable = true,
-    show_on_dirs = true,
-    icons = {
-      hint = "H",
-      info = "",
-      warning = "",
-      error = "",
-    },
+    update_cwd = true,
   },
   view = {
     width = 30,

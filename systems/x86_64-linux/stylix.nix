@@ -1,4 +1,7 @@
-{ pkgs, ... }:
+{ lib, pkgs, ... }:
+let
+  inherit (lib) mkForce;
+in
 {
   config = {
     stylix = {
@@ -14,8 +17,8 @@
         };
 
         monospace = {
-          package = pkgs.nerdfonts;
-          name = "Inconsolata Nerd Font Mono Regular";
+          package = mkForce pkgs.nerdfonts;
+          name = mkForce "Inconsolata Nerd Font Mono Regular";
         };
 
         emoji = {

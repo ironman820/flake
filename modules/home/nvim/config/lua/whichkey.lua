@@ -80,7 +80,7 @@ local opts = {
 
 local mappings = {
 
-  e = { "<cmd>NvimTreeToggle<cr>", "Explorer" },
+  e = { "<cmd>NvimTreeFocus<cr>", "Explorer" },
   f = {
     name = "[F]ile",
     c = { "<cmd>bd<cr>", "[C]lose" },

@@ -1,13 +1,12 @@
 { config, lib, pkgs, system, ... }:
-
-with lib;
-with lib.ironman;
 let
+  inherit (lib) mkEnableOption mkIf;
+  inherit (lib.ironman) disabled enabled;
   cfg = config.ironman.gnome;
 in
 {
-  options.ironman.gnome = with types; {
-    enable = mkBoolOpt false "Enable the default settings?";
+  options.ironman.gnome = {
+    enable = mkEnableOption "Enable the default settings?";
   };
 
   config = mkIf cfg.enable {

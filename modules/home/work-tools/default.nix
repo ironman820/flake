@@ -1,14 +1,11 @@
 { options, pkgs, config, lib, inputs, ... }:
-
-with lib;
-with lib.ironman;
-# with lib.internal;
 let
+  inherit (lib) mkEnableOption mkIf;
   cfg = config.ironman.home.work-tools;
 in
 {
-  options.ironman.home.work-tools = with types; {
-    enable = mkBoolOpt false "Enable the Work Machine Tools";
+  options.ironman.home.work-tools = {
+    enable = mkEnableOption "Enable the Work Machine Tools";
   };
 
   config = mkIf cfg.enable {

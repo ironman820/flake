@@ -1,12 +1,12 @@
 { config, lib, pkgs, system, ... }:
 let
-  inherit (lib) mkIf types;
-  inherit (lib.ironman) enabled mkBoolOpt;
+  inherit (lib) mkEnableOption mkIf;
+  inherit (lib.ironman) disabled enabled;
   cfg = config.ironman.home.gnome;
 in
 {
   options.ironman.home.gnome = {
-    enable = mkBoolOpt false "Enable the default settings?";
+    enable = mkEnableOption "Enable the default settings?";
   };
 
   config = mkIf cfg.enable {
@@ -44,7 +44,7 @@ in
       "org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0" = {
         binding = "<Super>t";
         name = "Console";
-        command = "kgx";
+        command = "kitty";
       };
       "org/gnome/shell" = {
         disable-user-extensions = false;

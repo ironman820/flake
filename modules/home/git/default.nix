@@ -3,7 +3,6 @@ let
   inherit (config.lib.file) mkOutOfStoreSymlink;
   inherit (lib) mkIf;
   inherit (lib.ironman) enabled mkBoolOpt;
-
   cfg = config.ironman.home.git;
 in {
   options.ironman.home.git = {

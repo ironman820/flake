@@ -1,7 +1,7 @@
 { config, inputs, lib, options, pkgs, ... }:
-with lib;
-with lib.ironman;
 let
+  inherit (lib) mkIf;
+  inherit (lib.ironman) enabled mkBoolOpt;
   cfg = config.ironman.nix-ld;
 in {
   options.ironman.nix-ld = {

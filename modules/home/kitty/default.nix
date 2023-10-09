@@ -13,8 +13,10 @@ in {
     extraConfig = mkOpt lines '''' "Extra configuration options";
     settings = mkOpt attrs {
       background_opacity = mkForce "0.9";
+      cursor_shape = "beam";
       # hide_window_decorations = "yes";
       scrollback_lines = 10000;
+      scrollback_pager = "bat";
       update_check_interval = 0;
     } "Settings from the kitty config file";
   };

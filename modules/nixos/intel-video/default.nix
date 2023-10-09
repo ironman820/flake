@@ -1,13 +1,12 @@
 { config, lib, pkgs, system, ... }:
-
-with lib;
-with lib.ironman;
 let
+  inherit (lib) mkEnableOption mkIf;
+  inherit (lib.ironman) enabled;
   cfg = config.ironman.intel-video;
 in
 {
-  options.ironman.intel-video = with types; {
-    enable = mkBoolOpt false "Enable the default settings?";
+  options.ironman.intel-video = {
+    enable = mkEnableOption "Enable the default settings?";
   };
 
   config = mkIf cfg.enable {

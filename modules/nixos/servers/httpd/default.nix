@@ -1,13 +1,14 @@
 { config, inputs, lib, options, pkgs, ... }:
-with lib;
-with lib.ironman;
 let
+  inherit (lib) mkAliasDefinitions mkEnableOption mkIf mkMerge;
+  inherit (lib.ironman) mkOpt;
+  inherit (lib.types) attrs;
   cfg = config.ironman.servers.httpd;
   php = config.ironman.servers.php;
 in
 {
-  options.ironman.servers.httpd = with types; {
-    enable = mkBoolOpt false "Enable or disable tftp support";
+  options.ironman.servers.httpd = {
+    enable = mkEnableOption "Enable or disable tftp support";
     virtualHosts = mkOpt attrs { } "List of virtual host settings";
   };
 

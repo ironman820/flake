@@ -1,13 +1,12 @@
 { config, lib, pkgs, system, ... }:
-
-with lib;
-with lib.ironman;
 let
+  inherit (lib) mkEnableOption mkIf;
+  inherit (lib.ironman) enabled;
   cfg = config.ironman.home.suites.workstation;
 in
 {
-  options.ironman.home.suites.workstation = with types; {
-    enable = mkBoolOpt false "Enable the default settings?";
+  options.ironman.home.suites.workstation = {
+    enable = mkEnableOption "Enable the default settings?";
   };
 
   config = mkIf cfg.enable {

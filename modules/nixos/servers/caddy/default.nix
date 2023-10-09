@@ -1,12 +1,13 @@
 { config, inputs, lib, options, pkgs, ... }:
-with lib;
-with lib.ironman;
 let
+  inherit (lib) mkAliasDefinitions mkEnableOption mkIf;
+  inherit (lib.ironman) mkOpt;
+  inherit (lib.types) attrs;
   cfg = config.ironman.servers.caddy;
 in
 {
-  options.ironman.servers.caddy = with types; {
-    enable = mkBoolOpt false "Enable Caddy";
+  options.ironman.servers.caddy = {
+    enable = mkEnableOption "Enable Caddy";
     virtualHosts = mkOpt attrs { } "List of virtual host settings";
   };
 

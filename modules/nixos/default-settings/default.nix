@@ -1,12 +1,11 @@
 { config, lib, pkgs, system, ... }:
-
-with lib;
-with lib.ironman;
 let
+  inherit (lib) mkDefault mkIf;
+  inherit (lib.ironman) enabled mkBoolOpt;
   cfg = config.ironman.default-settings;
 in
 {
-  options.ironman.default-settings = with types; {
+  options.ironman.default-settings = {
     enable = mkBoolOpt true "Enable the default settings?";
   };
 
@@ -32,7 +31,7 @@ in
         age
         fzf
         git-extras
-        ironman.myalarm
+        ironman.blockyalarm
         (nerdfonts.override {
           fonts = [
             "FiraCode"

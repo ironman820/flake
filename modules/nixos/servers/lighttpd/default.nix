@@ -1,12 +1,13 @@
 { config, inputs, lib, options, pkgs, ... }:
-with lib;
-with lib.ironman;
 let
+  inherit (lib) mkAliasDefinitions mkEnableOption mkIf;
+  inherit (lib.ironman) mkOpt;
+  inherit (lib.types) str;
   cfg = config.ironman.servers.lighttpd;
 in
 {
-  options.ironman.servers.lighttpd = with types; {
-    enable = mkBoolOpt false "Enable or disable tftp support";
+  options.ironman.servers.lighttpd = {
+    enable = mkEnableOption "Enable or disable tftp support";
     root = mkOpt str "" "HTTP Document Root";
   };
 

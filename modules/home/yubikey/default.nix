@@ -1,13 +1,11 @@
 { config, lib, pkgs, system, ... }:
-
-with lib;
-with lib.ironman;
 let
+  inherit (lib) mkEnableOption mkIf;
   cfg = config.ironman.home.yubikey;
 in
 {
-  options.ironman.home.yubikey = with types; {
-    enable = mkBoolOpt false "Enable the default settings?";
+  options.ironman.home.yubikey = {
+    enable = mkEnableOption "Enable the default settings?";
   };
 
   config = mkIf cfg.enable {

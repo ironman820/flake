@@ -1,12 +1,12 @@
 { config, inputs, lib, options, pkgs, ... }:
-with lib;
-with lib.ironman;
 let
+  inherit (lib) mkEnableOption mkIf;
+  inherit (lib.ironman) enabled;
   cfg = config.ironman.firmware;
 in
 {
   options.ironman.firmware = {
-    enable = mkBoolOpt false "Enable or disable firmware support";
+    enable = mkEnableOption "Enable or disable firmware support";
   };
 
   config = mkIf cfg.enable {

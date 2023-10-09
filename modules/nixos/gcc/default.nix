@@ -1,12 +1,11 @@
 { config, inputs, lib, options, pkgs, ... }:
-with lib;
-with lib.ironman;
 let
+  inherit (lib) mkEnableOption mkIf;
   cfg = config.ironman.gcc;
 in
 {
   options.ironman.gcc = {
-    enable = mkBoolOpt false "Enable gcc utilities";
+    enable = mkEnableOption "Enable gcc utilities";
   };
 
   config = mkIf cfg.enable {

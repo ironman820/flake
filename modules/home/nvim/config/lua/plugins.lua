@@ -52,6 +52,7 @@ return {
       "saadparwaiz1/cmp_luasnip",
       "hrsh7th/cmp-nvim-lua",
       "chrisgrieser/cmp-nerdfont",
+      "lukas-reineke/cmp-rg",
       -- Snippets
       "L3MON4D3/LuaSnip",
       "rafamadriz/friendly-snippets",

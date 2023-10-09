@@ -1,9 +1,10 @@
 { config, format, home, host, inputs, lib, pkgs, systems, target, virtual, ...}:
-with lib;
-with lib.ironman;
+let
+  inherit (lib.ironman) enabled;
+in
 {
   ironman.home = {
-    personal-apps.enable = true;
+    personal-apps = enabled;
     suites.virtual-workstation = enabled;
     user.name = config.snowfallorg.user.name;
   };

@@ -1,12 +1,11 @@
 { pkgs, config, lib, ...}:
-
-with lib;
-with lib.ironman;
 let
+  inherit (lib) mkEnableOption mkIf mkMerge;
+  inherit (lib.ironman) mkBoolOpt;
   cfg = config.ironman.home.video-tools;
 in {
-  options.ironman.home.video-tools = with types; {
-    enable = mkBoolOpt false "Enable video editing tools like ffmpeg.";
+  options.ironman.home.video-tools = {
+    enable = mkEnableOption "Enable video editing tools like ffmpeg.";
     handbrake = mkBoolOpt false "Install Handbrake";
   };
 

@@ -1,12 +1,13 @@
 { config, inputs, lib, options, pkgs, ... }:
-with lib;
-with lib.ironman;
 let
+  inherit (lib) mkEnableOption mkIf;
+  inherit (lib.ironman) enabled mkBoolOpt mkOpt;
+  inherit (lib.types) either str path;
   cfg = config.ironman.servers.git;
 in
 {
-  options.ironman.servers.git = with types; {
-    enable = mkBoolOpt false "Enable or disable gitlab";
+  options.ironman.servers.git = {
+    enable = mkEnableOption "Enable or disable gitlab";
     databasePassFile = mkOpt (either str path) "" "File with the database password";
     ipAddress = mkOpt str "" "IP address for gitlab instance";
     host = mkOpt str config.system.name "Hostname for gitlab instance";

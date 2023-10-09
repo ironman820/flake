@@ -2,6 +2,10 @@
   description = "My Nix Flakes";
 
   inputs = {
+    blockyalarm = {
+      inputs.nixpkgs.follows = "nixpkgs";
+      url = "github:ironman820/blockyalarm";
+    };
     flake = {
       inputs.nixpkgs.follows = "nixpkgs";
       url = "github:snowfallorg/flake";
@@ -59,6 +63,7 @@
 
     overlays = with inputs; [
       flake.overlays.default
+      blockyalarm.overlays."package/blockyalarm"
     ];
 
     systems.modules = {

@@ -61,6 +61,10 @@ cmp.setup({
     {name = 'nvim_lua'},
     {name = 'luasnip'},
     {name = 'buffer'},
+    {
+      name = 'rg',
+      keyword_length = 3,
+    },
     {name = 'async_path'},
     {name = 'nerdfont'},
   },

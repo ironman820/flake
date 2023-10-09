@@ -1,10 +1,11 @@
 { config, format, home, host, inputs, lib, pkgs, systems, target, virtual, ...}:
 let
   inherit (lib.ironman) enabled;
+  inherit (pkgs.ironman) blockyalarm;
 in
 {
   ironman.home = {
-    personal-apps.enable = true;
+    personal-apps = enabled;
     suites.workstation = enabled;
     user = enabled;
   };
@@ -13,17 +14,17 @@ in
       "gotobedweekdays" = {
         Unit.Description = "myalarm Go to bed";
         Install.WantedBy = [ "default.target" ];
-        Service.ExecStart = ''${pkgs.ironman.myalarm}/bin/myalarm.py "Go To Bed!"'';
+        Service.ExecStart = ''${blockyalarm}/bin/blockyalarm "Go To Bed!"'';
       };
       "gotobedweekends" = {
         Unit.Description = "myalarm Go to bed";
         Install.WantedBy = [ "default.target" ];
-        Service.ExecStart = ''${pkgs.ironman.myalarm}/bin/myalarm.py "Go To Bed!"'';
+        Service.ExecStart = ''${blockyalarm}/bin/blockyalarm "Go To Bed!"'';
       };
       "shouldhaveleft" = {
         Unit.Description = "myalarm Leave!";
         Install.WantedBy = [ "default.target" ];
-        Service.ExecStart = ''${pkgs.ironman.myalarm}/bin/myalarm.py "Leave for Work"'';
+        Service.ExecStart = ''${blockyalarm}/bin/blockyalarm "Leave for Work"'';
       };
     };
     timers = {

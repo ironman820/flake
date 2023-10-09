@@ -1,14 +1,14 @@
 
 { config, lib, pkgs, system, ... }:
-
-with lib;
-with lib.ironman;
 let
+  inherit (lib) mkEnableOption mkIf;
+  inherit (lib.ironman) mkOpt;
+  inherit (lib.types) int str;
   cfg = config.ironman.nix;
 in
 {
-  options.ironman.nix = with types; {
-    enable = mkBoolOpt false "Enable NIX settings.";
+  options.ironman.nix = {
+    enable = mkEnableOption "Enable NIX settings.";
     gc = {
       dates = mkOpt str "weekly" "Dates to run GC";
       options = mkOpt str "--delete-older-than 7d" "Extra Garbage Collect Options.";

@@ -1,12 +1,13 @@
 { config, inputs, lib, options, pkgs, ... }:
-with lib;
-with lib.ironman;
 let
+  inherit (lib) mkAliasDefinitions mkEnableOption mkIf;
+  inherit (lib.ironman) mkOpt;
+  inherit (lib.types) str;
   cfg = config.ironman.servers.nfs;
 in
 {
-  options.ironman.servers.nfs = with types; {
-    enable = mkBoolOpt false "Enable or disable tftp support";
+  options.ironman.servers.nfs = {
+    enable = mkEnableOption "Enable or disable tftp support";
     exports = mkOpt str "" "NFS Export Definitions";
   };
 

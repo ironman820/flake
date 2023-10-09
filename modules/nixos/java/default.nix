@@ -1,12 +1,11 @@
 { config, inputs, lib, options, pkgs, ... }:
-with lib;
-with lib.ironman;
 let
+  inherit (lib) mkEnableOption mkIf;
   cfg = config.ironman.java;
 in
 {
   options.ironman.java = {
-    enable = mkBoolOpt false "Enable or disable java support";
+    enable = mkEnableOption "Enable or disable java support";
   };
 
   config = mkIf cfg.enable {

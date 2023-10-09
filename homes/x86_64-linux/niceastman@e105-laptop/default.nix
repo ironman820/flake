@@ -13,9 +13,9 @@ in
   };
   systemd.user = {
     services."leave" = {
-      Unit.Description = "myalarm Go Home";
+      Unit.Description = "blockyalarm Go Home";
       Install.WantedBy = [ "default.target" ];
-      Service.ExecStart = ''${pkgs.ironman.myalarm}/bin/myalarm.py "Get out of the office!"'';
+      Service.ExecStart = ''${pkgs.ironman.blockyalarm}/bin/blockyalarm "Get out of the office!"'';
     };
     timers."leave" = {
       Install.WantedBy = [ "timers.target" ];

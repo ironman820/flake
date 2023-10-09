@@ -1,6 +1,5 @@
 { config, inputs, lib, options, pkgs, ... }:
 let
-  # inherit (config.lib.file) mkOutOfStoreSymlink;
   inherit (lib) mkIf;
   inherit (lib.ironman) enabled mkBoolOpt mkOpt;
   inherit (lib.types) either int lines listOf package str submodule;
@@ -16,7 +15,7 @@ in {
     historyLimit = mkOpt int 10000 "The number of lines to keep in scrollback history";
     keyMode = mkOpt str "vi" "Key style used for control";
     secureSocket = mkBoolOpt false "Use a secure socket to connect.";
-    shortcut = mkOpt str "t" "Default leader key that will be paired with <Ctrl>";
+    shortcut = mkOpt str "Space" "Default leader key that will be paired with <Ctrl>";
   };
 
   config = mkIf cfg.enable {
@@ -26,16 +25,8 @@ in {
         bind-key -T copy-mode-vi v send-keys -X begin-selection
         bind-key -T copy-mode-vi C-v send-keys -X rectangle-toggle
         bind-key -T copy-mode-vi y send-keys -X copy-selection-and-cancel
+        set-option -sa terminal-features ',xterm-kitty:RGB'
       '';
-    };
-    home = {
-      file = {
-        # ".config/lazygit/config.yml".source = mkOutOfStoreSymlink "${config.home.homeDirectory}/.config/flake/modules/home/git/lazygit.yml";
-      };
-      packages = with pkgs; [
-      ];
-      shellAliases = {
-      };
     };
     programs.tmux = {
       inherit (cfg) baseIndex clock24 extraConfig historyLimit keyMode secureSocket shortcut;

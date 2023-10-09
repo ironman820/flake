@@ -1,11 +1,12 @@
 { config, inputs, lib, options, pkgs, ... }:
-with lib;
-with lib.ironman;
 let
+  inherit (lib) mkAliasDefinitions mkIf;
+  inherit (lib.ironman) mkBoolOpt mkOpt;
+  inherit (lib.types) int listOf str;
   cfg = config.ironman.networking;
 in
 {
-  options.ironman.networking = with types; {
+  options.ironman.networking = {
     address = mkOpt str "" "IP Address";
     dhcp = mkBoolOpt true "Enable DHCP?";
     enable = mkBoolOpt true "Enable or disable extra networking support";

@@ -1,13 +1,11 @@
 { config, lib, options, pkgs, system, ... }:
-
-with lib;
-with lib.ironman;
 let
+  inherit (lib) mkEnableOption mkIf;
   cfg = config.ironman.home.suites.server.rcm2;
 in
 {
-  options.ironman.home.suites.server.rcm2 = with types; {
-    enable = mkBoolOpt false "Enable the suite";
+  options.ironman.home.suites.server.rcm2 = {
+    enable = mkEnableOption "Enable the suite";
   };
 
   config = mkIf cfg.enable {

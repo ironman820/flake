@@ -56,7 +56,7 @@
     channels-config = {
       allowUnfree = true;
       permittedInsecurePackages = [
-        "openssl-1.1.1v"
+        "openssl-1.1.1w"
         "teams-1.5.00.23861"
       ];
     };

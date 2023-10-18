@@ -20,6 +20,7 @@ in {
       ];
       shellAliases = {
         "js" = "just switch";
+        "ju" = "just update";
       };
     };
   };

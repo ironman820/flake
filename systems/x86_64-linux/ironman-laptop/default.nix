@@ -11,7 +11,6 @@ in
   config = {
     ironman = {
       suites.laptop = enabled;
-      virtual.podman = enabled;
     };
     stylix.image = ./scream.jpg;
     system.stateVersion = "23.05";

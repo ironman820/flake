@@ -47,9 +47,6 @@ in
         "cu" = "chezmoi update";
         "df" = "duf";
         "ducks" = "du -chs * 2>/dev/null | sort -rh | head -11 && du -chs .* 2>/dev/null | sort -rh | head -11";
-        "pdi" = "podman images";
-        "pdo" = "podman images | awk '{print \$3,\$2}' | grep '<none>' | awk '{print \$1}' | xargs -t podman rmi";
-        "pdr" = "podman rmi";
         "cat" = "bat";
       };
       stateVersion = "23.05";

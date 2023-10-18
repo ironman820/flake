@@ -13,7 +13,6 @@ with lib.ironman;
       suites.laptop = enabled;
       user.name = "niceastman";
       work-tools = enabled;
-      virtual.podman = enabled;
       wireless-profiles.work = true;
     };
     stylix.image = ./voidbringer.png;

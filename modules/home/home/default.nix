@@ -47,7 +47,6 @@ in
         "cu" = "chezmoi update";
         "df" = "duf";
         "ducks" = "du -chs * 2>/dev/null | sort -rh | head -11 && du -chs .* 2>/dev/null | sort -rh | head -11";
-        "cat" = "bat";
       };
       stateVersion = "23.05";
     };
@@ -65,16 +64,6 @@ in
         enable = true;
         enableCompletion = true;
         enableVteIntegration = true;
-      };
-      bat = {
-        config.theme = "TwoDark";
-        enable = true;
-        extraPackages = with pkgs.bat-extras; [
-          batdiff
-          batman
-          batgrep
-          batwatch
-        ];
       };
       dircolors = enabled;
       direnv = enabled;

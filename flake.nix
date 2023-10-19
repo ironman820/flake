@@ -67,6 +67,8 @@
     ];
 
     systems.modules = {
+      home = with inputs; [
+      ];
       nixos = with inputs; [
         nix-ld.nixosModules.nix-ld
         sops-nix.nixosModules.sops

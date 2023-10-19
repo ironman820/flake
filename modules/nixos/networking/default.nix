@@ -1,9 +1,10 @@
 { config, inputs, lib, options, pkgs, ... }:
 let
-  inherit (lib) mkAliasDefinitions mkIf;
+  inherit (lib) mkAliasDefinitions mkEnableOption mkIf mkMerge;
   inherit (lib.ironman) mkBoolOpt mkOpt;
   inherit (lib.types) int listOf str;
   cfg = config.ironman.networking;
+  nm = config.ironman.networking.networkmanager;
 in
 {
   options.ironman.networking = {
@@ -15,9 +16,22 @@ in
     nameservers = mkOpt (listOf str) [ ] "Nameservers";
     network = mkOpt str "" "Network listing used for services.";
     prefix = mkOpt int 24 "Subnet Mask Prefix";
+    networkmanager = {
+      enable = mkEnableOption "Enable NetworkManager";
+      applet = mkBoolOpt true "Enable networkmanager applet";
+    };
   };
 
   config = mkIf cfg.enable {
+    environment = mkIf (nm.enable && nm.applet) {
+      systemPackages = mkMerge [
+        (mkIf config.ironman.gnome.enable [ pkgs.networkmanagerapplet ])
+        (mkIf config.ironman.hyprland.enable [pkgs.networkmanager_dmenu])
+      ];
+    };
+    ironman.user.extraGroups = mkIf nm.enable [
+      "networkmanager"
+    ];
     networking = {
       defaultGateway = mkIf (cfg.dhcp == false) {
         address = cfg.gateway;
@@ -32,6 +46,13 @@ in
         ];
       };
       nameservers = mkAliasDefinitions options.ironman.networking.nameservers;
+      networkmanager = mkIf nm.enable {
+        enable = true;
+        plugins = mkMerge [
+        (mkIf config.ironman.gnome.enable [pkgs.gnome.networkmanager-openvpn])
+        (mkIf config.ironman.hyprland.enable [pkgs.networkmanager-openvpn])
+       ];
+      };
     };
   };
 }

@@ -5,6 +5,8 @@ let
 in
 {
   ironman.home = {
+    hyprland = enabled;
+    networking = enabled;
     personal-apps = enabled;
     suites.workstation = enabled;
     user = enabled;

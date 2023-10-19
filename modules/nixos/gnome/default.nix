@@ -21,23 +21,13 @@ in
       ]);
       systemPackages = with pkgs; [
         gnome.seahorse
-        networkmanagerapplet
       ];
     };
     hardware.pulseaudio = disabled;
-    ironman.user.extraGroups = [
-      "networkmanager"
-    ];
     networking = {
       firewall.allowedUDPPorts = [
         5678
       ];
-      networkmanager = {
-        enable = true;
-        plugins = with pkgs.gnome; [
-          networkmanager-openvpn
-        ];
-      };
     };
     programs = {
       dconf = enabled;
@@ -57,10 +47,9 @@ in
       udev.packages = with pkgs.gnome; [ gnome-settings-daemon ];
       xserver = {
         desktopManager.gnome = enabled;
-        displayManager = {
-          defaultSession = "gnome";
-          gdm = enabled;
-        };
+        # displayManager = {
+        #   gdm = enabled;
+        # };
         enable = true;
         layout = "us";
       };

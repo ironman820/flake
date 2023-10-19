@@ -4,12 +4,12 @@ let
 in
 {
   home.file.".config/is_personal".text = ''false'';
-  ironman = {
-    home = {
-      suites.workstation = enabled;
-      user = enabled;
-      work-tools = enabled;
-    };
+  ironman.home = {
+    hyprland = enabled;
+    networking = enabled;
+    suites.workstation = enabled;
+    user = enabled;
+    work-tools = enabled;
   };
   systemd.user = {
     services."leave" = {

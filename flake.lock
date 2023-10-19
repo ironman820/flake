@@ -305,26 +305,6 @@
         "type": "github"
       }
     },
-    "nix-index-database": {
-      "inputs": {
-        "nixpkgs": [
-          "nixpkgs"
-        ]
-      },
-      "locked": {
-        "lastModified": 1697340827,
-        "narHash": "sha256-XlrR68N7jyaZ0bs8TPrhqcWG0IPG3pbjrKzJMpYOsos=",
-        "owner": "mic92",
-        "repo": "nix-index-database",
-        "rev": "29977d0796c058bbcfb2df5b18eb5badf1711007",
-        "type": "github"
-      },
-      "original": {
-        "owner": "mic92",
-        "repo": "nix-index-database",
-        "type": "github"
-      }
-    },
     "nix-ld": {
       "inputs": {
         "nixpkgs": [
@@ -429,7 +409,6 @@
         "blockyalarm": "blockyalarm",
         "flake": "flake",
         "home-manager": "home-manager",
-        "nix-index-database": "nix-index-database",
         "nix-ld": "nix-ld",
         "nixos-hardware": "nixos-hardware",
         "nixpkgs": "nixpkgs",
@@ -438,6 +417,7 @@
         "snowfall-lib": "snowfall-lib_3",
         "sops-nix": "sops-nix",
         "stylix": "stylix",
+        "tokyo-night-sddm": "tokyo-night-sddm",
         "unstable": "unstable_2"
       }
     },
@@ -581,6 +561,22 @@
       "original": {
         "owner": "nix-systems",
         "repo": "default",
+        "type": "github"
+      }
+    },
+    "tokyo-night-sddm": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1686823900,
+        "narHash": "sha256-JRVVzyefqR2L3UrEK2iWyhUKfPMUNUnfRZmwdz05wL0=",
+        "owner": "rototrash",
+        "repo": "tokyo-night-sddm",
+        "rev": "320c8e74ade1e94f640708eee0b9a75a395697c6",
+        "type": "github"
+      },
+      "original": {
+        "owner": "rototrash",
+        "repo": "tokyo-night-sddm",
         "type": "github"
       }
     },

@@ -1,6 +1,7 @@
 { config, format, inputs, lib, pkgs, system, systems, target, virtual, ... }:
-with lib;
-with lib.ironman;
+let
+  inherit (lib.ironman) enabled;
+in
 {
   imports = [
     ./hardware.nix
@@ -9,6 +10,9 @@ with lib.ironman;
 
   config = {
     ironman = {
+      hyprland = enabled;
+      networking.networkmanager = enabled;
+      sddm = enabled;
       sops.secrets.github.sopsFile = ./secrets/github_work.age;
       suites.laptop = enabled;
       user.name = "niceastman";

@@ -36,6 +36,10 @@
       inputs.nixpkgs.follows = "nixpkgs";
       url = "github:danth/stylix/release-23.05";
     };
+    tokyo-night-sddm = {
+      flake = false;
+      url = "github:rototrash/tokyo-night-sddm";
+    };
     unstable.url = "github:nixos/nixpkgs/nixos-unstable";
   };
 

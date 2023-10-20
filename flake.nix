@@ -2,17 +2,12 @@
   description = "My Nix Flakes";
 
   inputs = {
-    blockyalarm = {
-      inputs.nixpkgs.follows = "nixpkgs";
-      url = "github:ironman820/blockyalarm";
-    };
     flake = {
       inputs.nixpkgs.follows = "nixpkgs";
       url = "github:snowfallorg/flake";
     };
-    home-manager = {
-      inputs.nixpkgs.follows = "nixpkgs";
-      url = "github:nix-community/home-manager/release-23.05";
+    hyprland = {
+      url = "github:hyprwm/Hyprland/5b8cfdf";
     };
     nix-ld = {
       inputs.nixpkgs.follows = "nixpkgs";
@@ -20,6 +15,7 @@
     };
     nixos-hardware.url = "github:nixos/nixos-hardware";
     nixpkgs.url = "github:nixos/nixpkgs/nixos-23.05";
+    nixpkgs-22-05.url = "github:nixos/nixpkgs/nixos-22.05";
     # acc5f7b - IcedTea v8 Stable
     nixpkgs-acc5f7b.url = "github:nixos/nixpkgs/acc5f7b";
     # ba45a55 - The last stable update of PHP 7.4
@@ -41,6 +37,10 @@
       url = "github:rototrash/tokyo-night-sddm";
     };
     unstable.url = "github:nixos/nixpkgs/nixos-unstable";
+    watershot = {
+      inputs.nixpkgs.follows = "unstable";
+      url = "github:kirottu/watershot";
+    };
   };
 
   outputs = inputs: let
@@ -63,16 +63,14 @@
         "openssl-1.1.1w"
         "teams-1.5.00.23861"
       ];
+      substituters = ["https://hyprland.cachix.org"];
+      trusted-public-keys = ["hyprland.cachix.org-1:a7pgxzMz7+chwVL3/pzj6jIBMioiJM7ypFP8PwtkuGc="];
     };
 
     overlays = with inputs; [
       flake.overlays.default
-      blockyalarm.overlays."package/blockyalarm"
     ];
-
     systems.modules = {
-      home = with inputs; [
-      ];
       nixos = with inputs; [
         nix-ld.nixosModules.nix-ld
         sops-nix.nixosModules.sops

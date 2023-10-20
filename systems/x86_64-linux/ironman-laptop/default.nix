@@ -10,8 +10,6 @@ in
 
   config = {
     ironman = {
-      hyprland = enabled;
-      networking.networkmanager = enabled;
       suites.laptop = enabled;
     };
     stylix.image = ./scream.jpg;

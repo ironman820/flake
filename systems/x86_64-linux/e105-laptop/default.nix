@@ -10,9 +10,6 @@ in
 
   config = {
     ironman = {
-      hyprland = enabled;
-      networking.networkmanager = enabled;
-      sddm = enabled;
       sops.secrets.github.sopsFile = ./secrets/github_work.age;
       suites.laptop = enabled;
       user.name = "niceastman";

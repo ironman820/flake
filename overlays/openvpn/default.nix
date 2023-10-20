@@ -1,5 +1,8 @@
 { channels, ... }:
 final: prev:
+let
+  inherit (channels.nixpkgs-22-05) openvpn;
+in
 {
-  openvpn = prev.openvpn.override { openssl = prev.openssl_1_1; };
+  final.openvpn = openvpn.override { openssl = prev.openssl_1_1; };
 }

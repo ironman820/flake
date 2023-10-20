@@ -11,6 +11,10 @@ in
   };
 
   config = mkIf cfg.enable {
+    ironman.gpg = {
+      enable = true;
+      enableSSHSupport = true;
+    };
     environment = {
       shellInit = ''
         gpg-connect-agent /bye
@@ -22,15 +26,9 @@ in
       ];
     };
     hardware.gpgSmartcards = enabled;
-    programs = {
-      gnupg.agent = {
-        enable = true;
-        enableSSHSupport = true;
-      };
-      ssh = {
-        enableAskPassword = true;
-        startAgent = false;
-      };
+    programs.ssh = {
+      enableAskPassword = true;
+      startAgent = false;
     };
     security.pam.u2f = {
       enable = true;

@@ -31,14 +31,7 @@ in
         age
         fzf
         git-extras
-        ironman.blockyalarm
-        (nerdfonts.override {
-          fonts = [
-            "FiraCode"
-            "Inconsolata"
-          ];
-        })
-        nix-index
+        nerdfonts
         p7zip
         rnix-lsp
         ssh-to-age

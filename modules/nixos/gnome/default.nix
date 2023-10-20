@@ -10,6 +10,7 @@ in
   };
 
   config = mkIf cfg.enable {
+    ironman.gpg.pinentryFlavor = "gnome3";
     environment = {
       gnome.excludePackages = (with pkgs; [
         gnome-tour
@@ -23,27 +24,8 @@ in
         gnome.seahorse
       ];
     };
-    hardware.pulseaudio = disabled;
-    networking = {
-      firewall.allowedUDPPorts = [
-        5678
-      ];
-    };
-    programs = {
-      dconf = enabled;
-      gnupg.agent.pinentryFlavor = "gnome3";
-      xwayland = enabled;
-    };
-    security.rtkit = enabled;
     services = {
-      flatpak = enabled;
       gnome.gnome-keyring = enabled;
-      pipewire = {
-        alsa = enabled;
-        enable = true;
-        pulse = enabled;
-      };
-      printing = enabled;
       udev.packages = with pkgs.gnome; [ gnome-settings-daemon ];
       xserver = {
         desktopManager.gnome = enabled;
@@ -53,11 +35,6 @@ in
         enable = true;
         layout = "us";
       };
-    };
-    sound = enabled;
-    xdg.portal = {
-      enable = true;
-      xdgOpenUsePortal = true;
     };
   };
 }

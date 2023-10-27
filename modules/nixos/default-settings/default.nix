@@ -41,6 +41,10 @@ in
         wget
       ]);
     };
+    fonts.packages = with pkgs; [
+      nerdfonts
+      meslo-lgs-nf
+    ];
     i18n.defaultLocale = "en_US.UTF-8";
     ironman = {
       # java = enabled;
@@ -57,7 +61,6 @@ in
       ];
       nftables = enabled;
     };
-    nixpkgs.config.allowUnfree = true;
     programs = {
       direnv = {
         enable = true;

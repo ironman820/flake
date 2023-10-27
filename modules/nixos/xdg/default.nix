@@ -14,7 +14,6 @@ in
       enable = true;
       extraPortals = with pkgs; mkMerge [
         (mkIf config.ironman.hyprland.enable [
-          hyprland-share-picker
           xdg-desktop-portal-hyprland
         ])
         (mkIf config.ironman.gnome.enable [ xdg-desktop-portal-gnome ])

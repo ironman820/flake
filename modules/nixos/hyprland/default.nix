@@ -11,34 +11,51 @@ in
 
   config = mkIf cfg.enable {
     ironman.gpg.pinentryFlavor = "qt";
-    environment.systemPackages = with pkgs; [
-      hyprpaper
-      libnotify
-      mako
-      libsForQt5.polkit-kde-agent
-      libsForQt5.qt5.qtwayland
-      qt6.qtwayland
-      rofi-wayland
-      swaylock-effects
-      inputs.watershot.packages.${pkgs.system}.default
-      waybar
-      # (waybar.overrideAttrs (oldAttrs: {
-      #   mesonFlags = oldAttrs.mesonFlags ++ [ "-Dexperimental=true" ];
-      #   })
-      # )
-    ];
+    environment = {
+      systemPackages = (with pkgs; [
+        hyprland
+        hyprpaper
+        libnotify
+        mako
+        meson
+        qt6.qtwayland
+        rofi-wayland
+        swaylock-effects
+        inputs.watershot.packages.${pkgs.system}.default
+        waybar
+        wayland-protocols
+        wayland-utils
+        wl-clipboard
+        wlroots
+        xdg-desktop-portal-gtk
+        xdg-desktop-portal-hyprland
+        xwayland
+      ]) ++ (with pkgs.libsForQt5; [
+        polkit-kde-agent
+        qt5.qtwayland
+      ]);
+    };
     programs = {
       dconf = enabled;
       hyprland = {
         enable = true;
-        package = inputs.hyprland.packages.${system}.hyprland;
+        xwayland = enabled;
       };
-      xwayland = enabled;
     };
     security.pam.services.swaylock = {};
-    services.xserver = {
+    services = {
+      dbus = enabled;
+      xserver = {
+        enable = true;
+        layout = "us";
+      };
+    };
+    xdg.portal = {
       enable = true;
-      layout = "us";
+      wlr = enabled;
+      extraPortals = [
+        pkgs.xdg-desktop-portal-gtk
+      ];
     };
   };
 }

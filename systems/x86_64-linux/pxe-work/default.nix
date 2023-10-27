@@ -7,7 +7,6 @@
 
   config = {
     ironman = {
-      home.extraOptions.home.file.".config/is_personal".text = ''false'';
       servers.pxe = {
         enable = true;
       };

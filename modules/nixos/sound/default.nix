@@ -10,6 +10,10 @@ in
   };
 
   config = mkIf cfg.enable {
+    environment.systemPackages = with pkgs; [
+      pavucontrol
+      pipewire
+    ];
     hardware.pulseaudio = disabled;
     security.rtkit = enabled;
     services.pipewire = {

@@ -7,7 +7,6 @@
 
   config = {
     ironman = {
-      home.extraOptions.home.file.".config/is_personal".text = ''false'';
       nix.gc = {
         dates = "03:15";
         options = "--delete-older-than 1d";

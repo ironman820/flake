@@ -12,12 +12,6 @@ with lib.ironman;
       openssl
     ];
     ironman = {
-      home.extraOptions.home = {
-        file.".config/is_personal".text = ''false'';
-        shellAliases = {
-          "sonars" = "sonar-scanner -Dsonar.projectKey=RCM -Dsonar.sources=. -Dsonar.host.url=https://qc.desk.niceastman.com -Dsonar.token=sqp_030096586777baff531e375a3e27ec0ce6fc779e";
-        };
-      };
       suites = {
         server.enable = true;
         servers.rcm = enabled;

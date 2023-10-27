@@ -111,6 +111,6 @@ in
       enable = true;
       staticConfigOptions = mkAliasDefinitions options.ironman.servers.traefik.static;
     };
-    systemd.services.traefik.serviceConfig.EnvironmentFile = config.sops.secrets.cloudflare_email.path;
+    systemd.services.traefik.serviceConfig.EnvironmentFile = [ config.sops.secrets.cloudflare_email.path ];
   };
 }

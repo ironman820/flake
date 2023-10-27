@@ -6,16 +6,13 @@
       inputs.nixpkgs.follows = "nixpkgs";
       url = "github:snowfallorg/flake";
     };
-    hyprland = {
-      url = "github:hyprwm/Hyprland/5b8cfdf";
-    };
     nix-ld = {
       inputs.nixpkgs.follows = "nixpkgs";
       url = "github:mic92/nix-ld";
     };
     nixos-hardware.url = "github:nixos/nixos-hardware";
-    nixpkgs.url = "github:nixos/nixpkgs/nixos-23.05";
-    nixpkgs-22-05.url = "github:nixos/nixpkgs/nixos-22.05";
+    nixpkgs.url = "github:nixos/nixpkgs";
+    nixpkgs-23-05.url = "github:nixos/nixpkgs/nixos-23.05";
     # acc5f7b - IcedTea v8 Stable
     nixpkgs-acc5f7b.url = "github:nixos/nixpkgs/acc5f7b";
     # ba45a55 - The last stable update of PHP 7.4
@@ -28,17 +25,12 @@
       inputs.nixpkgs.follows = "nixpkgs";
       url = "github:mic92/sops-nix";
     };
-    stylix = {
-      inputs.nixpkgs.follows = "nixpkgs";
-      url = "github:danth/stylix/release-23.05";
-    };
     tokyo-night-sddm = {
       flake = false;
       url = "github:rototrash/tokyo-night-sddm";
     };
-    unstable.url = "github:nixos/nixpkgs/nixos-unstable";
     watershot = {
-      inputs.nixpkgs.follows = "unstable";
+      inputs.nixpkgs.follows = "nixpkgs";
       url = "github:kirottu/watershot";
     };
   };
@@ -61,10 +53,7 @@
       allowUnfree = true;
       permittedInsecurePackages = [
         "openssl-1.1.1w"
-        "teams-1.5.00.23861"
       ];
-      substituters = ["https://hyprland.cachix.org"];
-      trusted-public-keys = ["hyprland.cachix.org-1:a7pgxzMz7+chwVL3/pzj6jIBMioiJM7ypFP8PwtkuGc="];
     };
 
     overlays = with inputs; [
@@ -80,12 +69,10 @@
     systems.hosts = {
       e105-laptop.modules = with inputs; [
         nixos-hardware.nixosModules.common-gpu-intel
-        stylix.nixosModules.stylix
       ];
       ironman-laptop.modules = with inputs; [
         nixos-hardware.nixosModules.dell-inspiron-5509
         nixos-hardware.nixosModules.common-gpu-intel
-        stylix.nixosModules.stylix
       ];
     };
 

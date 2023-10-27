@@ -10,7 +10,6 @@
     "fs.file-max" = 131072;
   };
   ironman = {
-    home.extraOptions.home.file.".config/is_personal".text = ''false'';
     servers.sonarqube.enable = true;
     suites.server.enable = true;
     virtual.guest.enable = true;

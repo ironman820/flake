@@ -29,9 +29,17 @@ in
       hplip
       ntfs3g
     ];
+    programs.system-config-printer = enabled;
     services = {
       flatpak = enabled;
-      printing = enabled;
+      printing = {
+        enable = true;
+        cups-pdf = enabled;
+        drivers = with pkgs; [
+          gutenprint
+          hplip
+        ];
+      };
     };
   };
 }

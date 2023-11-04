@@ -41,7 +41,7 @@ in
         wget
       ]);
     };
-    fonts.packages = with pkgs; [
+    fonts.fonts = with pkgs; [
       nerdfonts
       meslo-lgs-nf
     ];

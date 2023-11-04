@@ -13,10 +13,13 @@ in
     xdg.portal = {
       enable = true;
       extraPortals = with pkgs; mkMerge [
+        (mkIf config.ironman.gnome.enable [ xdg-desktop-portal-gnome ])
         (mkIf config.ironman.hyprland.enable [
           xdg-desktop-portal-hyprland
         ])
-        (mkIf config.ironman.gnome.enable [ xdg-desktop-portal-gnome ])
+        (mkIf config.ironman.qtile.enable [
+          xdg-desktop-portal-gtk
+        ])
       ];
       xdgOpenUsePortal = true;
     };

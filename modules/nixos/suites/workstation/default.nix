@@ -12,10 +12,9 @@ in
   config = mkIf cfg.enable {
     ironman = {
       boot.grub = enabled;
-      # gnome = enabled;
-      hyprland = enabled;
       java = enabled;
       networking.networkmanager = enabled;
+      qtile = enabled;
       sddm = enabled;
       sops = enabled;
       sound = enabled;

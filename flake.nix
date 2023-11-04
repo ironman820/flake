@@ -11,8 +11,8 @@
       url = "github:mic92/nix-ld";
     };
     nixos-hardware.url = "github:nixos/nixos-hardware";
-    nixpkgs.url = "github:nixos/nixpkgs";
-    nixpkgs-23-05.url = "github:nixos/nixpkgs/nixos-23.05";
+    nixpkgs.url = "github:nixos/nixpkgs/nixos-23.05";
+    nixpkgs-22-05.url = "github:nixos/nixpkgs/nixos-22.05";
     # acc5f7b - IcedTea v8 Stable
     nixpkgs-acc5f7b.url = "github:nixos/nixpkgs/acc5f7b";
     # ba45a55 - The last stable update of PHP 7.4
@@ -29,8 +29,9 @@
       flake = false;
       url = "github:rototrash/tokyo-night-sddm";
     };
+    unstable.url = "github:nixos/nixpkgs/nixos-unstable";
     watershot = {
-      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.nixpkgs.follows = "unstable";
       url = "github:kirottu/watershot";
     };
   };

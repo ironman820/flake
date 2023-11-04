@@ -13,9 +13,12 @@ in
     environment.systemPackages = [
       pkgs.ironman.tokyo-night-sddm
     ];
-    services.xserver.displayManager.sddm = {
+    services.xserver = {
+      displayManager.sddm = {
+        enable = true;
+        theme = "tokyo-night-sddm";
+      };
       enable = true;
-      theme = "tokyo-night-sddm";
     };
   };
 }

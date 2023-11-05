@@ -8,6 +8,9 @@ in {
   };
 
   config = mkIf cfg.enable {
+    environment.systemPackages = with pkgs; [
+      kanshi
+    ];
     services.xserver.windowManager.qtile = {
       backend = "wayland";
       enable = true;

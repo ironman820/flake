@@ -9,10 +9,10 @@ in {
 
   config = mkIf cfg.enable {
     environment.systemPackages = with pkgs; [
-      kanshi
+      rofi
     ];
     services.xserver.windowManager.qtile = {
-      backend = "wayland";
+      # backend = "wayland";
       enable = true;
       extraPackages = py: with py; [
         qtile-extras

@@ -1,6 +1,7 @@
 { config, lib, pkgs, ...}:
 let
   inherit (lib) mkEnableOption mkIf;
+  inherit (lib.ironman) enabled;
   cfg = config.ironman.qtile;
 in {
   options.ironman.qtile = {
@@ -9,14 +10,17 @@ in {
 
   config = mkIf cfg.enable {
     environment.systemPackages = with pkgs; [
+      bashmount
       rofi
     ];
-    services.xserver.windowManager.qtile = {
-      # backend = "wayland";
-      enable = true;
-      extraPackages = py: with py; [
-        qtile-extras
-      ];
+    services = {
+      udisks2 = enabled;
+      xserver.windowManager.qtile = {
+        enable = true;
+        extraPackages = py: with py; [
+          qtile-extras
+        ];
+      };
     };
   };
 }

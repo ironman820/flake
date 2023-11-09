@@ -27,6 +27,7 @@ in
       systemPackages = mkMerge [
         (mkIf config.ironman.gnome.enable [ pkgs.networkmanagerapplet ])
         (mkIf config.ironman.hyprland.enable [pkgs.networkmanager_dmenu])
+        (mkIf config.ironman.qtile.enable [pkgs.networkmanager_dmenu])
       ];
     };
     ironman.user.extraGroups = mkIf nm.enable [

@@ -9,6 +9,7 @@ in
 
   config = {
     ironman = {
+      configurations.work-samba = enabled;
       suites.laptop = enabled;
       user.name = "niceastman";
       work-tools = enabled;

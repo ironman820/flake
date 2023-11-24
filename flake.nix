@@ -30,10 +30,6 @@
       url = "github:rototrash/tokyo-night-sddm";
     };
     unstable.url = "github:nixos/nixpkgs/nixos-unstable";
-    watershot = {
-      inputs.nixpkgs.follows = "unstable";
-      url = "github:kirottu/watershot";
-    };
   };
 
   outputs = inputs: let

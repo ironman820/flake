@@ -24,7 +24,7 @@ in {
   config = mkIf cfg.enable {
     environment = mkIf (nm.enable && nm.applet) {
       systemPackages = mkMerge [
-        (mkIf config.ironman.gnome.enable [ pkgs.networkmanagerapplet ])
+        [ pkgs.networkmanagerapplet ]
         (mkIf config.ironman.hyprland.enable [ pkgs.networkmanager_dmenu ])
         (mkIf config.ironman.qtile.enable [ pkgs.networkmanager_dmenu ])
       ];
@@ -40,13 +40,7 @@ in {
         }];
       };
       nameservers = mkAliasDefinitions options.ironman.networking.nameservers;
-      networkmanager = mkIf nm.enable {
-        enable = true;
-        plugins = mkMerge [
-        (mkIf config.ironman.gnome.enable [pkgs.gnome.networkmanager-openvpn])
-        (mkIf config.ironman.hyprland.enable [pkgs.networkmanager-openvpn])
-       ];
-      };
+      networkmanager = mkIf nm.enable { inherit (nm) enable; };
     };
   };
 }

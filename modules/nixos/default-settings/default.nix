@@ -1,4 +1,4 @@
-{ config, lib, pkgs, system, ... }:
+{ config, lib, pkgs, ... }:
 let
   inherit (lib) mkDefault mkIf;
   inherit (lib.ironman) enabled mkBoolOpt;
@@ -27,7 +27,7 @@ in
       useXkbConfig = true; # use xkbOptions in tty.
     };
     environment = {
-      systemPackages = (with pkgs; [
+      systemPackages = with pkgs; [
         age
         fzf
         git-extras
@@ -39,7 +39,7 @@ in
         sops
         terminus-nerdfont
         wget
-      ]);
+      ];
     };
     fonts.fonts = with pkgs; [
       nerdfonts
@@ -56,9 +56,12 @@ in
     location.provider = "geoclue2";
     networking = {
       enableIPv6 = false;
-      firewall.allowedUDPPorts = [
-        1900
-      ];
+      firewall = {
+        allowedUDPPorts = [
+          1900
+        ];
+        checkReversePath = "loose";
+      };
       nftables = enabled;
     };
     programs = {

@@ -22,8 +22,8 @@ in
       enable = true;
       autoMaster = ''
         /run/media/${config.ironman.user.name}/fileserver ${config.sops.secrets.fileserver.path} --timeout 60 --browse
-        # /run/media/${config.ironman.user.name}/backup-server ${config.sops.secrets.backup-server.path} --timeout 60 --browse
       '';
+      # /run/media/${config.ironman.user.name}/backup-server ${config.sops.secrets.backup-server.path} --timeout 60 --browse
     };
   };
 }

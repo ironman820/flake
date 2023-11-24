@@ -1,4 +1,4 @@
-{ config, inputs, lib, options, pkgs, ... }:
+{ config, lib, options, ... }:
 with lib;
 with lib.ironman;
 let

@@ -1,4 +1,4 @@
-{ config, inputs, lib, options, pkgs, ... }:
+{ config, lib, pkgs, ... }:
 let
   inherit (lib) mkEnableOption mkIf;
   inherit (lib.ironman) enabled mkBoolOpt;

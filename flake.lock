@@ -1,5 +1,21 @@
 {
   "nodes": {
+    "catppuccin-grub": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1672329233,
+        "narHash": "sha256-/bSolCta8GCZ4lP0u5NVqYQ9Y3ZooYCNdTwORNvR7M0=",
+        "owner": "catppuccin",
+        "repo": "grub",
+        "rev": "803c5df0e83aba61668777bb96d90ab8f6847106",
+        "type": "github"
+      },
+      "original": {
+        "owner": "catppuccin",
+        "repo": "grub",
+        "type": "github"
+      }
+    },
     "flake": {
       "inputs": {
         "flake-compat": "flake-compat",
@@ -256,6 +272,7 @@
     },
     "root": {
       "inputs": {
+        "catppuccin-grub": "catppuccin-grub",
         "flake": "flake",
         "nix-ld": "nix-ld",
         "nixos-hardware": "nixos-hardware",

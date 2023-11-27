@@ -2,6 +2,10 @@
   description = "My Nix Flakes";
 
   inputs = {
+    catppuccin-grub = {
+      flake = false;
+      url = "github:catppuccin/grub";
+    };
     flake = {
       inputs.nixpkgs.follows = "nixpkgs";
       url = "github:snowfallorg/flake";

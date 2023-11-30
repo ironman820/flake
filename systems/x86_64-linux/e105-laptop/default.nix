@@ -1,15 +1,11 @@
-{ config, format, inputs, lib, pkgs, system, systems, target, virtual, ... }:
-let
-  inherit (lib.ironman) enabled;
-in
-{
-  imports = [
-    ./hardware.nix
-  ];
+{ lib, ... }:
+let inherit (lib.ironman) enabled;
+in {
+  imports = [ ./hardware.nix ];
 
   config = {
     ironman = {
-      configurations.work-samba = enabled;
+      configurations.autofs = enabled;
       suites.laptop = enabled;
       user.name = "niceastman";
       work-tools = enabled;

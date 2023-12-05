@@ -1,4 +1,4 @@
-{ config, inputs, lib, options, pkgs, ... }:
+{ config, lib, options, ... }:
 with lib;
 with lib.ironman;
 let
@@ -13,9 +13,20 @@ in
   };
 
   config = mkIf cfg.enable {
-    ironman.sops.age = {
-      keyFile = "/etc/nixos/keys.txt";
-      sshKeyPaths = [];
+    ironman.sops = {
+      age = {
+        keyFile = "/etc/nixos/keys.txt";
+        sshKeyPaths = [];
+      };
+      secrets = {
+        authorized_keys = {
+          sopsFile = ./secrets/keys.yaml;
+          mode = "0400";
+          path = "/home/${config.ironman.user.name}/.ssh/authorized_keys";
+          owner = config.ironman.user.name;
+          group = config.users.groups.users.name;
+        };
+      };
     };
     sops = {
       age = mkAliasDefinitions options.ironman.sops.age;

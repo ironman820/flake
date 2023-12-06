@@ -19,9 +19,9 @@ in {
       udisks2 = enabled;
       xserver.windowManager.qtile = {
         enable = true;
-        extraPackages = py: with py; [
-          qtile-extras
-        ];
+        # extraPackages = py: with py; [
+        #   qtile-extras
+        # ];
       };
     };
   };

@@ -1,7 +1,6 @@
-{ config, lib, pkgs, system, ... }:
+{ config, lib, pkgs, ... }:
 let
   inherit (lib) mkEnableOption mkIf mkMerge;
-  inherit (lib.ironman) enabled;
   cfg = config.ironman.xdg;
 in
 {
@@ -11,7 +10,8 @@ in
 
   config = mkIf cfg.enable {
     xdg.portal = {
-      enable = true;
+      inherit (cfg) enable;
+      config.common.default = "*";
       extraPortals = with pkgs; mkMerge [
         (mkIf config.ironman.gnome.enable [ xdg-desktop-portal-gnome ])
         (mkIf config.ironman.hyprland.enable [

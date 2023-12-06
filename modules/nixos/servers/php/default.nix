@@ -1,11 +1,12 @@
-{ config, inputs, lib, options, pkgs, ... }:
-with lib;
-with lib.ironman;
+{ config, lib, options, pkgs, ... }:
 let
+  inherit (lib) mkAliasDefinitions mkIf mkMerge;
+  inherit (lib.ironman) mkBoolOpt mkOpt;
+  inherit (lib.strings) concatStringsSep;
+  inherit (lib.types) attrs listOf str;
   cfg = config.ironman.servers.php;
-in
-{
-  options.ironman.servers.php = with types; {
+in {
+  options.ironman.servers.php = {
     enable = mkBoolOpt false "Enable or disable php support";
     extraConfig = mkOpt attrs { } "PHPFPM Config options";
     ini = mkOpt (listOf str) [ ] "PHP INI settings";
@@ -15,8 +16,9 @@ in
   config = mkIf cfg.enable {
     services.phpfpm = {
       pools.rcm = {
-        phpOptions = strings.concatStringsSep "\n" config.ironman.servers.php.ini;
-        phpPackage = pkgs.php74;
+        inherit (config.services.nginx) user;
+        phpOptions = concatStringsSep "\n" config.ironman.servers.php.ini;
+        phpPackage = pkgs.ironman.php;
         settings = mkMerge [
           {
             pm = "dynamic";
@@ -27,15 +29,10 @@ in
             "pm.max_spare_servers" = 3;
             "pm.max_requests" = 500;
           }
-          (
-            mkAliasDefinitions options.ironman.servers.php.extraConfig
-          )
+          (mkAliasDefinitions options.ironman.servers.php.extraConfig)
         ];
-        user = config.services.nginx.user;
       };
     };
-    environment.systemPackages = with pkgs; [
-      php74
-    ];
+    environment.systemPackages = with pkgs; [ ironman.php psalm ];
   };
 }

@@ -58,8 +58,6 @@ in
           ini = [
             "display_errors = On"
             "error_reporting = E_ALL"
-            # "extension=${pkgs.php74Extensions.pdo_sqlsrv}/lib/php/extensions/pdo_sqlsrv.so"
-            "extension=${pkgs.php74Extensions.sqlsrv}/lib/php/extensions/sqlsrv.so"
             "max_execution_time = 120"
             "max_input_time = 60"
             "memory_limit = 768M"

@@ -1,36 +1,37 @@
-{ config, lib, options, pkgs, system, ... }:
+{ config, lib, pkgs, ... }:
 
 with lib;
 with lib.ironman;
 let
   cfg = config.ironman.suites.server.rcm2;
-  my-python-packages = ps: with ps; [
-    asgiref
-    black
-    channels
-    channels-redis
-    coverage
-    daphne
-    django
-    django-environ
-    django-extensions
-    faker
-    flake8
-    numpy
-    pandas
-    pip
-    pillow
-    psycopg2
-    pyodbc
-    pytest
-    pytest-django
-    pytz
-    redis
-    sqlalchemy
-  ];
-  python = pkgs.python310.withPackages my-python-packages;
-in
-{
+  my-python-packages = ps:
+    with ps; [
+      asgiref
+      black
+      channels
+      channels-redis
+      coverage
+      daphne
+      django
+      django-environ
+      django-extensions
+      faker
+      flake8
+      numpy
+      pandas
+      pip
+      pillow
+      psycopg2
+      pyodbc
+      pytest
+      pytest-django
+      python-dotenv
+      pytz
+      redis
+      sqlalchemy
+    ];
+  python = pkgs.python3.withPackages my-python-packages;
+in {
   options.ironman.suites.server.rcm2 = with types; {
     enable = mkBoolOpt false "Enable the suite";
   };
@@ -43,9 +44,7 @@ in
         mode = "0400";
         owner = config.ironman.user.name;
         path = "/data/rcm/.env";
-        restartUnits = [
-          "django.service"
-        ];
+        restartUnits = [ "django.service" ];
         sopsFile = ./secrets/rcm2.env.age;
       };
       servers = {
@@ -68,19 +67,15 @@ in
           '';
           enable = true;
           pgadmin = enabled;
-          script = [
-            ''
-              CREATE ROLE rcm2 WITH PASSWORD 'rcm2' CREATEDB LOGIN;
-              CREATE DATABASE rcm2;
-              GRANT ALL PRIVILEGES ON DATABASE rcm2 TO rcm2;
-            ''
-          ];
+          script = [''
+            CREATE ROLE rcm2 WITH PASSWORD 'rcm2' CREATEDB LOGIN;
+            CREATE DATABASE rcm2;
+            GRANT ALL PRIVILEGES ON DATABASE rcm2 TO rcm2;
+          ''];
         };
         redis = enabled;
       };
-      user.extraGroups = [
-        config.users.groups.keys.name
-      ];
+      user.extraGroups = [ config.users.groups.keys.name ];
     };
     environment = {
       etc."ssl/openssl.cnf".text = ''
@@ -96,37 +91,22 @@ in
         MinProtocol = TLSv1.0
         CipherString = DEFAULT@SECLEVEL=1
       '';
-      unixODBCDrivers = with pkgs.unixODBCDrivers; [
-        msodbcsql17
-      ];
+      unixODBCDrivers = with pkgs.unixODBCDrivers; [ msodbcsql17 ];
       shellInit = ''
         set -a
         source ${config.sops.secrets.rcm2-env.path}
         set +a
-        rm -f /data/rcm/.python
-        ln -sf ${python} /data/rcm/.python
       '';
-      systemPackages = (with pkgs; [
-        sonar-scanner-cli
-        unixODBC
-      ]) ++ ([ python ]);
+      systemPackages = (with pkgs; [ sonar-scanner-cli unixODBC ])
+        ++ [ python ];
     };
-    networking.firewall.allowedTCPPorts = [
-      80
-    ];
+    networking.firewall.allowedTCPPorts = [ 80 ];
     services.caddy.group = "users";
     systemd.services.django = {
-      aliases = [
-        "django.service"
-      ];
-      path = [
-        python
-      ];
-      requires = [
-        "caddy.service"
-        "postgresql.service"
-        "redis.service"
-      ];
+      # aliases = [ "django.service" ];
+      path = [ python ];
+      bindsTo = [ "caddy.service" "postgresql.service" "redis.service" ];
+      enable = false;
       script = "cd /data/rcm && ${python}/bin/python manage.py runserver";
       startLimitBurst = 5;
       startLimitIntervalSec = 10;

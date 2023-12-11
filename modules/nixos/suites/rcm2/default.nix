@@ -92,11 +92,6 @@ in {
         CipherString = DEFAULT@SECLEVEL=1
       '';
       unixODBCDrivers = with pkgs.unixODBCDrivers; [ msodbcsql17 ];
-      shellInit = ''
-        set -a
-        source ${config.sops.secrets.rcm2-env.path}
-        set +a
-      '';
       systemPackages = (with pkgs; [ sonar-scanner-cli unixODBC ])
         ++ [ python ];
     };

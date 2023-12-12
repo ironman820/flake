@@ -1,4 +1,4 @@
-{ config, ... }:
+_:
 {
   ironman.networking = {
     gateway = "192.168.254.1";

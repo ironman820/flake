@@ -85,9 +85,12 @@ in {
         MinProtocol = TLSv1.0
         CipherString = DEFAULT@SECLEVEL=1
       '';
-      unixODBCDrivers = with pkgs.unixODBCDrivers; [ msodbcsql17 ];
+      shellAliases = {
+        cover = "coverage run && coverage xml && coverage html";
+      };
       systemPackages = (with pkgs; [ sonar-scanner-cli unixODBC ])
         ++ [ python ];
+      unixODBCDrivers = with pkgs.unixODBCDrivers; [ msodbcsql17 ];
     };
     networking.firewall.allowedTCPPorts = [ 80 ];
     services.caddy.group = "users";

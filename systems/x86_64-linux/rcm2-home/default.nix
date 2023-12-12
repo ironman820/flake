@@ -19,7 +19,10 @@ in {
       };
       suites.server = {
         enable = true;
-        rcm2 = enabled;
+        rcm2 = {
+          enable = true;
+          hostname = "rcm2.home.niceastman.com";
+        };
       };
       virtual.guest = enabled;
     };

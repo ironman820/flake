@@ -1,7 +1,8 @@
 { config, lib, pkgs, ... }:
 let
   inherit (lib) mkEnableOption mkIf mkOverride;
-  inherit (lib.ironman) enabled mkBoolOpt;
+  inherit (lib.ironman) enabled mkBoolOpt mkOpt;
+  inherit (lib.types) str;
 
   cfg = config.ironman.suites.server.rcm2;
   my-python-packages = ps:
@@ -35,6 +36,7 @@ in {
   options.ironman.suites.server.rcm2 = {
     enable = mkEnableOption "Enable the suite";
     service = mkBoolOpt false "Whether or not to create the django service";
+    hostname = mkOpt str "rcm2.desk.niceastman.com" "The hostname for Caddy";
   };
 
   config = mkIf cfg.enable {
@@ -42,7 +44,7 @@ in {
       servers = {
         caddy = {
           enable = true;
-          virtualHosts."http://rcm2.desk.niceastman.com:80" = {
+          virtualHosts."http://${cfg.hostname}:80" = {
             extraConfig = ''
               root * /data/rcm
               @notStatic {

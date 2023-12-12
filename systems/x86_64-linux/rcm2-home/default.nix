@@ -1,20 +1,17 @@
-{ config, inputs, lib, pkgs, ... }:
-{
-  imports = [
-    ./hardware.nix
-    ./networking.nix
-  ];
+{ lib, pkgs, ... }:
+let
+  inherit (lib.ironman) enabled;
+in {
+  imports = [ ./hardware.nix ./networking.nix ];
 
-  config = with lib; {
-    environment.systemPackages = with pkgs; [
-      openssl
-    ];
+  config = {
+    environment.systemPackages = with pkgs; [ openssl ];
     ironman = {
       suites.server = {
         enable = true;
-        rcm2.enable = false;
+        rcm2 = enabled;
       };
-      virtual.guest.enable = true;
+      virtual.guest = enabled;
     };
 
     system.stateVersion = "23.05";

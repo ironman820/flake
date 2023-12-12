@@ -1,8 +1,8 @@
 { config, lib, pkgs, ... }:
-
-with lib;
-with lib.ironman;
 let
+  inherit (lib) mkEnableOption mkIf mkOverride;
+  inherit (lib.ironman) enabled mkBoolOpt;
+
   cfg = config.ironman.suites.server.rcm2;
   my-python-packages = ps:
     with ps; [
@@ -32,21 +32,13 @@ let
     ];
   python = pkgs.python3.withPackages my-python-packages;
 in {
-  options.ironman.suites.server.rcm2 = with types; {
-    enable = mkBoolOpt false "Enable the suite";
+  options.ironman.suites.server.rcm2 = {
+    enable = mkEnableOption "Enable the suite";
+    service = mkBoolOpt false "Whether or not to create the django service";
   };
 
   config = mkIf cfg.enable {
     ironman = {
-      sops.secrets.rcm2-env = {
-        format = "binary";
-        group = config.users.groups.users.name;
-        mode = "0400";
-        owner = config.ironman.user.name;
-        path = "/data/rcm/.env";
-        restartUnits = [ "django.service" ];
-        sopsFile = ./secrets/rcm2.env.age;
-      };
       servers = {
         caddy = {
           enable = true;
@@ -98,10 +90,9 @@ in {
     networking.firewall.allowedTCPPorts = [ 80 ];
     services.caddy.group = "users";
     systemd.services.django = {
-      # aliases = [ "django.service" ];
       path = [ python ];
       bindsTo = [ "caddy.service" "postgresql.service" "redis.service" ];
-      enable = false;
+      enable = cfg.service;
       script = "cd /data/rcm && ${python}/bin/python manage.py runserver";
       startLimitBurst = 5;
       startLimitIntervalSec = 10;

@@ -1,5 +1,6 @@
-{ pkgs, config, lib, ... }:
-{
+{ lib, ... }:
+let inherit (lib.ironman) enabled;
+in {
   imports = [
     ./hardware.nix
     ./networking.nix
@@ -12,8 +13,8 @@
         netboot = true;
         nix = false;
       };
-      suites.server.enable = true;
-      virtual.guest.enable = true;
+      suites.server = enabled;
+      virtual.guest = enabled;
     };
 
     system.stateVersion = "23.05";

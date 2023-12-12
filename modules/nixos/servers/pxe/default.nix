@@ -1,7 +1,10 @@
-{ config, inputs, lib, modulesPath, options, pkgs, ... }:
-with lib;
-with lib.ironman;
+{ config, inputs, lib, pkgs, ... }:
 let
+  inherit (lib) mkIf mkMerge;
+  inherit (lib.ironman) mkBoolOpt mkOpt mkPxeMenu;
+  inherit (lib.types) attrs;
+  inherit (sys.config.system) build;
+
   cfg = config.ironman.servers.pxe;
   nwk = config.ironman.networking;
   sys = inputs.nixpkgs.lib.nixosSystem {
@@ -17,14 +20,13 @@ let
       })
     ];
   };
-  build = sys.config.system.build;
   netbootxyzpxe = pkgs.fetchurl {
     url = "https://boot.netboot.xyz/ipxe/netboot.xyz.kpxe";
     sha256 = "sha256-RZhq+sdc5KgRjkc3Vapz8ov2pKXX9Zd7I8cEy/0hlp0=";
   };
 in
 {
-  options.ironman.servers.pxe = with types; {
+  options.ironman.servers.pxe = {
     enable = mkBoolOpt false "Enable or disable pxe support";
     nix = mkBoolOpt true "Set up Nix Netboot";
     ubuntu = mkBoolOpt false "Set up Ubuntu Netboot";
@@ -39,13 +41,13 @@ in
           enable = true;
           root = "/etc/tftp";
         };
-        nfs = mkIf (cfg.ubuntu && (cfg.netboot == false)) {
+        nfs = mkIf (cfg.ubuntu && (!cfg.netboot)) {
           enable = true;
           exports = ''
             /etc/tftp/ubuntu  192.168.0.0/16(ro,insecure,no_root_squash,no_subtree_check)
           '';
         };
-        pxe.menu = mkIf (cfg.netboot == false) {
+        pxe.menu = mkIf (!cfg.netboot) {
           nix = mkIf cfg.nix {
             label = "Nix";
             kernel = "http://${nwk.address}/nix/bzImage";
@@ -74,7 +76,7 @@ in
     };
     environment = {
       etc = mkMerge [
-        (mkIf (cfg.netboot == false) {
+        (mkIf (!cfg.netboot) {
           "tftp/pxelinux.0".source = "${pkgs.syslinux}/share/syslinux/pxelinux.0";
           "tftp/ldlinux.c32".source = "${pkgs.syslinux}/share/syslinux/ldlinux.c32";
           "tftp/ldlinux.e64".source = "${pkgs.syslinux}/share/syslinux/efi64/ldlinux.e64";

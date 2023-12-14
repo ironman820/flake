@@ -54,16 +54,6 @@ in
       ];
     };
     location.provider = "geoclue2";
-    networking = {
-      enableIPv6 = false;
-      firewall = {
-        allowedUDPPorts = [
-          1900
-        ];
-        checkReversePath = "loose";
-      };
-      nftables = enabled;
-    };
     programs = {
       direnv = {
         enable = true;

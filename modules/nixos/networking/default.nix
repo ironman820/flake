@@ -10,6 +10,8 @@ in {
     address = mkOpt str "" "IP Address";
     dhcp = mkBoolOpt true "Enable DHCP?";
     enable = mkBoolOpt true "Enable or disable extra networking support";
+    enableIPv6 = mkEnableOption "Enable IPv6";
+    firewall = mkEnableOption "Enable Firewall";
     gateway = mkOpt str "" "Default Gateway";
     interface = mkOpt str "" "Interface to configure";
     nameservers = mkOpt (listOf str) [ ] "Nameservers";
@@ -31,8 +33,17 @@ in {
     };
     ironman.user.extraGroups = mkIf nm.enable [ "networkmanager" ];
     networking = {
+      inherit (cfg) enableIPv6;
       defaultGateway = mkIf (! cfg.dhcp) { address = cfg.gateway; };
       dhcpcd.enable = cfg.dhcp;
+      firewall = {
+        enable = cfg.firewall;
+      } // mkIf cfg.firewall {
+        allowedUDPPorts = [
+          1900
+        ];
+        checkReversePath = "loose";
+      };
       interfaces = mkIf (builtins.stringLength cfg.interface > 0) {
         ${cfg.interface}.ipv4.addresses = [{
           inherit (cfg) address;
@@ -41,6 +52,7 @@ in {
       };
       nameservers = mkAliasDefinitions options.ironman.networking.nameservers;
       networkmanager = mkIf nm.enable { inherit (nm) enable; };
+      nftables.enable = cfg.firewall;
     };
   };
 }

@@ -5,6 +5,7 @@ let
   inherit (lib.types) str;
 
   cfg = config.ironman.suites.server.rcm2;
+  fw = config.ironman.networking.firewall;
   my-python-packages = ps:
     with ps; [
       asgiref
@@ -92,7 +93,7 @@ in {
         ++ [ python ];
       unixODBCDrivers = with pkgs.unixODBCDrivers; [ msodbcsql17 ];
     };
-    networking.firewall.allowedTCPPorts = [ 80 ];
+    networking.firewall.allowedTCPPorts = mkIf fw [ 80 ];
     services.caddy.group = "users";
     systemd.services.django = {
       path = [ python ];

@@ -1,11 +1,9 @@
-{ config, lib, pkgs, system, ... }:
+{ config, lib, pkgs, ... }:
 
 with lib;
 with lib.ironman;
-let
-  cfg = config.ironman.suites.servers.rcm;
-in
-{
+let cfg = config.ironman.suites.servers.rcm;
+in {
   options.ironman.suites.servers.rcm = with types; {
     enable = mkBoolOpt false "Enable the default settings?";
   };
@@ -31,18 +29,16 @@ in
           enable = true;
           virtualHosts."rcm.desk.niceastman.com" = {
             default = true;
-            listen = [
-              {
-                addr = "0.0.0.0";
-                port = 443;
-                ssl = true;
-              }
-            ];
+            listen = [{
+              addr = "0.0.0.0";
+              port = 443;
+              ssl = true;
+            }];
             locations = {
               "/".extraConfig = ''
                 index index.html index.php;
               '';
-              "~ \.php$".extraConfig = ''
+              "~ .php$".extraConfig = ''
                 fastcgi_pass  unix:${config.services.phpfpm.pools.rcm.socket};
                 fastcgi_index index.php;
               '';
@@ -69,16 +65,11 @@ in
       };
     };
     environment = {
-      systemPackages = with pkgs; [
-        sonar-scanner-cli
-      ];
-      unixODBCDrivers = with pkgs.unixODBCDrivers; [
-        msodbcsql17
-      ];
+      systemPackages = with pkgs; [ sonar-scanner-cli ];
+      unixODBCDrivers = with pkgs.unixODBCDrivers; [ msodbcsql17 ];
     };
-    networking.firewall.allowedTCPPorts = [
-      443
-    ];
+    networking.firewall =
+      mkIf config.ironman.networking.firewall { allowedTCPPorts = [ 443 ]; };
     users.users.nginx.home = "/home/${config.users.users.nginx.name}";
   };
 }

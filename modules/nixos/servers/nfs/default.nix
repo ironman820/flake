@@ -1,4 +1,4 @@
-{ config, inputs, lib, options, pkgs, ... }:
+{ config, lib, options, ... }:
 let
   inherit (lib) mkAliasDefinitions mkEnableOption mkIf;
   inherit (lib.ironman) mkOpt;
@@ -12,7 +12,7 @@ in
   };
 
   config = mkIf cfg.enable {
-    networking.firewall = {
+    networking.firewall = mkIf config.ironman.networking.firewall {
       allowedTCPPorts = [
         111
         2049
@@ -25,7 +25,7 @@ in
       ];
     };
     services.nfs.server = {
-      enable = true;
+      inherit (cfg) enable;
       exports = mkAliasDefinitions options.ironman.servers.nfs.exports;
       mountdPort = 4002;
     };

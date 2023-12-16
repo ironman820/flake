@@ -41,7 +41,7 @@ in {
     environment.systemPackages = [
       update-containers
     ];
-    networking.firewall.allowedTCPPorts = [ 9000 ];
+    networking.firewall = mkIf config.ironman.networking.firewall { allowedTCPPorts = [ 9000 ]; };
     virtualisation.oci-containers = {
       backend = "docker";
       containers.sonarqube = {

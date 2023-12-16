@@ -1,4 +1,4 @@
-{ config, inputs, lib, options, pkgs, ... }:
+{ config, lib, options, ... }:
 let
   inherit (lib) mkAliasDefinitions mkEnableOption mkIf;
   inherit (lib.ironman) mkOpt;
@@ -12,7 +12,7 @@ in
   };
 
   config = mkIf cfg.enable {
-    networking.firewall = {
+    networking.firewall = mkIf config.ironman.networking.firewall {
       allowedTCPPorts = [
         80
       ];

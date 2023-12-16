@@ -151,9 +151,9 @@ in
         ];
       };
     };
-    networking.firewall.allowedTCPPorts = [
+    networking.firewall = mkIf config.ironman.networking.firewall { allowedTCPPorts = [
       8000
-    ];
+    ]; };
     services = {
       powerdns = {
         enable = true;

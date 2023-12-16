@@ -19,7 +19,7 @@ in
     environment.systemPackages = with pkgs; [
       dig
     ];
-    networking.firewall = {
+    networking.firewall = mkIf config.ironman.networking.firewall {
       allowedTCPPorts = [
         53
       ];

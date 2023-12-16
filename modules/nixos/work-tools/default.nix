@@ -2,7 +2,6 @@
 let
   inherit (lib) mkEnableOption mkIf;
   cfg = config.ironman.work-tools;
-  fw = config.ironman.networking.firewall;
 in
 {
   options.ironman.work-tools = {
@@ -10,8 +9,10 @@ in
   };
 
   config = mkIf cfg.enable {
-    networking.firewall.allowedTCPPorts = mkIf fw [
-      24800
-    ];
+    networking.firewall = mkIf config.ironman.networking.firewall {
+      allowedTCPPorts = [
+        24800
+      ];
+    };
   };
 }

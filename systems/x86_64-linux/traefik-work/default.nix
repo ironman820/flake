@@ -1,11 +1,13 @@
-{ config, inputs, lib, pkgs, ... }:
+{ config, lib, ... }:
 {
   imports = [
     ./hardware.nix
     ./networking.nix
   ];
 
-  config = {
+  config = let
+    inherit (lib) mkIf;
+  in {
     ironman = {
       servers.traefik = {
         config = {
@@ -108,9 +110,11 @@
       virtual.guest.enable = true;
     };
 
-    networking.firewall.allowedTCPPorts = [
-      3128
-    ];
+    networking.firewall = mkIf config.ironman.networking.firewall {
+      allowedTCPPorts = [
+        3128
+      ];
+    };
 
     system.stateVersion = "23.05";
   };

@@ -1,10 +1,8 @@
-{ config, inputs, lib, options, pkgs, system, ... }:
+{ config, lib, options, ... }:
 with lib;
 with lib.ironman;
-let
-  cfg = config.ironman.servers.traefik;
-in
-{
+let cfg = config.ironman.servers.traefik;
+in {
   options.ironman.servers.traefik = with types; {
     config = mkOpt attrs { } "Dynamic Config Options";
     enable = mkBoolOpt false "Enable or disable tftp support";
@@ -35,15 +33,12 @@ in
                 customFrameOptionsValue = "SAMEORIGIN";
                 customRequestHeaders.X-Forwarded-Proto = "https";
               };
-              private-whitelist.ipWhiteList.sourceRange = [
-                "192.168.0.0/16"
-                "172.16.0.0/12"
-              ];
-              secured.chain.middlewares = [
-                "private-whitelist"
-                "default-headers"
-              ];
-              sslheader.headers.customrequestheaders.X-Forwarded-Proto = "https";
+              private-whitelist.ipWhiteList.sourceRange =
+                [ "192.168.0.0/16" "172.16.0.0/12" ];
+              secured.chain.middlewares =
+                [ "private-whitelist" "default-headers" ];
+              sslheader.headers.customrequestheaders.X-Forwarded-Proto =
+                "https";
             };
             routers.traefik-secure = {
               entryPoints = "https";
@@ -52,11 +47,7 @@ in
               service = "api@internal";
               tls = {
                 certresolver = "cloudflare";
-                domains = [
-                  {
-                    sans = "*.desk.niceastman.com";
-                  }
-                ];
+                domains = [{ sans = "*.desk.niceastman.com"; }];
               };
             };
           };
@@ -66,10 +57,7 @@ in
           certificatesResolvers.cloudflare.acme = {
             dnsChallenge = {
               provider = "cloudflare";
-              resolvers = [
-                "1.1.1.1:53"
-                "1.0.0.1:53"
-              ];
+              resolvers = [ "1.1.1.1:53" "1.0.0.1:53" ];
             };
             storage = "${config.services.traefik.dataDir}/acme.json";
           };
@@ -102,15 +90,16 @@ in
         };
       };
     };
-    networking.firewall.allowedTCPPorts = [
-      80
-      443
-    ];
+    networking.firewall =
+      mkIf config.ironman.networking.firewall { allowedTCPPorts = [ 80 443 ]; };
     services.traefik = {
-      dynamicConfigOptions = mkAliasDefinitions options.ironman.servers.traefik.config;
+      dynamicConfigOptions =
+        mkAliasDefinitions options.ironman.servers.traefik.config;
       enable = true;
-      staticConfigOptions = mkAliasDefinitions options.ironman.servers.traefik.static;
+      staticConfigOptions =
+        mkAliasDefinitions options.ironman.servers.traefik.static;
     };
-    systemd.services.traefik.serviceConfig.EnvironmentFile = [ config.sops.secrets.cloudflare_email.path ];
+    systemd.services.traefik.serviceConfig.EnvironmentFile =
+      [ config.sops.secrets.cloudflare_email.path ];
   };
 }

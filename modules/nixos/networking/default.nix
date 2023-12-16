@@ -36,14 +36,17 @@ in {
       inherit (cfg) enableIPv6;
       defaultGateway = mkIf (! cfg.dhcp) { address = cfg.gateway; };
       dhcpcd.enable = cfg.dhcp;
-      firewall = {
-        enable = cfg.firewall;
-      } // mkIf cfg.firewall {
-        allowedUDPPorts = [
-          1900
-        ];
-        checkReversePath = "loose";
-      };
+      firewall = mkMerge [
+        {
+          enable = cfg.firewall;
+        }
+        (mkIf cfg.firewall {
+          allowedUDPPorts = [
+            1900
+          ];
+          checkReversePath = "loose";
+        })
+      ];
       interfaces = mkIf (builtins.stringLength cfg.interface > 0) {
         ${cfg.interface}.ipv4.addresses = [{
           inherit (cfg) address;

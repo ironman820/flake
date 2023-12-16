@@ -1,17 +1,18 @@
-{ config, inputs, lib, options, pkgs, ... }:
+{ config, lib, pkgs, ... }:
 let
   inherit (lib) mkEnableOption mkIf;
   inherit (lib.ironman) enabled mkBoolOpt mkOpt;
   inherit (lib.types) either str path;
   cfg = config.ironman.servers.git;
-in
-{
+in {
   options.ironman.servers.git = {
     enable = mkEnableOption "Enable or disable gitlab";
-    databasePassFile = mkOpt (either str path) "" "File with the database password";
+    databasePassFile =
+      mkOpt (either str path) "" "File with the database password";
     ipAddress = mkOpt str "" "IP address for gitlab instance";
     host = mkOpt str config.system.name "Hostname for gitlab instance";
-    initialRootPasswordFile = mkOpt (either str path) "" "file with the initial root password";
+    initialRootPasswordFile =
+      mkOpt (either str path) "" "file with the initial root password";
     secrets = {
       secretFile = mkOpt (either str path) "" "file with the gitlab secret";
       otpFile = mkOpt (either str path) "" "Secret storage file";
@@ -29,7 +30,7 @@ in
 
   config = mkIf cfg.enable {
     ironman.servers.caddy = {
-      enable = true;
+      inherit (cfg) enable;
       virtualHosts = let
         passLoc = {
           extraConfig = ''
@@ -44,33 +45,24 @@ in
         "${cfg.host}" = passLoc;
       };
     };
-    networking.firewall.allowedTCPPorts = [
-      22
-      80
-      443
-    ];
+    networking.firewall = mkIf config.ironman.networking.firewall {
+      allowedTCPPorts = [ 22 80 443 ];
+    };
     services = {
       gitlab = {
-        enable = true;
+        inherit (cfg) enable host initialRootPasswordFile;
         databasePasswordFile = cfg.databasePassFile;
-        host = cfg.host;
         https = true;
         initialRootEmail = config.ironman.user.email;
-        initialRootPasswordFile = cfg.initialRootPasswordFile;
         port = 443;
         secrets = {
-          secretFile = cfg.secrets.secretFile;
-          otpFile = cfg.secrets.otpFile;
-          dbFile = cfg.secrets.dbFile;
-          jwsFile = pkgs.runCommand "oidcKeyBase" {} "${pkgs.openssl}/bin/openssl genrsa 2048 > $out";
+          inherit (cfg.secrets) secretFile otpFile dbFile;
+          jwsFile = pkgs.runCommand "oidcKeyBase" { }
+            "${pkgs.openssl}/bin/openssl genrsa 2048 > $out";
         };
         smtp = mkIf cfg.smtp.enable {
-          address = cfg.smtp.address;
-          authentication = cfg.smtp.authentication;
-          domain = cfg.smtp.domain;
-          enable = true;
-          passwordFile = cfg.smtp.passwordFile;
-          username = cfg.smtp.username;
+          inherit (cfg.smtp)
+            address authentication domain enable passwordFile username;
         };
       };
       openssh = enabled;

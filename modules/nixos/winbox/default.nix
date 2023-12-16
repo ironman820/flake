@@ -2,7 +2,6 @@
 let
   inherit (lib) mkEnableOption mkIf;
   cfg = config.ironman.winbox;
-  fw = config.ironman.networking.firewall;
 in
 {
   options.ironman.winbox = {
@@ -10,7 +9,7 @@ in
   };
 
   config = mkIf cfg.enable {
-    networking.firewall = mkIf fw {
+    networking.firewall = mkIf config.ironman.networking.firewall {
       allowedTCPPorts = [
         8291
       ];

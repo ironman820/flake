@@ -1,10 +1,10 @@
-{ config, inputs, lib, options, pkgs, ... }:
+{ config, lib, options, pkgs, ... }:
 let
+  inherit (config.ironman.servers) php;
   inherit (lib) mkAliasDefinitions mkEnableOption mkIf mkMerge;
   inherit (lib.ironman) mkOpt;
   inherit (lib.types) attrs;
   cfg = config.ironman.servers.httpd;
-  php = config.ironman.servers.php;
 in
 {
   options.ironman.servers.httpd = {
@@ -13,7 +13,7 @@ in
   };
 
   config = mkIf cfg.enable {
-    networking.firewall = {
+    networking.firewall = mkIf config.ironman.networking.firewall {
       allowedTCPPorts = [
         80
       ];

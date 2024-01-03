@@ -19,7 +19,10 @@ in {
       };
       suites.server = {
         enable = true;
-        rcm2 = enabled;
+        rcm2 = {
+          enable = true;
+          service = true;
+        };
       };
       virtual.guest = enabled;
     };

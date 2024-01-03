@@ -103,6 +103,7 @@ in {
       script = "cd /data/rcm && ${python}/bin/python manage.py runserver";
       startLimitBurst = 5;
       startLimitIntervalSec = 10;
+      wantedBy = [ "multi-user.target" ];
     };
   };
 }

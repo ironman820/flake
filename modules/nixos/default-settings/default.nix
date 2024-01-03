@@ -11,6 +11,12 @@ in
 
   config = mkIf cfg.enable {
     boot = {
+      kernel.sysctl = {
+        "net.core.default_qdisc" = "fq";
+        "net.ipv4.tcp_congestion_control" = "bbr";
+        "vm.swappiness" = 10;
+      };
+      kernelModules = [ "tcp_bbr" ];
       kernelParams = [
         "quiet"
       ];

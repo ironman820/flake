@@ -1,7 +1,6 @@
-{ config, lib, pkgs, system, ... }:
+{ config, lib, pkgs, ... }:
 let
   inherit (lib) mkEnableOption mkIf;
-  inherit (lib.ironman) enabled;
   cfg = config.ironman.intel-video;
 in
 {
@@ -18,9 +17,13 @@ in
       "i915.enable_fbc=1"
       "i915.enable_dc=2"
     ];
-    environment.systemPackages = (with pkgs; [
+    environment.systemPackages = with pkgs; [
       libva-utils
-    ]);
-    hardware.opengl = enabled;
+    ];
+    hardware.opengl = {
+      enable = true;
+      driSupport = true;
+      driSupport32Bit = true;
+    };
   };
 }

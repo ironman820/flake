@@ -3,8 +3,7 @@ let
   inherit (lib) mkEnableOption mkIf;
   inherit (lib.ironman) enabled;
   cfg = config.ironman.suites.workstation;
-in
-{
+in {
   options.ironman.suites.workstation = {
     enable = mkEnableOption "Enable the default settings?";
   };
@@ -24,20 +23,15 @@ in
       xdg = enabled;
       yubikey = enabled;
     };
-    environment.systemPackages = with pkgs; [
-      hplip
-      ntfs3g
-    ];
+    environment.systemPackages = with pkgs; [ hplip ntfs3g ];
     programs.system-config-printer = enabled;
     services = {
+      avahi = enabled;
       flatpak = enabled;
       printing = {
         enable = true;
         cups-pdf = enabled;
-        drivers = with pkgs; [
-          gutenprint
-          hplip
-        ];
+        drivers = with pkgs; [ gutenprint hplip ];
       };
     };
   };

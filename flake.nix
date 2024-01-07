@@ -21,6 +21,10 @@
     nixpkgs-acc5f7b.url = "github:nixos/nixpkgs/acc5f7b";
     # ba45a55 - The last stable update of PHP 7.4
     nixpkgs-ba45a55.url = "github:nixos/nixpkgs/ba45a55";
+    sddm-catppuccin = {
+      flake = false;
+      url = "github:catppuccin/sddm";
+    };
     snowfall-lib = {
       inputs.nixpkgs.follows = "nixpkgs";
       url = "github:snowfallorg/lib";
@@ -36,49 +40,43 @@
     unstable.url = "github:nixos/nixpkgs/nixos-unstable";
   };
 
-  outputs = inputs: let
-    lib = inputs.snowfall-lib.mkLib {
-      inherit inputs;
-      src = ./.;
+  outputs = inputs:
+    let
+      lib = inputs.snowfall-lib.mkLib {
+        inherit inputs;
+        src = ./.;
 
-      snowfall = {
-        meta = {
-          name = "ironman";
-          title = "Ironman Config";
+        snowfall = {
+          meta = {
+            name = "ironman";
+            title = "Ironman Config";
+          };
+          namespace = "ironman";
         };
-        namespace = "ironman";
       };
-    };
-  in lib.mkFlake {
-    channels-config = {
-      allowUnfree = true;
-      permittedInsecurePackages = [
-        "openssl-1.1.1w"
-      ];
-    };
+    in lib.mkFlake {
+      channels-config = {
+        allowUnfree = true;
+        permittedInsecurePackages = [ "openssl-1.1.1w" ];
+      };
 
-    overlays = with inputs; [
-      flake.overlays.default
-    ];
-    systems.modules = {
-      nixos = with inputs; [
-        nix-ld.nixosModules.nix-ld
-        sops-nix.nixosModules.sops
-      ];
-    };
+      overlays = with inputs; [ flake.overlays.default ];
+      systems.modules = {
+        nixos = with inputs; [
+          nix-ld.nixosModules.nix-ld
+          sops-nix.nixosModules.sops
+        ];
+      };
 
-    systems.hosts = {
-      e105-laptop.modules = with inputs; [
-        nixos-hardware.nixosModules.common-gpu-intel
-      ];
-      ironman-laptop.modules = with inputs; [
-        nixos-hardware.nixosModules.dell-inspiron-5509
-        nixos-hardware.nixosModules.common-gpu-intel
-      ];
-    };
+      systems.hosts = {
+        e105-laptop.modules = with inputs;
+          [ nixos-hardware.nixosModules.common-gpu-intel ];
+        ironman-laptop.modules = with inputs; [
+          nixos-hardware.nixosModules.dell-inspiron-5509
+          nixos-hardware.nixosModules.common-gpu-intel
+        ];
+      };
 
-    alias = {
-      shells.default = "ironman-shell";
+      alias = { shells.default = "ironman-shell"; };
     };
-  };
 }

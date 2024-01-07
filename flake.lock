@@ -280,10 +280,27 @@
         "nixpkgs-22-05": "nixpkgs-22-05",
         "nixpkgs-acc5f7b": "nixpkgs-acc5f7b",
         "nixpkgs-ba45a55": "nixpkgs-ba45a55",
+        "sddm-catppuccin": "sddm-catppuccin",
         "snowfall-lib": "snowfall-lib_2",
         "sops-nix": "sops-nix",
         "tokyo-night-sddm": "tokyo-night-sddm",
         "unstable": "unstable"
+      }
+    },
+    "sddm-catppuccin": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1701805879,
+        "narHash": "sha256-Jf4xfgJEzLM7WiVsERVkj5k80Fhh1edUl6zsSBbQi6Y=",
+        "owner": "catppuccin",
+        "repo": "sddm",
+        "rev": "95bfcba80a3b0cb5d9a6fad422a28f11a5064991",
+        "type": "github"
+      },
+      "original": {
+        "owner": "catppuccin",
+        "repo": "sddm",
+        "type": "github"
       }
     },
     "snowfall-lib": {

@@ -31,6 +31,7 @@ in {
       thunar-volman
     ]);
     services = {
+      gvfs = enabled;
       udisks2 = enabled;
       xserver.windowManager.qtile = {
         enable = true;

@@ -1,10 +1,11 @@
-{ lib, ... }:
-let inherit (lib.ironman) enabled;
+{lib, ...}: let
+  inherit (lib.ironman) enabled;
 in {
-  imports = [ ./hardware.nix ];
+  imports = [./hardware.nix];
 
   config = {
     ironman = {
+      android = enabled;
       configurations.autofs = enabled;
       suites.laptop = enabled;
       user.name = "niceastman";

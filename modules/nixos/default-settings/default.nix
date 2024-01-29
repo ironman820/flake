@@ -1,10 +1,13 @@
-{ config, lib, pkgs, ... }:
-let
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}: let
   inherit (lib) mkDefault mkIf;
   inherit (lib.ironman) enabled mkBoolOpt;
   cfg = config.ironman.default-settings;
-in
-{
+in {
   options.ironman.default-settings = {
     enable = mkBoolOpt true "Enable the default settings?";
   };
@@ -16,7 +19,7 @@ in
         "net.ipv4.tcp_congestion_control" = "bbr";
         "vm.swappiness" = 10;
       };
-      kernelModules = [ "tcp_bbr" ];
+      kernelModules = ["tcp_bbr"];
       kernelParams = [
         "quiet"
       ];
@@ -43,6 +46,7 @@ in
         ssh-to-age
         snowfallorg.flake
         sops
+        steam-run
         terminus-nerdfont
         wget
       ];

@@ -1,5 +1,7 @@
-{ channels, ... }:
-final: prev:
 {
-  inherit (channels.unstable) brave;
+  inputs,
+  system,
+  ...
+}: final: prev: {
+  inherit (inputs.unstable.legacyPackages.${system}) brave;
 }

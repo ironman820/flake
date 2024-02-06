@@ -1,5 +1,8 @@
-{ channels, ... }:
-final: prev:
 {
-  inherit (channels.unstable) vimPlugins;
+  inputs,
+  system,
+  ...
+}: final: prev: {
+  inherit (inputs.unstable.legacyPackages.${system}) vimPlugins;
 }
+

@@ -1,5 +1,7 @@
-{ channels, ... }:
-final: prev:
 {
-  inherit (prev.ironman) catppuccin-grub;
+  self,
+  system,
+  ...
+}: final: prev: {
+  inherit (self.packages.${system}) catppuccin-grub;
 }

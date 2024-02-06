@@ -1,5 +1,7 @@
-{ channels, ... }:
-final: prev:
 {
-  inherit (channels.unstable) pgadmin4;
+  inputs,
+  system,
+  ...
+}: final: prev: {
+  inherit (inputs.unstable.legacyPackages.${system}) pgadmin4;
 }

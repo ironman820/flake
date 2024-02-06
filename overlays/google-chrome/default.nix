@@ -1,6 +1,7 @@
-{ channels, ... }:
-
-final: prev:
 {
-  inherit (channels.unstable) google-chrome;
+  inputs,
+  system,
+  ...
+}: final: prev: {
+  inherit (inputs.unstable.legacyPackages.${system}) google-chrome;
 }

@@ -1,6 +1,4 @@
-{ channels, ... }:
-final: prev:
-{
+_: final: prev: {
   networkmanagerapplet = prev.networkmanagerapplet.override {
     libnma = prev.libnma-gtk4;
   };

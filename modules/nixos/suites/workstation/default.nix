@@ -1,5 +1,9 @@
-{ config, lib, pkgs, ... }:
-let
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}: let
   inherit (lib) mkEnableOption mkIf;
   inherit (lib.ironman) enabled;
   cfg = config.ironman.suites.workstation;
@@ -13,7 +17,7 @@ in {
       boot.grub = enabled;
       java = enabled;
       networking.networkmanager = enabled;
-      qtile = enabled;
+      hyprland = enabled;
       sddm = enabled;
       sops = enabled;
       sound = enabled;
@@ -23,7 +27,7 @@ in {
       xdg = enabled;
       yubikey = enabled;
     };
-    environment.systemPackages = with pkgs; [ hplip ntfs3g ];
+    environment.systemPackages = with pkgs; [hplip ntfs3g];
     programs.system-config-printer = enabled;
     services = {
       avahi = enabled;
@@ -31,7 +35,7 @@ in {
       printing = {
         enable = true;
         cups-pdf = enabled;
-        drivers = with pkgs; [ gutenprint hplip ];
+        drivers = with pkgs; [gutenprint hplip];
       };
     };
   };

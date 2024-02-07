@@ -1,6 +1,5 @@
-{ config, ... }:
-{
-  royell.networking = {
+{config, ...}: {
+  ironman.networking = {
     gateway = "172.16.0.1";
     dhcp = false;
     interface = "ens18";

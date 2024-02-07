@@ -1,13 +1,13 @@
-{ lib, ... }:
-let inherit (lib.royell) enabled;
+{lib, ...}: let
+  inherit (lib.ironman) enabled;
 in {
-  imports = [ ./hardware.nix ./networking.nix ];
+  imports = [./hardware.nix ./networking.nix];
 
   config = {
     ironman = {
       suites.server = {
         enable = true;
-        vaultwarden = enabled;
+        # vaultwarden = enabled;
       };
     };
     system.stateVersion = "23.05";

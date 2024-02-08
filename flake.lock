@@ -138,12 +138,12 @@
     },
     "nixpkgs": {
       "locked": {
-        "lastModified": 1707091808,
-        "narHash": "sha256-LahKBAfGbY836gtpVNnWwBTIzN7yf/uYM/S0g393r0Y=",
-        "rev": "9f2ee8c91ac42da3ae6c6a1d21555f283458247e",
-        "revCount": 555392,
+        "lastModified": 1707238373,
+        "narHash": "sha256-WKxT0yLzWbFZwYi92lI0yWJpYtRaFSWHGX8QXzejapw=",
+        "rev": "fb0c047e30b69696acc42e669d02452ca1b55755",
+        "revCount": 555442,
         "type": "tarball",
-        "url": "https://api.flakehub.com/f/pinned/NixOS/nixpkgs/0.2311.555392%2Brev-9f2ee8c91ac42da3ae6c6a1d21555f283458247e/018d7c73-3161-76d5-aca1-5929105b0aa0/source.tar.gz"
+        "url": "https://api.flakehub.com/f/pinned/NixOS/nixpkgs/0.2311.555442%2Brev-fb0c047e30b69696acc42e669d02452ca1b55755/018d8628-6732-76b7-b9c7-12c4fc4e280f/source.tar.gz"
       },
       "original": {
         "type": "tarball",
@@ -215,11 +215,11 @@
     "sddm-catppuccin": {
       "flake": false,
       "locked": {
-        "lastModified": 1706184187,
-        "narHash": "sha256-Jmc/prRATAbtWvvbNmgl4fPdHNkI7q942+Nf6m2fauk=",
+        "lastModified": 1707207056,
+        "narHash": "sha256-0zoJOTFjQq3gm5i3xCRbyk781kB7BqcWWNrrIkWf2Xk=",
         "owner": "catppuccin",
         "repo": "sddm",
-        "rev": "8ac805cfb8d7d58f28c89a22ae768bdd5018e7f1",
+        "rev": "f3db13cbe8e99a4ee7379a4e766bc8a4c2c6c3dd",
         "type": "github"
       },
       "original": {

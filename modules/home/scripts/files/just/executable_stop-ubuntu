@@ -1,0 +1,10 @@
+#!/usr/bin/env bash
+echo 'Stopping Ubuntu image...'
+if distrobox list | awk -F\| '{print $2,$3}' | grep 'ubuntu' | grep -q 'Up' ; then
+  distrobox stop ubuntu -Y
+fi
+sleep 1
+if distrobox list | awk -F\| '{print $2}' | grep -q 'ubuntu' ; then
+  distrobox rm ubuntu -Y
+fi
+

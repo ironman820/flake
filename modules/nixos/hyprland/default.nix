@@ -1,21 +1,19 @@
 {
   config,
-  inputs,
   lib,
   pkgs,
-  system,
   ...
 }: let
   inherit (lib) mkEnableOption mkIf;
-  inherit (lib.ironman) disabled enabled;
-  cfg = config.ironman.hyprland;
+  inherit (lib.mine) enabled;
+  cfg = config.mine.hyprland;
 in {
-  options.ironman.hyprland = {
+  options.mine.hyprland = {
     enable = mkEnableOption "Enable the default settings?";
   };
 
   config = mkIf cfg.enable {
-    ironman.gpg.pinentryFlavor = "qt";
+    mine.gpg.pinentryFlavor = "qt";
     environment = {
       systemPackages =
         (with pkgs; [

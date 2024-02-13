@@ -1,3 +1,3 @@
-{channels, ...}: final: prev: {
+_: final: prev: {
   inherit (prev.ironman) open-android-backup;
 }

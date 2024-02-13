@@ -1,4 +1,4 @@
-{channels, ...}: final: prev: let
+_: final: prev: let
   inherit (prev.lib.lists) remove;
   inherit (prev) python3 python311;
 in {

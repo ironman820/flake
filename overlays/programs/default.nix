@@ -1,3 +1,4 @@
-{channels, ...}: final: prev: {
-  inherit (prev.ironman) idracclient switchssh;
+_: final: prev: {
+  inherit (prev.ironman) idracclient ranger-devicons start-waybar switchssh;
+  inherit (prev.snowfallorg) flake;
 }

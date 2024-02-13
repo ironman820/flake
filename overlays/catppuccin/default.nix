@@ -1,5 +1,3 @@
-{ channels, ... }:
-final: prev:
-{
-  inherit (prev.ironman) catppuccin-btop catppuccin-lazygit;
+_: final: prev: {
+  inherit (prev.ironman) catppuccin-bat catppuccin-btop catppuccin-grub catppuccin-kitty catppuccin-lazygit catppuccin-neomutt catppuccin-rofi catppuccin-starship sddm-catppuccin;
 }

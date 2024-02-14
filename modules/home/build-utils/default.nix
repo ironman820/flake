@@ -1,9 +1,9 @@
 { config, inputs, lib, options, pkgs, ... }:
 let
   inherit (lib) mkEnableOption mkIf;
-  cfg = config.ironman.home.build-utils;
+  cfg = config.mine.home.build-utils;
 in {
-  options.ironman.home.build-utils = {
+  options.mine.home.build-utils = {
     enable = mkEnableOption "Enable or disable tftp support";
   };
 

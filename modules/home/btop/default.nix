@@ -1,11 +1,11 @@
 { config, lib, pkgs, ... }:
 let
   inherit (lib) mkIf;
-  inherit (lib.ironman) mkBoolOpt;
+  inherit (lib.mine) mkBoolOpt;
 
-  cfg = config.ironman.home.btop;
+  cfg = config.mine.home.btop;
 in {
-  options.ironman.home.btop = {
+  options.mine.home.btop = {
     enable = mkBoolOpt true "Enable Btop package.";
   };
 

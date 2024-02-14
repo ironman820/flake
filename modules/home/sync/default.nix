@@ -1,10 +1,10 @@
 { config, lib, pkgs, system, ... }:
 let
   inherit (lib) mkEnableOption mkIf;
-  inherit (lib.ironman) enabled;
-  cfg = config.ironman.home.sync;
+  inherit (lib.mine) enabled;
+  cfg = config.mine.home.sync;
 in {
-  options.ironman.home.sync = {
+  options.mine.home.sync = {
     enable = mkEnableOption "Enable the default settings?";
   };
 

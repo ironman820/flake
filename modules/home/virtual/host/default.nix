@@ -1,9 +1,9 @@
 { config, lib, pkgs, system, ... }:
 let
   inherit (lib) mkEnableOption mkIf;
-  cfg = config.ironman.home.virtual.host;
+  cfg = config.mine.home.virtual.host;
 in {
-  options.ironman.home.virtual.host = {
+  options.mine.home.virtual.host = {
     enable = mkEnableOption "Enable the default settings?";
   };
 

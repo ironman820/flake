@@ -52,7 +52,7 @@ in {
       dbus = enabled;
       xserver = {
         enable = true;
-        layout = "us";
+        xkb.layout = "us";
       };
     };
     xdg.portal = {

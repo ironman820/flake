@@ -5,12 +5,12 @@
   ...
 }: let
   inherit (lib) mkIf;
-  inherit (lib.ironman) enabled mkBoolOpt;
+  inherit (lib.mine) enabled mkBoolOpt;
 
-  cfg = config.ironman.home.git;
+  cfg = config.mine.home.git;
   configFolder = "${config.xdg.configHome}/lazygit";
 in {
-  options.ironman.home.git = {enable = mkBoolOpt true "Setup git";};
+  options.mine.home.git = {enable = mkBoolOpt true "Setup git";};
 
   config = mkIf cfg.enable {
     home = {
@@ -50,8 +50,8 @@ in {
           key = "~/.ssh/github";
           signByDefault = true;
         };
-        userName = config.ironman.home.user.fullName;
-        userEmail = config.ironman.home.user.email;
+        userName = config.mine.home.user.fullName;
+        userEmail = config.mine.home.user.email;
       };
     };
     xdg.configFile = {

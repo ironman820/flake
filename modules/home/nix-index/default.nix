@@ -1,11 +1,11 @@
 { options, pkgs, config, lib, inputs, ... }:
 let
   inherit (lib) mkIf;
-  inherit (lib.ironman) mkBoolOpt;
-  cfg = config.ironman.home.nix-index;
+  inherit (lib.mine) mkBoolOpt;
+  cfg = config.mine.home.nix-index;
 in
 {
-  options.ironman.home.nix-index = {
+  options.mine.home.nix-index = {
     enable = mkBoolOpt true "Enable nix-index installation";
   };
 

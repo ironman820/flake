@@ -1,10 +1,10 @@
 { config, lib, ... }:
 let
   inherit (lib) mkIf;
-  inherit (lib.ironman) mkBoolOpt;
-  cfg = config.ironman.home.scripts;
+  inherit (lib.mine) mkBoolOpt;
+  cfg = config.mine.home.scripts;
 in {
-  options.ironman.home.scripts = {
+  options.mine.home.scripts = {
     enable = mkBoolOpt true "Enable the default settings?";
   };
 

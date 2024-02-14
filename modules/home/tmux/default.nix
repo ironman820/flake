@@ -5,13 +5,13 @@
   ...
 }: let
   inherit (lib) mkIf;
-  inherit (lib.ironman) mkBoolOpt mkOpt;
+  inherit (lib.mine) mkBoolOpt mkOpt;
   inherit (lib.types) int lines str;
   inherit (pkgs) writeShellScript;
 
-  cfg = config.ironman.home.tmux;
+  cfg = config.mine.home.tmux;
 in {
-  options.ironman.home.tmux = {
+  options.mine.home.tmux = {
     enable = mkBoolOpt true "Setup tmux";
     baseIndex = mkOpt int 1 "Base number for windows";
     clock24 = mkBoolOpt true "Use a 24 hour clock";
@@ -28,7 +28,7 @@ in {
   };
 
   config = mkIf cfg.enable {
-    ironman.home.tmux = {
+    mine.home.tmux = {
       extraConfig = ''
         source-file ~/.config/tmux/tmux.reset.conf
         set-option -g terminal-overrides ',xterm-256color:RGB'
@@ -45,11 +45,11 @@ in {
         bind-key -T prefix g display-popup -E -w 95% -h 95% -d '#{pane_current_path}' lazygit
       '';
     };
-    home.packages = with pkgs.ironman; [t];
+    home.packages = with pkgs; [t];
     programs = {
       bash.bashrcExtra = ''
         if [[ -z "$TMUX" ]]; then
-            ${pkgs.ironman.t}/bin/t $PWD
+            ${pkgs.t}/bin/t $PWD
         fi
       '';
       tmux = {

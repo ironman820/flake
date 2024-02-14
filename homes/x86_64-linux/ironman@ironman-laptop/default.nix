@@ -1,10 +1,19 @@
-{ lib, pkgs, ...}:
-let
-  inherit (lib.ironman) enabled;
-in
 {
-  ironman.home = {
+  inputs,
+  lib,
+  ...
+}: let
+  inherit (lib.mine) enabled;
+in {
+  imports = [
+    inputs.sops-nix.homeManagerModules.sops
+  ];
+  mine.home = {
     gui-apps.hexchat = true;
+    hyprland = {
+      enable = true;
+      wallpaper = ../../../systems/x86_64-linux/ironman-laptop/scream.jpg;
+    };
     networking = enabled;
     personal-apps = enabled;
     programs = {

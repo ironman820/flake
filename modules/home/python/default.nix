@@ -1,9 +1,9 @@
 { config, lib, pkgs, ... }:
 let
   inherit (lib) mkIf;
-  inherit (lib.ironman) mkBoolOpt;
+  inherit (lib.mine) mkBoolOpt;
 
-  cfg = config.ironman.home.python;
+  cfg = config.mine.home.python;
   myPythonPackages = py:
     with py; [
       black
@@ -32,7 +32,7 @@ let
       yapf
     ];
 in {
-  options.ironman.home.python = {
+  options.mine.home.python = {
     enable = mkBoolOpt true "Install the python interpreter";
   };
 

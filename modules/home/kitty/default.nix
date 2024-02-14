@@ -1,13 +1,17 @@
-{ config, lib, pkgs, ... }:
-let
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}: let
   inherit (lib) mkDefault mkForce mkIf;
-  inherit (lib.ironman) mkBoolOpt mkOpt;
+  inherit (lib.mine) mkBoolOpt mkOpt;
   inherit (lib.types) attrs lines;
   inherit (pkgs) nerdfonts;
 
-  cfg = config.ironman.home.kitty;
+  cfg = config.mine.home.kitty;
 in {
-  options.ironman.home.kitty = {
+  options.mine.home.kitty = {
     enable = mkBoolOpt true "Setup kitty";
     extraConfig = mkOpt lines "" "Extra configuration options";
     keyBindings = mkOpt attrs {
@@ -37,12 +41,12 @@ in {
   };
 
   config = mkIf cfg.enable {
-    ironman.home.kitty.extraConfig = ''
+    mine.home.kitty.extraConfig = ''
       include themes/mocha.conf
     '';
     home = {
       file.".config/kitty/themes.conf".source = pkgs.catppuccin-kitty;
-      packages = [ nerdfonts ];
+      packages = [nerdfonts];
     };
     programs.kitty = {
       inherit (cfg) extraConfig settings;

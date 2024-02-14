@@ -5,17 +5,17 @@
   ...
 }: let
   inherit (lib) mkIf;
-  inherit (lib.ironman) mkBoolOpt mkOpt;
+  inherit (lib.mine) mkBoolOpt mkOpt;
   inherit (lib.types) lines;
 
-  cfg = config.ironman.home.programs.nvim;
+  cfg = config.mine.home.programs.nvim;
   initLua = ''
     require("startup")
   '';
   my_python = pkgs.python3.withPackages my_python_packages;
   my_python_packages = py: (with py; [autopep8 black debugpy isort mypy pylint pynvim]);
 in {
-  options.ironman.home.programs.nvim = {
+  options.mine.home.programs.nvim = {
     enable = mkBoolOpt true "Install NeoVim";
     extraLuaConfig = mkOpt lines initLua "Extra Config";
   };
@@ -62,7 +62,7 @@ in {
           cmp-git
           cmp-nvim-lsp
           cmp_luasnip
-          cmp-nerdfont
+          nvim-cmp-nerdfont
           cmp-path
           cloak-nvim
           conceal-nvim

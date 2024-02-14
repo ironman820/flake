@@ -1,11 +1,11 @@
 { config, lib, pkgs, system, ... }:
 let
   inherit (lib) mkEnableOption mkIf;
-  inherit (lib.ironman) disabled enabled;
-  cfg = config.ironman.home.gnome;
+  inherit (lib.mine) disabled enabled;
+  cfg = config.mine.home.gnome;
 in
 {
-  options.ironman.home.gnome = {
+  options.mine.home.gnome = {
     enable = mkEnableOption "Enable the default settings?";
   };
 

@@ -1,11 +1,14 @@
-{ pkgs, config, lib, inputs, ... }:
-let
-  inherit (lib) mkIf;
-  inherit (lib.ironman) mkBoolOpt;
-  cfg = config.ironman.home.bat;
-in
 {
-  options.ironman.home.bat = {
+  pkgs,
+  config,
+  lib,
+  ...
+}: let
+  inherit (lib) mkIf;
+  inherit (lib.mine) mkBoolOpt;
+  cfg = config.mine.home.bat;
+in {
+  options.mine.home.bat = {
     enable = mkBoolOpt true "Enable bat installation";
     batman = mkBoolOpt false "Enable batman pager alias";
   };
@@ -41,6 +44,6 @@ in
         ];
       };
     };
-    xdg.configFile."bat/themes".source = inputs.catppuccin-bat;
+    xdg.configFile."bat/themes".source = pkgs.catppuccin-bat;
   };
 }

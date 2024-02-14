@@ -2,9 +2,9 @@
 let
   inherit (lib) mkEnableOption mkIf;
 
-  cfg = config.ironman.home.networking;
+  cfg = config.mine.home.networking;
 in {
-  options.ironman.home.networking = {
+  options.mine.home.networking = {
     enable = mkEnableOption "Setup networkmanager-dmenu";
   };
 

@@ -1,9 +1,15 @@
-{ config, format, home, host, inputs, lib, pkgs, systems, target, virtual, ...}:
-let
-  inherit (lib.ironman) enabled;
-in
 {
-  ironman.home = {
+  config,
+  inputs,
+  lib,
+  ...
+}: let
+  inherit (lib.mine) enabled;
+in {
+  imports = [
+    inputs.sops-nix.homeManagerModules.sops
+  ];
+  mine.home = {
     personal-apps = enabled;
     suites.virtual-workstation = enabled;
     user.name = config.snowfallorg.user.name;

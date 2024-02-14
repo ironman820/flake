@@ -1,7 +1,10 @@
 { lib, ... }:
-let inherit (lib.ironman) enabled;
+let inherit (lib.mine) enabled;
 in {
-  ironman.home = {
+  imports = [
+    inputs.sops-nix.homeManagerModules.sops
+  ];
+  mine.home = {
     programs = { ranger = enabled; };
     sops.install = true;
     suites.server = enabled;

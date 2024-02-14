@@ -5,13 +5,13 @@
   ...
 }: let
   inherit (lib) mkEnableOption mkIf;
-  inherit (lib.ironman) mkOpt;
+  inherit (lib.mine) mkOpt;
   inherit (lib.strings) concatStringsSep;
   inherit (lib.types) either path str;
 
-  cfg = config.ironman.home.hyprland;
+  cfg = config.mine.home.hyprland;
 in {
-  options.ironman.home.hyprland = {
+  options.mine.home.hyprland = {
     enable = mkEnableOption "Setup hyprland";
     primaryScale = mkOpt str "1" "Scaling factor for the primary monitor";
     wallpaper = mkOpt (either path str) "" "Wallpaper to load with hyprpaper";
@@ -43,11 +43,11 @@ in {
         # ".config/hyprland-autoname-workspaces/config.toml".source =
         #   ./hyprland-autoname-workspaces.toml;
         ".config/hypr/waybar.conf".text = ''
-          exec-once = ${pkgs.ironman.start-waybar}/bin/start-waybar &
+          exec-once = ${pkgs.start-waybar}/bin/start-waybar &
         '';
         ".config/waybar".source = ./waybar-config;
       };
-      packages = with pkgs; [brightnessctl ironman.start-waybar];
+      packages = with pkgs; [brightnessctl start-waybar];
     };
   };
 }

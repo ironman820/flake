@@ -1,11 +1,11 @@
 { config, inputs, lib, options, pkgs, ... }:
 let
   inherit (lib) mkEnableOption mkIf;
-  inherit (lib.ironman) enabled;
+  inherit (lib.mine) enabled;
 
-  cfg = config.ironman.home.lf;
+  cfg = config.mine.home.lf;
 in {
-  options.ironman.home.lf = {
+  options.mine.home.lf = {
     enable = mkEnableOption "Enable the lf file manager";
   };
 

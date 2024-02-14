@@ -1,15 +1,15 @@
 { config, lib, ... }:
 let
   inherit (lib) mkEnableOption mkIf;
-  inherit (lib.ironman) disabled enabled;
-  cfg = config.ironman.home.suites.server;
+  inherit (lib.mine) disabled enabled;
+  cfg = config.mine.home.suites.server;
 in {
-  options.ironman.home.suites.server = {
+  options.mine.home.suites.server = {
     enable = mkEnableOption "Enable the default settings?";
   };
 
   config = mkIf cfg.enable {
-    ironman.home = {
+    mine.home = {
       sops.secrets = {
         github_home.sopsFile = ./secrets/servers.yaml;
         github_home_pub.path =

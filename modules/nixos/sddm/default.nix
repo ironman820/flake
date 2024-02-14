@@ -2,7 +2,6 @@
   config,
   lib,
   pkgs,
-  self,
   ...
 }: let
   inherit (lib) mkEnableOption mkIf;
@@ -11,7 +10,7 @@ in {
   options.mine.sddm = {enable = mkEnableOption "Enable SDDM";};
 
   config = mkIf cfg.enable {
-    environment.systemPackages = [self.packages.${pkgs.system}.sddm-catppuccin];
+    environment.systemPackages = [pkgs.sddm-catppuccin];
     services.xserver = {
       displayManager.sddm = {
         enable = true;

@@ -1,9 +1,9 @@
 { config, lib, pkgs, ... }:
 let
   inherit (lib) mkEnableOption mkIf;
-  cfg = config.ironman.home.gui-apps;
+  cfg = config.mine.home.gui-apps;
 in {
-  options.ironman.home.gui-apps = {
+  options.mine.home.gui-apps = {
     enable = mkEnableOption "Enable the default settings?";
     hexchat = mkEnableOption "Enable Hexchat";
   };

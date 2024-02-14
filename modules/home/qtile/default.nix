@@ -2,12 +2,12 @@
 let
   inherit (lib) mkEnableOption mkIf;
   inherit (lib.types) str;
-  inherit (lib.ironman) mkOpt;
+  inherit (lib.mine) mkOpt;
   inherit (pkgs) writeShellScript;
 
-  cfg = config.ironman.home.qtile;
+  cfg = config.mine.home.qtile;
 in {
-  options.ironman.home.qtile = {
+  options.mine.home.qtile = {
     enable = mkEnableOption "Enable the qtile file manager";
     backlightDisplay = mkOpt str "acpi_video0" "Display to monitor backlight";
     screenSizeCommand =

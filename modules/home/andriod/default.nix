@@ -6,9 +6,9 @@
 }: let
   inherit (lib) mkEnableOption mkIf;
 
-  cfg = config.ironman.home.android;
+  cfg = config.mine.home.android;
 in {
-  options.ironman.home.android = {
+  options.mine.home.android = {
     enable = mkEnableOption "Enable the module";
   };
   config = mkIf cfg.enable {

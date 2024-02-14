@@ -1,6 +1,5 @@
 {
   config,
-  hostName,
   lib,
   options,
   pkgs,
@@ -39,7 +38,6 @@ in {
     };
     mine.user.extraGroups = mkIf nm.enable ["networkmanager"];
     networking = {
-      inherit hostName;
       inherit (cfg) enableIPv6;
       defaultGateway = mkIf (!cfg.dhcp) {address = cfg.gateway;};
       dhcpcd.enable = cfg.dhcp;

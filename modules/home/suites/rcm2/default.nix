@@ -1,10 +1,10 @@
 { config, lib, ... }:
 let
   inherit (lib) mkEnableOption mkIf;
-  cfg = config.ironman.home.suites.server.rcm2;
+  cfg = config.mine.home.suites.server.rcm2;
 in
 {
-  options.ironman.home.suites.server.rcm2 = {
+  options.mine.home.suites.server.rcm2 = {
     enable = mkEnableOption "Enable the suite";
   };
 

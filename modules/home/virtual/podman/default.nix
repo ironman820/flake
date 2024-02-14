@@ -1,10 +1,10 @@
 { config, lib, pkgs, ...}:
 let
     inherit (lib) mkEnableOption mkIf;
-    cfg = config.ironman.home.virtual.podman;
+    cfg = config.mine.home.virtual.podman;
 in
 {
-    options.ironman.home.virtual.podman = {
+    options.mine.home.virtual.podman = {
         enable = mkEnableOption "Enable podman aliases";
     };
 

@@ -5,11 +5,11 @@
   ...
 }: let
   inherit (lib) mkIf;
-  inherit (lib.ironman) mkBoolOpt;
+  inherit (lib.mine) mkBoolOpt;
 
-  cfg = config.ironman.home.just;
+  cfg = config.mine.home.just;
 in {
-  options.ironman.home.just = {enable = mkBoolOpt true "Install Just";};
+  options.mine.home.just = {enable = mkBoolOpt true "Install Just";};
 
   config = mkIf cfg.enable {
     home = {

@@ -1,10 +1,10 @@
 { pkgs, config, lib, ... }:
 let
   inherit (lib) mkIf;
-  inherit (lib.ironman) mkBoolOpt;
-  cfg = config.ironman.home.man;
+  inherit (lib.mine) mkBoolOpt;
+  cfg = config.mine.home.man;
 in {
-  options.ironman.home.man = {
+  options.mine.home.man = {
     enable = mkBoolOpt true "Install new man pager.";
   };
 

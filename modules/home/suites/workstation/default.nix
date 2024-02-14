@@ -4,15 +4,15 @@
   ...
 }: let
   inherit (lib) mkEnableOption mkIf;
-  inherit (lib.ironman) disabled enabled;
-  cfg = config.ironman.home.suites.workstation;
+  inherit (lib.mine) enabled;
+  cfg = config.mine.home.suites.workstation;
 in {
-  options.ironman.home.suites.workstation = {
+  options.mine.home.suites.workstation = {
     enable = mkEnableOption "Enable the default settings?";
   };
 
   config = mkIf cfg.enable {
-    ironman.home = {
+    mine.home = {
       gui-apps = enabled;
       hyprland = enabled;
       rofi = enabled;

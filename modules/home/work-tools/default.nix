@@ -5,9 +5,9 @@
   ...
 }: let
   inherit (lib) mkEnableOption mkIf;
-  cfg = config.ironman.home.work-tools;
+  cfg = config.mine.home.work-tools;
 in {
-  options.ironman.home.work-tools = {
+  options.mine.home.work-tools = {
     enable = mkEnableOption "Enable the Work Machine Tools";
   };
 

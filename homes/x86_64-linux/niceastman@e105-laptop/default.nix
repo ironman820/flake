@@ -1,15 +1,20 @@
 {
   config,
+  inputs,
   lib,
   pkgs,
   ...
 }: let
-  inherit (lib.ironman) enabled;
+  inherit (lib.mine) enabled;
   sopsFile = ./secrets/work-keys.yaml;
   sshFolder = "${config.home.homeDirectory}/.ssh";
 in {
-  home = {packages = with pkgs; [ironman.blockyalarm steam-run];};
-  ironman.home = {
+  imports = [
+    inputs.sops-nix.homeManagerModules.sops
+  ];
+  # home = {packages = with pkgs; [mine.blockyalarm steam-run];};
+  home = {packages = with pkgs; [steam-run];};
+  mine.home = {
     sops.secrets = {
       github_home = {inherit sopsFile;};
       github_home_pub.path = "${sshFolder}/github_home.pub";
@@ -23,7 +28,7 @@ in {
       };
       yb_keys.sopsFile = ./secrets/yb_keys.sops;
     };
-    hyprland.wallpaper = "/home/${config.ironman.home.user.name}/wallpapers/zelda-breath-of-the-wild-guides-2.jpg";
+    hyprland.wallpaper = "/home/${config.mine.home.user.name}/wallpapers/zelda-breath-of-the-wild-guides-2.jpg";
     gui-apps.hexchat = true;
     networking = enabled;
     programs = {
@@ -40,7 +45,7 @@ in {
   #   services."leave" = {
   #     Unit.Description = "blockyalarm Go Home";
   #     Install.WantedBy = [ "default.target" ];
-  #     Service.ExecStart = ''${pkgs.ironman.blockyalarm}/bin/blockyalarm "Get out of the office!"'';
+  #     Service.ExecStart = ''${pkgs.mine.blockyalarm}/bin/blockyalarm "Get out of the office!"'';
   #   };
   #   timers."leave" = {
   #     Install.WantedBy = [ "timers.target" ];

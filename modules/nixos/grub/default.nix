@@ -5,8 +5,7 @@
   ...
 }: let
   inherit (lib) mkEnableOption mkIf;
-  # inherit (lib.mine) enabled;
-  inherit (lib.mine) disabled;
+  inherit (lib.mine) enabled;
   cfg = config.mine.boot.grub;
 in {
   options.mine.boot.grub = {
@@ -20,8 +19,7 @@ in {
         device = "nodev";
         theme = "${pkgs.catppuccin-grub}/share/grub/themes/catppuccin-mocha-grub-theme";
       };
-      # plymouth = enabled;
-      plymouth = disabled;
+      plymouth = enabled;
     };
   };
 }

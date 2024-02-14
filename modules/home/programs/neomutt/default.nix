@@ -5,12 +5,12 @@
   ...
 }: let
   inherit (lib) mkEnableOption mkIf mkMerge;
-  inherit (lib.ironman) enabled;
+  inherit (lib.mine) enabled;
 
-  cfg = config.ironman.home.programs.neomutt;
+  cfg = config.mine.home.programs.neomutt;
   configFolder = "${config.xdg.configHome}/mutt";
 in {
-  options.ironman.home.programs.neomutt = {
+  options.mine.home.programs.neomutt = {
     enable = mkEnableOption "Install Neomutt";
     personalEmail = mkEnableOption "Setup Personal Email";
     workEmail = mkEnableOption "Setup Work Email";
@@ -19,7 +19,7 @@ in {
   config = mkIf cfg.enable (let
     sopsFile = ./secrets/neomutt.yaml;
   in {
-    ironman.home.sops.secrets = mkMerge [
+    mine.home.sops.secrets = mkMerge [
       {
         "mbsync" = {
           inherit sopsFile;
@@ -79,9 +79,12 @@ in {
         msmtp
         notmuch
         pass
-        urlview
+        urlscan
       ];
-      shellAliases = {mail = "neomutt";};
+      shellAliases = {
+        mail = "neomutt";
+        urlview = "urlscan";
+      };
     };
     programs.neomutt = enabled;
     xdg.configFile = {

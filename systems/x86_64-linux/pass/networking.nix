@@ -1,5 +1,5 @@
 {config, ...}: {
-  ironman.networking = {
+  mine.networking = {
     gateway = "172.16.0.1";
     dhcp = false;
     interface = "ens18";

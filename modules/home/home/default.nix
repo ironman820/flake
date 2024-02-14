@@ -1,11 +1,10 @@
 {
-  inputs,
   lib,
   pkgs,
   ...
 }: let
   inherit (builtins) fromTOML readFile;
-  inherit (lib.ironman) enabled;
+  inherit (lib.mine) enabled;
 in {
   config = {
     home = {
@@ -99,7 +98,7 @@ in {
             palette = "catppuccin_mocha";
           }
           // fromTOML
-          (readFile "${inputs.catppuccin-starship}/palettes/mocha.toml");
+          (readFile "${pkgs.catppuccin-starship}/palettes/mocha.toml");
       };
       zoxide = enabled;
     };

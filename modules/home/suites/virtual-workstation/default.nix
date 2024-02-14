@@ -1,17 +1,20 @@
-{ config, lib, ... }:
-let
+{
+  config,
+  lib,
+  ...
+}: let
   inherit (lib) mkEnableOption mkIf;
-  inherit (lib.ironman) enabled;
-  cfg = config.ironman.home.suites.virtual-workstation;
+  inherit (lib.mine) enabled;
+  cfg = config.mine.home.suites.virtual-workstation;
 in {
-  options.ironman.home.suites.virtual-workstation = {
+  options.mine.home.suites.virtual-workstation = {
     enable = mkEnableOption "Enable the default settings?";
   };
 
   config = mkIf cfg.enable {
-      ironman.home = {
-        gnome = enabled;
-        sync = enabled;
-      };
+    mine.home = {
+      gnome = enabled;
+      sync = enabled;
+    };
   };
 }

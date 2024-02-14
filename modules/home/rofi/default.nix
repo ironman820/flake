@@ -2,9 +2,9 @@
 let
   inherit (lib) mkEnableOption mkIf;
 
-  cfg = config.ironman.home.rofi;
+  cfg = config.mine.home.rofi;
 in {
-  options.ironman.home.rofi = { enable = mkEnableOption "Setup rofi"; };
+  options.mine.home.rofi = { enable = mkEnableOption "Setup rofi"; };
 
   config = mkIf cfg.enable {
     home = { packages = with pkgs; [ nerdfonts ]; };

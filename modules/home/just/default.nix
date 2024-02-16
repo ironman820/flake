@@ -28,9 +28,6 @@ in {
 
         switch:
           flake switch ~/.config/flake#
-
-        home-switch:
-          home-manager switch
           systemctl --user restart sops-nix.service
 
         update:

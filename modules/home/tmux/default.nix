@@ -45,11 +45,12 @@ in {
         bind-key -T prefix g display-popup -E -w 95% -h 95% -d '#{pane_current_path}' lazygit
       '';
     };
-    home.packages = with pkgs; [t];
+    # home.packages = with pkgs; [t];
     programs = {
       bash.bashrcExtra = ''
         if [[ -z "$TMUX" ]]; then
-            ${pkgs.t}/bin/t $PWD
+            # ${pkgs.t}/bin/t $PWD
+            tmux new-session -A -s ${config.home.username}
         fi
       '';
       tmux = {

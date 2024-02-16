@@ -17,7 +17,6 @@ in {
       firmware = enabled;
       intel-video = enabled;
       suites.workstation = enabled;
-      vpn = enabled;
       wireless-profiles = enabled;
     };
     services = {

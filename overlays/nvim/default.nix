@@ -1,6 +1,7 @@
-_: final: prev: {
+{channels, ...}: final: prev: {
+  inherit (channels.unstable) neovim;
   vimPlugins =
-    prev.vimPlugins
+    channels.unstable.vimPlugins
     // {
       inherit
         (prev.ironman)
@@ -10,9 +11,9 @@ _: final: prev: {
         one-small-step-for-vimkind
         ;
       nvim-treesitter =
-        prev.vimPlugins.nvim-treesitter
+        channels.unstable.vimPlugins.nvim-treesitter
         // {
-          inherit (prev.vimPlugins.nvim-treesitter) withAllGrammars;
+          inherit (channels.unstable.vimPlugins.nvim-treesitter) withAllGrammars;
         };
     };
 }

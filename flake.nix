@@ -26,6 +26,10 @@
     };
     # Standard Nixpkgs
     nixpkgs.url = "github:nixos/nixpkgs/nixos-23.11";
+    nixos-generators = {
+      inputs.nixpkgs.follows = "nixpkgs";
+      url = "github:nix-community/nixos-generators";
+    };
     # Nixos curated Hardware settings/drivers
     nixos-hardware.url = "github:nixos/nixos-hardware";
     # acc5f7b - IcedTea v8 Stable

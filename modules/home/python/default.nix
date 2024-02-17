@@ -1,5 +1,9 @@
-{ config, lib, pkgs, ... }:
-let
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}: let
   inherit (lib) mkIf;
   inherit (lib.mine) mkBoolOpt;
 
@@ -8,6 +12,7 @@ let
     with py; [
       black
       cffi
+      click
       dbus-next
       debugpy
       flake8
@@ -16,7 +21,9 @@ let
       jsonrpc-base
       lsprotocol
       mypy
+      pip
       pre-commit-hooks
+      psutil
       pygobject3
       pytest
       pytest-expect
@@ -25,6 +32,7 @@ let
       pytest-tornado
       PyVirtualDisplay
       qtile
+      rich
       rope
       typing-extensions
       typing-inspect

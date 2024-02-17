@@ -99,5 +99,6 @@
     };
     # Unstable repo for latest and greatest packages
     unstable.url = "github:NixOS/nixpkgs";
+    waybar.url = "github:alexays/waybar";
   };
 }

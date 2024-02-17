@@ -3,7 +3,7 @@ _: final: prev: {
     prev.tmuxPlugins
     // {
       inherit
-        (prev.ironman)
+        (prev.mine)
         catppuccin-tmux
         cheat-sh
         tmux-fzf-url

@@ -10,7 +10,8 @@
   sshFolder = "${config.home.homeDirectory}/.ssh";
 in {
   imports = [
-    inputs.sops-nix.homeManagerModules.sops
+    ../modules.nix
+    inputs.stylix.homeManagerModules.stylix
   ];
   # home = {packages = with pkgs; [mine.blockyalarm steam-run];};
   home = {packages = with pkgs; [steam-run];};
@@ -28,17 +29,16 @@ in {
       };
       yb_keys.sopsFile = ./secrets/yb_keys.sops;
     };
-    hyprland.wallpaper = "/home/${config.mine.home.user.name}/wallpapers/zelda-breath-of-the-wild-guides-2.jpg";
+    glocom = enabled;
     gui-apps.hexchat = true;
     networking = enabled;
-    programs = {
-      neomutt = {
-        enable = true;
-        workEmail = true;
-      };
-      ranger = enabled;
+    neomutt = {
+      enable = true;
+      workEmail = true;
     };
+    stylix = enabled;
     suites.workstation = enabled;
+    ranger = enabled;
     work-tools = enabled;
   };
   # systemd.user = {

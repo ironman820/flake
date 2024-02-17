@@ -4,7 +4,7 @@
   pkgs,
   ...
 }: let
-  inherit (lib) mkEnableOption mkIf;
+  inherit (lib) mkDefault mkEnableOption mkIf;
   inherit (lib.mine) enabled;
   cfg = config.mine.boot.grub;
 in {
@@ -17,7 +17,7 @@ in {
       loader.grub = {
         efiSupport = true;
         device = "nodev";
-        theme = "${pkgs.catppuccin-grub}/share/grub/themes/catppuccin-mocha-grub-theme";
+        theme = mkDefault "${pkgs.catppuccin-grub}/share/grub/themes/catppuccin-mocha-grub-theme";
       };
       plymouth = enabled;
     };

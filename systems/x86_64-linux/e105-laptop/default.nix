@@ -6,7 +6,12 @@ in {
   config = {
     mine = {
       android = enabled;
-      configurations.autofs = enabled;
+      drives.autofs = enabled;
+      podman = enabled;
+      stylix = {
+        enable = true;
+        image = ./voidbringer.png;
+      };
       suites.laptop = enabled;
       user.name = "niceastman";
       work-tools = enabled;

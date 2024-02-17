@@ -6,7 +6,7 @@
 }: let
   inherit (lib) mkIf;
   inherit (lib.mine) mkOpt;
-  inherit (lib.types) str nullOr package listOf attrs;
+  inherit (lib.types) float str nullOr package listOf attrs;
   cfg = config.mine.user;
   defaultIconFileName = "profile.png";
   defaultIcon = pkgs.stdenvNoCC.nkderivation {
@@ -47,6 +47,11 @@ in {
       "The initial password to use when the user is first created.";
     name = mkOpt str "ironman" "Username";
     passFile = mkOpt str "" "Password File Path";
+    settings = {
+      applicationOpacity = mkOpt float 0.8 "Default application opacity";
+      desktopOpacity = mkOpt float 0.8 "Default desktop opacity";
+      inactiveOpacity = mkOpt float 0.6 "Default inactive opacity";
+    };
   };
 
   config = {

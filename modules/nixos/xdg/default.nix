@@ -25,6 +25,9 @@ in {
             xdg-desktop-portal-gtk
           ])
         ];
+      wlr = {
+        inherit (config.mine.hyprland) enable;
+      };
       xdgOpenUsePortal = true;
     };
   };

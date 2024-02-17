@@ -18,7 +18,6 @@ in {
       java = enabled;
       networking.networkmanager = enabled;
       hyprland = enabled;
-      sddm = enabled;
       sops = enabled;
       sound = enabled;
       sync = enabled;

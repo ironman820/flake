@@ -18,7 +18,7 @@ in {
       rofi = enabled;
       sync = enabled;
       video-tools = enabled;
-      virtual.host = enabled;
+      virtual-host = enabled;
       yubikey = enabled;
     };
   };

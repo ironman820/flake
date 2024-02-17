@@ -33,7 +33,6 @@ in {
       ];
       sessionPath = ["$HOME/bin" "$HOME/.local/bin"];
       shellAliases = {
-        "cd" = "z";
         "df" = "duf";
         "ducks" = "du -chs * 2>/dev/null | sort -rh | head -11 && du -chs .* 2>/dev/null | sort -rh | head -11";
         "gmount" = "rclone mount google:/ ~/Drive/";
@@ -57,13 +56,6 @@ in {
       };
       dircolors = enabled;
       direnv = enabled;
-      eza = {
-        enable = true;
-        enableAliases = true;
-        extraOptions = ["--group-directories-first" "--header"];
-        git = true;
-        icons = true;
-      };
       gpg = {
         enable = true;
         settings = {

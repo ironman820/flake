@@ -13,29 +13,22 @@ in {
   };
 
   config = mkIf cfg.enable {
-    environment.systemPackages =
-      (with pkgs; [
-        alacritty
-        bashmount
-        bibata-cursors
-        bibata-cursors-translucent
-        brightnessctl
-        catppuccin-cursors
-        catppuccin-gtk
-        catppuccin-kvantum
-        catppuccin-papirus-folders
-        feh
-        floorp
-        pywal
-        rofi
-        scrot
-      ])
-      ++ (with pkgs.xfce; [
-        thunar
-        thunar-archive-plugin
-        thunar-media-tags-plugin
-        thunar-volman
-      ]);
+    environment.systemPackages = with pkgs; [
+      alacritty
+      bashmount
+      bibata-cursors
+      bibata-cursors-translucent
+      brightnessctl
+      catppuccin-cursors
+      catppuccin-gtk
+      catppuccin-kvantum
+      catppuccin-papirus-folders
+      feh
+      floorp
+      pywal
+      rofi
+      scrot
+    ];
     services = {
       gvfs = enabled;
       udisks2 = enabled;

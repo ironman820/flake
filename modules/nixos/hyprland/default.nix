@@ -13,7 +13,14 @@ in {
   };
 
   config = mkIf cfg.enable {
-    mine.gpg.pinentryFlavor = "qt";
+    mine = {
+      gpg.pinentryFlavor = "qt";
+      sddm = {
+        enable = true;
+        wayland = true;
+      };
+      xdg = enabled;
+    };
     environment = {
       systemPackages =
         (with pkgs; [
@@ -25,7 +32,6 @@ in {
           qt6.qtwayland
           rofi-wayland
           swaylock-effects
-          # inputs.watershot.packages.${pkgs.system}.default
           waybar
           wayland-protocols
           wayland-utils
@@ -54,13 +60,6 @@ in {
         enable = true;
         xkb.layout = "us";
       };
-    };
-    xdg.portal = {
-      enable = true;
-      wlr = enabled;
-      extraPortals = [
-        pkgs.xdg-desktop-portal-gtk
-      ];
     };
   };
 }

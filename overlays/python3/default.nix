@@ -1,4 +1,10 @@
-_: final: prev: {
+_: final: prev: let
+  inherit (prev) python3 python311;
+  inherit (prev.lib.lists) remove;
+in {
+  pyright = prev.pyright.override (old: {
+    buildInputs = remove python311 (remove python3 old.buildInputs);
+  });
   python3 = prev.python3.override {
     packageOverrides = final2: prev2: {
       pyright = prev2.buildPythonPackage {
@@ -16,7 +22,7 @@ _: final: prev: {
         propagatedBuildInputs = [prev2.nodeenv];
       };
       qtile-extras =
-        prev.python3Packages.qtile-extras.overridePythonAttrs
+        prev2.python3Packages.qtile-extras.overridePythonAttrs
         (old: {disabledTestPaths = ["test/widget/test_strava.py"];});
       tendo = prev2.buildPythonPackage {
         pname = "tendo";

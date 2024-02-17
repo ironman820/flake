@@ -6,9 +6,9 @@
 }: let
   inherit (lib) mkEnableOption mkIf;
   inherit (lib.mine) enabled;
-  cfg = config.mine.virtual.podman;
+  cfg = config.mine.podman;
 in {
-  options.mine.virtual.podman = {
+  options.mine.podman = {
     enable = mkEnableOption "Enable Podman";
   };
 

@@ -1,6 +1,62 @@
 {
   description = "My NixOS Flakes";
 
+  # Our config that sets up systems
+  outputs = inputs: let
+    lib = inputs.snowfall-lib.mkLib {
+      inherit inputs;
+      src = ./.;
+
+      channels-config = {
+        allowUnfree = true;
+        allowUnfreePredicate = _: true;
+        permittedInsecurePackages = ["openssl-1.1.1w"];
+      };
+
+      snowfall = {
+        meta = {
+          name = "ironman";
+          title = "Ironman Config";
+        };
+        namespace = "mine";
+      };
+    };
+    ironmanapps = inputs.nixpkgs.lib.attrsets.foldlAttrs (input: _: value: input ++ [value]) [] inputs.ironman-apps.overlays;
+  in
+    lib.mkFlake {
+      channels-config = {
+        allowUnfree = true;
+        allowUnfreePredicate = _: true;
+        permittedInsecurePackages = ["openssl-1.1.1w"];
+      };
+
+      overlays = (with inputs; [flake.overlays.default]) ++ ironmanapps;
+
+      systems.modules = {
+        nixos = with inputs; [
+          home-manager.nixosModules.home-manager
+          {
+            home-manager = {
+              useGlobalPkgs = true;
+              useUserPackages = true;
+            };
+          }
+          nix-ld.nixosModules.nix-ld
+          sops-nix.nixosModules.sops
+        ];
+      };
+
+      systems.hosts = {
+        e105-laptop.modules = with inputs; [nixos-hardware.nixosModules.common-gpu-intel];
+        ironman-laptop.modules = with inputs; [
+          nixos-hardware.nixosModules.dell-inspiron-5509
+          nixos-hardware.nixosModules.common-gpu-intel
+        ];
+      };
+
+      alias = {shells.default = "ironman-shell";};
+    };
+
   # Sources needed for packages
   # Where possible, I have used flakehub's system as a source for repos
   inputs = {
@@ -44,62 +100,4 @@
     # Unstable repo for latest and greatest packages
     unstable.url = "github:NixOS/nixpkgs";
   };
-
-  # Our config that sets up systems
-  outputs = inputs: let
-    lib = inputs.snowfall-lib.mkLib {
-      inherit inputs;
-      src = ./.;
-
-      channels-config = {
-        allowUnfree = true;
-        allowUnfreePredicate = _: true;
-        permittedInsecurePackages = ["openssl-1.1.1w"];
-      };
-
-      snowfall = {
-        meta = {
-          name = "ironman";
-          title = "Ironman Config";
-        };
-        namespace = "mine";
-      };
-    };
-    ironmanapps = inputs.nixpkgs.lib.attrsets.foldlAttrs (input: _: value: input ++ [value]) [] inputs.ironman-apps.overlays;
-  in
-    lib.mkFlake {
-      channels-config = {
-        allowUnfree = true;
-        allowUnfreePredicate = _: true;
-        permittedInsecurePackages = ["openssl-1.1.1w"];
-      };
-
-      # homes.modules = with inputs; [sops-nix.homeManagerModules.sops];
-
-      overlays = (with inputs; [flake.overlays.default]) ++ ironmanapps;
-
-      systems.modules = {
-        nixos = with inputs; [
-          home-manager.nixosModules.home-manager
-          {
-            home-manager = {
-              useGlobalPkgs = true;
-              useUserPackages = true;
-            };
-          }
-          nix-ld.nixosModules.nix-ld
-          sops-nix.nixosModules.sops
-        ];
-      };
-
-      systems.hosts = {
-        e105-laptop.modules = with inputs; [nixos-hardware.nixosModules.common-gpu-intel];
-        ironman-laptop.modules = with inputs; [
-          nixos-hardware.nixosModules.dell-inspiron-5509
-          nixos-hardware.nixosModules.common-gpu-intel
-        ];
-      };
-
-      alias = {shells.default = "ironman-shell";};
-    };
 }

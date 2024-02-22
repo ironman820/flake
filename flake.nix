@@ -203,6 +203,10 @@
       flake = false;
       url = "github:ironman820/tochd";
     };
+    transparent-nvim = {
+      flake = false;
+      url = "github:xiyaowong/transparent.nvim";
+    };
     # Unstable repo for latest and greatest packages
     unstable.url = "github:NixOS/nixpkgs";
     waybar.url = "github:alexays/waybar";

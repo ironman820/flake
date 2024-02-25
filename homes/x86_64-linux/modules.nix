@@ -3,6 +3,6 @@
     hypridle.homeManagerModules.hypridle
     hyprlock.homeManagerModules.hyprlock
     sops-nix.homeManagerModules.sops
-    # stylix.homeManagerModules.stylix
+    stylix.homeManagerModules.stylix
   ];
 }

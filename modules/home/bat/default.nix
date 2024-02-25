@@ -32,7 +32,6 @@ in {
         eval $(${pkgs.bat-extras.batpipe}/bin/batpipe)
       '';
       bat = {
-        config.theme = "Catppuccin-mocha";
         enable = true;
         extraPackages = with pkgs.bat-extras; [
           batdiff
@@ -44,6 +43,5 @@ in {
         ];
       };
     };
-    xdg.configFile."bat/themes".source = pkgs.catppuccin-bat;
   };
 }

@@ -1,6 +1,5 @@
 {
   config,
-  inputs,
   lib,
   pkgs,
   ...
@@ -11,7 +10,6 @@
 in {
   imports = [
     ../modules.nix
-    inputs.stylix.homeManagerModules.stylix
   ];
   # home = {packages = with pkgs; [mine.blockyalarm steam-run];};
   home = {packages = with pkgs; [steam-run];};

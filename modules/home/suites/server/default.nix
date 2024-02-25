@@ -1,7 +1,9 @@
-{ config, lib, ... }:
-let
+{
+  config,
+  lib,
+  ...
+}: let
   inherit (lib) mkEnableOption mkIf;
-  inherit (lib.mine) disabled enabled;
   cfg = config.mine.home.suites.server;
 in {
   options.mine.home.suites.server = {
@@ -12,15 +14,11 @@ in {
     mine.home = {
       sops.secrets = {
         github_home.sopsFile = ./secrets/servers.yaml;
-        github_home_pub.path =
-          "${config.home.homeDirectory}/.ssh/github_home.pub";
-        github_servers_pub.path =
-          "${config.home.homeDirectory}/.ssh/github.pub";
+        github_home_pub.path = "${config.home.homeDirectory}/.ssh/github_home.pub";
+        github_servers_pub.path = "${config.home.homeDirectory}/.ssh/github.pub";
         royell_git_work.sopsFile = ./secrets/servers.yaml;
-        royell_git_work_pub.path =
-          "${config.home.homeDirectory}/.ssh/royell_git_work.pub";
-        royell_git_servers_pub.path =
-          "${config.home.homeDirectory}/.ssh/royell_git.pub";
+        royell_git_work_pub.path = "${config.home.homeDirectory}/.ssh/royell_git_work.pub";
+        royell_git_servers_pub.path = "${config.home.homeDirectory}/.ssh/royell_git.pub";
       };
     };
   };

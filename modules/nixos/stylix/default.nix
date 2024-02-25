@@ -5,7 +5,7 @@
   ...
 }: let
   inherit (config.mine.user.settings) applicationOpacity desktopOpacity;
-  inherit (lib) mkEnableOption mkIf;
+  inherit (lib) mkIf;
   inherit (lib.mine) mkBoolOpt mkOpt;
   inherit (lib.types) either path str;
 
@@ -17,11 +17,11 @@
   '';
 in {
   options.mine.stylix = {
-    enable = mkEnableOption "Enable the module";
+    enable = mkBoolOpt true "Enable the module";
     autoImport = mkBoolOpt false "Automatically import the home manager module";
     base16Scheme = mkOpt (either path str) "${pkgs.base16-schemes}/share/themes/catppuccin-mocha.yaml" "Base Color Scheme";
     followSystem = mkBoolOpt true "Home manager follows the system config";
-    image = mkOpt (either path str) "" "Wallpaper image";
+    image = mkOpt (either path str) ../../../systems/x86_64-linux/e105-laptop/voidbringer.png "Wallpaper image";
     polarity = mkOpt str "dark" "Dark or light polorized themes";
   };
   config = mkIf cfg.enable {

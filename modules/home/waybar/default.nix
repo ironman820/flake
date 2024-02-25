@@ -193,11 +193,6 @@ in {
 
           "group/hardware" = {
             orientation = "inherit";
-            drawer = {
-              transition-duration = 300;
-              children-class = "not-memory";
-              transition-left-to-right = false;
-            };
             "modules" = [
               "custom/system"
               "disk"

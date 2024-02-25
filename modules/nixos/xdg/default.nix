@@ -18,9 +18,6 @@ in {
       extraPortals = with pkgs;
         mkMerge [
           (mkIf config.mine.gnome.enable [xdg-desktop-portal-gnome])
-          (mkIf config.mine.hyprland.enable [
-            xdg-desktop-portal-hyprland
-          ])
           (mkIf config.mine.qtile.enable [
             xdg-desktop-portal-gtk
           ])

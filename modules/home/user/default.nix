@@ -21,6 +21,8 @@ in {
     homeDirectory = mkOpt (nullOr str) home-directory "The user's home directory";
     name = mkOpt (nullOr str) config.snowfallorg.user.name "User Name";
     settings = {
+      browser = mkOpt str "floorp" "Default browser";
+      fileManager = mkOpt str "yazi" "Default file manager";
       terminal = mkOpt str "alacritty" "Default terminal application";
       applicationOpacity = mkOpt float osSettings.applicationOpacity "Default application opacity";
       desktopOpacity = mkOpt float osSettings.desktopOpacity "Default desktop opacity";

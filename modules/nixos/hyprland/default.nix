@@ -1,5 +1,6 @@
 {
   config,
+  inputs,
   lib,
   pkgs,
   ...
@@ -22,6 +23,7 @@ in {
       xdg = enabled;
     };
     environment = {
+      sessionVariables.NIXOS_OZONE_WL = "1";
       systemPackages =
         (with pkgs; [
           hyprland
@@ -50,6 +52,7 @@ in {
       dconf = enabled;
       hyprland = {
         enable = true;
+        package = inputs.hyprland.packages.${pkgs.system}.hyprland;
         xwayland = enabled;
       };
     };

@@ -1,4 +1,4 @@
 _: final: prev: {
-  inherit (prev.ironman) idracclient ranger-devicons start-waybar switchssh;
+  inherit (prev.mine) idracclient ranger-devicons switchssh urlview;
   inherit (prev.snowfallorg) flake;
 }

@@ -57,6 +57,15 @@
       alias = {shells.default = "ironman-shell";};
     };
 
+  nixConfig = {
+    extra-substituters = [
+      "https://hyprland.cachix.org"
+    ];
+    extra-trusted-public-keys = [
+      "hyprland.cachix.org-1:a7pgxzMz7+chwVL3/pzj6jIBMioiJM7ypFP8PwtkuGc="
+    ];
+  };
+
   # Sources needed for packages
   # Where possible, I have used flakehub's system as a source for repos
   inputs = {
@@ -124,6 +133,9 @@
       inputs.nixpkgs.follows = "nixpkgs";
       url = "github:nix-community/home-manager/release-23.11";
     };
+    hypridle.url = "github:hyprwm/hypridle";
+    hyprland.url = "github:hyprwm/hyprland";
+    hyprlock.url = "github:hyprwm/hyprlock";
     # Nix-LD is a dynamic linker that tries to mimick FHS file systems for hard-coded applications
     nix-ld = {
       inputs.nixpkgs.follows = "nixpkgs";

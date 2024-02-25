@@ -29,6 +29,7 @@ in {
           spacing = 0;
           modules-left = [
             "custom/appmenuicon"
+            "group/hardware"
             "wlr/taskbar"
             "group/quicklinks"
             "hyprland/window"
@@ -41,7 +42,6 @@ in {
             "bluetooth"
             "battery"
             "network"
-            "group/hardware"
             "custom/cliphist"
             "idle_inhibitor"
             "tray"

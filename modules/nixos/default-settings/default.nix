@@ -78,15 +78,6 @@ in {
     security.sudo = {
       execWheelOnly = true;
     };
-    services = {
-      openssh = {
-        enable = true;
-        settings = {
-          PasswordAuthentication = false;
-          PermitRootLogin = mkDefault "no";
-        };
-      };
-    };
     systemd.extraConfig = ''
       DefaultTimeoutStopSec=10s
     '';

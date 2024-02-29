@@ -22,6 +22,7 @@ in {
         ];
       };
     };
+    mine.ssh.PasswordAuthentication = true;
     powerManagement.cpuFreqGovernor = lib.mkDefault "performance";
     security.sudo.wheelNeedsPassword = false;
   };

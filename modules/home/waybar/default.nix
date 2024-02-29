@@ -194,7 +194,7 @@ in {
           "group/hardware" = {
             orientation = "inherit";
             "modules" = [
-              "custom/system"
+              # "custom/system"
               "disk"
               "cpu"
               "memory"

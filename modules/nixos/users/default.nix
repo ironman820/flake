@@ -48,7 +48,7 @@ in {
     name = mkOpt str "ironman" "Username";
     passFile = mkOpt str "" "Password File Path";
     settings = {
-      applicationOpacity = mkOpt float 0.8 "Default application opacity";
+      applicationOpacity = mkOpt float 1.0 "Default application opacity";
       desktopOpacity = mkOpt float 0.8 "Default desktop opacity";
       inactiveOpacity = mkOpt float 0.6 "Default inactive opacity";
     };

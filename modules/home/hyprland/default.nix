@@ -216,8 +216,9 @@ in {
           "~/.config/hypr/monitor.conf"
         ];
         windowrule = [
-          "workspace 8,^(gloCOM)$"
           "workspace 9,^(dude.exe)$"
+          "workspace 8,^(gloCOM)$"
+          "workspace 3,^(winbox.exe)$"
         ];
         windowrulev2 = [
           "tile,class:(Microsoft-edge)"

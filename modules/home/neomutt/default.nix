@@ -89,6 +89,7 @@ in {
     programs.neomutt = enabled;
     xdg.configFile = {
       "mutt/mailcap".text = ''
+        text/calendar; ${pkgs.khal}/bin/khal import %s ;
         text/csv; ${pkgs.libreoffice-fresh}/lib/libreoffice/program/soffice %s ;
         text/plain; $EDITOR %s ;
         text/html; lynx -assume_charset=%{charset} -display_charset=utf-8 -dump -width=1024 %s; nametemplate=%s.html; copiousoutput;

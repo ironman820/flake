@@ -96,7 +96,7 @@ macro index \Cf "<enter-command>unset wait_key<enter><shell-escape>printf 'Enter
 macro index A "<limit>all\n" "show all messages (undo limit)"
 
 # Sidebar mappings
-set sidebar_visible = yes
+set sidebar_visible = no
 set sidebar_width = 20
 set sidebar_short_path = yes
 set sidebar_next_new_wrap = yes

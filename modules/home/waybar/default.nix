@@ -7,7 +7,7 @@
 }: let
   inherit (lib) mkEnableOption mkIf;
   inherit (lib.mine) mkBoolOpt;
-  inherit (config.mine.home.user.settings) browser fileManager terminal;
+  inherit (config.mine.home.user.settings.applications) browser fileManager terminal;
 
   cfg = config.mine.home.waybar;
 in {

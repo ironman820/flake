@@ -31,7 +31,7 @@ in {
     mine.home.tmux = {
       extraConfig = ''
         source-file ~/.config/tmux/tmux.reset.conf
-        set-option -g terminal-overrides ',xterm-256color:RGB'
+        set-option -sa terminal-features ',${config.mine.home.user.settings.applications.terminal}:RGB'
 
         set -g detach-on-destroy off
         set -g renumber-windows on
@@ -41,7 +41,6 @@ in {
         bind-key -T copy-mode-vi v send-keys -X begin-selection
         bind-key -T copy-mode-vi C-v send-keys -X rectangle-toggle
         bind-key -T copy-mode-vi y send-keys -X copy-selection-and-cancel
-        set-option -sa terminal-features ',xterm-kitty:RGB'
         bind-key -T prefix g display-popup -E -w 95% -h 95% -d '#{pane_current_path}' lazygit
       '';
     };

@@ -10,7 +10,7 @@
   cfg = config.mine.home.yazi;
 in {
   options.mine.home.yazi = {
-    enable = mkBoolOpt (config.mine.home.user.settings.fileManager == "yazi") "Enable the module";
+    enable = mkBoolOpt (config.mine.home.user.settings.applications.fileManager == "yazi") "Enable the module";
   };
   config = mkIf cfg.enable {
     home.packages = with pkgs; [

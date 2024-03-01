@@ -1,11 +1,11 @@
-{ lib, ... }:
-let inherit (lib.mine) enabled;
+{lib, ...}: let
+  inherit (lib.mine) enabled;
 in {
   imports = [
-    inputs.sops-nix.homeManagerModules.sops
+    ../modules.nix
   ];
   mine.home = {
-    programs = { ranger = enabled; };
+    programs = {ranger = enabled;};
     sops.install = true;
     suites.server = enabled;
   };

@@ -7,11 +7,8 @@ in {
     mine = {
       android = enabled;
       drives.autofs = enabled;
+      user.settings.stylix.image = ./voidbringer.png;
       podman = enabled;
-      stylix = {
-        enable = true;
-        image = ./voidbringer.png;
-      };
       suites.laptop = enabled;
       user.name = "niceastman";
       work-tools = enabled;

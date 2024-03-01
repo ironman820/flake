@@ -3,7 +3,7 @@
   config,
   ...
 }: let
-  inherit (config.mine.home.user.settings) terminal;
+  inherit (config.mine.home.user.settings.applications) terminal;
   inherit (lib) mkDefault mkIf;
   inherit (lib.mine) mkBoolOpt;
 

@@ -5,8 +5,8 @@
   ...
 }: let
   inherit (lib) mkIf;
-  inherit (lib.mine) mkOpt;
-  inherit (lib.types) float str nullOr package listOf attrs;
+  inherit (lib.mine) mkOpt vars;
+  inherit (lib.types) either float str nullOr package path listOf attrs;
   cfg = config.mine.user;
   defaultIconFileName = "profile.png";
   defaultIcon = pkgs.stdenvNoCC.nkderivation {
@@ -48,9 +48,30 @@ in {
     name = mkOpt str "ironman" "Username";
     passFile = mkOpt str "" "Password File Path";
     settings = {
-      applicationOpacity = mkOpt float 1.0 "Default application opacity";
-      desktopOpacity = mkOpt float 0.8 "Default desktop opacity";
-      inactiveOpacity = mkOpt float 0.6 "Default inactive opacity";
+      applications = let
+        apps = vars.applications;
+      in {
+        browser = mkOpt str apps.browser "Default browser";
+        fileManager = mkOpt str apps.fileManager "Default fileManager";
+        terminal = mkOpt str apps.terminal "Default Terminal";
+      };
+      stylix = let
+        stlx = vars.stylix;
+      in {
+        base16Scheme = {
+          package = mkOpt str stlx.base16Scheme.package "Package name for color scheme";
+          file = mkOpt str stlx.base16Scheme.file "file path to color scheme in package";
+        };
+        image = mkOpt (either path str) stlx.image "Default wallpaper image";
+      };
+      transparancy = let
+        tsp = vars.transparancy;
+      in {
+        applicationOpacity = mkOpt float tsp.applicationOpacity "Default opacity for normal applications";
+        desktopOpacity = mkOpt float tsp.desktopOpacity "Opacity for desktop objects like bars";
+        inactiveOpacity = mkOpt float tsp.inactiveOpacity "Opacity for inactive applications";
+        terminalOpacity = mkOpt float tsp.terminalOpacity "Opacity for terminal windows";
+      };
     };
   };
 

@@ -1,12 +1,8 @@
-{
-  inputs,
-  lib,
-  ...
-}: let
+{lib, ...}: let
   inherit (lib.mine) enabled;
 in {
   imports = [
-    inputs.sops-nix.homeManagerModules.sops
+    ../modules.nix
   ];
   mine.home = {
     gui-apps.hexchat = true;
@@ -16,13 +12,11 @@ in {
     };
     networking = enabled;
     personal-apps = enabled;
-    programs = {
-      neomutt = {
-        enable = true;
-        personalEmail = true;
-      };
-      ranger = enabled;
+    neomutt = {
+      enable = true;
+      personalEmail = true;
     };
+    ranger = enabled;
     qtile = {
       enable = true;
       backlightDisplay = "intel_backlight";

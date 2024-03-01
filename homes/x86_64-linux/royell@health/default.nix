@@ -1,9 +1,12 @@
-{ config, format, home, host, inputs, lib, pkgs, systems, target, virtual, ...}:
-let
+{
+  config,
+  lib,
+  ...
+}: let
   inherit (lib.mine) enabled;
 in {
   imports = [
-    inputs.sops-nix.homeManagerModules.sops
+    ../modules.nix
   ];
   mine.home = {
     programs.ranger = enabled;

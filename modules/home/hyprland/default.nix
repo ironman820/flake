@@ -1,23 +1,25 @@
 {
   config,
   lib,
-  osConfig,
   pkgs,
   ...
 }: let
   inherit (builtins) toString;
-  inherit (config.mine.home.user.settings) applicationOpacity browser fileManager inactiveOpacity terminal;
   inherit (lib) mkEnableOption mkIf;
   inherit (lib.mine) enabled mkOpt;
   inherit (lib.strings) concatStringsSep;
   inherit (lib.types) either path str;
 
   cfg = config.mine.home.hyprland;
+  apps = usr.applications;
+  stlx = usr.stylix;
+  tsp = usr.transparancy;
+  usr = config.mine.home.settings;
 in {
   options.mine.home.hyprland = {
     enable = mkEnableOption "Setup hyprland";
     primaryScale = mkOpt str "1" "Scaling factor for the primary monitor";
-    wallpaper = mkOpt (either path str) osConfig.stylix.image "Wallpaper to load with hyprpaper";
+    wallpaper = mkOpt (either path str) stlx.image "Wallpaper to load with hyprpaper";
   };
 
   config = mkIf cfg.enable {
@@ -95,11 +97,11 @@ in {
         };
         "$mainMod" = "SUPER";
         bind = [
-          "$mainMod, RETURN, exec, ${terminal}"
-          "$mainMod, B, exec, ${browser}"
+          "$mainMod, RETURN, exec, ${apps.terminal}"
+          "$mainMod, B, exec, ${apps.browser}"
           "$mainMod, Q, killactive"
           "$mainMod, F, fullscreen"
-          "$mainMod, E, exec, ${terminal} -e ${fileManager}"
+          "$mainMod, E, exec, ${apps.terminal} -e ${apps.fileManager}"
           "$mainMod, T, togglefloating"
           "$mainMod SHIFT, T, exec, ~/.config/hypr/toggleallfloat.sh"
           "$mainMod SHIFT, J, togglesplit"
@@ -109,7 +111,7 @@ in {
           "$mainMod, PRINT, exec, ~/.config/hypr/screenshot.sh"
           "$mainMod CTRL, H, exec, ~/.config/hypr/keybindings.sh"
           "$mainMod SHIFT, B, exec, ~/.config/waybar/restart.sh"
-          "$mainMod CTRL, F, exec, ${terminal} -e ${fileManager}"
+          "$mainMod CTRL, F, exec, ${apps.terminal} -e ${apps.fileManager}"
           "$mainMod CTRL, C, exec, ~/.config/rofi/cliphist.sh"
           "$mainMod, V, exec, ~/.config/rofi/cliphist.sh"
           "$mainMod, R, exec, rofi -show drun"
@@ -167,8 +169,8 @@ in {
             ignore_opacity = false;
             xray = true;
           };
-          active_opacity = applicationOpacity;
-          inactive_opacity = inactiveOpacity;
+          active_opacity = apps.applicationOpacity;
+          inactive_opacity = apps.inactiveOpacity;
           fullscreen_opacity = 1;
           drop_shadow = true;
           shadow_range = 30;
@@ -237,7 +239,7 @@ in {
           "rounding 0,class:(Alacritty)"
           "opacity 1.0 override 1.0 override,class:^(Alacritty)$"
           "opacity 1.0 override 1.0 override,class:^(fim)$"
-          "opacity ${toString applicationOpacity} override ${toString inactiveOpacity} override,class:^(floorp)$"
+          "opacity ${toString tsp.applicationOpacity} override ${toString tsp.inactiveOpacity} override,class:^(floorp)$"
           "opacity 1.0 override 1.0 override,class:^(floorp)$,title:(.*)(YouTube)(.*)"
         ];
         xwayland.force_zero_scaling = true;

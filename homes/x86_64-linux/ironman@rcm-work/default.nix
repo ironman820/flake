@@ -1,13 +1,12 @@
 {
   config,
-  inputs,
   lib,
   ...
 }: let
   inherit (lib.mine) enabled;
 in {
   imports = [
-    inputs.sops-nix.homeManagerModules.sops
+    ../modules.nix
   ];
   mine.home = {
     suites = {

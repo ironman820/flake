@@ -34,9 +34,9 @@ in {
       enable = true;
       workEmail = true;
     };
-    stylix = enabled;
     suites.workstation = enabled;
     ranger = enabled;
+    user.settings.stylix.image = ../../../systems/x86_64-linux/e105-laptop/voidbringer.png;
     work-tools = enabled;
   };
   # systemd.user = {

@@ -13,8 +13,8 @@ in {
 
   config = mkIf cfg.enable {
     mine = {
-      gnome = enabled;
-      sync = enabled;
+      hyprland = enabled;
+      # sync = enabled;
       sops = enabled;
       virtual.guest = enabled;
     };

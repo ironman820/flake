@@ -5,7 +5,7 @@
   ...
 }: let
   inherit (lib) mkEnableOption mkIf;
-  inherit (lib.mine) mkBoolOpt;
+  inherit (lib.mine) enabled mkBoolOpt;
 
   cfg = config.mine.drives;
   sopsFile = ./secrets/shares.yaml;
@@ -26,12 +26,15 @@ in {
       curlftpfs
       fuse
     ];
-    services.autofs = mkIf cfg.autofs.enable {
-      inherit (cfg.autofs) enable;
-      autoMaster = ''
-        /run/media/${config.mine.user.name}/fileserver ${config.sops.secrets.fileserver.path} --timeout 60 --browse
-        /run/media/${config.mine.user.name}/royell-ftp ${config.sops.secrets.royell_ftp.path} --timeout 60 --browse
-      '';
+    services = {
+      autofs = mkIf cfg.autofs.enable {
+        inherit (cfg.autofs) enable;
+        autoMaster = ''
+          /run/media/${config.mine.user.name}/fileserver ${config.sops.secrets.fileserver.path} --timeout 60 --browse
+          /run/media/${config.mine.user.name}/royell-ftp ${config.sops.secrets.royell_ftp.path} --timeout 60 --browse
+        '';
+      };
+      gvfs = enabled;
     };
   };
 }

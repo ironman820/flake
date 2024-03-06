@@ -14,7 +14,7 @@
   apps = usr.applications;
   stlx = usr.stylix;
   tsp = usr.transparancy;
-  usr = config.mine.home.settings;
+  usr = config.mine.home.user.settings;
 in {
   options.mine.home.hyprland = {
     enable = mkEnableOption "Setup hyprland";
@@ -169,8 +169,8 @@ in {
             ignore_opacity = false;
             xray = true;
           };
-          active_opacity = apps.applicationOpacity;
-          inactive_opacity = apps.inactiveOpacity;
+          active_opacity = tsp.applicationOpacity;
+          inactive_opacity = tsp.inactiveOpacity;
           fullscreen_opacity = 1;
           drop_shadow = true;
           shadow_range = 30;

@@ -11,6 +11,7 @@ in {
       packages = with pkgs; [
         dig
         duf
+        du-dust
         eltclsh
         fzf
         idracclient
@@ -34,7 +35,8 @@ in {
       sessionPath = ["$HOME/bin" "$HOME/.local/bin"];
       shellAliases = {
         "df" = "duf";
-        "ducks" = "du -chs * 2>/dev/null | sort -rh | head -11 && du -chs .* 2>/dev/null | sort -rh | head -11";
+        "du" = "dust -xd1 --skip-total";
+        # "ducks" = "du -chs * 2>/dev/null | sort -rh | head -11 && du -chs .* 2>/dev/null | sort -rh | head -11";
         "gmount" = "rclone mount google:/ ~/Drive/";
       };
       stateVersion = "23.05";

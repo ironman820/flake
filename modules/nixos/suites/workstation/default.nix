@@ -23,6 +23,7 @@ in {
       sync = enabled;
       virtual.host = enabled;
       winbox = enabled;
+      wine = enabled;
       xdg = enabled;
       yubikey = enabled;
     };

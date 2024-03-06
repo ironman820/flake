@@ -130,7 +130,7 @@
       inputs.nixpkgs.follows = "nixpkgs";
       url = "github:snowfallorg/flake";
     };
-    flake-utils.url = "https://flakehub.com/f/numtide/flake-utils/0.1.*.tar.gz";
+    flake-utils.url = "github:numtide/flake-utils";
     # Home manager to keep track of dotfiles
     home-manager = {
       inputs.nixpkgs.follows = "nixpkgs";

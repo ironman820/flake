@@ -79,26 +79,29 @@ in {
         msmtp
         notmuch
         pass
+        urlscan
         urlview
       ];
       shellAliases = {
         mail = "neomutt";
-        urlview = "urlscan";
       };
     };
     programs.neomutt = enabled;
-    xdg.configFile = {
+    xdg.configFile = let
+      inherit (config.mine.home.user.settings.applications) browser;
+    in {
       "mutt/mailcap".text = ''
         text/calendar; ${pkgs.khal}/bin/khal import %s ;
         text/csv; ${pkgs.libreoffice-fresh}/lib/libreoffice/program/soffice %s ;
         text/plain; $EDITOR %s ;
+        text/html; ${pkgs.${browser}}/bin/${browser} %s &; nametemplate=%s.html
         text/html; lynx -assume_charset=%{charset} -display_charset=utf-8 -dump -width=1024 %s; nametemplate=%s.html; copiousoutput;
         text/html; ${pkgs.mutt-wizard}/lib/mutt-wizard/openfile %s ; nametemplate=%s.html
-        image/*; fim %s ;
+        image/*; fim %s &;
         image/*; ${pkgs.mutt-wizard}/lib/mutt-wizard/openfile %s ;
         video/*; setsid mpv --quiet %s &; copiousoutput
-        audio/*; vlc %s ;
-        application/pdf; zathura %s ;
+        audio/*; vlc %s &;
+        application/pdf; zathura %s &;
         application/pdf; ${pkgs.mutt-wizard}/lib/mutt-wizard/openfile %s ;
         application/pgp-encrypted; gpg -d '%s'; copiousoutput;
         application/pgp-keys; gpg --import '%s'; copiousoutput;

@@ -1,7 +1,11 @@
-{pkgs, ...}: let
+{
+  lib,
+  pkgs,
+  ...
+}: let
+  inherit (lib.mine.vars.applications) browser;
   inherit (pkgs) urlscan;
 in
   pkgs.writeShellScriptBin "urlview" ''
-    /usr/bin/env bash
-    ${urlscan}/bin/urlscan "$@"
+    ${urlscan}/bin/urlscan -s --run-safe '${pkgs.${browser}}/bin/${browser} {}' "$@"
   ''

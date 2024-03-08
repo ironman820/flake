@@ -355,6 +355,26 @@
         "type": "github"
       }
     },
+    "disko": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1709773529,
+        "narHash": "sha256-CNz9ybeR88j8QQxy7YNFa8RlNq3pWnXLvocWIt2n5Mg=",
+        "owner": "nix-community",
+        "repo": "disko",
+        "rev": "a2009bc2b4e1d3ff5360048292deb0d610aa064b",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nix-community",
+        "repo": "disko",
+        "type": "github"
+      }
+    },
     "flake": {
       "inputs": {
         "flake-compat": "flake-compat",
@@ -1136,6 +1156,7 @@
         "cellular-automaton-nvim": "cellular-automaton-nvim",
         "cloak-nvim": "cloak-nvim",
         "conceal-nvim": "conceal-nvim",
+        "disko": "disko",
         "flake": "flake",
         "flake-utils": "flake-utils_2",
         "home-manager": "home-manager",

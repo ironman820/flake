@@ -33,6 +33,8 @@
 
       systems.modules = {
         nixos = with inputs; [
+          disko.nixosModules.disko
+          impermanence.nixosModules.impermanence
           home-manager.nixosModules.home-manager
           {
             home-manager = {
@@ -124,6 +126,10 @@
       flake = false;
       url = "github:Jxstxs/conceal.nvim";
     };
+    disko = {
+      inputs.nixpkgs.follows = "nixpkgs";
+      url = "github:nix-community/disko";
+    };
     # Snowfallorg's Flake utility
     flake = {
       inputs.nixpkgs.follows = "nixpkgs";
@@ -138,6 +144,7 @@
     hypridle.url = "github:hyprwm/hypridle";
     hyprland.url = "github:hyprwm/hyprland";
     hyprlock.url = "github:hyprwm/hyprlock";
+    impermanence.url = "github:nix-community/impermanence";
     # Nix-LD is a dynamic linker that tries to mimick FHS file systems for hard-coded applications
     nix-ld = {
       inputs.nixpkgs.follows = "nixpkgs";

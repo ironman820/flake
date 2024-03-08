@@ -30,6 +30,7 @@ in {
           owner = config.mine.user.name;
           group = config.users.groups.users.name;
         };
+        user_pass.neededForUsers = true;
       };
     };
     sops = {

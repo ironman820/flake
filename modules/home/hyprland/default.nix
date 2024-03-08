@@ -64,7 +64,6 @@ in {
       eza = enabled;
       hypridle = enabled;
       hyprlock = enabled;
-      nvim = enabled;
       rofi = enabled;
       swappy = enabled;
       thunar = enabled;

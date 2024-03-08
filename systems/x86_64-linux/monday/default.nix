@@ -1,13 +1,16 @@
-_: {
+{lib, ...}: {
   imports = [
     ./hardware.nix
-    ../../../common/drives/personal.nix
-    ../../../common/disko-tiny.nix
+    # ../../../common/drives/personal.nix
+    (import ../../../common/disko-tiny.nix {device = "";})
   ];
 
-  config = {
+  config = let
+    inherit (lib.mine) enabled;
+  in {
     mine = {
-      suites.laptop.enable = true;
+      impermanence = enabled;
+      suites.laptop = enabled;
     };
     system.stateVersion = "23.05";
     zramSwap = {

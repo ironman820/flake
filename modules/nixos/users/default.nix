@@ -4,7 +4,6 @@
   lib,
   ...
 }: let
-  inherit (lib) mkIf;
   inherit (lib.mine) mkOpt vars;
   inherit (lib.types) either float str nullOr package path listOf attrs;
   cfg = config.mine.user;
@@ -42,11 +41,8 @@ in {
     icon =
       mkOpt (nullOr package) defaultIcon
       "The profile picture to use for the user.";
-    initialPassword =
-      mkOpt str "password"
-      "The initial password to use when the user is first created.";
     name = mkOpt str "ironman" "Username";
-    passFile = mkOpt str "" "Password File Path";
+    hashedPasswordFile = mkOpt (either path str) config.sops.secrets.user_pass.path "User's password hashed into a file for reference.";
     settings = {
       applications = let
         apps = vars.applications;
@@ -78,11 +74,10 @@ in {
   config = {
     users.users.${cfg.name} =
       {
+        inherit (cfg) hashedPasswordFile;
         isNormalUser = true;
         home = "/home/${cfg.name}";
         group = "users";
-        initialPassword = mkIf (builtins.stringLength cfg.initialPassword > 0) cfg.initialPassword;
-        passwordFile = mkIf (builtins.stringLength cfg.passFile > 0) cfg.passFile;
         shell = pkgs.bash;
         uid = 1000;
         extraGroups = ["wheel"] ++ cfg.extraGroups;

@@ -1,6 +1,7 @@
 _: {
   imports = [
     ./hardware.nix
+    ../../../common/drives/personal.nix
   ];
 
   config = {

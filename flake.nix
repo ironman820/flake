@@ -56,7 +56,7 @@
 
       alias = {
         shells.default = "ironman-shell";
-        templates.default = "python";
+        # templates.default = "python";
       };
     };
 

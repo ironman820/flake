@@ -1,12 +1,14 @@
 {lib, ...}: let
   inherit (lib.mine) enabled;
 in {
-  imports = [./hardware.nix];
+  imports = [
+    ./hardware.nix
+    ../../../common/drives/work.nix
+  ];
 
   config = {
     mine = {
       android = enabled;
-      drives.autofs = enabled;
       user.settings.stylix.image = ./voidbringer.png;
       podman = enabled;
       suites.laptop = enabled;

@@ -3,13 +3,13 @@
   lib,
   ...
 }: let
-  inherit (lib) mkEnableOption mkIf;
-  inherit (lib.mine) mkOpt;
+  inherit (lib) mkIf;
+  inherit (lib.mine) mkBoolOpt mkOpt;
   inherit (lib.types) int str;
   cfg = config.mine.nix;
 in {
   options.mine.nix = {
-    enable = mkEnableOption "Enable NIX settings.";
+    enable = mkBoolOpt true "Enable NIX settings.";
     gc = {
       dates = mkOpt str "weekly" "Dates to run GC";
       options = mkOpt str "--delete-older-than 7d" "Extra Garbage Collect Options.";
@@ -23,6 +23,9 @@ in {
         inherit (cfg.gc) dates options;
         automatic = true;
       };
+      generateNixPathFromInputs = true;
+      generateRegistryFromInputs = true;
+      linkInputs = true;
       optimise.automatic = true;
       settings = {
         inherit (cfg.settings) cores;

@@ -57,8 +57,6 @@ in {
     ];
     i18n.defaultLocale = "en_US.UTF-8";
     mine = {
-      # java = enabled;
-      nix = enabled;
       user.extraGroups = [
         "dialout"
       ];

@@ -1,10 +1,12 @@
-{ config, lib, pkgs, system, ... }:
-let
-  inherit (lib) mkEnableOption mkIf;
-  inherit (lib.mine) disabled enabled;
-  cfg = config.mine.home.gnome;
-in
 {
+  config,
+  lib,
+  pkgs,
+  ...
+}: let
+  inherit (lib) mkEnableOption mkIf;
+  cfg = config.mine.home.gnome;
+in {
   options.mine.home.gnome = {
     enable = mkEnableOption "Enable the default settings?";
   };
@@ -33,13 +35,13 @@ in
         idle-delay = "unit32 300";
       };
       "org/gnome/desktop/wm/keybindings" = {
-        close = [ "<Super>q" ];
+        close = ["<Super>q"];
       };
       "org/gnome/desktop/wm/preferences" = {
         titlebar-font = "FiraCode Nerd Font Bold 11";
       };
       "org/gnome/settings-daemon/plugins/media-keys" = {
-        home = [ "<Super>f" ];
+        home = ["<Super>f"];
       };
       "org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0" = {
         binding = "<Super>t";
@@ -73,7 +75,7 @@ in
         send-notification-on-copy = false;
       };
       "org/gnome/shell/extensions/tactile" = {
-        show-tiles = [ "<Super>w" ];
+        show-tiles = ["<Super>w"];
       };
       "org/gnome/system/location" = {
         enabled = false;
@@ -86,21 +88,23 @@ in
         name = "Tela-black-dark";
       };
     };
-    home.packages = (with pkgs; [
-      gnome.gnome-tweaks
-      gnome-extension-manager
-    ]) ++ (with pkgs.gnomeExtensions; [
-      appindicator
-      caffeine
-      compact-top-bar
-      lock-keys
-      no-overview
-      pano
-      power-profile-switcher
-      syncthing-indicator
-      tactile
-      weather-oclock
-    ]);
+    home.packages =
+      (with pkgs; [
+        gnome.gnome-tweaks
+        gnome-extension-manager
+      ])
+      ++ (with pkgs.gnomeExtensions; [
+        appindicator
+        caffeine
+        compact-top-bar
+        lock-keys
+        no-overview
+        pano
+        power-profile-switcher
+        syncthing-indicator
+        tactile
+        weather-oclock
+      ]);
     services.gpg-agent.pinentryFlavor = "gnome3";
   };
 }

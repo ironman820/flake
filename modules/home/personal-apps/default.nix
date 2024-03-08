@@ -1,9 +1,12 @@
-{ config, lib, pkgs, system, ... }:
-let
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}: let
   inherit (lib) mkEnableOption mkIf;
   cfg = config.mine.home.personal-apps;
-in
-{
+in {
   options.mine.home.personal-apps = {
     enable = mkEnableOption "Enable the default settings?";
   };

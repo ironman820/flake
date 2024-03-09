@@ -3,14 +3,14 @@
   config,
   ...
 }: let
-  inherit (lib) mkDefault mkEnableOption mkIf;
+  inherit (lib) mkDefault mkIf;
   inherit (lib.mine) mkBoolOpt;
 
   cfg = config.mine.ssh;
 in {
   options.mine.ssh = {
     enable = mkBoolOpt true "Enable the module";
-    PasswordAuthentication = mkEnableOption "Enable password authentication";
+    PasswordAuthentication = mkBoolOpt true "Enable password authentication";
   };
   config = mkIf cfg.enable {
     services = {

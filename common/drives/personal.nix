@@ -1,15 +1,23 @@
-{config, ...}: let
-  sopsFile = ./secrets/personal.yml;
-in {
+{
+  config,
+  pkgs,
+  ...
+}: {
   mine = {
     drives.autofs = {
       enable = true;
       shares = [
-        "/run/media/${config.mine.user.name}/home-nas ${config.sops.secrets.home-nas.path} --timeout 60 --browse"
+        "/mnt/nas ${config.sops.secrets.home-nas.path} --timeout 60 --browse"
       ];
     };
     sops.secrets = {
-      home-nas = {inherit sopsFile;};
+      home-nas = {
+        sopsFile = ./secrets/personal.yml;
+      };
     };
   };
+  environment.systemPackages = with pkgs; [
+    cifs-utils
+    enum4linux
+  ];
 }

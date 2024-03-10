@@ -4,6 +4,7 @@ in {
   imports = [
     ./hardware.nix
     ../../../common/drives/work.nix
+    ../../../common/drives/personal.nix
   ];
 
   config = {

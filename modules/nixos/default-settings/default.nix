@@ -42,7 +42,7 @@ in {
         git-extras
         nerdfonts
         p7zip
-        rnix-lsp
+        # rnix-lsp
         ssh-to-age
         flake
         sops

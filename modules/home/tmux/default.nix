@@ -103,6 +103,7 @@ in {
             '';
           }
           sensible
+          sessionx
           yank
           {
             plugin = tmux-fzf-url;
@@ -111,7 +112,6 @@ in {
               set -g @fzf-url-history-limit '2000'
             '';
           }
-          tmux-session-wizard
         ];
       };
     };

@@ -205,6 +205,10 @@
       flake = false;
       url = "github:27medkamal/tmux-session-wizard";
     };
+    tmux-sessionx = {
+      inputs.nixpkgs.follows = "unstable";
+      url = "github:omerxx/tmux-sessionx";
+    };
     tochd = {
       flake = false;
       url = "github:ironman820/tochd";

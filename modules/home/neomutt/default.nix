@@ -19,50 +19,59 @@ in {
   config = mkIf cfg.enable (let
     sopsFile = ./secrets/neomutt.yaml;
   in {
-    mine.home.sops.secrets = mkMerge [
-      {
-        "mbsync" = {
-          inherit sopsFile;
-          path = "${config.home.homeDirectory}/.mbsyncrc";
-        };
-        "msmtp_config" = {
-          inherit sopsFile;
-          path = "${config.xdg.configHome}/msmtp/config";
-        };
-        "notmuch-config" = {
-          inherit sopsFile;
-          path = "${config.home.homeDirectory}/.notmuch-config";
-        };
-        "work_sig" = {
-          inherit sopsFile;
-          path = "${configFolder}/signatures/work.sig";
-        };
-        "personal_sig" = {
-          inherit sopsFile;
-          path = "${configFolder}/signatures/personal.sig";
-        };
-      }
-      (mkIf cfg.personalEmail {
-        "muttrc_personal_email" = {
-          inherit sopsFile;
-          path = "${configFolder}/accounts/master.muttrc";
-        };
-        "muttrc_work_email" = {
-          inherit sopsFile;
-          path = "${configFolder}/accounts/work.muttrc";
-        };
-      })
-      (mkIf cfg.workEmail {
-        "muttrc_work_email" = {
-          inherit sopsFile;
-          path = "${configFolder}/accounts/master.muttrc";
-        };
-        "muttrc_personal_email" = {
-          inherit sopsFile;
-          path = "${configFolder}/accounts/personal.muttrc";
-        };
-      })
-    ];
+    mine.home = {
+      pass = enabled;
+      sops.secrets = mkMerge [
+        {
+          "mbsync" = {
+            inherit sopsFile;
+            path = "${config.home.homeDirectory}/.mbsyncrc";
+          };
+          "msmtp_config" = {
+            inherit sopsFile;
+            path = "${config.xdg.configHome}/msmtp/config";
+          };
+          "notmuch-config" = {
+            inherit sopsFile;
+            path = "${config.home.homeDirectory}/.notmuch-config";
+          };
+          "work_sig" = {
+            inherit sopsFile;
+            path = "${configFolder}/signatures/work.sig";
+          };
+          "personal_sig" = {
+            inherit sopsFile;
+            path = "${configFolder}/signatures/personal.sig";
+          };
+        }
+        (mkIf cfg.personalEmail {
+          "muttrc_personal_email" = {
+            inherit sopsFile;
+            path = "${configFolder}/accounts/master.muttrc";
+          };
+          "muttrc_work_email" = {
+            inherit sopsFile;
+            path = "${configFolder}/accounts/work.muttrc";
+          };
+        })
+        (mkIf cfg.workEmail {
+          "muttrc_work_email" = {
+            inherit sopsFile;
+            path = "${configFolder}/accounts/master.muttrc";
+          };
+          "muttrc_personal_email" = {
+            inherit sopsFile;
+            path = "${configFolder}/accounts/personal.muttrc";
+          };
+          "work-pass" = {
+            format = "binary";
+            mode = "0400";
+            path = "${config.home.homeDirectory}/.local/share/password-store/nic.eastman@royell.org.gpg";
+            sopsFile = ./secrets/work-pass;
+          };
+        })
+      ];
+    };
     home = {
       packages = with pkgs; [
         abook
@@ -71,6 +80,7 @@ in {
         curl
         fim
         gettext
+        imapfilter
         isync
         khal
         lieer
@@ -78,9 +88,9 @@ in {
         mutt-wizard
         msmtp
         notmuch
-        pass
         urlscan
         urlview
+        w3m
       ];
       shellAliases = {
         mail = "neomutt";
@@ -94,8 +104,8 @@ in {
         text/calendar; ${pkgs.khal}/bin/khal import %s ;
         text/csv; ${pkgs.libreoffice-fresh}/lib/libreoffice/program/soffice %s ;
         text/plain; $EDITOR %s ;
+        text/html; w3m -assume_charset=%{charset} -display_charset=utf-8 -dump -width=1024 %s; nametemplate=%s.html; copiousoutput;
         text/html; ${pkgs.${browser}}/bin/${browser} %s &; nametemplate=%s.html
-        text/html; lynx -assume_charset=%{charset} -display_charset=utf-8 -dump -width=1024 %s; nametemplate=%s.html; copiousoutput;
         text/html; ${pkgs.mutt-wizard}/lib/mutt-wizard/openfile %s ; nametemplate=%s.html
         image/*; fim %s &;
         image/*; ${pkgs.mutt-wizard}/lib/mutt-wizard/openfile %s ;

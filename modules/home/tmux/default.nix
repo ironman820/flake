@@ -103,7 +103,12 @@ in {
             '';
           }
           sensible
-          sessionx
+          {
+            plugin = sessionx;
+            extraConfig = ''
+              set -g @sessionx-bind 'o'
+            '';
+          }
           yank
           {
             plugin = tmux-fzf-url;

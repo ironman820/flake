@@ -12,8 +12,8 @@ in {
   };
 
   config = mkIf cfg.enable {
-    hardware.bluetooth = enabled;
     mine = {
+      bluetooth = enabled;
       firmware = enabled;
       intel-video = enabled;
       suites.workstation = enabled;

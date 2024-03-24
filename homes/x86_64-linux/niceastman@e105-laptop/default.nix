@@ -37,6 +37,7 @@ in {
     suites.workstation = enabled;
     ranger = enabled;
     user.settings.stylix.image = ../../../systems/x86_64-linux/e105-laptop/voidbringer.png;
+    virtual-host = enabled;
     work-tools = enabled;
   };
   # systemd.user = {

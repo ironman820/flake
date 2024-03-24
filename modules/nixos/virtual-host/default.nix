@@ -1,10 +1,10 @@
 {
   config,
   lib,
-  pkgs,
   ...
 }: let
   inherit (lib) mkEnableOption mkIf;
+  inherit (lib.mine) enabled;
   cfg = config.mine.virtual.host;
 in {
   options.mine.virtual.host = {
@@ -15,11 +15,7 @@ in {
     mine.user.extraGroups = [
       "libvirtd"
     ];
-    virtualisation = {
-      libvirtd = {
-        enable = true;
-        qemu.package = pkgs.qemu_kvm;
-      };
-    };
+    programs.virt-manager = enabled;
+    virtualisation.libvirtd = enabled;
   };
 }

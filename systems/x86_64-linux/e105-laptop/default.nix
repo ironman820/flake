@@ -14,6 +14,7 @@ in {
       podman = enabled;
       suites.laptop = enabled;
       user.name = "niceastman";
+      virtual.host = enabled;
       work-tools = enabled;
       wireless-profiles.work = true;
     };

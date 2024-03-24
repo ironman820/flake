@@ -11,17 +11,16 @@
 in {
   options.mine.sops = {
     enable = mkBoolOpt true "Enable root secrets";
-    age = mkOpt attrs {} "Age Attributes";
+    age = mkOpt attrs {
+      keyFile = "/etc/nixos/keys.txt";
+      sshKeyPaths = [];
+    } "Age Attributes";
     defaultSopsFile = mkOpt path ./secrets/sops.yaml "Default SOPS file path.";
     secrets = mkOpt attrs {} "SOPS secrets.";
   };
 
   config = mkIf cfg.enable {
     mine.sops = {
-      age = {
-        keyFile = "/etc/nixos/keys.txt";
-        sshKeyPaths = [];
-      };
       secrets = {
         authorized_keys = {
           sopsFile = ./secrets/keys.yaml;

@@ -14,7 +14,10 @@
 in {
   options.mine.home.sops = {
     enable = mkBoolOpt true "Enable root secrets";
-    age = mkOpt attrs {} "Age Attributes";
+    age = mkOpt attrs {
+      keyFile = "${config.xdg.configHome}/sops/age/keys.txt";
+      sshKeyPaths = [];
+    } "Age Attributes";
     defaultSopsFile = mkOpt path ./secrets/keys.yaml "Default SOPS file path.";
     install = mkBoolOpt false "Install sops in home manager";
     secrets = mkOpt attrs {} "SOPS secrets.";
@@ -22,10 +25,6 @@ in {
 
   config = mkIf cfg.enable {
     mine.home.sops = {
-      age = {
-        keyFile = "${config.xdg.configHome}/sops/age/keys.txt";
-        sshKeyPaths = [];
-      };
       secrets = mkMerge [
         {
           github_home = {

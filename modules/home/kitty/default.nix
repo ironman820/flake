@@ -4,15 +4,15 @@
   pkgs,
   ...
 }: let
-  inherit (lib) mkDefault mkForce mkIf;
-  inherit (lib.mine) mkBoolOpt mkOpt;
+  inherit (lib) mkEnableOption mkDefault mkForce mkIf;
+  inherit (lib.mine) mkOpt;
   inherit (lib.types) attrs lines;
   inherit (pkgs) nerdfonts;
 
   cfg = config.mine.home.kitty;
 in {
   options.mine.home.kitty = {
-    enable = mkBoolOpt true "Setup kitty";
+    enable = mkEnableOption "Setup kitty";
     extraConfig = mkOpt lines "" "Extra configuration options";
     keyBindings = mkOpt attrs {
       "alt+left" = mkDefault "send_text all x1bx62";

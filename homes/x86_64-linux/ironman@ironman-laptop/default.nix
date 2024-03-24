@@ -8,6 +8,7 @@ in {
     gui-apps.hexchat = true;
     hyprland = {
       enable = true;
+      primaryScale = "1.2";
       wallpaper = ../../../systems/x86_64-linux/ironman-laptop/scream.jpg;
     };
     networking = enabled;

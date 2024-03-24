@@ -5,17 +5,23 @@ in {
     (import ../../disko.nix
       {device = "/dev/nvme0n1";})
     ./hardware.nix
+    ../../../common/drives/personal.nix
   ];
 
   config = {
     mine = {
+      gui-apps = {
+        contour = enabled;
+        hexchat = enabled;
+      };
       impermanence = enabled;
+      sops.age.keyFile = "/persist/root/etc/nixos/keys.txt";
       suites.laptop = enabled;
+      user.settings.stylix.image = ./ffvii.jpg;
+      networking.profiles.work = true;
     };
+    services.tlp.settings.RUNTIME_PM_DISABLE = "02:00.0";
     system.stateVersion = "23.05";
-    zramSwap = {
-      enable = true;
-      memoryPercent = 90;
-    };
+    zramSwap = enabled;
   };
 }

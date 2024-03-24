@@ -1,37 +1,34 @@
 {
-  lib,
-  options,
   config,
+  lib,
+  osConfig,
   ...
 }: let
-  inherit (lib) mkAliasDefinitions mkEnableOption mkIf;
-  inherit (lib.mine) mkOpt;
-  inherit (lib.types) attrs either listOf str;
+  inherit (lib) mkIf;
+  inherit (lib.mine) mkBoolOpt;
 
   cfg = config.mine.home.impermanence;
+  os = osConfig.mine.impermanence.enable;
 in {
   options.mine.home.impermanence = {
-    enable = mkEnableOption "Enable the module";
-    directories = mkOpt (listOf (either attrs str)) [
-      "Documents"
-      "Downloads"
-      "Music"
-      "Pictures"
-      "Videos"
-      ".config/flake"
-      ".gnupg"
-      ".nixops"
-      ".local/share/keyrings"
-      ".local/share/direnv"
-    ] "List of directories to save for home";
-    files = mkOpt (listOf (either attrs str)) [] "list of files to save for home";
+    enable = mkBoolOpt os "Enable the module";
   };
 
   config = mkIf cfg.enable {
     home.persistence."/persist/home" = {
       allowOther = true;
-      directories = mkAliasDefinitions options.mine.home.impermanence.directories;
-      files = mkAliasDefinitions options.mine.home.impermanence.files;
+      directories = [
+        ".config/flake"
+        "Documents"
+        "Downloads"
+        "Music"
+        "Pictures"
+        "Videos"
+        ".gnupg"
+        ".nixops"
+        ".local/share/keyrings"
+        ".local/share/direnv"
+      ];
     };
   };
 }

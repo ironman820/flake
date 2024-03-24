@@ -1,6 +1,7 @@
 {
   config,
   lib,
+  osConfig,
   pkgs,
   ...
 }: let
@@ -10,9 +11,10 @@
   inherit (pkgs) writeShellScript;
 
   cfg = config.mine.home.tmux;
+  os = osConfig.mine.tmux;
 in {
   options.mine.home.tmux = {
-    enable = mkBoolOpt true "Setup tmux";
+    enable = mkBoolOpt os.enable "Setup tmux";
     baseIndex = mkOpt int 1 "Base number for windows";
     clock24 = mkBoolOpt true "Use a 24 hour clock";
     customPaneNavigationAndResize = mkBoolOpt true "Use hjkl for navigation";
@@ -44,11 +46,9 @@ in {
         bind-key -T prefix g display-popup -E -w 95% -h 95% -d '#{pane_current_path}' lazygit
       '';
     };
-    # home.packages = with pkgs; [t];
     programs = {
-      bash.bashrcExtra = ''
+      bash.initExtra = ''
         if [[ -z "$TMUX" ]]; then
-            # ${pkgs.t}/bin/t $PWD
             tmux new-session -A -s ${config.home.username}
         fi
       '';
@@ -90,23 +90,12 @@ in {
             '';
           }
           cheat-sh
-          {
-            plugin = continuum;
-            extraConfig = ''
-              set -g @continuum-restore 'on'
-            '';
-          }
-          {
-            plugin = resurrect;
-            extraConfig = ''
-              set -g @resurrect-strategy-nvim 'session'
-            '';
-          }
           sensible
           {
             plugin = sessionx;
             extraConfig = ''
               set -g @sessionx-bind 'o'
+              set -g @sessionx-zoxide-mode 'on'
             '';
           }
           yank
@@ -266,7 +255,7 @@ in {
         bind L next-window
 
         # bind r command-prompt "rename-window %%"
-        # bind R source-file ~/.config/tmux/tmux.conf
+        bind R source-file ~/.config/tmux/tmux.conf
         # bind ^A last-window
         # bind ^W list-windows
         bind w list-windows

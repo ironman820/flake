@@ -1,6 +1,7 @@
 {
   config,
   lib,
+  osConfig,
   pkgs,
   ...
 }: let
@@ -12,11 +13,10 @@
   initLua = ''
     require("startup")
   '';
-  my_python = pkgs.python3.withPackages my_python_packages;
-  my_python_packages = py: (with py; [autopep8 black debugpy isort mypy pylint pynvim]);
+  os = osConfig.mine.nvim;
 in {
   options.mine.home.nvim = {
-    enable = mkBoolOpt true "Install NeoVim";
+    enable = mkBoolOpt os.enable "Install NeoVim";
     extraLuaConfig = mkOpt lines initLua "Extra Config";
   };
 
@@ -31,25 +31,6 @@ in {
       neovim = mkIf cfg.enable {
         inherit (cfg) enable extraLuaConfig;
         defaultEditor = true;
-        extraPackages =
-          (with pkgs; [
-            alejandra
-            fd
-            ripgrep
-            tree-sitter
-            xclip
-            efm-langserver
-            lua-language-server
-            mercurial
-            my_python
-            pyright
-            nil
-            nixfmt
-            statix
-            stylua
-            taplo-lsp
-          ])
-          ++ (with pkgs.luaPackages; [luacheck]);
         plugins = with pkgs.vimPlugins; [
           aerial-nvim
           alpha-nvim

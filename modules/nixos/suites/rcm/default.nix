@@ -74,7 +74,7 @@ in {
       unixODBCDrivers = with pkgs.unixODBCDrivers; [msodbcsql17];
     };
     networking.firewall =
-      mkIf config.mine.networking.firewall {allowedTCPPorts = [443];};
+      mkIf config.mine.networking.basic.firewall {allowedTCPPorts = [443];};
     users.users.nginx.home = "/home/${config.users.users.nginx.name}";
   };
 }

@@ -1,8 +1,14 @@
-{ lib, pkgs, ... }:
-let
-  inherit (lib) mkForce;
-in
 {
+  config,
+  lib,
+  pkgs,
+  ...
+}: let
+  inherit (config.mine.user.settings) stylix transparancy;
+  inherit (stylix.fonts) terminalFont;
+  inherit (transparancy) terminalOpacity;
+  inherit (lib) mkForce;
+in {
   config = {
     stylix = {
       fonts = {
@@ -18,7 +24,7 @@ in
 
         monospace = {
           package = mkForce pkgs.nerdfonts;
-          name = mkForce "Inconsolata Nerd Font Mono Regular";
+          name = terminalFont;
         };
 
         emoji = {
@@ -26,7 +32,7 @@ in
           name = "Noto Color Emoji";
         };
       };
-      opacity.terminal = 0.99;
+      opacity.terminal = terminalOpacity;
       polarity = "dark";
     };
   };

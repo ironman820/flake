@@ -17,7 +17,7 @@ in {
         # barrier
         dia
         # glocom
-        # qgis
+        qgis
         wireshark
         zoom-us
       ];

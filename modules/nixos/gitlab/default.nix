@@ -49,7 +49,7 @@ in {
         "${cfg.host}" = passLoc;
       };
     };
-    networking.firewall = mkIf config.mine.networking.firewall {
+    networking.firewall = mkIf config.mine.networking.basic.firewall {
       allowedTCPPorts = [22 80 443];
     };
     services = {

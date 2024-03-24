@@ -1,25 +1,33 @@
 {
   config,
   lib,
+  osConfig,
   ...
 }: let
-  inherit (lib) mkEnableOption mkIf;
-  inherit (lib.mine) enabled;
+  inherit (config.mine.home.user.settings.applications) terminal;
+  inherit (lib) mkIf;
+  inherit (lib.mine) enabled mkBoolOpt;
+
   cfg = config.mine.home.suites.workstation;
+  os = osConfig.mine.suites.workstation;
 in {
   options.mine.home.suites.workstation = {
-    enable = mkEnableOption "Enable the default settings?";
+    enable = mkBoolOpt os.enable "Enable the default settings?";
   };
 
   config = mkIf cfg.enable {
     mine.home = {
-      gui-apps = enabled;
-      hyprland = enabled;
+      de.hyprland = enabled;
+      gui-apps = {
+        alacritty = mkIf (terminal == "alacritty") enabled;
+        wezterm = mkIf (terminal == "wezterm") enabled;
+      };
+      hardware.yubikey = enabled;
       rofi = enabled;
-      sync = enabled;
+      servers.sync = enabled;
+      tui.neomutt = enabled;
       video-tools = enabled;
-      virtual-host = enabled;
-      yubikey = enabled;
+      virtual.host = enabled;
     };
   };
 }

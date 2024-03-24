@@ -1,14 +1,25 @@
-{ config, lib, pkgs, system, ... }:
-let
+{
+  config,
+  lib,
+  ...
+}: let
   inherit (lib) mkEnableOption mkIf;
-  inherit (lib.mine) enabled;
+
   cfg = config.mine.home.sync;
+  imp = config.mine.home.impermanence.enable;
 in {
   options.mine.home.sync = {
     enable = mkEnableOption "Enable the default settings?";
   };
 
   config = mkIf cfg.enable {
-    services.syncthing = enabled;
+    home.persistence."/persist/home".directories = mkIf imp [
+      ".config/syncthing"
+      ".local/share/syncthing"
+    ];
+    services.syncthing = {
+      enable = true;
+      # tray.enable = true;
+    };
   };
 }

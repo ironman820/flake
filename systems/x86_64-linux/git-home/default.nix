@@ -30,7 +30,7 @@ with lib.mine; {
           enable = true;
           host = "gitlab.niceastman.com";
           initialRootPasswordFile = config.sops.secrets."gitlab/initialRootPassword".path;
-          ipAddress = config.mine.networking.address;
+          ipAddress = config.mine.networking.basic.address;
           smtp = {
             address = "mail.niceastman.com";
             authentication = "login";

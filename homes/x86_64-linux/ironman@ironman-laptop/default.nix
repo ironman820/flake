@@ -1,29 +1,43 @@
-{lib, ...}: let
+{
+  lib,
+  pkgs,
+  ...
+}: let
   inherit (lib.mine) enabled;
 in {
   imports = [
     ../modules.nix
   ];
   mine.home = {
-    gui-apps.hexchat = true;
-    hyprland = {
-      enable = true;
-      primaryScale = "0.8";
-      wallpaper = ../../../systems/x86_64-linux/ironman-laptop/scream.jpg;
+    gui-apps = {
+      hexchat = enabled;
+      kitty = enabled;
     };
-    impermanence = enabled;
     networking = enabled;
+    tui.neomutt.personalEmail = true;
     personal-apps = enabled;
-    neomutt = {
-      enable = true;
-      personalEmail = true;
+    sops.age.keyFile = "/persist/home/.config/sops/age/keys.txt";
+    suites.laptop = enabled;
+    user.settings = {
+      stylix = {
+        fonts = {
+          terminalSize = 10.0;
+          waybarSize = 12;
+        };
+        image = ../../../systems/x86_64-linux/ironman-laptop/ffvii.jpg;
+      };
+      transparancy.terminalOpacity = 0.85;
     };
-    ranger = enabled;
-    qtile = {
-      enable = true;
-      backlightDisplay = "intel_backlight";
-      screenSizeCommand = "xrandr --output eDP-1 --primary --auto --scale 1.2";
-    };
-    suites.workstation = enabled;
+  };
+  home = {
+    packages = [pkgs.tochd];
+    persistence."/persist/home".directories = [
+      "Calibre Library"
+      "git"
+      "Notes"
+      "Notes-old"
+      "wallpapers"
+      "Work"
+    ];
   };
 }

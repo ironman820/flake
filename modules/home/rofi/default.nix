@@ -28,6 +28,7 @@ in {
         window-format = "{w} · {c} · {t}";
       };
       font = mkDefault "FiraCode Nerd Font Mono";
+      package = pkgs.rofi-wayland;
       terminal = "${pkgs.${terminal}}/bin/${terminal}";
       theme = mkDefault "${pkgs.catppuccin-rofi}/catppuccin-mocha.rasi";
     };

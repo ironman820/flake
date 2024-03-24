@@ -1,28 +1,14 @@
 {
   lib,
-  options,
   config,
   ...
 }: let
-  inherit (lib) mkAliasDefinitions mkEnableOption mkIf;
-  inherit (lib.mine) mkOpt;
-  inherit (lib.types) attrs either listOf str;
+  inherit (lib) mkEnableOption mkIf;
 
   cfg = config.mine.impermanence;
 in {
   options.mine.impermanence = {
     enable = mkEnableOption "Enable the module";
-    directories = mkOpt (listOf (either attrs str)) [
-      "/var/log"
-      "/var/lib/bluetooth"
-      "/var/lib/nixos"
-      "/var/lib/systemd/coredump"
-      "/etc/NetworkManager/system-connections"
-    ] "List of directories to save for root";
-    files = mkOpt (listOf (either attrs str)) [
-      "/etc/machine-id"
-      "/etc/shadow"
-    ] "list of files to save for root";
   };
 
   config = mkIf cfg.enable {
@@ -52,10 +38,20 @@ in {
     '';
     environment.persistence."/persist/root" = {
       hideMounts = true;
-      directories = mkAliasDefinitions options.mine.impermanence.directories;
-      files = mkAliasDefinitions options.mine.impermanence.files;
+      directories = [
+        "/var/log"
+        "/var/lib/nixos"
+        "/var/lib/systemd/coredump"
+      ];
+      files = [
+        "/etc/machine-id"
+      ];
     };
     fileSystems."/persist".neededForBoot = true;
     programs.fuse.userAllowOther = true;
+    users = {
+      mutableUsers = false;
+      users.root.hashedPasswordFile = config.sops.secrets.user_pass.path;
+    };
   };
 }

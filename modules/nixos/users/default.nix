@@ -42,7 +42,8 @@ in {
       mkOpt (nullOr package) defaultIcon
       "The profile picture to use for the user.";
     name = mkOpt str "ironman" "Username";
-    hashedPasswordFile = mkOpt (either path str) config.sops.secrets.user_pass.path "User's password hashed into a file for reference.";
+    password = mkOpt (nullOr str) null "Default password";
+    hashedPasswordFile = mkOpt (nullOr (either path str)) config.sops.secrets.user_pass.path "User's password hashed into a file for reference.";
     settings = {
       applications = let
         apps = vars.applications;
@@ -57,6 +58,10 @@ in {
         base16Scheme = {
           package = mkOpt str stlx.base16Scheme.package "Package name for color scheme";
           file = mkOpt str stlx.base16Scheme.file "file path to color scheme in package";
+        };
+        fonts = {
+          terminalFont = mkOpt str stlx.fonts.terminalFont "Terminal font settings";
+          terminalSize = mkOpt float stlx.fonts.terminalSize "Size of terminal fonts";
         };
         image = mkOpt (either path str) stlx.image "Default wallpaper image";
       };
@@ -73,14 +78,19 @@ in {
 
   config = {
     users.users.${cfg.name} =
-      {
-        inherit (cfg) hashedPasswordFile;
-        isNormalUser = true;
-        home = "/home/${cfg.name}";
+      (
+        if (cfg.password != null)
+        then {inherit (cfg) password;}
+        else {inherit (cfg) hashedPasswordFile;}
+      )
+      // {
+        createHome = true;
+        extraGroups = ["wheel"] ++ cfg.extraGroups;
         group = "users";
+        home = "/home/${cfg.name}";
+        isNormalUser = true;
         shell = pkgs.bash;
         uid = 1000;
-        extraGroups = ["wheel"] ++ cfg.extraGroups;
       }
       // cfg.extraOptions;
   };

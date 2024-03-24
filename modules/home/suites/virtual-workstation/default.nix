@@ -13,8 +13,8 @@ in {
 
   config = mkIf cfg.enable {
     mine.home = {
-      gnome = enabled;
-      sync = enabled;
+      de.gnome = enabled;
+      servers.sync = enabled;
     };
   };
 }

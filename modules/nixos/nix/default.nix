@@ -1,12 +1,15 @@
 {
   config,
   lib,
+  pkgs,
   ...
 }: let
   inherit (lib) mkIf;
-  inherit (lib.mine) mkBoolOpt mkOpt;
+  inherit (lib.mine) enabled disabled mkBoolOpt mkOpt;
   inherit (lib.types) int str;
+
   cfg = config.mine.nix;
+  imp = config.mine.impermanence.enable;
 in {
   options.mine.nix = {
     enable = mkBoolOpt true "Enable NIX settings.";
@@ -18,6 +21,19 @@ in {
   };
 
   config = mkIf cfg.enable {
+    environment = {
+      persistence."/persist/root".directories = mkIf imp [
+        "/root/.cache/nix"
+        "/root/.cache/nix-index"
+        "/root/.local/share/nix"
+      ];
+      sessionVariables.FLAKE = "/home/${config.mine.user.name}/.config/flake";
+      systemPackages = with pkgs; [
+        nh
+        nix-output-monitor
+        nvd
+      ];
+    };
     nix = {
       gc = {
         inherit (cfg.gc) dates options;
@@ -36,6 +52,11 @@ in {
           "${config.mine.user.name}"
         ];
       };
+    };
+    programs = {
+      command-not-found = disabled;
+      nix-index = enabled;
+      nix-ld = enabled;
     };
   };
 }

@@ -18,7 +18,7 @@ in {
 
   config = mkIf cfg.enable {
     mine = {
-      servers.git = {
+      servers.gitlab = {
         inherit (cfg) ipAddress host initialRootPasswordFile smtp;
         enable = true;
         databasePassFile = config.sops.secrets."gitlab/databasePass".path;

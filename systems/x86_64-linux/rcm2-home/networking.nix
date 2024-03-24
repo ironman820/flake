@@ -1,5 +1,5 @@
 _: {
-  mine.networking = {
+  mine.networking.basic = {
     gateway = "192.168.253.1";
     dhcp = false;
     interface = "ens18";

@@ -1,6 +1,6 @@
 { config, ... }:
 {
-  mine.networking = {
+  mine.networking.basic = {
     address = "192.168.20.3";
     dhcp = false;
     gateway = "192.168.20.1";

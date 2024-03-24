@@ -13,8 +13,8 @@ in {
   };
 
   config = mkIf cfg.enable {
+    mine.thunar = enabled;
     environment.systemPackages = with pkgs; [
-      alacritty
       bashmount
       bibata-cursors
       bibata-cursors-translucent

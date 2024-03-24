@@ -99,7 +99,7 @@ in {
         ++ [python];
       unixODBCDrivers = with pkgs.unixODBCDrivers; [msodbcsql17];
     };
-    networking.firewall = mkIf config.mine.networking.firewall {
+    networking.firewall = mkIf config.mine.networking.basic.firewall {
       allowedTCPPorts = [80];
     };
     services.caddy.group = "users";

@@ -1,6 +1,7 @@
 {
-  lib,
   config,
+  lib,
+  pkgs,
   ...
 }: let
   inherit (lib) mkEnableOption mkIf;
@@ -12,6 +13,13 @@ in {
   };
   config = mkIf cfg.enable {
     mine.user.extraGroups = ["adbusers"];
+    environment.systemPackages = with pkgs; [
+      android-studio
+      open-android-backup
+    ];
     programs.adb = enabled;
+    services.udev.packages = [
+      pkgs.android-udev-rules
+    ];
   };
 }

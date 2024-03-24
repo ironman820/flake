@@ -21,6 +21,7 @@ in {
     image = mkOpt (either path str) stlx.image "Wallpaper image";
     inactiveOpacity = mkOpt float tsp.inactiveOpacity "Inactive application opacity";
     polarity = mkOpt str "dark" "Dark or light theme";
+    terminalFontSize = mkOpt float stlx.fonts.terminalSize "Size of fonts in the terminal";
     terminalOpacity = mkOpt float tsp.terminalOpacity "Opacity of terminal windows";
   };
 
@@ -38,7 +39,7 @@ in {
       };
       fonts = {
         monospace = {
-          name = "FiraCode Nerd Font Mono";
+          name = stlx.fonts.terminalFont;
           package = pkgs.nerdfonts;
         };
         sansSerif = {
@@ -49,6 +50,7 @@ in {
           name = "FiraCode Nerd Font";
           package = pkgs.nerdfonts;
         };
+        sizes.terminal = cfg.terminalFontSize;
       };
       opacity = {
         applications = cfg.applicationOpacity;

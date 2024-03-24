@@ -5,8 +5,7 @@ in {
     ../modules.nix
   ];
   mine.home = {
-    gui-apps.hexchat = true;
-    hyprland = {
+    de.hyprland = {
       enable = true;
     };
     networking = enabled;

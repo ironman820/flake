@@ -1180,7 +1180,6 @@
         "stylix": "stylix",
         "tmux-cheat-sh": "tmux-cheat-sh",
         "tmux-fzf-url": "tmux-fzf-url",
-        "tmux-session-wizard": "tmux-session-wizard",
         "tmux-sessionx": "tmux-sessionx",
         "tochd": "tochd",
         "transparent-nvim": "transparent-nvim",
@@ -1422,22 +1421,6 @@
       "original": {
         "owner": "wfxr",
         "repo": "tmux-fzf-url",
-        "type": "github"
-      }
-    },
-    "tmux-session-wizard": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1707804211,
-        "narHash": "sha256-Nz1vfl4owkQG3l2laao9Z6IW1w0nlhYuwHTuag1ajwM=",
-        "owner": "27medkamal",
-        "repo": "tmux-session-wizard",
-        "rev": "e13c4c47c72039b3bcf2706ecf428b099c00b215",
-        "type": "github"
-      },
-      "original": {
-        "owner": "27medkamal",
-        "repo": "tmux-session-wizard",
         "type": "github"
       }
     },

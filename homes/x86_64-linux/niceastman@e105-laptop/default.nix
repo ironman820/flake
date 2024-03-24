@@ -27,15 +27,10 @@ in {
       };
       yb_keys.sopsFile = ./secrets/yb_keys.sops;
     };
-    glocom = enabled;
-    gui-apps.hexchat = true;
+    gui-apps.glocom = enabled;
     networking = enabled;
-    neomutt = {
-      enable = true;
-      workEmail = true;
-    };
     suites.workstation = enabled;
-    ranger = enabled;
+    tui.neomutt.workEmail = true;
     user.settings.stylix.image = ../../../systems/x86_64-linux/e105-laptop/voidbringer.png;
     work-tools = enabled;
   };

@@ -13,11 +13,14 @@ in {
 
   config = mkIf cfg.enable {
     mine = {
-      bluetooth = enabled;
+      hardware = {
+        bluetooth = enabled;
+        intel-video = enabled;
+        power = enabled;
+      };
       firmware = enabled;
-      intel-video = enabled;
       suites.workstation = enabled;
-      wireless-profiles = enabled;
+      networking.profiles = enabled;
     };
     services = {
       logind = {

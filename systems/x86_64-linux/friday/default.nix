@@ -13,7 +13,7 @@ in {
 
   config = {
     mine = {
-      hyprland.enable = mkForce false;
+      de.hyprland.enable = mkForce false;
       sops.secrets.nas_auth.sopsFile = ./secrets/secrets.yml;
       suites.virtual-workstation.enable = true;
     };

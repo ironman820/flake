@@ -5,7 +5,7 @@
 }: let
   inherit (lib) mkIf;
   inherit (lib.mine) mkBoolOpt mkOpt vars;
-  inherit (lib.types) either float nullOr path str;
+  inherit (lib.types) either float int nullOr path str;
   cfg = config.mine.home.user;
   home-directory =
     if cfg.name == null
@@ -32,6 +32,11 @@ in {
         base16Scheme = {
           package = mkOpt str stlx.base16Scheme.package "Package name for color scheme";
           file = mkOpt str stlx.base16Scheme.file "file path to color scheme in package";
+        };
+        fonts = {
+          terminalFont = mkOpt str stlx.fonts.terminalFont "Default terminal font face";
+          terminalSize = mkOpt float stlx.fonts.terminalSize "Size of terminal fonts";
+          waybarSize = mkOpt int stlx.fonts.waybarSize "Size of Waybar font";
         };
         image = mkOpt (either path str) stlx.image "Default wallpaper image";
       };

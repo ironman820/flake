@@ -4,8 +4,10 @@
   pkgs,
   ...
 }: let
+  inherit (config.mine.user.settings.applications) terminal;
   inherit (lib) mkEnableOption mkIf;
   inherit (lib.mine) enabled;
+
   cfg = config.mine.suites.workstation;
 in {
   options.mine.suites.workstation = {
@@ -15,22 +17,36 @@ in {
   config = mkIf cfg.enable {
     mine = {
       boot.grub = enabled;
-      java = enabled;
-      networking.networkmanager = enabled;
-      hyprland = enabled;
+      de.hyprland = enabled;
+      gui-apps = {
+        alacritty = mkIf (terminal == "alacritty") enabled;
+        others = enabled;
+        wezterm = mkIf (terminal == "wezterm") enabled;
+        winbox = enabled;
+      };
+      hardware = {
+        sound = enabled;
+        yubikey = enabled;
+      };
+      libraries.java = enabled;
+      networking.basic.networkmanager = enabled;
       sops = enabled;
-      sound = enabled;
-      sync = enabled;
+      servers.sync = enabled;
+      tui = {
+        flatpak = enabled;
+        neomutt = enabled;
+      };
       virtual.host = enabled;
-      winbox = enabled;
       xdg = enabled;
-      yubikey = enabled;
     };
-    environment.systemPackages = with pkgs; [hplip ntfs3g];
+    environment.systemPackages = with pkgs; [
+      hplip
+      ntfs3g
+      wireguard-tools
+    ];
     programs.system-config-printer = enabled;
     services = {
       avahi = enabled;
-      flatpak = enabled;
       printing = {
         enable = true;
         cups-pdf = enabled;

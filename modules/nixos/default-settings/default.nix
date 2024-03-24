@@ -7,6 +7,7 @@
   inherit (lib) mkDefault mkIf;
   inherit (lib.mine) enabled mkBoolOpt;
   cfg = config.mine.default-settings;
+  imp = config.mine.impermanence.enable;
 in {
   options.mine.default-settings = {
     enable = mkBoolOpt true "Enable the default settings?";
@@ -36,31 +37,49 @@ in {
       useXkbConfig = true; # use xkbOptions in tty.
     };
     environment = {
-      systemPackages = with pkgs; [
-        age
-        fzf
-        git-extras
-        nerdfonts
-        p7zip
-        # rnix-lsp
-        ssh-to-age
-        flake
-        sops
-        steam-run
-        terminus-nerdfont
-        wget
+      persistence."/persist/root".directories = mkIf imp [
+        "/var/db/sudo"
       ];
+      systemPackages =
+        (with pkgs; [
+          age
+          appimage-run
+          bashmount
+          bat
+          btop
+          catppuccin-btop
+          delta
+          entr
+          eza
+          fzf
+          git-extras
+          nerdfonts
+          p7zip
+          # rnix-lsp
+          ssh-to-age
+          flake
+          sops
+          steam-run
+          terminus-nerdfont
+          wget
+        ])
+        ++ (with pkgs.bat-extras; [
+          batdiff
+          batgrep
+          batman
+          batpipe
+          batwatch
+          prettybat
+        ]);
     };
     fonts.packages = with pkgs; [
       nerdfonts
       meslo-lgs-nf
     ];
     i18n.defaultLocale = "en_US.UTF-8";
-    mine = {
-      user.extraGroups = [
-        "dialout"
-      ];
-    };
+    mine.user.extraGroups = [
+      "dialout"
+    ];
     location.provider = "geoclue2";
     programs = {
       direnv = {

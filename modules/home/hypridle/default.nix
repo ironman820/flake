@@ -17,6 +17,7 @@ in {
       inherit (cfg) enable;
       listeners = [
         {
+          timeout = 300;
           onTimeout = "hyprlock";
           onResume = "";
         }

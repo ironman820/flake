@@ -11,12 +11,18 @@ in {
     mine = {
       android = enabled;
       user.settings.stylix.image = ./voidbringer.png;
-      podman = enabled;
       suites.laptop = enabled;
       user.name = "niceastman";
+      virtual = {
+        host = enabled;
+        podman = enabled;
+      };
       work-tools = enabled;
-      wireless-profiles.work = true;
+      networking.profiles.work = true;
     };
+    programs.usbtop = enabled;
+    services.tlp.settings.RUNTIME_PM_DISABLE = "00:14.3";
     system.stateVersion = "23.05";
+    zramSwap = enabled;
   };
 }

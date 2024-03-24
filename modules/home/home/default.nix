@@ -1,10 +1,14 @@
 {
+  config,
   lib,
   pkgs,
   ...
 }: let
   inherit (builtins) fromTOML readFile;
+  inherit (lib) mkIf;
   inherit (lib.mine) enabled;
+
+  imp = config.mine.home.impermanence.enable;
 in {
   config = {
     home = {
@@ -32,9 +36,12 @@ in {
         yq
         zip
       ];
+      persistence."/persist/home".directories = mkIf imp [
+        ".local/share/atuin"
+      ];
       sessionPath = ["$HOME/bin" "$HOME/.local/bin"];
       shellAliases = {
-        "df" = "duf";
+        "df" = "duf -only local";
         "du" = "dust -xd1 --skip-total";
         # "ducks" = "du -chs * 2>/dev/null | sort -rh | head -11 && du -chs .* 2>/dev/null | sort -rh | head -11";
         "gmount" = "rclone mount google:/ ~/Drive/";

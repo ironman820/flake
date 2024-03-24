@@ -7,7 +7,6 @@
         catppuccin-tmux
         cheat-sh
         tmux-fzf-url
-        tmux-session-wizard
         ;
       sessionx = tmux-sessionx.packages.${prev.system}.default;
     };

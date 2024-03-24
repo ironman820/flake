@@ -5,7 +5,9 @@
   ...
 }: let
   inherit (lib) mkEnableOption mkIf;
+
   cfg = config.mine.sddm;
+  imp = config.mine.impermanence.enable;
 in {
   options.mine.sddm = {
     enable = mkEnableOption "Enable SDDM";
@@ -13,7 +15,12 @@ in {
   };
 
   config = mkIf cfg.enable {
-    environment.systemPackages = [pkgs.sddm-catppuccin];
+    environment = {
+      systemPackages = [pkgs.sddm-catppuccin];
+      persistence."/persist/root".files = mkIf imp [
+        "/var/lib/sddm/state.conf"
+      ];
+    };
     services.xserver = {
       displayManager.sddm = {
         enable = true;

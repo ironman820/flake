@@ -4,9 +4,11 @@
   pkgs,
   ...
 }: let
-  inherit (lib) mkDefault mkEnableOption mkIf;
-  inherit (lib.mine) enabled;
+  inherit (lib) mkEnableOption mkIf;
+  inherit (lib.mine) enabled disabled;
+
   cfg = config.mine.boot.grub;
+  imp = config.mine.impermanence.enable;
 in {
   options.mine.boot.grub = {
     enable = mkEnableOption "Enable the default settings?";
@@ -17,9 +19,16 @@ in {
       loader.grub = {
         efiSupport = true;
         device = "nodev";
-        theme = mkDefault "${pkgs.catppuccin-grub}/share/grub/themes/catppuccin-mocha-grub-theme";
+        theme = "${pkgs.grub-cyberexs}/share/grub/themes/CyberEXS";
       };
       plymouth = enabled;
+    };
+    environment.persistence."/persist/root".directories = mkIf imp [
+      "/var/lib/plymouth"
+    ];
+    stylix.targets = {
+      grub = disabled;
+      plymouth = disabled;
     };
   };
 }

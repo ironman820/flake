@@ -208,10 +208,6 @@
       flake = false;
       url = "github:wfxr/tmux-fzf-url";
     };
-    tmux-session-wizard = {
-      flake = false;
-      url = "github:27medkamal/tmux-session-wizard";
-    };
     tmux-sessionx = {
       inputs.nixpkgs.follows = "unstable";
       url = "github:omerxx/tmux-sessionx";

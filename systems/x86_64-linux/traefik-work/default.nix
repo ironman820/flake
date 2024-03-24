@@ -115,7 +115,7 @@
       virtual.guest.enable = true;
     };
 
-    networking.firewall = mkIf config.mine.networking.firewall {
+    networking.firewall = mkIf config.mine.networking.basic.firewall {
       allowedTCPPorts = [
         3128
       ];

@@ -5,16 +5,17 @@
 }: let
   inherit (lib) mkIf;
 
-  imp = config.mine.home.impermanence;
+  imp = config.mine.home.impermanence.enable;
 in {
   config = {
-    home.shellAliases = {
-      "s" = "kitten ssh";
+    home = {
+      persistence."/persist/home".directories = mkIf imp [
+        ".ssh"
+      ];
+      shellAliases = {
+        "s" = "kitten ssh";
+      };
     };
-    mine.home.impermanence.files = mkIf imp.enable [
-      ".ssh/known_hosts"
-      ".ssh/known_hosts.old"
-    ];
     programs.ssh = {
       compression = true;
       enable = true;

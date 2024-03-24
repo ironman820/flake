@@ -6,7 +6,7 @@
 }: let
   inherit (lib) mkEnableOption mkIf;
   inherit (lib.types) str;
-  inherit (lib.mine) enabled mkOpt;
+  inherit (lib.mine) mkOpt;
   inherit (pkgs) writeShellScript;
 
   cfg = config.mine.home.qtile;
@@ -20,7 +20,6 @@ in {
 
   config = mkIf cfg.enable {
     home.packages = with pkgs; [flameshot zathura];
-    mine.home.thunar = enabled;
     xdg.configFile = {
       "qtile/autostart.sh".source = writeShellScript "autostart.sh" ''
         ${cfg.screenSizeCommand}

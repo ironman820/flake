@@ -15,15 +15,8 @@ in {
     xdg.portal = {
       inherit (cfg) enable;
       config.common.default = "*";
-      extraPortals = with pkgs;
-        mkMerge [
-          (mkIf config.mine.gnome.enable [xdg-desktop-portal-gnome])
-          (mkIf config.mine.qtile.enable [
-            xdg-desktop-portal-gtk
-          ])
-        ];
       wlr = {
-        inherit (config.mine.hyprland) enable;
+        inherit (config.mine.de.hyprland) enable;
       };
       xdgOpenUsePortal = true;
     };

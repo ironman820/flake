@@ -5,24 +5,30 @@
   pkgs,
   ...
 }: let
+  inherit (builtins) toString;
   inherit (lib) mkEnableOption mkIf;
   inherit (lib.mine) mkBoolOpt;
   inherit (config.mine.home.user.settings.applications) browser fileManager terminal;
+  inherit (config.mine.home.user.settings.stylix.fonts) waybarSize;
 
   cfg = config.mine.home.waybar;
+  imp = config.mine.home.impermanence.enable;
 in {
   options.mine.home.waybar = {
     enable = mkEnableOption "Enable the module";
     systemd = mkBoolOpt true "Start Waybar with Systemd";
   };
   config = mkIf cfg.enable {
+    home.persistence."/persist/home".directories = mkIf imp [
+      ".cache/mesa_shader_cache"
+    ];
     programs.waybar = {
       inherit (cfg) enable;
       package = inputs.waybar.packages.${pkgs.system}.waybar;
       settings = {
         mainBar = {
           layer = "top";
-          margin-top = 14;
+          margin-top = waybarSize - 2;
           margin-bottom = 0;
           margin-left = 0;
           margin-right = 0;
@@ -39,7 +45,7 @@ in {
           ];
           modules-right = [
             "pulseaudio"
-            "bluetooth"
+            # "bluetooth"
             "battery"
             "network"
             "custom/cliphist"
@@ -66,7 +72,7 @@ in {
           };
           "wlr/taskbar" = {
             format = "{icon}";
-            icon-size = 18;
+            icon-size = waybarSize + 2;
             tooltip-format = "{title}";
             on-click = "activate";
             on-click-middle = "close";
@@ -159,8 +165,8 @@ in {
             };
           };
           "tray" = {
-            icon-size = 21;
-            spacing = 10;
+            icon-size = waybarSize + 5;
+            spacing = waybarSize - 6;
           };
           "clock" = {
             timezone = "America/Chicago";
@@ -175,20 +181,20 @@ in {
             interval = 10;
             format = "  {}%";
             max-length = 10;
-            on-click = "alacritty -e htop";
+            on-click = "${terminal} -e htop";
           };
           "memory" = {
             interval = 30;
             format = "  {}%";
             format-alt = "  {used:0.1f}G";
             max-length = 10;
-            on-click = "alacritty -e htop";
+            on-click = "${terminal} -e htop";
           };
           "disk" = {
             interval = 30;
             format = " {percentage_used}% ";
             path = "/";
-            on-click = "alacritty -e htop";
+            on-click = "${terminal} -e htop";
           };
 
           "group/hardware" = {
@@ -316,19 +322,19 @@ in {
             background: @base00;
             margin: 2px 1px 3px 1px;
             padding: 0px 1px;
-            border-radius: 15px;
+            border-radius: ${toString (waybarSize - 1)}px;
             border: 0px;
             font-weight: bold;
             font-style: normal;
             opacity: 0.8;
-            font-size: 16px;
+            font-size: ${toString waybarSize}px;
             color: @base00;
         }
 
         #workspaces button {
             padding: 0px 5px;
             margin: 4px 3px;
-            border-radius: 15px;
+            border-radius: ${toString (waybarSize - 1)}px;
             border: 0px;
             color: @base00;
             background-color: @base0D;
@@ -339,7 +345,7 @@ in {
         #workspaces button.active {
             color: @base00;
             background: @base0D;
-            border-radius: 15px;
+            border-radius: ${toString (waybarSize - 1)}px;
             min-width: 40px;
             transition: all 0.3s ease-in-out;
             opacity:1.0;
@@ -348,7 +354,7 @@ in {
         #workspaces button:hover {
             color: @base00;
             background: @base0D;
-            border-radius: 15px;
+            border-radius: ${toString (waybarSize - 1)}px;
             opacity:0.7;
         }
 
@@ -376,9 +382,9 @@ in {
             background: @base00;
             margin: 5px 15px 5px 0px;
             padding: 2px 10px 0px 10px;
-            border-radius: 12px;
+            border-radius: ${toString (waybarSize - 4)}px;
             color:@base0D;
-            font-size:16px;
+            font-size:${toString waybarSize}px;
             font-weight:normal;
             opacity:0.8;
         }
@@ -395,7 +401,7 @@ in {
             background: @base00;
             margin: 3px 15px 3px 0px;
             padding:0px;
-            border-radius: 15px;
+            border-radius: ${toString (waybarSize - 1)}px;
             font-weight: normal;
             font-style: normal;
             opacity:0.8;
@@ -404,7 +410,7 @@ in {
 
         #taskbar button {
             margin:0;
-            border-radius: 15px;
+            border-radius: ${toString (waybarSize - 1)}px;
             padding: 0px 5px 0px 5px;
         }
 
@@ -442,7 +448,7 @@ in {
         #custom-waybarthemes,
         #keyboard-state {
             margin-right: 23px;
-            font-size: 20px;
+            font-size: ${toString (waybarSize + 4)}px;
             font-weight: bold;
             opacity: 0.8;
             color: @base0D;
@@ -466,7 +472,7 @@ in {
 
         #idle_inhibitor {
             margin-right: 15px;
-            font-size: 22px;
+            font-size: ${toString (waybarSize + 4)}px;
             font-weight: bold;
             opacity: 0.8;
             color: @base0D;
@@ -486,7 +492,7 @@ in {
 
         #custom-appmenu, #custom-appmenuwlr {
             background-color: @base0D;
-            font-size: 16px;
+            font-size: ${toString waybarSize}px;
             color: @textcolor1;
             border-radius: 15px;
             padding: 0px 10px 0px 10px;
@@ -512,7 +518,7 @@ in {
 
         #disk,#memory,#cpu,#language {
             margin:0px;
-            font-size:16px;
+            font-size:${toString waybarSize}px;
             color:@base0D;
         }
 
@@ -526,7 +532,7 @@ in {
 
         #clock {
             background-color: @base00;
-            font-size: 16px;
+            font-size: ${toString waybarSize}px;
             color: @base0D;
             border-radius: 15px;
             margin: 3px 15px 3px 0px;
@@ -540,7 +546,7 @@ in {
 
         #pulseaudio {
             background-color: @base00;
-            font-size: 16px;
+            font-size: ${toString waybarSize}px;
             color: @base0D;
             border-radius: 15px;
             margin: 5px 15px 5px 0px;
@@ -558,7 +564,7 @@ in {
 
         #network {
             background-color: @base00;
-            font-size: 16px;
+            font-size: ${toString waybarSize}px;
             color: @base0D;
             border-radius: 15px;
             margin: 5px 15px 5px 0px;
@@ -581,7 +587,7 @@ in {
 
         #bluetooth, #bluetooth.on, #bluetooth.connected {
             background-color: @base00;
-            font-size: 16px;
+            font-size: ${toString waybarSize}px;
             color: @base0D;
             border-radius: 15px;
             padding: 0 5px;
@@ -601,7 +607,7 @@ in {
 
         #battery {
             background-color: @base00;
-            font-size: 16px;
+            font-size: ${toString waybarSize}px;
             color: @base0D;
             border-radius: 15px;
             margin: 5px 15px 5px 0px;
@@ -657,7 +663,6 @@ in {
       "waybar/restart.sh" = {
         executable = true;
         source = pkgs.writeShellScript "restart.sh" ''
-          #!/usr/bin/env bash
           systemctl --user restart waybar
         '';
       };

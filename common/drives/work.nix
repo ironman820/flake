@@ -2,7 +2,7 @@
   sopsFile = ./secrets/work.yml;
 in {
   mine = {
-    drives.autofs = {
+    networking.drives.autofs = {
       enable = true;
       shares = [
         "/mnt/fileserver ${config.sops.secrets.fileserver.path} --timeout 60 --browse"

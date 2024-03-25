@@ -2,13 +2,14 @@
   inherit (lib.mine) enabled;
 in {
   imports = [
-    ../../disko.nix
-    {device = "";}
+    (../../disko.nix
+      {device = "/dev/nvme0n1";})
     ./hardware.nix
   ];
 
   config = {
     mine = {
+      inpermanence = enabled;
       suites.laptop = enabled;
     };
     system.stateVersion = "23.05";

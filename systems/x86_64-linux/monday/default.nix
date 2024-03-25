@@ -1,8 +1,11 @@
 {lib, ...}: {
   imports = [
     ./hardware.nix
-    # ../../../common/drives/personal.nix
-    (import ../../../common/disko-tiny.nix {device = "";})
+    (import ../../disko.nix {
+      bootSize = "128M";
+      device = "";
+      swapSize = "2G";
+    })
   ];
 
   config = let

@@ -2,6 +2,8 @@
   inherit (lib.mine) enabled;
 in {
   imports = [
+    ../../disko.nix
+    {device = "";}
     ./hardware.nix
   ];
 

@@ -14,18 +14,5 @@
     extraModulePackages = [ ];
   };
 
-  fileSystems = {
-    "/" =
-      { device = "/dev/disk/by-uuid/5781c99b-de31-4eb4-88ec-7fcd7bb5ac57";
-        fsType = "ext4";
-      };
-
-    "/boot" =
-      { device = "/dev/disk/by-uuid/672B-C6A0";
-        fsType = "vfat";
-      };
-  };
-
   powerManagement.cpuFreqGovernor = lib.mkDefault "powersave";
-  swapDevices = [ ];
 }

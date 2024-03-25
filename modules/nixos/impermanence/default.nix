@@ -12,14 +12,23 @@
 in {
   options.mine.impermanence = {
     enable = mkEnableOption "Enable the module";
-    directories = mkOpt (listOf (either attrs str)) [] "List of directories to save for root";
-    files = mkOpt (listOf (either attrs str)) [] "list of files to save for root";
+    directories = mkOpt (listOf (either attrs str)) [
+      "/var/log"
+      "/var/lib/bluetooth"
+      "/var/lib/nixos"
+      "/var/lib/systemd/coredump"
+      "/etc/NetworkManager/system-connections"
+    ] "List of directories to save for root";
+    files = mkOpt (listOf (either attrs str)) [
+      "/etc/machine-id"
+      "/etc/shadow"
+    ] "list of files to save for root";
   };
 
   config = mkIf cfg.enable {
     boot.initrd.postDeviceCommands = lib.mkAfter ''
       mkdir /btrfs_tmp
-      mount /dev/disk/by-partlabel/nixroot /btrfs_tmp
+      mount /dev/root_vg/root /btrfs_tmp
       if [[ -e /btrfs_tmp/root ]]; then
           mkdir -p /btrfs_tmp/old_roots
           timestamp=$(date --date="@$(stat -c %Y /btrfs_tmp/root)" "+%Y-%m-%-d_%H:%M:%S")
@@ -47,5 +56,6 @@ in {
       files = mkAliasDefinitions options.mine.impermanence.files;
     };
     fileSystems."/persist".neededForBoot = true;
+    programs.fuse.userAllowOther = true;
   };
 }

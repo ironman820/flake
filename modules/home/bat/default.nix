@@ -2,46 +2,32 @@
   pkgs,
   config,
   lib,
+  osConfig,
   ...
 }: let
   inherit (lib) mkIf;
-  inherit (lib.mine) mkBoolOpt;
+  inherit (lib.mine) enabled mkBoolOpt;
   cfg = config.mine.home.bat;
+  os = osConfig.mine.bat;
 in {
   options.mine.home.bat = {
-    enable = mkBoolOpt true "Enable bat installation";
-    batman = mkBoolOpt false "Enable batman pager alias";
+    enable = mkBoolOpt os.enable "Enable bat installation";
+    batman = mkBoolOpt os.batman "Enable batman pager alias";
   };
 
   config = mkIf cfg.enable {
-    home = {
-      packages = with pkgs; [
-        delta
-        entr
-      ];
-      shellAliases = {
-        "cat" = "bat";
-        "diff" = "batdiff";
-        "man" = mkIf cfg.batman "batman";
-        "rg" = "batgrep";
-        "watch" = "batwatch --command";
-      };
+    home.shellAliases = {
+      "cat" = "bat";
+      "diff" = "batdiff";
+      "man" = mkIf cfg.batman "batman";
+      "rg" = "batgrep";
+      "watch" = "batwatch --command";
     };
     programs = {
       bash.bashrcExtra = ''
         eval $(${pkgs.bat-extras.batpipe}/bin/batpipe)
       '';
-      bat = {
-        enable = true;
-        extraPackages = with pkgs.bat-extras; [
-          batdiff
-          batgrep
-          batman
-          batpipe
-          batwatch
-          prettybat
-        ];
-      };
+      bat = enabled;
     };
   };
 }

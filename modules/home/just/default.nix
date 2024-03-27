@@ -1,15 +1,16 @@
 {
-  pkgs,
   config,
   lib,
+  osConfig,
   ...
 }: let
   inherit (lib) mkIf;
   inherit (lib.mine) mkBoolOpt;
 
   cfg = config.mine.home.just;
+  os = osConfig.mine.just;
 in {
-  options.mine.home.just = {enable = mkBoolOpt true "Install Just";};
+  options.mine.home.just = {enable = mkBoolOpt os.enable "Install Just";};
 
   config = mkIf cfg.enable {
     home = {
@@ -40,7 +41,6 @@ in {
           flatpak update -y
           distrobox upgrade -a
       '';
-      packages = with pkgs; [just];
       shellAliases = {
         "hs" = "just home-switch";
         "js" = "just switch";

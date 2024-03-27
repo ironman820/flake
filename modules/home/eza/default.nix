@@ -1,15 +1,17 @@
 {
   lib,
   config,
+  osConfig,
   ...
 }: let
   inherit (lib) mkIf;
   inherit (lib.mine) mkBoolOpt;
 
   cfg = config.mine.home.eza;
+  os = osConfig.mine.eza;
 in {
   options.mine.home.eza = {
-    enable = mkBoolOpt true "Enable the module";
+    enable = mkBoolOpt os.enable "Enable the module";
   };
   config = mkIf cfg.enable {
     programs.eza = {

@@ -1,16 +1,22 @@
-{ config, lib, pkgs, ... }:
-let
+{
+  config,
+  lib,
+  osConfig,
+  pkgs,
+  ...
+}: let
   inherit (lib) mkIf;
   inherit (lib.mine) mkBoolOpt;
 
   cfg = config.mine.home.btop;
+  os = osConfig.mine.btop;
 in {
   options.mine.home.btop = {
-    enable = mkBoolOpt true "Enable Btop package.";
+    enable = mkBoolOpt os.enable "Enable Btop package.";
   };
 
   config = mkIf cfg.enable {
-    home.shellAliases = { "htop" = "btop"; };
+    home.shellAliases = {"htop" = "btop";};
     programs.btop = {
       inherit (cfg) enable;
       settings = {

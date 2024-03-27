@@ -7,15 +7,17 @@
   inherit (lib) mkIf;
   inherit (lib.mine) mkBoolOpt;
 
-  cfg = config.mine.home.python;
+  cfg = config.mine.python;
   myPythonPackages = py:
     with py; [
+      autopep8
       black
       cffi
       click
       dbus-next
       debugpy
       flake8
+      isort
       jedi
       jedi-language-server
       jsonrpc-base
@@ -25,6 +27,7 @@
       pre-commit-hooks
       psutil
       pygobject3
+      pynvim
       pytest
       pytest-expect
       pytest-lazy-fixture
@@ -40,12 +43,12 @@
       yapf
     ];
 in {
-  options.mine.home.python = {
+  options.mine.python = {
     enable = mkBoolOpt true "Install the python interpreter";
   };
 
   config = mkIf cfg.enable {
-    home.packages = with pkgs; [
+    environment.systemPackages = with pkgs; [
       imagemagick
       pre-commit
       pyright

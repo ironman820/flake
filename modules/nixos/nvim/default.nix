@@ -8,8 +8,6 @@
   inherit (lib.mine) mkBoolOpt;
 
   cfg = config.mine.nvim;
-  my_python = pkgs.python3.withPackages my_python_packages;
-  my_python_packages = py: (with py; [autopep8 black debugpy isort mypy pylint pynvim]);
 in {
   options.mine.nvim = {
     enable = mkBoolOpt true "Install NeoVim";
@@ -26,7 +24,6 @@ in {
         efm-langserver
         lua-language-server
         mercurial
-        my_python
         pyright
         nil
         nixfmt

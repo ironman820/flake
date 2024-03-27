@@ -1,6 +1,7 @@
 {
   config,
   lib,
+  osConfig,
   pkgs,
   ...
 }: let
@@ -10,9 +11,10 @@
   inherit (pkgs) writeShellScript;
 
   cfg = config.mine.home.tmux;
+  os = osConfig.mine.tmux;
 in {
   options.mine.home.tmux = {
-    enable = mkBoolOpt true "Setup tmux";
+    enable = mkBoolOpt os.enable "Setup tmux";
     baseIndex = mkOpt int 1 "Base number for windows";
     clock24 = mkBoolOpt true "Use a 24 hour clock";
     customPaneNavigationAndResize = mkBoolOpt true "Use hjkl for navigation";
@@ -266,7 +268,7 @@ in {
         bind L next-window
 
         # bind r command-prompt "rename-window %%"
-        # bind R source-file ~/.config/tmux/tmux.conf
+        bind R source-file ~/.config/tmux/tmux.conf
         # bind ^A last-window
         # bind ^W list-windows
         bind w list-windows

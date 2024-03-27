@@ -12,11 +12,6 @@ in {
   };
 
   config = mkIf cfg.enable {
-    # environment.systemPackages = with pkgs; [
-    #   adoptopenjdk-icedtea-web
-    #   # myIcedTea
-    #   # newIcedTea
-    # ];
     programs.java = {
       binfmt = true;
       enable = true;

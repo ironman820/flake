@@ -80,12 +80,13 @@ in {
         else {inherit (cfg) hashedPasswordFile;}
       )
       // {
-        isNormalUser = true;
-        home = "/home/${cfg.name}";
+        createHome = true;
+        extraGroups = ["wheel"] ++ cfg.extraGroups;
         group = "users";
+        home = "/home/${cfg.name}";
+        isNormalUser = true;
         shell = pkgs.bash;
         uid = 1000;
-        extraGroups = ["wheel"] ++ cfg.extraGroups;
       }
       // cfg.extraOptions;
   };

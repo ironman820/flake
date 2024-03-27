@@ -1,4 +1,9 @@
-{device ? throw "Please set device to your hard drive", ...}: {
+{
+  bootSize ? "512M",
+  device ? throw "Please set device to your hard drive",
+  swapSize ? "8G",
+  ...
+}: {
   disko.devices = {
     disk.main = {
       inherit device;
@@ -8,7 +13,7 @@
         partitions = {
           boot = {
             name = "boot";
-            size = "512M";
+            size = bootSize;
             type = "EF00";
             content = {
               type = "filesystem";
@@ -17,7 +22,7 @@
             };
           };
           swap = {
-            size = "8G";
+            size = swapSize;
             content = {
               type = "swap";
               resumeDevice = true;

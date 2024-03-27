@@ -1,6 +1,7 @@
 {
   config,
   lib,
+  osConfig,
   pkgs,
   ...
 }: let
@@ -9,12 +10,14 @@
 
   cfg = config.mine.home.git;
   configFolder = "${config.xdg.configHome}/lazygit";
+  os = osConfig.mine.git;
 in {
-  options.mine.home.git = {enable = mkBoolOpt true "Setup git";};
+  options.mine.home.git = {
+    enable = mkBoolOpt os.enable "Setup git";
+  };
 
   config = mkIf cfg.enable {
     home = {
-      packages = with pkgs; [git git-filter-repo github-cli glab lazygit];
       sessionVariables = {
         LG_CONFIG_FILE = "${configFolder}/config.yml,${configFolder}/themes/mocha/red.yml";
       };

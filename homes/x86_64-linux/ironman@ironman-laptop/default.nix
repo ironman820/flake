@@ -11,7 +11,6 @@ in {
       primaryScale = "0.8";
       wallpaper = ../../../systems/x86_64-linux/ironman-laptop/scream.jpg;
     };
-    impermanence = enabled;
     networking = enabled;
     personal-apps = enabled;
     neomutt = {

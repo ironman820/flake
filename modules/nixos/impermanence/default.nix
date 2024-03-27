@@ -21,7 +21,6 @@ in {
     ] "List of directories to save for root";
     files = mkOpt (listOf (either attrs str)) [
       "/etc/machine-id"
-      "/etc/shadow"
     ] "list of files to save for root";
   };
 
@@ -57,5 +56,6 @@ in {
     };
     fileSystems."/persist".neededForBoot = true;
     programs.fuse.userAllowOther = true;
+    users.mutableUsers = false;
   };
 }

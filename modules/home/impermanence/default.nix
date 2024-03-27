@@ -1,17 +1,19 @@
 {
+  config,
   lib,
   options,
-  config,
+  osConfig,
   ...
 }: let
-  inherit (lib) mkAliasDefinitions mkEnableOption mkIf;
-  inherit (lib.mine) mkOpt;
+  inherit (lib) mkAliasDefinitions mkIf;
+  inherit (lib.mine) mkBoolOpt mkOpt;
   inherit (lib.types) attrs either listOf str;
 
   cfg = config.mine.home.impermanence;
+  os = osConfig.mine.impermanence;
 in {
   options.mine.home.impermanence = {
-    enable = mkEnableOption "Enable the module";
+    enable = mkBoolOpt os.enable "Enable the module";
     directories = mkOpt (listOf (either attrs str)) [
       "Documents"
       "Downloads"

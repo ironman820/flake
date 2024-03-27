@@ -16,7 +16,9 @@ in {
       ]);
     mine = {
       drives = disabled;
+      just = disabled;
       nix-ld = disabled;
+      python = disabled;
       sops = disabled;
       user = {
         name = "nixos";

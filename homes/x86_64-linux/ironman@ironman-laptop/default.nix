@@ -19,7 +19,7 @@ in {
     };
     ranger = enabled;
     qtile = {
-      enable = true;
+      enable = false;
       backlightDisplay = "intel_backlight";
       screenSizeCommand = "xrandr --output eDP-1 --primary --auto --scale 1.2";
     };

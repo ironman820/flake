@@ -5,7 +5,6 @@ in {
     ../modules.nix
   ];
   mine.home = {
-    gui-apps.hexchat = true;
     hyprland = {
       enable = true;
       primaryScale = "0.8";

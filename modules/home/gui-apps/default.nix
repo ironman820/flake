@@ -1,50 +1,23 @@
-{ config, lib, pkgs, ... }:
-let
-  inherit (lib) mkEnableOption mkIf;
+{
+  config,
+  lib,
+  osConfig,
+  ...
+}: let
+  inherit (lib) mkIf;
+  inherit (lib.mine) mkBoolOpt;
+
   cfg = config.mine.home.gui-apps;
+  os = osConfig.mine.gui-apps;
 in {
   options.mine.home.gui-apps = {
-    enable = mkEnableOption "Enable the default settings?";
-    hexchat = mkEnableOption "Enable Hexchat";
+    enable = mkBoolOpt os.enable "Enable the default settings?";
   };
 
   config = mkIf cfg.enable {
     home = {
       file."putty/sessions/FS Switch".source = ./config/putty/${"FS%20Switch"};
-      packages = with pkgs; [
-        brave
-        blender
-        calibre
-        floorp
-        gimp
-        google-chrome
-        libreoffice-fresh
-        microsoft-edge
-        obs-studio
-        putty
-        remmina
-        # steam
-        telegram-desktop
-        vlc
-        virt-viewer
-      ];
-      sessionVariables = { BROWSER = "brave"; };
-    };
-    programs.hexchat = mkIf cfg.hexchat {
-      enable = cfg.hexchat;
-      channels = {
-        irchighway = {
-          autojoin = [ "#ebooks" ];
-          charset = "UTF-8 (Unicode)";
-          options = {
-            acceptInvalidSSLCertificates = true;
-            autoconnect = true;
-            bypassProxy = true;
-            forceSSL = false;
-          };
-          servers = [ "irc.irchighway.net" ];
-        };
-      };
+      sessionVariables = {BROWSER = config.mine.home.user.settings.applications.browser;};
     };
     services.udiskie = {
       enable = true;

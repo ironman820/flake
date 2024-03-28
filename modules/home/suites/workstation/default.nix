@@ -13,7 +13,6 @@ in {
 
   config = mkIf cfg.enable {
     mine.home = {
-      gui-apps = enabled;
       hyprland = enabled;
       rofi = enabled;
       sync = enabled;

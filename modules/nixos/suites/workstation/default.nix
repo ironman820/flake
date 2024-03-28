@@ -15,9 +15,10 @@ in {
   config = mkIf cfg.enable {
     mine = {
       boot.grub = enabled;
+      gui-apps = enabled;
+      hyprland = enabled;
       java = enabled;
       networking.networkmanager = enabled;
-      hyprland = enabled;
       sops = enabled;
       sound = enabled;
       sync = enabled;

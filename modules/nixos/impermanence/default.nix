@@ -56,6 +56,9 @@ in {
     };
     fileSystems."/persist".neededForBoot = true;
     programs.fuse.userAllowOther = true;
-    users.mutableUsers = false;
+    users = {
+      mutableUsers = false;
+      users.root.hashedPasswordFile = config.sops.secrets.user_pass.path;
+    };
   };
 }

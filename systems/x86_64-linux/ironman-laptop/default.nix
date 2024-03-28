@@ -9,6 +9,7 @@ in {
 
   config = {
     mine = {
+      hexchat = enabled;
       impermanence = enabled;
       suites.laptop = enabled;
     };

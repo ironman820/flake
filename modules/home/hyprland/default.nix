@@ -1,64 +1,30 @@
 {
   config,
   lib,
+  osConfig,
   pkgs,
   ...
 }: let
   inherit (builtins) toString;
-  inherit (lib) mkEnableOption mkIf;
-  inherit (lib.mine) enabled mkOpt;
+  inherit (lib) mkIf;
+  inherit (lib.mine) enabled mkBoolOpt mkOpt;
   inherit (lib.strings) concatStringsSep;
   inherit (lib.types) either path str;
 
-  cfg = config.mine.home.hyprland;
   apps = usr.applications;
+  cfg = config.mine.home.hyprland;
+  os = osConfig.mine.hyprland;
   stlx = usr.stylix;
   tsp = usr.transparancy;
   usr = config.mine.home.user.settings;
 in {
   options.mine.home.hyprland = {
-    enable = mkEnableOption "Setup hyprland";
+    enable = mkBoolOpt os.enable "Setup hyprland";
     primaryScale = mkOpt str "1" "Scaling factor for the primary monitor";
     wallpaper = mkOpt (either path str) stlx.image "Wallpaper to load with hyprpaper";
   };
 
   config = mkIf cfg.enable {
-    home = {
-      packages =
-        (with pkgs; [
-          blueman
-          bluez
-          bluez-tools
-          breeze-icons
-          brightnessctl
-          cliphist
-          figlet
-          floorp
-          freerdp
-          gtk4
-          grim
-          gum
-          libadwaita
-          man-pages
-          mpv
-          nwg-look
-          pavucontrol
-          pfetch
-          polkit_gnome
-          pulseaudio
-          rsync
-          slurp
-          swww
-          unzip
-          vlc
-          wget
-          zathura
-        ])
-        ++ (with pkgs.xfce; [
-          mousepad
-          tumbler
-        ]);
-    };
     mine.home = {
       dunst = enabled;
       eza = enabled;

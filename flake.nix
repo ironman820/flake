@@ -49,10 +49,12 @@
       };
 
       systems.hosts = {
-        e105-laptop.modules = with inputs; [nixos-hardware.nixosModules.common-gpu-intel];
+        e105-laptop.modules = with inputs.nixos-hardware.nixosModules; [
+          common-gpu-intel
+          system76
+        ];
         ironman-laptop.modules = with inputs; [
           nixos-hardware.nixosModules.dell-inspiron-5509
-          nixos-hardware.nixosModules.common-gpu-intel
         ];
       };
 
@@ -177,6 +179,10 @@
     one-small-step-for-vimkind = {
       flake = false;
       url = "github:jbyuki/one-small-step-for-vimkind";
+    };
+    plymouth-themes = {
+      flake = false;
+      url = "github:adi1090x/plymouth-themes";
     };
     ranger-devicons = {
       flake = false;

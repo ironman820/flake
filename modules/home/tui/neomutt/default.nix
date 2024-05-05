@@ -7,9 +7,11 @@
 }: let
   inherit (lib) mkEnableOption mkIf mkMerge;
   inherit (lib.mine) enabled mkBoolOpt;
+  inherit (pkgs) writeShellScript;
 
   cfg = config.mine.home.tui.neomutt;
   configFolder = "${config.xdg.configHome}/mutt";
+  imp = config.mine.home.impermanence.enable;
   os = osConfig.mine.tui.neomutt;
 in {
   options.mine.home.tui.neomutt = {
@@ -22,10 +24,15 @@ in {
     sopsFile = ./secrets/neomutt.yaml;
   in {
     mine.home = {
-      tui.imapfilter = {
-        enable = true;
-        home = cfg.personalEmail;
-        work = cfg.workEmail;
+      tui = {
+        imapfilter = {
+          enable = true;
+          home = cfg.personalEmail;
+          work = cfg.workEmail;
+        };
+        just.apps = [
+          "~/scripts/just/emailpass.sh"
+        ];
       };
       pass = enabled;
       sops.secrets = mkMerge [
@@ -50,6 +57,12 @@ in {
             inherit sopsFile;
             path = "${configFolder}/signatures/personal.sig";
           };
+          "email-pass" = {
+            format = "binary";
+            mode = "0400";
+            path = "${config.home.homeDirectory}/scripts/just/email-pass.7z";
+            sopsFile = ./secrets/email-pass;
+          };
         }
         (mkIf cfg.personalEmail {
           "muttrc_personal_email" = {
@@ -70,16 +83,19 @@ in {
             inherit sopsFile;
             path = "${configFolder}/accounts/personal.muttrc";
           };
-          "work-pass" = {
-            format = "binary";
-            mode = "0400";
-            path = "${config.home.homeDirectory}/.local/share/password-store/nic.eastman@royell.org.gpg";
-            sopsFile = ./secrets/work-pass;
-          };
         })
       ];
     };
-    home.shellAliases.mail = "neomutt";
+    home = {
+      file."scripts/just/emailpass.sh".source = writeShellScript "emailpass.sh" ''
+        7z x -o/home/${config.mine.home.user.name}/.local/share/password-store/ email-pass.7z
+      '';
+      persistence."/persist/home".directories = mkIf imp [
+        ".local/share/mail"
+        ".local/share/password-store"
+      ];
+      shellAliases.mail = "neomutt";
+    };
     programs.neomutt = enabled;
     xdg.configFile = let
       inherit (config.mine.home.user.settings.applications) browser;

@@ -14,8 +14,10 @@ in {
   };
 
   config = mkIf cfg.enable {
-    home.file."scripts/just/persistence.sh".source = writeShellScript "persistence.sh" ''
-      echo "What should I do?"
-    '';
+    home.file = {
+      "scripts/just/persistence.sh".source = writeShellScript "persistence.sh" ''
+        echo "What should I do?"
+      '';
+    };
   };
 }

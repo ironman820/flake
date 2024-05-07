@@ -144,7 +144,11 @@
       url = "github:nix-community/home-manager/release-23.11";
     };
     hypridle.url = "github:hyprwm/hypridle";
-    hyprland.url = "github:hyprwm/hyprland";
+    hyprland.url = "git+https://github.com/hyprwm/Hyprland?submodules=1";
+    hyprland-plugins = {
+      inputs.hyprland.follows = "hyprland";
+      url = "github:hyprwm/hyprland-plugins";
+    };
     hyprlock.url = "github:hyprwm/hyprlock";
     impermanence.url = "github:nix-community/impermanence";
     # Nix-LD is a dynamic linker that tries to mimick FHS file systems for hard-coded applications

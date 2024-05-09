@@ -158,6 +158,9 @@ local function cleanupWork(account)
   sleep(1)
 end
 
+local function cleanupHome(account)
+end
+
 local accounts = {}
 accounts.work = require("work")
 accounts.home = require("home")
@@ -166,5 +169,9 @@ for k, v in pairs(accounts) do
   if k == "work" and v ~= nil then
     io.write(">> Processing work emails\n")
     cleanupWork(v)
+  end
+  if k == "home" and v ~= nil then
+    io.write(">> Processing home emails\n")
+    cleanupHome(v)
   end
 end

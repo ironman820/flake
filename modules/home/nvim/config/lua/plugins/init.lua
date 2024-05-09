@@ -1,8 +1,0 @@
-require("plugins.catppuccin")
-require("plugins.coding")
-require("plugins.editor")
-require("plugins.lsp")
-require("plugins.treesitter")
-require("plugins.ui")
-require("plugins.util")
-require("plugins.dap")

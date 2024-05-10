@@ -1,6 +1,7 @@
 {
   config,
   lib,
+  pkgs,
   ...
 }: let
   inherit (config.lib.file) mkOutOfStoreSymlink;
@@ -61,9 +62,22 @@ in {
       })
     ];
     home.shellAliases.imapfilter = "imapfilter -c \"${configFolder}/config.lua\"";
+    systemd.user = {
+      services."imapfilter" = {
+        Unit.Description = "Run IMAPFilter in the background.";
+        Install.WantedBy = ["default.target"];
+        Service.ExecStart = "${pkgs.imapfilter}/bin/imapfilter -c \"${configFolder}/config.lua\"";
+      };
+      timers."imapfilter" = {
+        Install.WantedBy = ["timers.target"];
+        Timer.OnCalendar = "*:0/5";
+      };
+    };
     xdg.configFile = {
+      "imapfilter/cleanuphome.lua".source = mkOutOfStoreSymlink "${pwd}/config/cleanuphome.lua";
+      "imapfilter/cleanupwork.lua".source = mkOutOfStoreSymlink "${pwd}/config/cleanupwork.lua";
       "imapfilter/config.lua".source = mkOutOfStoreSymlink "${pwd}/config/config.lua";
-      "imapfilter/findnewest.lua".source = mkOutOfStoreSymlink "${pwd}/config/findnewest.lua";
+      "imapfilter/utilities.lua".source = mkOutOfStoreSymlink "${pwd}/config/utilities.lua";
       "imapfilter/home.lua" = mkIf (!cfg.home) {
         text = ''
           return nil

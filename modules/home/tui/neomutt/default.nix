@@ -16,6 +16,8 @@
 in {
   options.mine.home.tui.neomutt = {
     enable = mkBoolOpt os.enable "Install Neomutt";
+    notmuchPersonal = mkBoolOpt cfg.personalEmail "Whether to setup notmuch for personal email";
+    notmuchWork = mkBoolOpt (!cfg.notmuchPersonal) "Whether to setup notmuch for work email";
     personalEmail = mkEnableOption "Setup Personal Email";
     workEmail = mkEnableOption "Setup Work Email";
   };
@@ -45,10 +47,6 @@ in {
             inherit sopsFile;
             path = "${config.xdg.configHome}/msmtp/config";
           };
-          "notmuch-config" = {
-            inherit sopsFile;
-            path = "${config.home.homeDirectory}/.notmuch-config";
-          };
           "work_sig" = {
             inherit sopsFile;
             path = "${configFolder}/signatures/work.sig";
@@ -73,6 +71,10 @@ in {
             inherit sopsFile;
             path = "${configFolder}/accounts/work.muttrc";
           };
+          "notmuch-personal-config" = mkIf cfg.notmuchPersonal {
+            inherit sopsFile;
+            path = "${config.home.homeDirectory}/.notmuch-config";
+          };
         })
         (mkIf cfg.workEmail {
           "muttrc_work_email" = {
@@ -83,6 +85,10 @@ in {
             inherit sopsFile;
             path = "${configFolder}/accounts/personal.muttrc";
           };
+          "notmuch-work-config" = mkIf cfg.notmuchWork {
+            inherit sopsFile;
+            path = "${config.home.homeDirectory}/.notmuch-config";
+          };
         })
       ];
     };
@@ -91,12 +97,27 @@ in {
         7z x -o/home/${config.mine.home.user.name}/.local/share/password-store/ email-pass.7z
       '';
       persistence."/persist/home".directories = mkIf imp [
+        ".cache/mutt-wizard"
         ".local/share/mail"
         ".local/share/password-store"
       ];
       shellAliases.mail = "neomutt";
     };
     programs.neomutt = enabled;
+    systemd.user = {
+      services."imapcheck" = {
+        Unit.Description = "Run mutt-wizard to check all email accounts.";
+        Install.WantedBy = ["default.target"];
+        Service.ExecStart = "${pkgs.isync}/bin/mbsync -a";
+      };
+      timers."imapcheck" = {
+        Install.WantedBy = ["timers.target"];
+        Timer = {
+          OnStartupSec = "150";
+          OnCalendar = "*:0/5";
+        };
+      };
+    };
     xdg.configFile = let
       inherit (config.mine.home.user.settings.applications) browser;
     in {

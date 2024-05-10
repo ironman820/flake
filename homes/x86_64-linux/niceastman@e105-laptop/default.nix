@@ -30,7 +30,10 @@ in {
     gui-apps.glocom = enabled;
     networking = enabled;
     suites.workstation = enabled;
-    tui.neomutt.workEmail = true;
+    tui.neomutt = {
+      notmuchWork = true;
+      workEmail = true;
+    };
     user.settings.stylix.image = ../../../systems/x86_64-linux/e105-laptop/voidbringer.png;
     work-tools = enabled;
   };

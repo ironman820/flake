@@ -28,6 +28,9 @@ conceal.setup({
       ["return"] = {
         conceal = "󱞴",
       },
+      ["while"] = {
+        conceal = "󰖉",
+      },
     },
   },
   ["python"] = {

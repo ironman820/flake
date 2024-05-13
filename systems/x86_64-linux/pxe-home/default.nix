@@ -2,6 +2,7 @@
   inherit (lib.mine) enabled;
 in {
   imports = [
+    (import ../../disko-servers.nix {device = "/dev/sda";})
     ./hardware.nix
     ./networking.nix
   ];

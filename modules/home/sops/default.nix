@@ -33,6 +33,10 @@ in {
               inherit mode;
               path = "${config.home.homeDirectory}/.ssh/authorized_keys";
             };
+            deploy_ed25519_pub = {
+              inherit mode;
+              path = "${config.home.homeDirectory}/.ssh/deploy_ed25519.pub";
+            };
             github_home = {
               inherit mode;
               path = "${config.home.homeDirectory}/.ssh/github";

@@ -1,5 +1,8 @@
-_: {
+{lib, ...}: let
+  inherit (lib.mine) enabled;
+in {
   imports = [
+    (import ../../disko-servers.nix {device = "/dev/sda";})
     ./hardware.nix
     ./networking.nix
   ];
@@ -8,9 +11,11 @@ _: {
     mine = {
       servers.pxe = {
         enable = true;
+        nix = false;
+        netboot = true;
       };
-      suites.server.enable = true;
-      virtual.guest.enable = true;
+      suites.server = enabled;
+      virtual.guest = enabled;
     };
 
     system.stateVersion = "23.05";

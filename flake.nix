@@ -2,7 +2,7 @@
   description = "My NixOS Flakes";
 
   # Our config that sets up systems
-  outputs = inputs: let
+  outputs = {self, ...} @ inputs: let
     lib = inputs.snowfall-lib.mkLib {
       inherit inputs;
       src = ./.;
@@ -27,6 +27,19 @@
         allowUnfree = true;
         allowUnfreePredicate = _: true;
         permittedInsecurePackages = ["openssl-1.1.1w"];
+      };
+
+      checks = builtins.mapAttrs (system: deployLib: deployLib.deployChecks self.deploy) inputs.deploy-rs.lib;
+
+      deploy.nodes.pxe-work = {
+        hostname = "pxe.desk";
+        fastConnection = true;
+        interactiveSudo = false;
+        profiles.system = {
+          sshUser = "ironman";
+          path = inputs.deploy-rs.lib.x86_64-linux.activate.nixos self.nixosConfigurations.pxe-work;
+          user = "root";
+        };
       };
 
       overlays = with inputs; [flake.overlays.default];
@@ -128,6 +141,7 @@
       flake = false;
       url = "github:Jxstxs/conceal.nvim";
     };
+    deploy-rs.url = "github:serokell/deploy-rs";
     disko = {
       inputs.nixpkgs.follows = "nixpkgs";
       url = "github:nix-community/disko";

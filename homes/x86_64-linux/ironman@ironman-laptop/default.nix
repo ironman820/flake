@@ -1,4 +1,5 @@
 {
+  config,
   lib,
   pkgs,
   ...
@@ -14,6 +15,10 @@ in {
       kitty = enabled;
     };
     networking = enabled;
+    sops.secrets.deploy_ed25519 = {
+      mode = "0400";
+      path = "${config.home.homeDirectory}/.ssh/deploy_ed25519";
+    };
     tui.neomutt.personalEmail = true;
     personal-apps = enabled;
     sops.age.keyFile = "/persist/home/.config/sops/age/keys.txt";

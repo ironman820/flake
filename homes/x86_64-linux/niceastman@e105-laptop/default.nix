@@ -15,6 +15,10 @@ in {
   home = {packages = with pkgs; [steam-run];};
   mine.home = {
     sops.secrets = {
+      deploy_ed25519 = {
+        mode = "0400";
+        path = "${sshFolder}/deploy_ed25519";
+      };
       github_home = {inherit sopsFile;};
       github_home_pub.path = "${sshFolder}/github_home.pub";
       github_work_pub.path = "${sshFolder}/github.pub";

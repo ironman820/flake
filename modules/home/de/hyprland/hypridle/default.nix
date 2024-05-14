@@ -18,14 +18,14 @@ in {
       listeners = [
         {
           timeout = 300;
-          onTimeout = "hyprlock";
+          onTimeout = "loginctl lock-session";
           onResume = "";
         }
       ];
-      lockCmd = "hyprlock";
+      lockCmd = "pidof hyprlock || hyprlock";
       unlockCmd = "";
-      afterSleepCmd = "";
-      beforeSleepCmd = "";
+      afterSleepCmd = "hyprctl dispatch dpms on";
+      beforeSleepCmd = "loginctl lock-session";
     };
   };
 }

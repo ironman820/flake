@@ -2,19 +2,20 @@
   config,
   lib,
   pkgs,
+  osConfig,
   ...
 }: let
-  inherit (config.mine.home.user.settings) applications stylix;
-  inherit (applications) terminal;
+  inherit (config.mine.home.user.settings) stylix;
   inherit (stylix.fonts) terminalFont terminalSize;
   inherit (lib) mkEnableOption mkForce mkIf;
   inherit (lib.mine) mkBoolOpt mkOpt;
   inherit (lib.types) attrs float int lines str;
 
   cfg = config.mine.home.gui-apps.kitty;
+  os = osConfig.mine.gui-apps.kitty;
 in {
   options.mine.home.gui-apps.kitty = {
-    enable = mkBoolOpt (terminal == "kitty") "Setup kitty";
+    enable = mkBoolOpt os.enable "Setup kitty";
     extraConfig = mkOpt lines "" "Extra configuration options";
     font_family = mkOpt str terminalFont "Default settings for ";
     font_size = mkOpt float terminalSize "Default size for terminal font";

@@ -4,7 +4,7 @@
   pkgs,
   ...
 }: let
-  inherit (config.mine.user.settings.applications) terminal;
+  inherit (config.mine.user.settings.applications) browser terminal;
   inherit (lib) mkEnableOption mkIf;
   inherit (lib.mine) enabled;
 
@@ -20,6 +20,9 @@ in {
       de.hyprland = enabled;
       gui-apps = {
         alacritty = mkIf (terminal == "alacritty") enabled;
+        contour = mkIf (terminal == "contour") enabled;
+        floorp = mkIf (browser == "floorp") enabled;
+        kitty = mkIf (terminal == "kitty") enabled;
         others = enabled;
         wezterm = mkIf (terminal == "wezterm") enabled;
         winbox = enabled;

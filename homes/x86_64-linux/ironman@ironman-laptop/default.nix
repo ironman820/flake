@@ -12,7 +12,6 @@ in {
   mine.home = {
     gui-apps = {
       hexchat = enabled;
-      kitty = enabled;
     };
     networking = enabled;
     sops.secrets.deploy_ed25519 = {

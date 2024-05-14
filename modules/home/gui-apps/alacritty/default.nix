@@ -1,17 +1,18 @@
 {
   lib,
   config,
+  osConfig,
   ...
 }: let
-  inherit (config.mine.home.user.settings.applications) terminal;
   inherit (lib) mkDefault mkForce mkIf;
   inherit (lib.mine) mkBoolOpt mkOpt;
   inherit (lib.types) float;
 
   cfg = config.mine.home.gui-apps.alacritty;
+  os = osConfig.mine.gui-apps.alacritty;
 in {
   options.mine.home.gui-apps.alacritty = {
-    enable = mkBoolOpt (terminal == "alacritty") "Enable the module";
+    enable = mkBoolOpt os.enable "Enable the module";
     opacity = mkOpt float config.mine.home.stylix.terminalOpacity "Set Alacritty's opacity";
   };
   config = mkIf cfg.enable {

@@ -4,14 +4,12 @@
   pkgs,
   ...
 }: let
-  inherit (config.mine.user.settings.applications) terminal;
-  inherit (lib) mkIf;
-  inherit (lib.mine) mkBoolOpt;
+  inherit (lib) mkEnableOption mkIf;
 
   cfg = config.mine.gui-apps.wezterm;
 in {
   options.mine.gui-apps.wezterm = {
-    enable = mkBoolOpt (terminal == "wezterm") "Enable the module";
+    enable = mkEnableOption "Enable the module";
   };
   config = mkIf cfg.enable {
     environment.systemPackages = [

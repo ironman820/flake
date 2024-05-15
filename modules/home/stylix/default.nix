@@ -5,18 +5,23 @@
   ...
 }: let
   inherit (lib) mkEnableOption mkIf;
-  inherit (lib.mine) mkOpt;
-  inherit (lib.types) attrs either float path str;
-  inherit (lib.strings) concatStrings;
+  inherit (lib.mine) mkBoolOpt mkOpt;
+  inherit (lib.types) either float package path str;
+  inherit (lib.strings) concatStringsSep;
 
   cfg = config.mine.home.stylix;
+  base16 = stlx.base16Scheme;
   tsp = config.mine.home.user.settings.transparancy;
   stlx = config.mine.home.user.settings.stylix;
 in {
   options.mine.home.stylix = {
     enable = mkEnableOption "Enable the module";
     applicationOpacity = mkOpt float tsp.applicationOpacity "Opacity of standard Applications";
-    base16Scheme = mkOpt attrs stlx.base16Scheme "Base color scheme";
+    base16Scheme = {
+      enable = mkBoolOpt base16.enable "Whether to override the auto-generated theme";
+      package = mkOpt package base16.package "Base Color Scheme";
+      file = mkOpt str base16.file "File in the base color package to use";
+    };
     desktopOpacity = mkOpt float tsp.desktopOpacity "Opacity of desktop features (bar, etc.)";
     image = mkOpt (either path str) stlx.image "Wallpaper image";
     inactiveOpacity = mkOpt float tsp.inactiveOpacity "Inactive application opacity";
@@ -28,10 +33,10 @@ in {
   config = mkIf cfg.enable {
     stylix = {
       inherit (cfg) image polarity;
-      base16Scheme = concatStrings [
-        "${pkgs.${cfg.base16Scheme.package}}"
+      base16Scheme = mkIf cfg.base16Scheme.enable (concatStringsSep "/" [
+        "${cfg.base16Scheme.package}"
         cfg.base16Scheme.file
-      ];
+      ]);
       cursor = {
         package = pkgs.bibata-cursors;
         name = "Bibata-Modern-Ice";

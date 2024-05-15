@@ -4,7 +4,7 @@
   lib,
   ...
 }: let
-  inherit (lib.mine) mkOpt vars;
+  inherit (lib.mine) mkBoolOpt mkOpt vars;
   inherit (lib.types) either float str nullOr package path listOf attrs;
   cfg = config.mine.user;
   defaultIconFileName = "profile.png";
@@ -56,7 +56,8 @@ in {
         stlx = vars.stylix;
       in {
         base16Scheme = {
-          package = mkOpt str stlx.base16Scheme.package "Package name for color scheme";
+          enable = mkBoolOpt stlx.base16Scheme.enable "Enable custom base 16 themes";
+          package = mkOpt package pkgs.${stlx.base16Scheme.package} "Package name for color scheme";
           file = mkOpt str stlx.base16Scheme.file "file path to color scheme in package";
         };
         fonts = {

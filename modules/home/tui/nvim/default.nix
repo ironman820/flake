@@ -42,7 +42,6 @@ in {
           alpha-nvim
           barbecue-nvim
           bufferline-nvim
-          catppuccin-nvim
           nvim-cmp
           cmp-buffer
           cmp-cmdline

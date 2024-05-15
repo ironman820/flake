@@ -23,7 +23,7 @@ in {
         ".config/lazygit/state.yml"
       ];
       sessionVariables = {
-        LG_CONFIG_FILE = "${configFolder}/config.yml,${configFolder}/themes/mocha/red.yml";
+        LG_CONFIG_FILE = "${configFolder}/config.yml";
       };
       shellAliases = {
         lg = "lazygit";

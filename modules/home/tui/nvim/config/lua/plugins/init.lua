@@ -1,4 +1,3 @@
-require("plugins.catppuccin")
 require("plugins.coding")
 require("plugins.editor")
 require("plugins.lsp")

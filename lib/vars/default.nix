@@ -7,8 +7,9 @@ _: {
     };
     stylix = {
       base16Scheme = {
-        package = "base16-schemes";
-        file = "/share/themes/catppuccin-mocha.yaml"; # Base color scheme for Stylix
+        enable = true;
+        package = "base16-onedark-scheme";
+        file = "theme.yaml"; # Base color scheme for Stylix
       };
       fonts = {
         terminalFont = "IosevkaTerm Nerd Font";

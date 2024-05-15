@@ -37,9 +37,6 @@ in {
 
   config = mkIf cfg.enable {
     mine.home.gui-apps.kitty = {
-      extraConfig = ''
-        include themes/mocha.conf
-      '';
       keyBindings = {
         "alt+left" = "send_text all x1bx62";
         "alt+right" = "send_text all x1bx66";

@@ -32,6 +32,7 @@ in {
       };
       transparancy.terminalOpacity = 0.85;
     };
+    waybar.resolution = 768;
   };
   home = {
     packages = [pkgs.tochd];

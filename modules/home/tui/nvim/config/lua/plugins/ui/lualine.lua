@@ -16,7 +16,6 @@ vim.o.laststatus = vim.g.lualine_laststatus
 
 lualine.setup({
   options = {
-    theme = "catppuccin-mocha",
     globalstatus = true,
     disabled_filetypes = { statusline = { "dashboard", "alpha", "starter" } },
   },

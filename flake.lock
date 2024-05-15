@@ -115,6 +115,22 @@
         "type": "github"
       }
     },
+    "base16-schemes": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1702718998,
+        "narHash": "sha256-VTczZi1C4WSzejpTFbneMonAdarRLtDnFehVxWs6ad0=",
+        "owner": "tinted-theming",
+        "repo": "base16-schemes",
+        "rev": "2b6f2d0677216ddda50c9cabd6ee70fae4665f81",
+        "type": "github"
+      },
+      "original": {
+        "owner": "tinted-theming",
+        "repo": "base16-schemes",
+        "type": "github"
+      }
+    },
     "base16-tmux": {
       "flake": false,
       "locked": {
@@ -1261,6 +1277,7 @@
     },
     "root": {
       "inputs": {
+        "base16-schemes": "base16-schemes",
         "catppuccin-bat": "catppuccin-bat",
         "catppuccin-btop": "catppuccin-btop",
         "catppuccin-grub": "catppuccin-grub",

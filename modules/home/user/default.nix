@@ -1,11 +1,12 @@
 {
   config,
   lib,
+  pkgs,
   ...
 }: let
   inherit (lib) mkIf;
   inherit (lib.mine) mkBoolOpt mkOpt vars;
-  inherit (lib.types) either float int nullOr path str;
+  inherit (lib.types) either float int nullOr package path str;
   cfg = config.mine.home.user;
   home-directory =
     if cfg.name == null
@@ -30,7 +31,8 @@ in {
         stlx = vars.stylix;
       in {
         base16Scheme = {
-          package = mkOpt str stlx.base16Scheme.package "Package name for color scheme";
+          enable = mkBoolOpt stlx.base16Scheme.enable "Enable custom base 16 themes";
+          package = mkOpt package pkgs.${stlx.base16Scheme.package} "Package name for color scheme";
           file = mkOpt str stlx.base16Scheme.file "file path to color scheme in package";
         };
         fonts = {

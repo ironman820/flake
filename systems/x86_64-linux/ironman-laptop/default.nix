@@ -1,4 +1,8 @@
-{lib, ...}: let
+{
+  lib,
+  pkgs,
+  ...
+}: let
   inherit (lib.mine) enabled;
 in {
   imports = [
@@ -21,6 +25,9 @@ in {
       user.settings.stylix.image = ./ffvii.jpg;
       networking.profiles.work = true;
     };
+    environment.systemPackages = [
+      pkgs.devenv
+    ];
     services.tlp.settings.RUNTIME_PM_DISABLE = "02:00.0";
     system.stateVersion = "23.05";
     zramSwap = enabled;

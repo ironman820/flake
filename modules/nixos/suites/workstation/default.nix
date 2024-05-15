@@ -42,6 +42,9 @@ in {
       virtual.host = enabled;
       xdg = enabled;
     };
+    boot.kernel.sysctl = {
+      "vm.overcommit_memory" = 1;
+    };
     environment.systemPackages = with pkgs; [
       hplip
       ntfs3g

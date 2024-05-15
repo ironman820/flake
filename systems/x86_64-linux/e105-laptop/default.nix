@@ -1,4 +1,8 @@
-{lib, ...}: let
+{
+  lib,
+  pkgs,
+  ...
+}: let
   inherit (lib.mine) enabled;
 in {
   imports = [
@@ -20,6 +24,9 @@ in {
       work-tools = enabled;
       networking.profiles.work = true;
     };
+    environment.systemPackages = [
+      pkgs.devenv
+    ];
     programs.usbtop = enabled;
     services.tlp.settings.RUNTIME_PM_DISABLE = "00:14.3";
     system.stateVersion = "23.05";

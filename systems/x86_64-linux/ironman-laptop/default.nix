@@ -10,6 +10,7 @@ in {
 
   config = {
     mine = {
+      android = enabled;
       gui-apps = {
         contour = enabled;
         hexchat = enabled;

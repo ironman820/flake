@@ -75,6 +75,11 @@ in {
     ];
     wayland.windowManager.hyprland = {
       enable = true;
+      extraConfig = ''
+        submap = hotkeys
+        bind = $mainMod, X, submap, reset
+        submap = reset
+      '';
       settings = {
         animations = {
           enabled = true;
@@ -96,13 +101,12 @@ in {
         };
         "$mainMod" = "SUPER";
         bind = [
-          "$mainMod, RETURN, exec, ${apps.terminal}"
           "$mainMod, B, exec, ${apps.browser}"
           "$mainMod, Q, killactive"
           "$mainMod, F, fullscreen"
           "$mainMod, E, exec, ${apps.terminal} -e ${apps.fileManager}"
-          "$mainMod, T, togglefloating"
-          "$mainMod SHIFT, T, exec, ~/.config/hypr/toggleallfloat.sh"
+          "$mainMod, T, exec, ${apps.terminal}"
+          "$mainMod SHIFT, T, togglefloating"
           "$mainMod SHIFT, J, togglesplit"
           "$mainMod SHIFT, L, exec, hyprlock"
           "$mainMod CTRL, down, workspace, empty"
@@ -116,6 +120,7 @@ in {
           "$mainMod, R, exec, rofi -show drun"
           "$mainMod SHIFT, R, exec, hyprctl reload"
           "$mainMod SHIFT, W, exec, ~/.config/hypr/wallpaper.sh"
+          "$mainMod, X, submap, hotkeys"
           "$mainMod, H, movefocus, l"
           "$mainMod, L, movefocus, r"
           "$mainMod, K, movefocus, u"

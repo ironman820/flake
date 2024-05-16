@@ -12,6 +12,7 @@ with lib.mine; {
 
   config = {
     environment.systemPackages = with pkgs; [
+      devenv
       openssl
     ];
     mine = {

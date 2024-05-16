@@ -31,14 +31,26 @@
 
       checks = builtins.mapAttrs (system: deployLib: deployLib.deployChecks self.deploy) inputs.deploy-rs.lib;
 
-      deploy.nodes.pxe-work = {
-        hostname = "pxe.desk";
-        fastConnection = true;
-        interactiveSudo = false;
-        profiles.system = {
-          sshUser = "ironman";
-          path = inputs.deploy-rs.lib.x86_64-linux.activate.nixos self.nixosConfigurations.pxe-work;
-          user = "root";
+      deploy.nodes = {
+        pxe-work = {
+          hostname = "pxe.desk";
+          fastConnection = true;
+          interactiveSudo = false;
+          profiles.system = {
+            sshUser = "ironman";
+            path = inputs.deploy-rs.lib.x86_64-linux.activate.nixos self.nixosConfigurations.pxe-work;
+            user = "root";
+          };
+        };
+        rcm-work = {
+          hostname = "rcm.desk";
+          fastConnection = true;
+          interactiveSudo = false;
+          profiles.system = {
+            sshUser = "ironman";
+            path = inputs.deploy-rs.lib.x86_64-linux.activate.nixos self.nixosConfigurations.rcm-work;
+            user = "root";
+          };
         };
       };
 

@@ -4,7 +4,6 @@
   pkgs,
   ...
 }: let
-  inherit (builtins) fromTOML readFile;
   inherit (lib) mkIf;
   inherit (lib.mine) enabled;
 
@@ -94,13 +93,6 @@ in {
       starship = {
         enable = true;
         enableBashIntegration = true;
-        settings =
-          {
-            format = "$all";
-            palette = "catppuccin_mocha";
-          }
-          // fromTOML
-          (readFile "${pkgs.catppuccin-starship}/palettes/mocha.toml");
       };
       zoxide = enabled;
     };

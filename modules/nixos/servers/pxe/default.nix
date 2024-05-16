@@ -33,7 +33,7 @@
   };
   netbootxyzpxe = pkgs.fetchurl {
     url = "https://boot.netboot.xyz/ipxe/netboot.xyz.kpxe";
-    sha256 = "sha256-ebtMNUkfPiQ34/81OXqzsfXqM2nBBmLIybIDqfTh8TQ=";
+    sha256 = "sha256-3KdnWYVfhrqbkzQlx3qFJnaCuEvPlQDttso22r/QsYk=";
   };
 in {
   options.mine.servers.pxe = {

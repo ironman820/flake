@@ -7,16 +7,12 @@
   inherit (lib.mine) disabled;
 in {
   config = {
-    environment.systemPackages =
-      (with inputs.disko.packages.${pkgs.system}; [
-        disko
-      ])
-      ++ (with pkgs; [
-        age
-      ]);
+    environment.systemPackages = [
+      pkgs.age
+      inputs.disko.packages.${pkgs.system}.disko
+    ];
     mine = {
       networking.drives = disabled;
-      nix-ld = disabled;
       libraries.python = disabled;
       sops = disabled;
       tui.just = disabled;

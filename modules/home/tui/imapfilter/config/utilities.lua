@@ -158,6 +158,15 @@ function M:hdr_decode(s)
   return s
 end
 
+function M:print_subject(messages)
+  for _, message in ipairs(messages) do
+    local mailbox, uid = table.unpack(message)
+    local subject = mailbox[uid]:fetch_field("subject")
+    local subject_ = subject:sub(subject:find(":") + 1, -1)
+    io.write(subject_ .. "\n")
+  end
+end
+
 function M.sort(messages, account, folder)
   local todo = messages:select_all()
   todo:mark_seen()

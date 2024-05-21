@@ -16,11 +16,8 @@ in {
     mine = {
       android = enabled;
       gui-apps = {
-        contour = enabled;
         hexchat = enabled;
       };
-      impermanence = enabled;
-      sops.age.keyFile = "/persist/root/etc/nixos/keys.txt";
       suites.laptop = enabled;
       user.settings.stylix.image = ./ffvii.jpg;
       networking.profiles.work = true;

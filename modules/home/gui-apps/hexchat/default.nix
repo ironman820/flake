@@ -13,7 +13,7 @@
 in {
   options.mine.home.gui-apps.hexchat = {
     enable = mkBoolOpt os.enable "Enable the module";
-    persist = mkBoolOpt true "Enable persistence";
+    persist = mkBoolOpt imp "Enable persistence";
   };
   config = mkIf cfg.enable {
     mine.home.tui.just.homePersist = mkIf imp [

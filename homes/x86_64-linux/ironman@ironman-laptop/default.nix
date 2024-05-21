@@ -20,7 +20,6 @@ in {
     };
     tui.neomutt.personalEmail = true;
     personal-apps = enabled;
-    sops.age.keyFile = "/persist/home/.config/sops/age/keys.txt";
     suites.laptop = enabled;
     user.settings = {
       stylix = {
@@ -36,13 +35,5 @@ in {
   };
   home = {
     packages = [pkgs.tochd];
-    persistence."/persist/home".directories = [
-      "Calibre Library"
-      "git"
-      "Notes"
-      "Notes-old"
-      "wallpapers"
-      "Work"
-    ];
   };
 }

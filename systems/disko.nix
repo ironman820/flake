@@ -56,10 +56,6 @@
               mountpoint = "/nix";
               mountOptions = mountOpts ++ ["subvol=nix" "noatime"];
             };
-            "/persist" = {
-              mountpoint = "/persist";
-              mountOptions = mountOpts ++ ["subvol=persist" "noatime"];
-            };
           };
           mountpoint = "/partition-root";
         };

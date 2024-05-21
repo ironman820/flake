@@ -3,7 +3,7 @@
     ./hardware.nix
     (import ../../disko.nix {
       bootSize = "128M";
-      device = "";
+      device = "/dev/sda";
       swapSize = "2G";
     })
   ];
@@ -12,7 +12,6 @@
     inherit (lib.mine) enabled;
   in {
     mine = {
-      impermanence = enabled;
       suites.laptop = enabled;
     };
     system.stateVersion = "23.05";

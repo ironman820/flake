@@ -6,9 +6,8 @@ function M.cleanupWork(account)
   local trash = "Trash"
   local util = require("utilities")
 
-  local bsf = messages:match_from("noreply@royell.org") * messages:match_subject("Spam Quarantine Summary")
+  local bsf = messages:contain_from("noreply@royell.org") * messages:contain_subject("Spam Quarantine Summary")
   if #bsf > 0 then
-    messages = messages - bsf
     util:filter_oldest(bsf, util.delete, account, trash)
   end
   bsf = nil
@@ -23,53 +22,53 @@ function M.cleanupWork(account)
   local spam
   for k, v in pairs(voipEmail) do
     if k == 1 then
-      spam = messages:match_from(v)
+      spam = messages:contain_from(v)
       goto continue_sip
     end
-    spam = spam + messages:match_from(v)
+    spam = spam + messages:contain_from(v)
     :: continue_sip ::
   end
-  spam = spam * (messages:match_subject("SIP Attack Notification") +
-          messages:match_subject("sipPROT Daily Report") +
+  spam = spam * (messages:contain_subject("SIP Attack Notification") +
+          messages:contain_subject("sipPROT Daily Report") +
           (messages:match_subject("Voicemail.*blocked")))
   util.sort(spam, account, archive)
 
   messages = account.INBOX:select_all()
-  spam = messages:match_subject('\\[ServerPlus.*escalation') + messages:match_subject("AutoSSL certificate installed") + messages:match_subject("Teams Essentials invoice") + messages:match_subject("Port Status Change") + messages:match_subject("Port Status Update") + messages:match_subject("Port Note Reply") + messages:match_subject("Abuse Report") + messages:match_subject("Compromised host")
+  spam = messages:match_subject('\\[ServerPlus.*escalation') + messages:contain_subject("AutoSSL certificate installed") + messages:contain_subject("Teams Essentials invoice") + messages:contain_subject("Port Status Change") + messages:contain_subject("Port Status Update") + messages:contain_subject("Port Note Reply") + messages:contain_subject("Abuse Report") + messages:contain_subject("Compromised host")
   util.sort(spam, account, archive)
 
   messages = account.INBOX:select_all()
-  spam = (messages:match_from(accountingEmail) * messages:match_subject("Pay Stub"))
+  spam = (messages:contain_from(accountingEmail) * messages:contain_subject("Pay Stub"))
   util.sort(spam, account, archive)
 
   messages = account.INBOX:select_all()
-  spam = messages:match_from(csrEmail)
-    * (messages:match_subject("BillMax Batch Processing") + messages:match_subject("IPPay.*processing"))
+  spam = messages:contain_from(csrEmail)
+    * (messages:contain_subject("BillMax Batch Processing") + messages:match_subject("IPPay.*processing"))
   util.sort(spam, account, archive)
 
   messages = account.INBOX:select_all()
-  spam = messages:match_from(myEmail) * (messages:match_subject("WMT report") + messages:match_subject("Storage.*Healthy"))
+  spam = messages:contain_from(myEmail) * (messages:contain_subject("WMT report") + messages:match_subject("Storage.*Healthy"))
   util.sort(spam, account, archive)
 
   messages = account.INBOX:select_all()
-  spam = messages:match_subject("Updated.*Schedule") * (messages:match_from(rheaEmail) + messages:match_from(csrEmail))
+  spam = messages:match_subject("Updated.*Schedule") * (messages:contain_from(rheaEmail) + messages:contain_from(csrEmail))
   util.sort(spam, account, archive)
 
   messages = account.INBOX:select_all()
-  spam = messages:match_from("report-bounces@barracudanetworks.com") * (messages:match_subject("Top Outbound") + messages:match_subject("Report"))
+  spam = messages:contain_from("report-bounces@barracudanetworks.com") * (messages:contain_subject("Top Outbound") + messages:contain_subject("Report"))
   util.sort(spam, account, archive)
 
   messages = account.INBOX:select_all()
-  spam = messages:match_from("info@bulkvs.com") * messages:match_subject("Credit Card Event")
+  spam = messages:contain_from("info@bulkvs.com") * messages:contain_subject("Credit Card Event")
   util.sort(spam, account, archive)
 
   messages = account.INBOX:select_all()
-  spam = messages:match_from("sales@bicomsystems.com") * messages:match_subject("invoice")
+  spam = messages:contain_from("sales@bicomsystems.com") * messages:contain_subject("invoice")
   util.sort(spam, account, archive)
 
   messages = account.INBOX:select_all()
-  spam = messages:match_from("uptimerobot.com")
-    * (messages:match_subject("uptime report") + messages:match_subject("payment"))
+  spam = messages:contain_from("uptimerobot.com")
+    * (messages:contain_subject("uptime report") + messages:contain_subject("payment"))
   util.sort(spam, account, archive)
 
   local eset_email = require("work_eset_email")
@@ -82,6 +81,7 @@ function M.cleanupWork(account)
       "antimetal-aws.me",
       "arelion.com",
       "bekapublishing.com",
+      "webinars@calix.com",
       "shared1.ccsend.com",
       "wispa.ccsend.com",
       "ceragon.com",
@@ -114,16 +114,18 @@ function M.cleanupWork(account)
   ---@diagnostic disable-next-line:undefined-global
   spam = Set {}
   for _, v in pairs(senders) do
-    table.insert(spam, messages:match_from(v))
+    util.table_append(spam, messages:match_from(v))
   end
+  if #spam > 0 then
+    util.delete(spam, account, trash)
+  end
+
+  messages = account.INBOX:select_all()
+  spam = messages:match_subject("YoLink.*Device Alarm") + messages:match_subject("techs.*offsite") + messages:contain_subject("Unconfigured DIDs") + messages:match_subject("Calix.*cron")
   util.delete(spam, account, trash)
 
   messages = account.INBOX:select_all()
-  spam = messages:match_subject("YoLink.*Device Alarm") + messages:match_subject("techs.*offsite") + messages:match_subject("Unconfigured DIDs") + messages:match_subject("Calix.*cron")
-  util.delete(spam, account, trash)
-
-  messages = account.INBOX:select_all()
-  spam = messages:match_subject("WISPA ") * (messages:match_subject("Board Meeting") + messages:match_subject("Newsletter") + messages:match_subject("Webinar"))
+  spam = messages:contain_subject("WISPA ") * (messages:contain_subject("Board Meeting") + messages:contain_subject("Newsletter") + messages:contain_subject("Webinar"))
   util.delete(spam, account, trash)
 
   messages = account.INBOX:select_all()
@@ -131,7 +133,7 @@ function M.cleanupWork(account)
   util.delete(spam, account, trash)
 
   messages = account.INBOX:select_all()
-  spam = messages:match_from("noreply-maps-timeline@google.com")
+  spam = messages:contain_from("noreply-maps-timeline@google.com")
   ---@diagnostic disable-next-line:undefined-global
   local handle = Set {}
   for _, message in ipairs(spam) do

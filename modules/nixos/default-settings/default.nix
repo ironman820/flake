@@ -76,6 +76,7 @@ in {
       nerdfonts
       meslo-lgs-nf
     ];
+    hardware.enableRedistributableFirmware = true;
     i18n.defaultLocale = "en_US.UTF-8";
     mine.user.extraGroups = [
       "dialout"

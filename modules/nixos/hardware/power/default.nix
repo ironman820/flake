@@ -12,7 +12,10 @@ in {
     enable = mkEnableOption "Enable the module";
   };
   config = mkIf cfg.enable {
-    powerManagement.powertop = enabled;
+    powerManagement = {
+      enable = true;
+      powertop = enabled;
+    };
     services = {
       power-profiles-daemon = disabled;
       system76-scheduler.settings.cfsProfiles = enabled;

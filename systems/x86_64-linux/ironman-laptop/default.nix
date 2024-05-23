@@ -22,6 +22,11 @@ in {
       user.settings.stylix.image = ./ffvii.jpg;
       networking.profiles.work = true;
     };
+    # boot.extraModprobeConfig = ''
+    #   options iwlwifi 11n_disable=1 power_save=0
+    #   options iwlmvm power_scheme=1
+    #   options iwlwifi uapsd_disable=1
+    # '';
     environment.systemPackages = [
       pkgs.devenv
     ];

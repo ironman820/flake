@@ -20,8 +20,10 @@ in {
       floorp
       gimp
       google-chrome
+      keepassxc
       libreoffice-fresh
       # microsoft-edge
+      nheko
       obs-studio
       putty
       remmina

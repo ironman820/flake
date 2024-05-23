@@ -63,7 +63,11 @@ in {
         enableVteIntegration = true;
       };
       dircolors = enabled;
-      direnv = enabled;
+      direnv = {
+        enable = true;
+        enableBashIntegration = true;
+        nix-direnv = enabled;
+      };
       gpg = {
         enable = true;
         settings = {

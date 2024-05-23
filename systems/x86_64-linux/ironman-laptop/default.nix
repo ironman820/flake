@@ -15,9 +15,7 @@ in {
   config = {
     mine = {
       android = enabled;
-      gui-apps = {
-        hexchat = enabled;
-      };
+      gui-apps.hexchat = enabled;
       suites.laptop = enabled;
       user.settings.stylix.image = ./ffvii.jpg;
       networking.profiles.work = true;

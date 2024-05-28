@@ -12,7 +12,11 @@
       cellsFrom = ./cells;
       cellBlocks = with hive.blockTypes;
       with std.blockTypes; [
+        (devshells "shell")
       ];
+    }
+    {
+      devShells = std.harvest self ["mine" "shell"];
     };
   # channels-config = {
   #   allowUnfree = true;
@@ -74,9 +78,6 @@
   #   ];
   # };
   #
-  # alias = {
-  #   shells.default = "ironman-shell";
-  # };
 
   # nixConfig = {
   #   extra-substituters = [

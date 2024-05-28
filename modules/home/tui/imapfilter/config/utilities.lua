@@ -128,7 +128,7 @@ end
 function M:hdr_decode(s)
   local i, j = s:lower():find("=?utf-8?q?", 1, true)
   if i then
-    local k, l = s:find("?=", j, true)
+    local k, l = s:find("?=", j + 1, true)
     local s_ = s:sub(j + 1, k - 1):gsub("_", " "):gsub("=([a-fA-F0-9][a-fA-F0-9])", function(c)
       return string.char(tonumber(c, 16))
     end)
@@ -165,6 +165,57 @@ function M:print_subject(messages)
     local subject_ = subject:sub(subject:find(":") + 1, -1)
     io.write(subject_ .. "\n")
   end
+end
+
+function M.select_25(messages)
+  local counter = 1
+  ---@diagnostic disable-next-line:undefined-global
+  local t = Set({})
+  for _, message in ipairs(messages) do
+    if counter < 26 then
+      table.insert(t, message)
+    end
+    counter = counter + 1
+  end
+  return t
+end
+
+--- Processes messages from the selected account and returns a
+--- list of new messages to be processed, maintaining a list of
+--- at most 25 messages. Optionally marking messages as read.
+---@alias IMAP table
+---@param account IMAP The account to check for messages
+---@param folder string The folder to check
+---@param start_new boolean Whether to start a new listing or not
+---@alias Set table
+---@param old_messages Set a table of the currently selected messages (default {})
+---@param mark_read boolean Whether to mark messages in the old_messages list as read (default false)
+---@param spam_messages Set a table of spam messages to remove from old_messages before processing (default {})
+---@return table|nil # List of new messages
+---@return boolean # Whether or not to start a new loop
+function M:select_messages(account, folder, start_new, old_messages, mark_read, spam_messages)
+  ---@diagnostic disable:undefined-global
+  if (account == nil) or (folder == nil) or (folder == "") then
+    return Set({}), true
+  end
+  local messages = old_messages or Set({})
+  mark_read = mark_read or false
+  spam_messages = spam_messages or Set({})
+  if not start_new then
+    messages = messages - spam_messages
+    if #messages == 0 then
+      return Set({}), true
+    end
+  end
+  if mark_read and #messages > 0 then
+    messages:mark_seen()
+    messages = Set({})
+  end
+  if start_new then
+    messages = self.select_25(account[folder]:is_unseen())
+  end
+  local new_needed = #messages == 0
+  return messages, new_needed
 end
 
 function M.sort(messages, account, folder)

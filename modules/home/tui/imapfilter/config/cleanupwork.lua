@@ -3,14 +3,16 @@ local M = {}
 function M.cleanupWork(account)
   local archive = "Archive"
   local util = require("utilities")
-  local messages, empty_set
+  local date_minus_30 = util.date_minus_30()
+  ---@diagnostic disable-next-line:undefined-global
+  local messages = Set {}
+  local empty_set = false
   -- messages = account.INBOX:select_all()
   -- messages:unmark_seen()
+  ---@diagnostic disable-next-line
   messages, empty_set = util:select_messages(account, 'INBOX', true)
-  if empty_set then
-    return
-  end
-  local bsf
+  ---@diagnostic disable-next-line:undefined-global
+  local bsf = Set {}
   local trash = "Trash"
   local accountingEmail = require("work_accounting_email")
   local csrEmail = require("work_csr_email")
@@ -48,9 +50,11 @@ function M.cleanupWork(account)
       "eventbrite@ori.net",
       "picstelecom.com",
       "registerform9.com",
+      "registrartechtalk.com",
       "samsara.com",
       "email.samsara.com",
       "taranawireless.com",
+      "tarrapinn.com",
       "tufin.com",
       "verizonconnect.com",
       "walsun.com",
@@ -58,30 +62,37 @@ function M.cleanupWork(account)
       "advertisements@wispa.org",
   }
   senders = util.table_append(senders, require("work_cleanup_senders"))
-  local handle
-  local spam
-
+  ---@diagnostic disable-next-line:undefined-global
+  local handle = Set {}
+  ---@diagnostic disable-next-line:undefined-global
+  local spam = Set {}
+  ---@diagnostic disable:need-check-nil
   while #messages > 0 do
     bsf = messages:contain_from("noreply@royell.org") * messages:contain_subject("Spam Quarantine Summary")
     if #bsf > 0 then
       util:filter_oldest(bsf, util.delete, account, trash)
     end
     bsf = nil
-
+    ---@diagnostic disable-next-line
     messages, empty_set = util:select_messages(account, 'INBOX', true)
     if empty_set then goto next_loop end
-
-    for k, v in pairs(voipEmail) do
-      if k == 1 then
-        spam = messages:contain_from(v)
-        goto continue_sip
+    ---@diagnostic disable-next-line:undefined-global
+    spam = Set {}
+    for _, v in pairs(voipEmail) do
+      local new = messages:match_from(v)
+      if new ~= nil then
+        util.table_append(spam, new)
       end
-      spam = spam + messages:contain_from(v)
-      :: continue_sip ::
     end
-    spam = spam * (messages:contain_subject("SIP Attack Notification") +
-            messages:contain_subject("sipPROT Daily Report") +
-            (messages:match_subject("Voicemail.*blocked")))
+    ---@diagnostic disable-next-line:undefined-global
+    handle = Set {}
+    for _, message in ipairs(spam) do
+      local mailbox, uid = table.unpack(message)
+      local subject = util:hdr_decode(mailbox[uid]:fetch_field("subject"))
+      if subject:find("SIP Attack Notification") or subject:find("sipPROT Daily Report") or subject:find("Voicemail.*blocked") then
+        util.table_append(handle, message)
+      end
+    end
     messages, empty_set = util:select_messages(account, 'INBOX', false, messages, false, spam)
     util.sort(spam, account, archive)
     if empty_set then goto next_loop end
@@ -154,7 +165,7 @@ function M.cleanupWork(account)
     util.delete(spam, account, trash)
     if empty_set then goto next_loop end
 
-    spam = messages:match_subject("WISPA ") * (messages:match_subject("Board Meeting") + messages:match_subject("Newsletter") + messages:match_subject("Webinar"))
+    spam = messages:match_subject("WISPA") * (messages:match_subject("Board Meeting") + messages:match_subject("Newsletter") + messages:match_subject("Webinar") + messages:match_subject("Attend"))
     messages, empty_set = util:select_messages(account, 'INBOX', false, messages, false, spam)
     util.delete(spam, account, trash)
     if empty_set then goto next_loop end
@@ -181,13 +192,17 @@ function M.cleanupWork(account)
     -- ---@diagnostic disable-next-line:undefined-global
     -- messages = Set {}
     -- empty_set = false
+    ---@diagnostic disable-next-line
     messages, empty_set = util:select_messages(account, 'INBOX', false, messages, true)
 
     ::next_loop::
     if empty_set then
+    ---@diagnostic disable-next-line
       messages, _ = util:select_messages(account, 'INBOX', true)
     end
   end
+  messages = account['Trash']:arrived_before(date_minus_30)
+  messages:delete_messages()
 end
 
 setmetatable(M, {

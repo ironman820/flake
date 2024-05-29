@@ -20,6 +20,14 @@ local months = {
   "Dec",
 }
 
+--- Returns the date 30 days ago
+---@return string date_minus_30 The date formatted in an imapfilter friendly string
+function M.date_minus_30()
+  local now = os.date("*t", os.time())
+  now.day = now.day - 30
+  return os.date("%d-%b-%Y", os.time(now))
+end
+
 --- Returns a table of strings split on the provided separator
 ---@param text string String to split
 ---@param separator string String to separate the text on
@@ -130,9 +138,9 @@ function M:hdr_decode(s)
   if i then
     local k, l = s:find("?=", j + 1, true)
     local s_ = s:sub(j + 1, k - 1):gsub("_", " "):gsub("=([a-fA-F0-9][a-fA-F0-9])", function(c)
-      return string.char(tonumber(c, 16))
+      return string.char(tonumber(c, 16)):gsub("\r\n\t", "")
     end)
-    return self:hdr_decode(s:sub(1, i - 1) .. s_ .. s:sub(l + 1))
+    return self:hdr_decode(s:sub(1, i - 1) .. s_ .. s:sub(l + 1)):gsub("\r\n\t", "")
   end
 
   i, j = s:lower():find("=?utf-8?b?", 1, true)
@@ -151,11 +159,12 @@ function M:hdr_decode(s)
           ((c or 1) - 1) % 4 * 64 + ((d or 1) - 1)
         )
         :sub(1, d and 3 or c and 2 or 1)
+        :gsub("\r\n\t", "")
     end)
-    return self:hdr_decode(s:sub(1, i - 1) .. s_ .. s:sub(l + 1))
+    return self:hdr_decode(s:sub(1, i - 1) .. s_ .. s:sub(l + 1)):gsub("\r\n\t", "")
   end
 
-  return s
+  return s:gsub("\r\n\t", "")
 end
 
 function M:print_subject(messages)
@@ -183,15 +192,13 @@ end
 --- Processes messages from the selected account and returns a
 --- list of new messages to be processed, maintaining a list of
 --- at most 25 messages. Optionally marking messages as read.
----@alias IMAP table
 ---@param account IMAP The account to check for messages
 ---@param folder string The folder to check
 ---@param start_new boolean Whether to start a new listing or not
----@alias Set table
----@param old_messages Set a table of the currently selected messages (default {})
----@param mark_read boolean Whether to mark messages in the old_messages list as read (default false)
----@param spam_messages Set a table of spam messages to remove from old_messages before processing (default {})
----@return table|nil # List of new messages
+---@param[opt={}] old_messages Set a table of the currently selected messages (default {})
+---@param[opt=false] mark_read boolean Whether to mark messages in the old_messages list as read (default false)
+---@param[opt={}] spam_messages Set a table of spam messages to remove from old_messages before processing (default {})
+---@return table # List of new messages
 ---@return boolean # Whether or not to start a new loop
 function M:select_messages(account, folder, start_new, old_messages, mark_read, spam_messages)
   ---@diagnostic disable:undefined-global

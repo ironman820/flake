@@ -2,16 +2,16 @@
   description = "My NixOS Flakes";
 
   outputs = {
-    hive,
     self,
     std,
     ...
   } @ inputs:
-    hive.growOn {
+    std.growOn {
       inherit inputs;
       cellsFrom = ./cells;
-      cellBlocks = with hive.blockTypes;
-      with std.blockTypes; [
+      cellBlocks = with std.blockTypes; [
+        # (functions "hardwareProfiles")
+        (functions "lib")
         (devshells "shell")
       ];
     }
@@ -73,10 +73,10 @@
   #     common-gpu-intel
   #     system76
   #   ];
+  # };
   #   ironman-laptop.modules = with inputs; [
   #     nixos-hardware.nixosModules.dell-inspiron-5509
   #   ];
-  # };
   #
 
   # nixConfig = {
@@ -149,10 +149,14 @@
     #   url = "github:Jxstxs/conceal.nvim";
     # };
     # deploy-rs.url = "github:serokell/deploy-rs";
-    # disko = {
-    #   inputs.nixpkgs.follows = "nixpkgs";
-    #   url = "github:nix-community/disko";
-    # };
+    devshell = {
+      inputs.nixpkgs.follows = "nixpkgs";
+      url = "github:numtide/devshell";
+    };
+    disko = {
+      inputs.nixpkgs.follows = "nixpkgs";
+      url = "github:nix-community/disko";
+    };
     # # Snowfallorg's Flake utility
     # flake = {
     #   inputs.nixpkgs.follows = "nixpkgs";
@@ -160,10 +164,6 @@
     # };
     # flake-utils.url = "github:numtide/flake-utils";
     haumea.follows = "std/haumea";
-    hive = {
-      inputs.nixpkgs.follows = "nixpkgs";
-      url = "github:divnix/hive";
-    };
     # # Home manager to keep track of dotfiles
     # home-manager = {
     #   inputs.nixpkgs.follows = "nixpkgs";
@@ -187,8 +187,8 @@
     #   inputs.nixpkgs.follows = "nixpkgs";
     #   url = "github:nix-community/nixos-generators";
     # };
-    # # Nixos curated Hardware settings/drivers
-    # nixos-hardware.url = "github:nixos/nixos-hardware";
+    # Nixos curated Hardware settings/drivers
+    nixos-hardware.url = "github:nixos/nixos-hardware";
     # # acc5f7b - IcedTea v8 Stable
     # nixpkgs-acc5f7b.url = "github:nixos/nixpkgs/acc5f7b";
     # # ba45a55 - The last stable update of PHP 7.4
@@ -233,7 +233,13 @@
     #   inputs.nixpkgs.follows = "nixpkgs";
     #   url = "github:Mic92/sops-nix";
     # };
-    std.follows = "hive/std";
+    std = {
+      inputs = {
+        devshell.follows = "devshell";
+        nixpkgs.follows = "nixpkgs";
+      };
+      url = "github:divnix/std";
+    };
     # stylix = {
     #   inputs.nixpkgs.follows = "nixpkgs";
     #   url = "github:danth/stylix/release-23.11";

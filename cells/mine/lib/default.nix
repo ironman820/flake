@@ -1,7 +1,12 @@
-{lib, ...}: let
-  inherit (lib) mkOption strings;
-  inherit (lib.attrsets) filterAttrs mapAttrsToList;
-  inherit (lib.types) bool;
+{
+  cell,
+  inputs,
+}: let
+  inherit (inputs) nixpkgs;
+  inherit (inputs.nixpkgs.lib) strings;
+  inherit (inputs.nixpkgs.lib.types) bool;
+
+  l = nixpkgs.lib // builtins;
 in rec {
   disabled = {enable = false;};
   enabled = {enable = true;};
@@ -10,7 +15,7 @@ in rec {
     then t
     else f;
   mkOpt = type: default: description:
-    mkOption {inherit type default description;};
+    l.mkOption {inherit type default description;};
   mkOpt' = type: default: mkOpt type default null;
   mkBoolOpt = mkOpt bool;
   mkBoolOpt' = mkOpt' bool;
@@ -19,7 +24,7 @@ in rec {
       UI menu.c32
       TIMEOUT 300
     ''
-    + strings.concatStringsSep "\n" (mapAttrsToList
+    + strings.concatStringsSep "\n" (l.mapAttrsToList
       (
         name: value: ''
           LABEL ${name}
@@ -28,5 +33,5 @@ in rec {
             append ${value.content.append}
         ''
       )
-      (filterAttrs (_: v: v.condition) args));
+      (l.filterAttrs (_: v: v.condition) args));
 }

@@ -8,6 +8,8 @@
 
   l = nixpkgs.lib // builtins;
 in rec {
+  # This block was taken from Jake Hamilton's lib declarations.
+  # https://github.com/jakehamilton/config/blob/main/lib/module/default.nix
   disabled = {enable = false;};
   enabled = {enable = true;};
   ifThenElse = cond: t: f:
@@ -19,6 +21,11 @@ in rec {
   mkOpt' = type: default: mkOpt type default null;
   mkBoolOpt = mkOpt bool;
   mkBoolOpt' = mkOpt' bool;
+  override-meta = meta: package:
+    package.overrideAttrs (attrs: {
+      meta = (attrs.meta or {}) // meta;
+    });
+  # End of Jake Hamilton's code
   mkPxeMenu = args:
     ''
       UI menu.c32

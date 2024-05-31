@@ -108,7 +108,13 @@ in {
       services."imapcheck" = {
         Unit.Description = "Run mutt-wizard to check all email accounts.";
         Install.WantedBy = ["default.target"];
-        Service.ExecStart = "${pkgs.isync}/bin/mbsync -a";
+        Service = {
+          ExecStart = [
+            "${pkgs.imapfilter}/bin/imapfilter -c \"${config.xdg.configHome}/imapfilter/config.lua\""
+            "${pkgs.isync}/bin/mbsync -a"
+          ];
+          Type = "oneshot";
+        };
       };
       timers."imapcheck" = {
         Install.WantedBy = ["timers.target"];

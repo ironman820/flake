@@ -62,17 +62,18 @@ in {
       })
     ];
     home.shellAliases.imapfilter = "imapfilter -c \"${configFolder}/config.lua\"";
-    systemd.user = {
-      services."imapfilter" = {
-        Unit.Description = "Run IMAPFilter in the background.";
-        Install.WantedBy = ["default.target"];
-        Service.ExecStart = "${pkgs.imapfilter}/bin/imapfilter -c \"${configFolder}/config.lua\"";
-      };
-      timers."imapfilter" = {
-        Install.WantedBy = ["timers.target"];
-        Timer.OnCalendar = "*:0/5";
-      };
-    };
+    # Moved to neomutt config
+    # systemd.user = {
+    #   services."imapfilter" = {
+    #     Unit.Description = "Run IMAPFilter in the background.";
+    #     Install.WantedBy = ["default.target"];
+    #     Service.ExecStart = "${pkgs.imapfilter}/bin/imapfilter -c \"${configFolder}/config.lua\"";
+    #   };
+    #   timers."imapfilter" = {
+    #     Install.WantedBy = ["timers.target"];
+    #     Timer.OnCalendar = "*:0/5";
+    #   };
+    # };
     xdg.configFile = {
       "imapfilter/cleanuphome.lua".source = mkOutOfStoreSymlink "${pwd}/config/cleanuphome.lua";
       "imapfilter/cleanupwork.lua".source = mkOutOfStoreSymlink "${pwd}/config/cleanupwork.lua";

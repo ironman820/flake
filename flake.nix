@@ -4,19 +4,34 @@
   outputs = {
     self,
     std,
+    hive,
     ...
-  } @ inputs:
-    std.growOn {
+  } @ inputs: let
+    inherit (inputs.nixpkgs) lib;
+    myCollect =
+      hive.collect
+      // {
+        renamer = cell: target: "${target}";
+      };
+  in
+    hive.growOn {
       inherit inputs;
       cellsFrom = ./cells;
-      cellBlocks = with std.blockTypes; [
+      cellBlocks = with (lib.mergeAttrsList [
+        hive.blockTypes
+        std.blockTypes
+      ]); [
         # (functions "hardwareProfiles")
         (functions "lib")
         (devshells "shell")
+        nixosConfigurations
       ];
     }
     {
       devShells = std.harvest self ["mine" "shell"];
+    }
+    {
+      nixosConfigurations = myCollect self "nixosConfigurations";
     };
   # channels-config = {
   #   allowUnfree = true;
@@ -149,10 +164,6 @@
     #   url = "github:Jxstxs/conceal.nvim";
     # };
     # deploy-rs.url = "github:serokell/deploy-rs";
-    devshell = {
-      inputs.nixpkgs.follows = "nixpkgs";
-      url = "github:numtide/devshell";
-    };
     disko = {
       inputs.nixpkgs.follows = "nixpkgs";
       url = "github:nix-community/disko";
@@ -164,6 +175,10 @@
     # };
     # flake-utils.url = "github:numtide/flake-utils";
     haumea.follows = "std/haumea";
+    hive = {
+      inputs.nixpkgs.follows = "nixpkgs";
+      url = "github:divnix/hive";
+    };
     # # Home manager to keep track of dotfiles
     # home-manager = {
     #   inputs.nixpkgs.follows = "nixpkgs";
@@ -233,13 +248,7 @@
     #   inputs.nixpkgs.follows = "nixpkgs";
     #   url = "github:Mic92/sops-nix";
     # };
-    std = {
-      inputs = {
-        devshell.follows = "devshell";
-        nixpkgs.follows = "nixpkgs";
-      };
-      url = "github:divnix/std";
-    };
+    std.follows = "hive/std";
     # stylix = {
     #   inputs.nixpkgs.follows = "nixpkgs";
     #   url = "github:danth/stylix/release-23.11";

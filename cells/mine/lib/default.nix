@@ -26,6 +26,41 @@ in rec {
       meta = (attrs.meta or {}) // meta;
     });
   # End of Jake Hamilton's code
+  importModules = dir:
+    l.mapAttrs'
+    (file: type:
+      l.nameValuePair
+      (l.removeSuffix ".nix" file)
+      (import (dir + /${file})))
+    (l.filterAttrs
+      (file: type: type == "directory" || file != "default.nix")
+      (l.readDir dir));
+  mkNixosSystem = {
+    name,
+    username ? "ironman",
+    system ? "x86_64-linux",
+    stateVersion ? "23.05",
+    nixosModules ? [],
+    homeModules ? [],
+  }:
+    nixpkgs.lib.nixosSystem {
+      inherit system;
+
+      pkgs = nixpkgs;
+      modules = nixosModules;
+      # [
+      #   hyprland.nixosModules.default
+      #   home-manager.nixosModules.home-manager
+      #   (cell.nixosModules.home homeModules)
+      #   cell.nixosModules.default
+      #   {system.stateVersion = stateVersion;}
+      # ]
+      # ++ nixosModules;
+
+      specialArgs = {
+        inherit system inputs name username;
+      };
+    };
   mkPxeMenu = args:
     ''
       UI menu.c32

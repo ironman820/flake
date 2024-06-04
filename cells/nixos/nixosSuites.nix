@@ -3,7 +3,7 @@
   inputs,
 }: let
   inherit (cell) nixosProfiles;
-  inherit (inputs) nixpkgs sops-nix;
+  inherit (inputs) nixpkgs sops-nix stylix;
   inherit (inputs.cells) mine;
   boot = inputs.cells.boot.nixosProfiles;
   l = nixpkgs.lib // mine.lib // builtins;
@@ -13,8 +13,10 @@ in rec {
   base = [
     networking.dhcp
     nixosProfiles.sops
+    nixosProfiles.stylix
     servers.ssh
     sops-nix.nixosModules.sops
+    stylix.nixosModules.stylix
   ];
   laptop' = l.concatLists [
     workstation
@@ -52,7 +54,6 @@ in rec {
     base
     [
       boot.grub
-      # stylix.nixosModules.stylix
       # de.hyprland
       #   gui-apps = {
       #     alacritty = mkIf (terminal == "alacritty") enabled;

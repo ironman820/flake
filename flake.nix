@@ -249,10 +249,10 @@
       url = "github:Mic92/sops-nix";
     };
     std.follows = "hive/std";
-    # stylix = {
-    #   inputs.nixpkgs.follows = "nixpkgs";
-    #   url = "github:danth/stylix/release-23.11";
-    # };
+    stylix = {
+      inputs.nixpkgs.follows = "nixpkgs";
+      url = "github:danth/stylix/release-23.11";
+    };
     # tmux-cheat-sh = {
     #   flake = false;
     #   url = "github:ironman820/tmux-cheat-sh";

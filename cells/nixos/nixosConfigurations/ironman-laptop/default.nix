@@ -3,9 +3,11 @@
   inputs,
   ...
 }: let
+  inherit (cell) nixosSuites;
   inherit (inputs) haumea nixpkgs;
   inherit (inputs.cells) mine;
   l = nixpkgs.lib // haumea.lib // mine.lib // builtins;
+  suites = nixosSuites.laptop';
 in {
   imports = l.concatLists [
     [
@@ -13,6 +15,7 @@ in {
       cell.bee
       cell.hardwareProfiles.ironman-laptop
     ]
+    suites
   ];
   # [
   # ../../../common/drives/personal.nix

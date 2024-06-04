@@ -243,11 +243,11 @@
     #   inputs.nixpkgs.follows = "nixpkgs";
     #   url = "github:snowfallorg/lib";
     # };
-    # # SOPS Based secret management to encrypt secrets updated to Github
-    # sops-nix = {
-    #   inputs.nixpkgs.follows = "nixpkgs";
-    #   url = "github:Mic92/sops-nix";
-    # };
+    # SOPS Based secret management to encrypt secrets updated to Github
+    sops-nix = {
+      inputs.nixpkgs.follows = "nixpkgs";
+      url = "github:Mic92/sops-nix";
+    };
     std.follows = "hive/std";
     # stylix = {
     #   inputs.nixpkgs.follows = "nixpkgs";

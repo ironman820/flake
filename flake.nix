@@ -24,7 +24,9 @@
         (functions "bee")
         (functions "hardwareProfiles")
         (functions "lib")
+        (functions "nixosProfiles")
         (functions "nixosSuites")
+        (installables "packages")
         (devshells "shell")
         diskoConfigurations
         nixosConfigurations
@@ -32,6 +34,7 @@
     }
     {
       devShells = std.harvest self ["mine" "shell"];
+      packages = std.harvest self ["grub-cyberexs" "packages"];
     }
     {
       diskoConfigurations = myCollect self "diskoConfigurations";

@@ -24,6 +24,7 @@
         (functions "bee")
         (functions "hardwareProfiles")
         (functions "lib")
+        (functions "nixosSuites")
         (devshells "shell")
         diskoConfigurations
         nixosConfigurations
@@ -65,7 +66,6 @@
   #
   # systems.modules = {
   #   nixos = with inputs; [
-  #     disko.nixosModules.disko
   #     impermanence.nixosModules.impermanence
   #     home-manager.nixosModules.home-manager
   #     {

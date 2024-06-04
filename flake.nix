@@ -21,7 +21,7 @@
         hive.blockTypes
         std.blockTypes
       ]); [
-        # (functions "hardwareProfiles")
+        (functions "bee")
         (functions "lib")
         (devshells "shell")
         nixosConfigurations
@@ -33,12 +33,6 @@
     {
       nixosConfigurations = myCollect self "nixosConfigurations";
     };
-  # channels-config = {
-  #   allowUnfree = true;
-  #   allowUnfreePredicate = _: true;
-  #   permittedInsecurePackages = ["openssl-1.1.1w"];
-  # };
-
   # checks = builtins.mapAttrs (system: deployLib: deployLib.deployChecks self.deploy) inputs.deploy-rs.lib;
   #
   # deploy.nodes = {

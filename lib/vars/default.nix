@@ -6,11 +6,6 @@ _: {
       terminal = "kitty"; # String for the application name
     };
     stylix = {
-      base16Scheme = {
-        enable = true;
-        package = "base16-onedark-scheme";
-        file = "theme.yaml"; # Base color scheme for Stylix
-      };
       fonts = {
         terminalFont = "IosevkaTerm Nerd Font";
         terminalSize = 12.0; # Default size of terminal fonts

@@ -22,6 +22,7 @@
         std.blockTypes
       ]); [
         (functions "bee")
+        (functions "hardwareProfiles")
         (functions "lib")
         (devshells "shell")
         nixosConfigurations

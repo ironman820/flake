@@ -1,5 +1,7 @@
 {
+  cell,
   config,
+  inputs,
   lib,
   modulesPath,
   ...
@@ -17,6 +19,7 @@
     extraModulePackages = [];
   };
 
+  # config.hardware.enableRedistributableFirmware = true set by the installer module
   hardware.cpu.intel.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
   powerManagement.cpuFreqGovernor = lib.mkDefault "powersave";
 }

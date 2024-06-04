@@ -9,6 +9,7 @@
 in {
   imports = l.concatLists [
     [
+      cell.hardwareProfiles.ironman-laptop
       cell.bee
       cell.hardwareProfiles.ironman-laptop
     ]

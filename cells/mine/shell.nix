@@ -20,9 +20,10 @@ in
       imports = [
         std.devshellProfiles.default
       ];
-      packages = with inputs.nixpkgs; [
+      packages = with nixpkgs; [
         nix-index
         nix-tree
+        tree
       ];
     };
   }

@@ -34,7 +34,7 @@
     }
     {
       devShells = std.harvest self ["mine" "shell"];
-      packages = std.harvest self ["grub-cyberexs" "packages"];
+      packages = std.harvest self ["mine" "packages"];
     }
     {
       diskoConfigurations = myCollect self "diskoConfigurations";
@@ -106,10 +106,10 @@
   # Sources needed for packages
   # Where possible, I have used flakehub's system as a source for repos
   inputs = {
-    # base16-schemes = {
-    #   flake = false;
-    #   url = "github:tinted-theming/base16-schemes";
-    # };
+    base16-schemes = {
+      flake = false;
+      url = "github:tinted-theming/base16-schemes";
+    };
     # catppuccin-bat = {
     #   flake = false;
     #   url = "github:catppuccin/bat";

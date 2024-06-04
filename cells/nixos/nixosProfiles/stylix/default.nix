@@ -3,7 +3,7 @@
   inputs,
 }: let
   inherit (inputs) nixpkgs;
-  inherit (inputs.cells.base16-onedark-scheme.packages) base16-onedark-scheme;
+  inherit (inputs.cells.mine.packages) base16-onedark-scheme;
 in {
   stylix = {
     base16Scheme = "${base16-onedark-scheme}/theme.yaml";

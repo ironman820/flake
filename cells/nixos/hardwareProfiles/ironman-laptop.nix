@@ -8,6 +8,7 @@
 }: {
   imports = [
     (modulesPath + "/installer/scan/not-detected.nix")
+    inputs.disko.nixosModules.disko
   ];
 
   boot = {
@@ -18,6 +19,8 @@
     kernelModules = ["kvm-intel"];
     extraModulePackages = [];
   };
+
+  disko.devices = cell.diskoConfigurations.ironman-laptop;
 
   # config.hardware.enableRedistributableFirmware = true set by the installer module
   hardware.cpu.intel.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;

@@ -25,6 +25,7 @@
         (functions "hardwareProfiles")
         (functions "lib")
         (devshells "shell")
+        diskoConfigurations
         nixosConfigurations
       ];
     }
@@ -32,6 +33,7 @@
       devShells = std.harvest self ["mine" "shell"];
     }
     {
+      diskoConfigurations = myCollect self "diskoConfigurations";
       nixosConfigurations = myCollect self "nixosConfigurations";
     };
   # checks = builtins.mapAttrs (system: deployLib: deployLib.deployChecks self.deploy) inputs.deploy-rs.lib;

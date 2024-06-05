@@ -2,7 +2,8 @@
   cell,
   inputs,
 }: let
-  inherit (inputs.nixpkgs.stdenv) mkDerivation;
+  inherit (inputs) nixpkgs;
+  inherit (nixpkgs.stdenv) mkDerivation;
 in {
   base16-onedark-scheme = mkDerivation {
     name = "base16-onedark-scheme";
@@ -23,5 +24,8 @@ in {
       tar -xzf $src -C $out/share/grub/themes/
     '';
     phases = "unpackPhase";
+  };
+  networkmanagerapplet = nixpkgs.networkmanagerapplet.override {
+    libnma = nixpkgs.libnma-gtk4;
   };
 }

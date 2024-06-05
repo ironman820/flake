@@ -11,12 +11,13 @@
   servers = inputs.cells.servers.nixosProfiles;
 in rec {
   base = [
+    mine.nixosProfiles.vars
     networking.dhcp
     nixosProfiles.sops
-    nixosProfiles.stylix
+    # nixosProfiles.stylix
     servers.ssh
     sops-nix.nixosModules.sops
-    stylix.nixosModules.stylix
+    # stylix.nixosModules.stylix
   ];
   laptop' = l.concatLists [
     workstation
@@ -54,6 +55,7 @@ in rec {
     base
     [
       boot.grub
+      networking.networkmanager
       # de.hyprland
       #   gui-apps = {
       #     alacritty = mkIf (terminal == "alacritty") enabled;

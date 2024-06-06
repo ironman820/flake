@@ -34,7 +34,10 @@
     }
     {
       devShells = std.harvest self ["mine" "shell"];
-      packages = std.harvest self ["mine" "packages"];
+      packages = std.harvest self [
+        ["grub-cyberexs" "packages"]
+        ["mine" "packages"]
+      ];
     }
     {
       diskoConfigurations = myCollect self "diskoConfigurations";

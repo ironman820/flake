@@ -7,19 +7,20 @@
   inherit (inputs) haumea nixpkgs;
   inherit (inputs.cells) mine;
   l = nixpkgs.lib // haumea.lib // mine.lib // builtins;
+  networking = inputs.cells.networking.nixosProfiles;
+  profiles = [
+    networking.personal-drives
+  ];
   suites = nixosSuites.laptop';
 in {
   imports = l.concatLists [
     [
-      cell.hardwareProfiles.ironman-laptop
       cell.bee
       cell.hardwareProfiles.ironman-laptop
     ]
+    profiles
     suites
   ];
-  # [
-  # ../../../common/drives/personal.nix
-  # ];
   # [
   #   hyprland.nixosModules.default
   #   home-manager.nixosModules.home-manager
@@ -30,7 +31,7 @@ in {
   # ++ nixosModules;
 
   # config = {
-  # networking.hostname = "ironman-laptop";
+  networking.hostName = "ironman-laptop";
   #   # mine = {
   #   #   android = enabled;
   #   #   gui-apps.hexchat = enabled;

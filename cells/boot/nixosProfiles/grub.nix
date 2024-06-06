@@ -3,15 +3,15 @@
   inputs,
 }: let
   inherit (inputs) nixpkgs;
-  inherit (inputs.cells) mine;
-  inherit (inputs.cells.grub-cyberexs.packages) grub-cyberexs;
+  inherit (inputs.cells) grub-cyberexs mine;
   l = nixpkgs.lib // mine.lib // builtins;
+  p = grub-cyberexs.packages;
 in {
   boot = {
     loader.grub = {
       efiSupport = true;
       device = "nodev";
-      theme = "${grub-cyberexs}/share/grub/themes/CyberEXS";
+      theme = "${p.grub-cyberexs}/share/grub/themes/CyberEXS";
     };
     plymouth = l.enabled;
   };

@@ -45,5 +45,4 @@ in {
   #   services.tlp.settings.RUNTIME_PM_DISABLE = "02:00.0";
   #   zramSwap = l.enabled;
   # };
-  system.stateVersion = "23.05";
 }

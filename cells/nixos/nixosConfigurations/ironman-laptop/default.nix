@@ -46,7 +46,8 @@ in {
         profiles
         suites
       ];
-    home.packages = [
+    home.packages = with nixpkgs; [
+      calibre
       packages.tochd
     ];
   };

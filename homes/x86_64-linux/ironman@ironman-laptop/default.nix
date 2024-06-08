@@ -6,7 +6,6 @@
   inherit (lib.mine) enabled;
 in {
   mine.home = {
-    personal-apps = enabled;
     suites.laptop = enabled;
     user.settings = {
       stylix = {

@@ -2,19 +2,18 @@
   cell,
   inputs,
 }: let
-  inherit (cell) homeProfiles;
   inherit (inputs) nixpkgs sops-nix;
   inherit (inputs.cells) mine;
-  h = mine.homeProfiles;
+  h = cell.homeProfiles // mine.homeProfiles;
   l = nixpkgs.lib // mine.lib // builtins;
-  ssh = inputs.cells.ssh.homeProfiles;
+  ssh = inputs.cells.homeProfiles;
 in rec {
-  base = [
-    homeProfiles.sops
+  base = with h; [
+    sops
     # hypridle.homeManagerModules.hypridle
     # hyprlock.homeManagerModules.hyprlock
     # impermanence.nixosModules.home-manager.impermanence
-    mine.homeProfiles.vars
+    vars
     ssh.auth-keys
     sops-nix.homeManagerModules.sops
     # stylix.homeManagerModules.stylix
@@ -22,10 +21,10 @@ in rec {
   ];
   laptop' = l.concatLists [
     workstation
-    [
-      h.bluetooth
-      homeProfiles.neomutt
-    ]
+    (with h; [
+      bluetooth
+      neomutt
+    ])
   ];
   workstation = l.concatLists [
     base

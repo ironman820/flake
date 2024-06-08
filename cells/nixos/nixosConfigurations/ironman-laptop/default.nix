@@ -33,17 +33,13 @@ in {
   # ]
   # ++ nixosModules;
 
-  # config = {
   home-manager.users.${v.username} = {
     imports = let
       gui-apps = inputs.cells.gui-apps.homeProfiles;
       profiles = with homeProfiles; [
         gui-apps.hexchat
       ];
-      suites = with homeSuites;
-        l.concatLists [
-          base
-        ];
+      suites = homeSuites.laptop';
     in
       l.concatLists [
         profiles

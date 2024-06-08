@@ -6,10 +6,6 @@
   inherit (lib.mine) enabled;
 in {
   mine.home = {
-    sops.secrets.deploy_ed25519 = {
-      mode = "0400";
-      path = "${config.home.homeDirectory}/.ssh/deploy_ed25519";
-    };
     tui.neomutt.personalEmail = true;
     personal-apps = enabled;
     suites.laptop = enabled;

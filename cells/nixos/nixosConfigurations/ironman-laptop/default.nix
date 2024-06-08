@@ -23,7 +23,6 @@ in {
   ];
   # [
   #   hyprland.nixosModules.default
-  #   home-manager.nixosModules.home-manager
   #   (cell.nixosModules.home homeModules)
   #   cell.nixosModules.default
   #   {system.stateVersion = stateVersion;}

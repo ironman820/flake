@@ -28,7 +28,6 @@ in {
       hardware.yubikey = enabled;
       rofi = enabled;
       servers.sync = enabled;
-      tui.neomutt = enabled;
       video-tools = enabled;
       virtual.host = enabled;
     };

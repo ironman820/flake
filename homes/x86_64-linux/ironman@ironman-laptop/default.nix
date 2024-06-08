@@ -6,7 +6,6 @@
   inherit (lib.mine) enabled;
 in {
   mine.home = {
-    tui.neomutt.personalEmail = true;
     personal-apps = enabled;
     suites.laptop = enabled;
     user.settings = {

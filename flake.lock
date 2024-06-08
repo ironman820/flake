@@ -193,6 +193,22 @@
         "type": "github"
       }
     },
+    "catppuccin-neomutt": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1664239314,
+        "narHash": "sha256-ye16nP2DL4VytDKB+JdMkBXU+Y9Z4dHmY+DsPcR2EG0=",
+        "owner": "catppuccin",
+        "repo": "neomutt",
+        "rev": "f6ce83da47cc36d5639b0d54e7f5f63cdaf69f11",
+        "type": "github"
+      },
+      "original": {
+        "owner": "catppuccin",
+        "repo": "neomutt",
+        "type": "github"
+      }
+    },
     "colmena": {
       "locked": {
         "lastModified": 1625557891,
@@ -612,6 +628,7 @@
     "root": {
       "inputs": {
         "base16-schemes": "base16-schemes",
+        "catppuccin-neomutt": "catppuccin-neomutt",
         "disko": "disko",
         "haumea": [
           "std",
@@ -767,15 +784,15 @@
     "tochd": {
       "flake": false,
       "locked": {
-        "lastModified": 1717822398,
+        "lastModified": 1717823526,
         "narHash": "sha256-lpDROCiXyfM4OdXBNGkEhD3T2c8aS8QyF7etHC5tQ8M=",
-        "owner": "ironman820",
+        "owner": "thingsiplay",
         "repo": "tochd",
-        "rev": "2c42c3c2e0d25964376bfb6e7fad830c487f1a40",
+        "rev": "eea871b51cd4962d23a6426194f6f524e864c0ac",
         "type": "github"
       },
       "original": {
-        "owner": "ironman820",
+        "owner": "thingsiplay",
         "repo": "tochd",
         "type": "github"
       }

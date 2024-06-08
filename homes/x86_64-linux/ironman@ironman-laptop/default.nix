@@ -6,10 +6,6 @@
   inherit (lib.mine) enabled;
 in {
   mine.home = {
-    gui-apps = {
-      hexchat = enabled;
-    };
-    networking = enabled;
     sops.secrets.deploy_ed25519 = {
       mode = "0400";
       path = "${config.home.homeDirectory}/.ssh/deploy_ed25519";

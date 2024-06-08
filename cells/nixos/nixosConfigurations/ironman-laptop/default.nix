@@ -36,7 +36,10 @@ in {
   # config = {
   home-manager.users.${v.username} = {
     imports = let
-      profiles = with homeProfiles; [];
+      gui-apps = inputs.cells.gui-apps.homeProfiles;
+      profiles = with homeProfiles; [
+        gui-apps.hexchat
+      ];
       suites = with homeSuites;
         l.concatLists [
           base
@@ -53,7 +56,6 @@ in {
   networking.hostName = "ironman-laptop";
   #   # mine = {
   #   #   android = enabled;
-  #   #   gui-apps.hexchat = enabled;
   #   #   suites.laptop = enabled;
   #   #   user.settings.stylix.image = ./ffvii.jpg;
   #   #   networking.profiles.work = true;

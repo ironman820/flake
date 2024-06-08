@@ -1,17 +1,21 @@
 {
   cell,
+  config,
   inputs,
   ...
 }: let
   inherit (cell) nixosSuites;
   inherit (inputs) haumea nixpkgs;
   inherit (inputs.cells) mine;
+  inherit (inputs.cells.home) homeProfiles homeSuites;
+  inherit (inputs.cells.mine) packages;
   l = nixpkgs.lib // haumea.lib // mine.lib // builtins;
   networking = inputs.cells.networking.nixosProfiles;
   profiles = [
     networking.personal-drives
   ];
   suites = nixosSuites.laptop';
+  v = config.vars;
 in {
   imports = l.concatLists [
     [
@@ -30,6 +34,22 @@ in {
   # ++ nixosModules;
 
   # config = {
+  home-manager.users.${v.username} = {
+    imports = let
+      profiles = with homeProfiles; [];
+      suites = with homeSuites;
+        l.concatLists [
+          base
+        ];
+    in
+      l.concatLists [
+        profiles
+        suites
+      ];
+    home.packages = [
+      packages.tochd
+    ];
+  };
   networking.hostName = "ironman-laptop";
   #   # mine = {
   #   #   android = enabled;

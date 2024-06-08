@@ -23,6 +23,8 @@
       ]); [
         (functions "bee")
         (functions "hardwareProfiles")
+        (functions "homeProfiles")
+        (functions "homeSuites")
         (functions "lib")
         (functions "nixosProfiles")
         (functions "nixosSuites")

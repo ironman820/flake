@@ -1,14 +1,10 @@
 {
   config,
   lib,
-  pkgs,
   ...
 }: let
   inherit (lib.mine) enabled;
 in {
-  imports = [
-    ../modules.nix
-  ];
   mine.home = {
     gui-apps = {
       hexchat = enabled;
@@ -32,8 +28,5 @@ in {
       transparancy.terminalOpacity = 0.85;
     };
     waybar.resolution = 768;
-  };
-  home = {
-    packages = [pkgs.tochd];
   };
 }

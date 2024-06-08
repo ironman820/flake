@@ -15,7 +15,6 @@ in {
   };
   config = mkIf cfg.enable {
     mine.home = {
-      hardware.bluetooth = enabled;
       suites.workstation = enabled;
     };
   };

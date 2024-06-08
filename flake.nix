@@ -73,13 +73,6 @@
   # systems.modules = {
   #   nixos = with inputs; [
   #     impermanence.nixosModules.impermanence
-  #     home-manager.nixosModules.home-manager
-  #     {
-  #       home-manager = {
-  #         useGlobalPkgs = true;
-  #         useUserPackages = true;
-  #       };
-  #     }
   #     nix-ld.nixosModules.nix-ld
   #     sops-nix.nixosModules.sops
   #     stylix.nixosModules.stylix
@@ -182,11 +175,11 @@
       inputs.nixpkgs.follows = "nixpkgs";
       url = "github:divnix/hive";
     };
-    # # Home manager to keep track of dotfiles
-    # home-manager = {
-    #   inputs.nixpkgs.follows = "nixpkgs";
-    #   url = "github:nix-community/home-manager/release-23.11";
-    # };
+    # Home manager to keep track of dotfiles
+    home-manager = {
+      inputs.nixpkgs.follows = "nixpkgs";
+      url = "github:nix-community/home-manager";
+    };
     # hypridle.url = "github:hyprwm/hypridle";
     # hyprland.url = "git+https://github.com/hyprwm/Hyprland?submodules=1";
     # hyprland-plugins = {

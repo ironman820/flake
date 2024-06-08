@@ -3,7 +3,7 @@
   inputs,
 }: let
   inherit (cell) nixosProfiles;
-  inherit (inputs) nixpkgs sops-nix stylix;
+  inherit (inputs) home-manager nixpkgs sops-nix stylix;
   inherit (inputs.cells) mine;
   boot = inputs.cells.boot.nixosProfiles;
   l = nixpkgs.lib // mine.lib // builtins;
@@ -11,6 +11,13 @@
   servers = inputs.cells.servers.nixosProfiles;
 in rec {
   base = [
+    home-manager.nixosModules.home-manager
+    {
+      home-manager = {
+        useGlobalPkgs = true;
+        useUserPackages = true;
+      };
+    }
     mine.nixosProfiles.vars
     networking.dhcp
     nixosProfiles.sops

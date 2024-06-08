@@ -13,6 +13,7 @@ in rec {
     # hypridle.homeManagerModules.hypridle
     # hyprlock.homeManagerModules.hyprlock
     # impermanence.nixosModules.home-manager.impermanence
+    mine.homeProfiles.vars
     ssh.auth-keys
     sops-nix.homeManagerModules.sops
     # stylix.homeManagerModules.stylix
@@ -20,7 +21,9 @@ in rec {
   ];
   laptop' = l.concatLists [
     workstation
-    []
+    [
+      homeProfiles.neomutt
+    ]
   ];
   workstation = l.concatLists [
     base

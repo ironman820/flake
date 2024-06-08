@@ -38,6 +38,7 @@ in {
       gui-apps = inputs.cells.gui-apps.homeProfiles;
       profiles = with homeProfiles; [
         gui-apps.hexchat
+        personal-email
       ];
       suites = homeSuites.laptop';
     in

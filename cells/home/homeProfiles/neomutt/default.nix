@@ -1,117 +1,77 @@
 {
+  cell,
   config,
-  lib,
-  osConfig,
-  pkgs,
-  ...
+  inputs,
 }: let
-  inherit (lib) mkEnableOption mkIf mkMerge;
-  inherit (lib.mine) enabled mkBoolOpt;
-  inherit (pkgs) writeShellScript;
-
-  cfg = config.mine.home.tui.neomutt;
+  inherit (inputs) nixpkgs;
+  inherit (inputs.cells) mine;
+  l = nixpkgs.lib // mine.lib // builtins;
   configFolder = "${config.xdg.configHome}/mutt";
-  imp = config.mine.home.impermanence.enable;
-  os = osConfig.mine.tui.neomutt;
+  t = l.types;
+  v = config.vars;
 in {
-  options.mine.home.tui.neomutt = {
-    enable = mkBoolOpt os.enable "Install Neomutt";
-    notmuchPersonal = mkBoolOpt cfg.personalEmail "Whether to setup notmuch for personal email";
-    notmuchWork = mkBoolOpt (!cfg.notmuchPersonal) "Whether to setup notmuch for work email";
-    personalEmail = mkEnableOption "Setup Personal Email";
-    workEmail = mkEnableOption "Setup Work Email";
+  options.vars = {
+    emailSops = l.mkOpt t.path ./__secrets/neomutt.yaml "Path to the sops file with email config.";
   };
 
-  config = mkIf cfg.enable (let
-    sopsFile = ./secrets/neomutt.yaml;
+  config = let
+    sopsFile = v.emailSops;
   in {
-    mine.home = {
-      tui = {
-        imapfilter = {
-          enable = true;
-          home = cfg.personalEmail;
-          work = cfg.workEmail;
-        };
-        just.apps = [
-          "~/scripts/just/emailpass.sh"
-        ];
+    # mine.home = {
+    #   tui = {
+    #     imapfilter = {
+    #       enable = true;
+    #     };
+    #   };
+    # };
+    home.shellAliases.mail = "neomutt";
+    programs.neomutt = l.enabled;
+    sops.secrets = {
+      "mbsync" = {
+        inherit sopsFile;
+        path = "${config.home.homeDirectory}/.mbsyncrc";
       };
-      pass = enabled;
-      sops.secrets = mkMerge [
-        {
-          "mbsync" = {
-            inherit sopsFile;
-            path = "${config.home.homeDirectory}/.mbsyncrc";
-          };
-          "msmtp_config" = {
-            inherit sopsFile;
-            path = "${config.xdg.configHome}/msmtp/config";
-          };
-          "work_sig" = {
-            inherit sopsFile;
-            path = "${configFolder}/signatures/work.sig";
-          };
-          "personal_sig" = {
-            inherit sopsFile;
-            path = "${configFolder}/signatures/personal.sig";
-          };
-          "email-pass" = {
-            format = "binary";
-            mode = "0400";
-            path = "${config.home.homeDirectory}/scripts/just/email-pass.7z";
-            sopsFile = ./secrets/email-pass;
-          };
-        }
-        (mkIf cfg.personalEmail {
-          "muttrc_personal_email" = {
-            inherit sopsFile;
-            path = "${configFolder}/accounts/master.muttrc";
-          };
-          "muttrc_work_email" = {
-            inherit sopsFile;
-            path = "${configFolder}/accounts/work.muttrc";
-          };
-          "notmuch-personal-config" = mkIf cfg.notmuchPersonal {
-            inherit sopsFile;
-            path = "${config.home.homeDirectory}/.notmuch-config";
-          };
-        })
-        (mkIf cfg.workEmail {
-          "muttrc_work_email" = {
-            inherit sopsFile;
-            path = "${configFolder}/accounts/master.muttrc";
-          };
-          "muttrc_personal_email" = {
-            inherit sopsFile;
-            path = "${configFolder}/accounts/personal.muttrc";
-          };
-          "notmuch-work-config" = mkIf cfg.notmuchWork {
-            inherit sopsFile;
-            path = "${config.home.homeDirectory}/.notmuch-config";
-          };
-        })
-      ];
+      "msmtp_config" = {
+        inherit sopsFile;
+        path = "${config.xdg.configHome}/msmtp/config";
+      };
+      "work_sig" = {
+        inherit sopsFile;
+        path = "${configFolder}/signatures/work.sig";
+      };
+      "personal_sig" = {
+        inherit sopsFile;
+        path = "${configFolder}/signatures/personal.sig";
+      };
+      "email-pass" = {
+        format = "binary";
+        mode = "0400";
+        path = "${config.home.homeDirectory}/scripts/just/email-pass.7z";
+        sopsFile = ./__secrets/email-pass;
+      };
     };
-    home = {
-      file."scripts/just/emailpass.sh".source = writeShellScript "emailpass.sh" ''
-        7z x -o/home/${config.mine.home.user.name}/.local/share/password-store/ email-pass.7z
-      '';
-      persistence."/persist/home".directories = mkIf imp [
-        ".cache/mutt-wizard"
-        ".local/share/mail"
-        ".local/share/password-store"
-      ];
-      shellAliases.mail = "neomutt";
-    };
-    programs.neomutt = enabled;
+    # (l.mkIf cfg.workEmail {
+    #   "muttrc_work_email" = {
+    #     inherit sopsFile;
+    #     path = "${configFolder}/accounts/master.muttrc";
+    #   };
+    #   "muttrc_personal_email" = {
+    #     inherit sopsFile;
+    #     path = "${configFolder}/accounts/personal.muttrc";
+    #   };
+    #   "notmuch-work-config" = mkIf cfg.notmuchWork {
+    #     inherit sopsFile;
+    #     path = "${config.home.homeDirectory}/.notmuch-config";
+    #   };
+    # })
     systemd.user = {
       services."imapcheck" = {
         Unit.Description = "Run mutt-wizard to check all email accounts.";
         Install.WantedBy = ["default.target"];
         Service = {
           ExecStart = [
-            "${pkgs.imapfilter}/bin/imapfilter -c \"${config.xdg.configHome}/imapfilter/config.lua\""
-            "${pkgs.isync}/bin/mbsync -a"
+            "${nixpkgs.imapfilter}/bin/imapfilter -c \"${config.xdg.configHome}/imapfilter/config.lua\""
+            "${nixpkgs.isync}/bin/mbsync -a"
           ];
           Type = "oneshot";
         };
@@ -125,24 +85,24 @@ in {
       };
     };
     xdg.configFile = let
-      inherit (config.mine.home.user.settings.applications) browser;
+      inherit (v.applications) browser;
     in {
       "mutt/mailcap".text = ''
-        text/calendar; ${pkgs.khal}/bin/khal import %s ;
-        text/csv; ${pkgs.libreoffice-fresh}/lib/libreoffice/program/soffice %s ;
+        text/calendar; ${nixpkgs.khal}/bin/khal import %s ;
+        text/csv; ${nixpkgs.libreoffice-fresh}/lib/libreoffice/program/soffice %s ;
         text/plain; $EDITOR %s ;
-        text/html; ${pkgs.${browser}}/bin/${browser} %s &; nametemplate=%s.html
+        text/html; ${nixpkgs.${browser}}/bin/${browser} %s &; nametemplate=%s.html
         text/html; w3m -I %{charset} -T text/html -dump %s; copiousoutput;
-        text/html; ${pkgs.mutt-wizard}/lib/mutt-wizard/openfile %s ; nametemplate=%s.html
+        text/html; ${nixpkgs.mutt-wizard}/lib/mutt-wizard/openfile %s ; nametemplate=%s.html
         image/*; fim %s &;
-        image/*; ${pkgs.mutt-wizard}/lib/mutt-wizard/openfile %s ;
+        image/*; ${nixpkgs.mutt-wizard}/lib/mutt-wizard/openfile %s ;
         video/*; setsid mpv --quiet %s &; copiousoutput
         audio/*; vlc %s &;
         application/pdf; zathura %s &;
-        application/pdf; ${pkgs.mutt-wizard}/lib/mutt-wizard/openfile %s ;
+        application/pdf; ${nixpkgs.mutt-wizard}/lib/mutt-wizard/openfile %s ;
         application/pgp-encrypted; gpg -d '%s'; copiousoutput;
         application/pgp-keys; gpg --import '%s'; copiousoutput;
-        application/vnd.openxmlformats-officedocument.spreadsheetml.sheet; ${pkgs.libreoffice-fresh}/lib/libreoffice/program/soffice %s ;
+        application/vnd.openxmlformats-officedocument.spreadsheetml.sheet; ${nixpkgs.libreoffice-fresh}/lib/libreoffice/program/soffice %s ;
       '';
       "mutt/muttrc".text = ''
         # vim: filetype=neomuttrc
@@ -157,7 +117,7 @@ in {
         set index_format="%2C %Z %?X?A& ? %D %-15.15F %s (%-4.4c)"
         set use_threads = 'threads' sort = 'reverse-last-date'
         set smtp_authenticators = 'gssapi:login'
-        set query_command = "${pkgs.abook}/bin/abook --mutt-query '%s'"
+        set query_command = "${nixpkgs.abook}/bin/abook --mutt-query '%s'"
         set rfc2047_parameters = yes
         set sleep_time = 0		# Pause 0 seconds for informational messages
         set markers = no		# Disables the `+` displayed at line wraps
@@ -344,10 +304,10 @@ in {
         unalternates *
         unset signature
       '';
-      "mutt/theme".source = "${pkgs.catppuccin-neomutt}/catppuccin-neomutt";
+      # "mutt/theme".source = "${nixpkgs.catppuccin-neomutt}/catppuccin-neomutt";
       "mutt/work.mailboxes".text = ''
         mailboxes "=Archive" "=Archives" "=Archives/2020" "=Archives/2021" "=Archives/2022" "=Archives/2023" "=Drafts" "=INBOX" "=Junk E-mail" "=Sent" "=Spambox" "=Trash" "=Unwanted"
       '';
     };
-  });
+  };
 }

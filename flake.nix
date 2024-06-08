@@ -129,10 +129,10 @@
     #   flake = false;
     #   url = "github:catppuccin/lazygit";
     # };
-    # catppuccin-neomutt = {
-    #   flake = false;
-    #   url = "github:catppuccin/neomutt";
-    # };
+    catppuccin-neomutt = {
+      flake = false;
+      url = "github:catppuccin/neomutt";
+    };
     # catppuccin-rofi = {
     #   flake = false;
     #   url = "github:catppuccin/rofi";
@@ -265,7 +265,7 @@
     # };
     tochd = {
       flake = false;
-      url = "github:ironman820/tochd";
+      url = "github:thingsiplay/tochd";
     };
     # transparent-nvim = {
     #   flake = false;

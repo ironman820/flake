@@ -630,7 +630,8 @@
           "hive",
           "std"
         ],
-        "stylix": "stylix"
+        "stylix": "stylix",
+        "tochd": "tochd"
       }
     },
     "sops-nix": {
@@ -760,6 +761,22 @@
       "original": {
         "owner": "nix-systems",
         "repo": "default",
+        "type": "github"
+      }
+    },
+    "tochd": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1717822398,
+        "narHash": "sha256-lpDROCiXyfM4OdXBNGkEhD3T2c8aS8QyF7etHC5tQ8M=",
+        "owner": "ironman820",
+        "repo": "tochd",
+        "rev": "2c42c3c2e0d25964376bfb6e7fad830c487f1a40",
+        "type": "github"
+      },
+      "original": {
+        "owner": "ironman820",
+        "repo": "tochd",
         "type": "github"
       }
     },

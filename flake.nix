@@ -261,10 +261,10 @@
     #   inputs.nixpkgs.follows = "unstable";
     #   url = "github:omerxx/tmux-sessionx";
     # };
-    # tochd = {
-    #   flake = false;
-    #   url = "github:ironman820/tochd";
-    # };
+    tochd = {
+      flake = false;
+      url = "github:ironman820/tochd";
+    };
     # transparent-nvim = {
     #   flake = false;
     #   url = "github:xiyaowong/transparent.nvim";

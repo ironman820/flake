@@ -8,7 +8,7 @@
   boot = inputs.cells.boot.nixosProfiles;
   l = nixpkgs.lib // mine.lib // builtins;
   networking = inputs.cells.networking.nixosProfiles;
-  servers = inputs.cells.servers.nixosProfiles;
+  ssh = inputs.cells.ssh.nixosProfiles;
 in rec {
   base = [
     home-manager.nixosModules.home-manager
@@ -22,7 +22,7 @@ in rec {
     networking.dhcp
     nixosProfiles.sops
     # nixosProfiles.stylix
-    servers.ssh
+    ssh.server
     sops-nix.nixosModules.sops
     # stylix.nixosModules.stylix
     {system.stateVersion = "23.05";}
@@ -56,7 +56,7 @@ in rec {
       nixosProfiles.ld-cc
       nixosProfiles.power-performance
       nixosProfiles.sudo-no-password
-      servers.ssh-pass-auth
+      ssh.server-pass-auth
     ]
   ];
   workstation = l.concatLists [

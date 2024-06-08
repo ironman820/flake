@@ -18,6 +18,7 @@ in rec {
     servers.ssh
     sops-nix.nixosModules.sops
     # stylix.nixosModules.stylix
+    {system.stateVersion = "23.05";}
   ];
   laptop' = l.concatLists [
     workstation

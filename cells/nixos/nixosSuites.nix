@@ -80,7 +80,6 @@ in rec {
       #   };
       #   libraries.java = enabled;
       #   networking.basic.networkmanager = enabled;
-      #   sops = enabled;
       #   servers.sync = enabled;
       #   tui = {
       #     flatpak = enabled;

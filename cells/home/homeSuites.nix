@@ -5,6 +5,7 @@
   inherit (cell) homeProfiles;
   inherit (inputs) nixpkgs sops-nix;
   inherit (inputs.cells) mine;
+  h = mine.homeProfiles;
   l = nixpkgs.lib // mine.lib // builtins;
   ssh = inputs.cells.ssh.homeProfiles;
 in rec {
@@ -22,6 +23,7 @@ in rec {
   laptop' = l.concatLists [
     workstation
     [
+      h.bluetooth
       homeProfiles.neomutt
     ]
   ];

@@ -11,6 +11,7 @@
   l = nixpkgs.lib // mine.lib // builtins;
   s = inputs.cells.ssh.homeProfiles;
   sr = inputs.cells.servers.homeProfiles;
+  v = inputs.cells.virtual.homeProfiles;
 in rec {
   base = with h; [
     sops
@@ -39,6 +40,7 @@ in rec {
       d.hyprland
       s.config
       sr.sync
+      v.host
     ]
   ];
 }

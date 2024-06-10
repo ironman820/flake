@@ -4,7 +4,6 @@
   osConfig,
   ...
 }: let
-  inherit (config.mine.home.user.settings.applications) browser terminal;
   inherit (lib) mkIf;
   inherit (lib.mine) enabled mkBoolOpt;
 
@@ -17,7 +16,6 @@ in {
 
   config = mkIf cfg.enable {
     mine.home = {
-      rofi = enabled;
       servers.sync = enabled;
       video-tools = enabled;
       virtual.host = enabled;

@@ -18,7 +18,6 @@ in {
   config = mkIf cfg.enable {
     mine.home = {
       gui-apps = {
-        kitty = mkIf (terminal == "kitty") enabled;
         wezterm = mkIf (terminal == "wezterm") enabled;
       };
       hardware.yubikey = enabled;

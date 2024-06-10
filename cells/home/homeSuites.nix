@@ -29,7 +29,7 @@ in rec {
     base
     [
       g.floorp
-      # g.kitty
+      g.kitty
       h.dunst
       d.hyprland
       s.config

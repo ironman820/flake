@@ -31,10 +31,10 @@ in rec {
       };
     }
     nixosProfiles.sops
-    # nixosProfiles.stylix
+    nixosProfiles.stylix
     ssh.server
     sops-nix.nixosModules.sops
-    # stylix.nixosModules.stylix
+    stylix.nixosModules.stylix
     {system.stateVersion = "23.05";}
   ];
   laptop' = l.concatLists [

@@ -50,11 +50,21 @@ in {
       calibre
       packages.tochd
     ];
+    vars = {
+      stylix = {
+        inherit (config.vars.stylix) image;
+        fonts = {
+          terminalSize = 10.0;
+          waybarSize = 12;
+        };
+      };
+      transparancy.terminalOpacity = 0.85;
+    };
+    waybar.resolution = 768;
   };
   networking.hostName = "ironman-laptop";
   #   # mine = {
   #   #   android = enabled;
-  #   #   suites.laptop = enabled;
   #   #   user.settings.stylix.image = ./ffvii.jpg;
   #   #   networking.profiles.work = true;
   #   # };
@@ -64,4 +74,5 @@ in {
   #   services.tlp.settings.RUNTIME_PM_DISABLE = "02:00.0";
   #   zramSwap = l.enabled;
   # };
+  vars.stylix.image = ./__ffvii.jpg;
 }

@@ -17,10 +17,6 @@ in {
 
   config = mkIf cfg.enable {
     mine.home = {
-      gui-apps = {
-        wezterm = mkIf (terminal == "wezterm") enabled;
-      };
-      hardware.yubikey = enabled;
       rofi = enabled;
       servers.sync = enabled;
       video-tools = enabled;

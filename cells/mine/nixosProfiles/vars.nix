@@ -15,14 +15,6 @@ in {
       fileManager = l.mkOpt t.str "yazi" "Preferred file manager";
       terminal = l.mkOpt t.str "kitty" "Preferred terminal";
     };
-    stylix = {
-      fonts = {
-        terminalFont = l.mkOpt t.str "IosevkaTerm Nerd Font" "Default font for the terminal";
-        terminalSize = l.mkOpt t.float 12.0 "Size of terminal font";
-        waybarSize = l.mkOpt t.int 16 "Size of font on waybar";
-      };
-      image = l.mkOpt (t.either t.path t.str) ./__files/no-place-like-homeV6.jpg "Wallpaper image";
-    };
     transparency = {
       applicationOpacity = l.mkOpt t.float 1.0 "Opacity of applications";
       desktopOpacity = l.mkOpt t.float 0.0 "Opacity for desktop items";

@@ -74,10 +74,7 @@
   #
   # systems.modules = {
   #   nixos = with inputs; [
-  #     impermanence.nixosModules.impermanence
   #     nix-ld.nixosModules.nix-ld
-  #     sops-nix.nixosModules.sops
-  #     stylix.nixosModules.stylix
   #   ];
   # };
   #
@@ -91,15 +88,6 @@
   #     nixos-hardware.nixosModules.dell-inspiron-5509
   #   ];
   #
-
-  # nixConfig = {
-  #   extra-substituters = [
-  #     "https://hyprland.cachix.org"
-  #   ];
-  #   extra-trusted-public-keys = [
-  #     "hyprland.cachix.org-1:a7pgxzMz7+chwVL3/pzj6jIBMioiJM7ypFP8PwtkuGc="
-  #   ];
-  # };
 
   # Sources needed for packages
   # Where possible, I have used flakehub's system as a source for repos
@@ -182,14 +170,13 @@
       inputs.nixpkgs.follows = "nixpkgs";
       url = "github:nix-community/home-manager";
     };
-    # hypridle.url = "github:hyprwm/hypridle";
-    # hyprland.url = "git+https://github.com/hyprwm/Hyprland?submodules=1";
-    # hyprland-plugins = {
-    #   inputs.hyprland.follows = "hyprland";
-    #   url = "github:hyprwm/hyprland-plugins";
-    # };
-    # hyprlock.url = "github:hyprwm/hyprlock";
-    # impermanence.url = "github:nix-community/impermanence";
+    hypridle.url = "github:hyprwm/hypridle";
+    hyprland.url = "git+https://github.com/hyprwm/Hyprland?submodules=1";
+    hyprland-plugins = {
+      inputs.hyprland.follows = "hyprland";
+      url = "github:hyprwm/hyprland-plugins";
+    };
+    hyprlock.url = "github:hyprwm/hyprlock";
     # # Nix-LD is a dynamic linker that tries to mimick FHS file systems for hard-coded applications
     # nix-ld = {
     #   inputs.nixpkgs.follows = "nixpkgs";
@@ -206,7 +193,7 @@
     # nixpkgs-acc5f7b.url = "github:nixos/nixpkgs/acc5f7b";
     # # ba45a55 - The last stable update of PHP 7.4
     # nixpkgs-ba45a55.url = "github:nixos/nixpkgs/ba45a55";
-    nixpkgs-stable.url = "github:nixos/nixpkgs/nixos-23.11";
+    nixpkgs-stable.url = "github:nixos/nixpkgs/nixos-24.05";
     nixpkgs-unstable.url = "github:nixos/nixpkgs/nixos-unstable";
     # nvim-cmp-nerdfont = {
     #   flake = false;
@@ -243,12 +230,18 @@
     # };
     # SOPS Based secret management to encrypt secrets updated to Github
     sops-nix = {
-      inputs.nixpkgs.follows = "nixpkgs";
+      inputs = {
+        nixpkgs.follows = "nixpkgs";
+        nixpkgs-stable.follows = "nixpkgs-stable";
+      };
       url = "github:Mic92/sops-nix";
     };
     std.follows = "hive/std";
     stylix = {
-      inputs.nixpkgs.follows = "nixpkgs";
+      inputs = {
+        home-manager.follows = "home-manager";
+        nixpkgs.follows = "nixpkgs";
+      };
       url = "github:danth/stylix/release-23.11";
     };
     # tmux-cheat-sh = {

@@ -17,7 +17,6 @@ in {
 
   config = mkIf cfg.enable {
     mine.home = {
-      de.hyprland = enabled;
       gui-apps = {
         alacritty = mkIf (terminal == "alacritty") enabled;
         contour = mkIf (terminal == "contour") enabled;

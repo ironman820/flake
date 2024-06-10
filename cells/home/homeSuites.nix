@@ -34,6 +34,7 @@ in rec {
       g.kitty
       h.dunst
       h.rofi
+      h.video-tools
       hw.yubikey
       d.hyprland
       s.config

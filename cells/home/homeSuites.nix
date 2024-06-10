@@ -7,6 +7,7 @@
   d = inputs.cells.de.homeProfiles;
   g = inputs.cells.gui-apps.homeProfiles;
   h = cell.homeProfiles // mine.homeProfiles;
+  hw = inputs.cells.hardware.homeProfiles;
   l = nixpkgs.lib // mine.lib // builtins;
   s = inputs.cells.ssh.homeProfiles;
 in rec {
@@ -31,6 +32,7 @@ in rec {
       g.floorp
       g.kitty
       h.dunst
+      hw.yubikey
       d.hyprland
       s.config
     ]

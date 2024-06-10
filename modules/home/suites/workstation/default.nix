@@ -18,8 +18,6 @@ in {
   config = mkIf cfg.enable {
     mine.home = {
       gui-apps = {
-        contour = mkIf (terminal == "contour") enabled;
-        floorp = mkIf (browser == "floorp") enabled;
         kitty = mkIf (terminal == "kitty") enabled;
         wezterm = mkIf (terminal == "wezterm") enabled;
       };

@@ -5,6 +5,7 @@
   inherit (inputs) nixpkgs sops-nix;
   inherit (inputs.cells) mine;
   d = inputs.cells.de.homeProfiles;
+  g = inputs.cells.gui-apps.homeProfiles;
   h = cell.homeProfiles // mine.homeProfiles;
   l = nixpkgs.lib // mine.lib // builtins;
   s = inputs.cells.ssh.homeProfiles;
@@ -27,6 +28,8 @@ in rec {
   workstation = l.concatLists [
     base
     [
+      g.floorp
+      # g.kitty
       h.dunst
       d.hyprland
       s.config

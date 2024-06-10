@@ -10,6 +10,7 @@
   hw = inputs.cells.hardware.homeProfiles;
   l = nixpkgs.lib // mine.lib // builtins;
   s = inputs.cells.ssh.homeProfiles;
+  sr = inputs.cells.servers.homeProfiles;
 in rec {
   base = with h; [
     sops
@@ -36,6 +37,7 @@ in rec {
       hw.yubikey
       d.hyprland
       s.config
+      sr.sync
     ]
   ];
 }

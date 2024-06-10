@@ -2,7 +2,7 @@
   cell,
   inputs,
 }: let
-  inherit (inputs) nixpkgs sops-nix;
+  inherit (inputs) nixpkgs sops-nix stylix;
   inherit (inputs.cells) mine;
   d = inputs.cells.de.homeProfiles;
   g = inputs.cells.gui-apps.homeProfiles;
@@ -14,11 +14,12 @@
   v = inputs.cells.virtual.homeProfiles;
 in rec {
   base = with h; [
+    h.stylix
     sops
-    vars
     s.auth-keys
     sops-nix.homeManagerModules.sops
-    # stylix.homeManagerModules.stylix
+    stylix.homeManagerModules.stylix
+    vars
     {home.stateVersion = "23.05";}
   ];
   laptop' = l.concatLists [

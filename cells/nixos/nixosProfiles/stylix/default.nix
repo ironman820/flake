@@ -6,6 +6,7 @@
   inherit (inputs.cells.mine.packages) base16-onedark-scheme;
 in {
   stylix = {
+    inherit (inputs.cells.mine.vars.stylix) image;
     base16Scheme = "${base16-onedark-scheme}/theme.yaml";
     cursor = {
       package = nixpkgs.bibata-cursors;
@@ -30,7 +31,6 @@ in {
       autoImport = false;
       followSystem = true;
     };
-    image = ./no-place-like-homeV6.jpg;
     opacity = {
       applications = 1.0;
       desktop = 0.0;

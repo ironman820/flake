@@ -16,7 +16,6 @@ in {
 
   config = mkIf cfg.enable {
     mine.home = {
-      video-tools = enabled;
       virtual.host = enabled;
     };
   };

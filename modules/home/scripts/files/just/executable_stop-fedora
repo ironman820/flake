@@ -1,8 +1,0 @@
-#!/usr/bin/env bash
-if distrobox list | grep 'fedora' | grep -q Up ; then
-  distrobox stop fedora
-fi
-sleep 1
-if distrobox list | grep -q fedora ; then
-  distrobox rm fedora
-fi

@@ -32,6 +32,7 @@ in rec {
       g.floorp
       g.kitty
       h.dunst
+      h.rofi
       hw.yubikey
       d.hyprland
       s.config

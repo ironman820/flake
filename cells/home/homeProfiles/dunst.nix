@@ -1,26 +1,19 @@
 {
+  cell,
   config,
-  lib,
-  osConfig,
-  pkgs,
-  ...
+  inputs,
 }: let
-  inherit (config.mine.home.user.settings.applications) browser;
-  inherit (lib) mkIf;
-  inherit (lib.mine) mkBoolOpt;
-
-  cfg = config.mine.home.de.hyprland.dunst;
-  os = osConfig.mine.de.hyprland.dunst;
+  inherit (config.vars.applications) browser;
+  inherit (inputs) nixpkgs;
+  inherit (inputs.cells) mine;
+  l = nixpkgs.lib // mine.lib // builtins;
 in {
-  options.mine.home.de.hyprland.dunst = {
-    enable = mkBoolOpt os.enable "Enable the module";
-  };
-  config = mkIf cfg.enable {
+  config = {
     services.dunst = {
-      inherit (cfg) enable;
+      enable = true;
       iconTheme = {
         name = "Papirus-Dark";
-        package = pkgs.papirus-icon-theme;
+        package = nixpkgs.papirus-icon-theme;
         size = "32x32";
       };
       settings = {
@@ -65,8 +58,8 @@ in {
           icon_position = "left";
           sticky_history = true;
           history_length = 20;
-          dmenu = "${pkgs.rofi}/bin/rofi -p dmenu:";
-          browser = "${pkgs.${browser}}/bin/${browser}";
+          dmenu = "${nixpkgs.rofi}/bin/rofi -p dmenu:";
+          browser = "${nixpkgs.${browser}}/bin/${browser}";
           always_run_script = true;
           title = "Dunst";
           class = "Dunst";

@@ -1,78 +1,100 @@
 {
+  cell,
   config,
-  lib,
+  inputs,
   options,
-  osConfig,
-  pkgs,
-  ...
 }: let
-  inherit (lib) mkAliasDefinitions mkIf;
-  inherit (lib.mine) enabled mkBoolOpt mkOpt;
-  inherit (lib.strings) concatStringsSep;
-  inherit (lib.types) either listOf path str;
-
-  apps = usr.applications;
-  cfg = config.mine.home.de.hyprland;
-  imp = config.mine.home.impermanence.enable;
-  os = osConfig.mine.de.hyprland;
-  stlx = usr.stylix;
-  tsp = usr.transparancy;
-  usr = config.mine.home.user.settings;
+  inherit (inputs) nixpkgs;
+  inherit (inputs.cells) mine;
+  a = v.applications;
+  h = v.hyprland;
+  l = nixpkgs.lib // mine.lib // builtins;
+  t = l.types;
+  tr = v.transparency;
+  v = config.vars;
+  s = v.stylix;
 in {
-  options.mine.home.de.hyprland = {
-    enable = mkBoolOpt os.enable "Setup hyprland";
-    primaryScale = mkOpt str "1" "Scaling factor for the primary monitor";
-    wallpaper = mkOpt (either path str) stlx.image "Wallpaper to load with hyprpaper";
-    windowrule = mkOpt (listOf str) [] "V1 windowrules";
-    windowrulev2 = mkOpt (listOf str) [] "V2 windowrules";
+  options.vars.hyprland = {
+    primaryScale = l.mkOpt t.str "1" "Scaling factor for the primary monitor";
+    wallpaper = l.mkOpt (t.either t.path t.str) s.image "Wallpaper to load with hyprpaper";
+    windowrule = l.mkOpt (t.listOf t.str) [] "V1 windowrules";
+    windowrulev2 = l.mkOpt (t.listOf t.str) [] "V2 windowrules";
   };
-
-  config = mkIf cfg.enable {
-    mine.home = {
-      de.hyprland = {
-        dunst = enabled;
-        hypridle = enabled;
-        windowrule = [
-          "workspace 9,^(dude.exe)$"
-        ];
-        windowrulev2 = [
-          "tile,class:(Microsoft-edge)"
-          "tile,class:(Brave-browser)"
-          "tile,class:(Chromium)"
-          "float,class:(pavucontrol)"
-          "float,class:(blueman-manager)"
-          "float,class:(nm-connection-editor)"
-          "pin,title:(Barrier)"
-          "tile,class:(dude.exe)"
-          "opacity 1.0 override 1.0 override,class:^(fim)$"
-          "noblur,class:(Wezterm)"
-          "noborder,class:(Wezterm)"
-          "nodim,class:(Wezterm)"
-          "noshadow,class:(Wezterm)"
-          "rounding 0,class:(Wezterm)"
-          "opacity 1.0 override 1.0 override,class:^(Wezterm)$"
-        ];
-      };
-      gui-apps = {
-        alacritty = mkIf (apps.terminal == "alacritty") enabled;
-        floorp = mkIf (apps.browser == "floorp") enabled;
-        kitty = mkIf (apps.terminal == "kitty") enabled;
-        wezterm = mkIf (apps.terminal == "wezterm") enabled;
-      };
-      rofi = enabled;
-      swappy = enabled;
-      tui.just.homePersist = mkIf imp [
-        "mkdir -p /persist/home/.cache/cliphist"
+  config = {
+    vars.hyprland = {
+      windowrule = [
+        "workspace 9,^(dude.exe)$"
       ];
-      waybar = enabled;
-      wlogout = enabled;
-      xdg = {
-        enable = true;
+      windowrulev2 = [
+        "tile,class:(Microsoft-edge)"
+        "tile,class:(Brave-browser)"
+        "tile,class:(Chromium)"
+        "float,class:(pavucontrol)"
+        "float,class:(blueman-manager)"
+        "float,class:(nm-connection-editor)"
+        "pin,title:(Barrier)"
+        "tile,class:(dude.exe)"
+        "opacity 1.0 override 1.0 override,class:^(fim)$"
+        "noblur,class:(Wezterm)"
+        "noborder,class:(Wezterm)"
+        "nodim,class:(Wezterm)"
+        "noshadow,class:(Wezterm)"
+        "rounding 0,class:(Wezterm)"
+        "opacity 1.0 override 1.0 override,class:^(Wezterm)$"
+      ];
+    };
+    #   rofi = enabled;
+    #   swappy = enabled;
+    #   tui.just.homePersist = mkIf imp [
+    #     "mkdir -p /persist/home/.cache/cliphist"
+    #   ];
+    #   waybar = enabled;
+    #   wlogout = enabled;
+    #   xdg = {
+    #     enable = true;
+    #   };
+    # };
+    programs.hyprlock = {
+      enable = true;
+      settings = {
+        backgrounds = [
+          {
+            path = "${config.xdg.configHome}/flake/cells/de/homeProfiles/hyprland/__files/suit_up.png";
+            blur_passes = 2;
+            blur_size = 2;
+            vibrancy_darkness = 0.0;
+          }
+        ];
+        input-fields = [
+          {
+            outline_thickness = 1;
+          }
+        ];
+        labels = [
+          {
+            text = "";
+          }
+        ];
       };
     };
-    home.persistence."/persist/home".directories = mkIf imp [
-      ".cache/cliphist"
-    ];
+    services.hypridle = {
+      enable = true;
+      settings = {
+        general = {
+          lockCmd = "pidof hyprlock || hyprlock";
+          unlockCmd = "";
+          afterSleepCmd = "hyprctl dispatch dpms on";
+          beforeSleepCmd = "loginctl lock-session";
+        };
+        listeners = [
+          {
+            timeout = 299;
+            onTimeout = "loginctl lock-session";
+            onResume = "";
+          }
+        ];
+      };
+    };
     wayland.windowManager.hyprland = {
       enable = true;
       extraConfig = ''
@@ -101,11 +123,11 @@ in {
         };
         "$mainMod" = "SUPER";
         bind = [
-          "$mainMod, B, exec, ${apps.browser}"
+          "$mainMod, B, exec, ${a.browser}"
           "$mainMod, Q, killactive"
           "$mainMod, F, fullscreen"
-          "$mainMod, E, exec, ${apps.terminal} -e ${apps.fileManager}"
-          "$mainMod, T, exec, ${apps.terminal}"
+          "$mainMod, E, exec, ${a.terminal} -e ${a.fileManager}"
+          "$mainMod, T, exec, ${a.terminal}"
           "$mainMod SHIFT, T, togglefloating"
           "$mainMod SHIFT, J, togglesplit"
           "$mainMod SHIFT, L, exec, hyprlock"
@@ -114,7 +136,7 @@ in {
           "$mainMod, PRINT, exec, ~/.config/hypr/screenshot.sh"
           "$mainMod CTRL, H, exec, ~/.config/hypr/keybindings.sh"
           "$mainMod SHIFT, B, exec, ~/.config/waybar/restart.sh"
-          "$mainMod CTRL, F, exec, ${apps.terminal} -e ${apps.fileManager}"
+          "$mainMod CTRL, F, exec, ${a.terminal} -e ${a.fileManager}"
           "$mainMod CTRL, C, exec, ~/.config/rofi/cliphist.sh"
           "$mainMod, V, exec, ~/.config/rofi/cliphist.sh"
           "$mainMod, R, exec, rofi -show drun"
@@ -156,7 +178,6 @@ in {
           ", XF86AudioPause, exec, playerctl pause"
           ", XF86AudioNext, exec, playerctl next"
           ", XF86AudioPrev, exec, playerctl previous"
-          # ", XF86AudioMicMute, exec, pactl set-source-mute @DEFAULT_SOURCE@ toggle"
           ", XF86Calculator, exec, qalculate-gtk"
           ", XF86Lock, exec, swaylock"
         ];
@@ -174,8 +195,8 @@ in {
             ignore_opacity = false;
             xray = true;
           };
-          active_opacity = tsp.applicationOpacity;
-          inactive_opacity = tsp.inactiveOpacity;
+          active_opacity = tr.applicationOpacity;
+          inactive_opacity = tr.inactiveOpacity;
           fullscreen_opacity = 1;
           drop_shadow = true;
           shadow_range = 30;
@@ -192,7 +213,7 @@ in {
         exec-once = [
           "hyprpaper"
           "nm-applet"
-          "${pkgs.polkit_gnome}/libexec/polkit-gnome-authentication-agent-1"
+          "${nixpkgs.polkit_gnome}/libexec/polkit-gnome-authentication-agent-1"
           "wl-paste --watch cliphist store"
         ];
         general = {
@@ -220,14 +241,14 @@ in {
         source = [
           "~/.config/hypr/monitor.conf"
         ];
-        windowrule = mkAliasDefinitions options.mine.home.de.hyprland.windowrule;
-        windowrulev2 = mkAliasDefinitions options.mine.home.de.hyprland.windowrulev2;
+        windowrule = l.mkAliasDefinitions options.vars.hyprland.windowrule;
+        windowrulev2 = l.mkAliasDefinitions options.vars.hyprland.windowrulev2;
         xwayland.force_zero_scaling = true;
       };
       systemd = {
         enable = true;
         variables = let
-          inherit (cfg) primaryScale;
+          inherit (h) primaryScale;
         in [
           "CLUTTER_BACKEND,wayland"
           "DISPLAY"
@@ -247,13 +268,13 @@ in {
       };
     };
     xdg.configFile = {
-      "hypr/hyprpaper.conf".text = mkIf (cfg.wallpaper != "") ''
-        preload = ${cfg.wallpaper}
-        wallpaper = , ${cfg.wallpaper}
+      "hypr/hyprpaper.conf".text = l.mkIf (h.wallpaper != "") ''
+        preload = ${h.wallpaper}
+        wallpaper = , ${h.wallpaper}
       '';
       "hypr/keybindings.sh" = {
         executable = true;
-        source = pkgs.writeShellScript "keybindings.sh" ''
+        source = nixpkgs.writeShellScript "keybindings.sh" ''
           #  _              _     _           _ _
           # | | _____ _   _| |__ (_)_ __   __| (_)_ __   __ _ ___
           # | |/ / _ \ | | | '_ \| | '_ \ / _` | | '_ \ / _` / __|
@@ -283,9 +304,9 @@ in {
         '';
       };
       "hypr/monitor.conf".text = let
-        inherit (cfg) primaryScale;
+        inherit (h) primaryScale;
       in
-        concatStringsSep "\n" [
+        l.concatStringsSep "\n" [
           "monitor=HDMI-A-1,preferred,auto,1,mirror,eDP-1"
           "monitor=,highres,auto,${primaryScale}"
           "$mainMod = SUPER"
@@ -300,7 +321,7 @@ in {
         ];
       "hypr/screenshot.sh" = {
         executable = true;
-        source = pkgs.writeShellScript "screenshot.sh" ''
+        source = nixpkgs.writeShellScript "screenshot.sh" ''
           #  ____                               _           _
           # / ___|  ___ _ __ ___  ___ _ __  ___| |__   ___ | |_
           # \___ \ / __| '__/ _ \/ _ \ '_ \/ __| '_ \ / _ \| __|
@@ -319,16 +340,16 @@ in {
 
           options="$option2\n$option3"
 
-          choice=$(echo -e "$options" | ${pkgs.rofi}/bin/rofi -dmenu -replace -config ~/.config/rofi/config-screenshot.rasi -i -no-show-icons -l 2 -width 30 -p "Take Screenshot")
+          choice=$(echo -e "$options" | ${nixpkgs.rofi}/bin/rofi -dmenu -replace -config ~/.config/rofi/config-screenshot.rasi -i -no-show-icons -l 2 -width 30 -p "Take Screenshot")
 
           case $choice in
               $option2)
-                  ${pkgs.grim}/bin/grim -g "$(${pkgs.slurp}/bin/slurp)" - | ${pkgs.swappy}/bin/swappy -f -
+                  ${nixpkgs.grim}/bin/grim -g "$(${nixpkgs.slurp}/bin/slurp)" - | ${nixpkgs.swappy}/bin/swappy -f -
                   notify-send "Screenshot created" "Mode: Selected area"
               ;;
               $option3)
                   sleep 3
-                  ${pkgs.grim}/bin/grim - | ${pkgs.swappy}/bin/swappy -f -
+                  ${nixpkgs.grim}/bin/grim - | ${nixpkgs.swappy}/bin/swappy -f -
                   notify-send "Screenshot created" "Mode: Fullscreen"
               ;;
           esac
@@ -342,9 +363,9 @@ in {
       };
       "hypr/wallpaper.sh" = {
         executable = true;
-        source = pkgs.writeShellScript "wallpaper.sh" ''
+        source = nixpkgs.writeShellScript "wallpaper.sh" ''
           pkill hyprpaper
-          ${pkgs.hyprpaper}/bin/hyprpaper
+          ${nixpkgs.hyprpaper}/bin/hyprpaper
         '';
       };
     };

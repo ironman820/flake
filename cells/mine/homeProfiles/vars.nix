@@ -8,8 +8,6 @@
   a = c.applications;
   c = osConfig.vars;
   l = nixpkgs.lib // mine.lib // builtins;
-  s = c.stylix;
-  sf = s.fonts;
   t = l.types;
   tr = c.transparency;
 in {
@@ -18,14 +16,6 @@ in {
       browser = l.mkOpt t.str a.browser "Preferred default browser";
       fileManager = l.mkOpt t.str a.fileManager "Preferred file manager";
       terminal = l.mkOpt t.str a.terminal "Preferred terminal";
-    };
-    stylix = {
-      fonts = {
-        terminalFont = l.mkOpt t.str sf.terminalFont "Default font for the terminal";
-        terminalSize = l.mkOpt t.float sf.terminalSize "Size of terminal font";
-        waybarSize = l.mkOpt t.int sf.waybarSize "Size of font on waybar";
-      };
-      image = l.mkOpt (t.either t.path t.str) s.image "Wallpaper image";
     };
     transparency = {
       applicationOpacity = l.mkOpt t.float tr.applicationOpacity "Opacity of applications";

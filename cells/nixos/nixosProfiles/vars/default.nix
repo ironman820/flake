@@ -15,11 +15,13 @@ in {
       fileManager = l.mkOpt t.str "yazi" "Preferred file manager";
       terminal = l.mkOpt t.str "kitty" "Preferred terminal";
     };
+    email = l.mkOpt t.str "29488820+ironman820@users.noreply.github.com" "User's email";
     fonts = {
       terminalFont = l.mkOpt t.str "IosevkaTerm Nerd Font" "Default font for the terminal";
       terminalSize = l.mkOpt t.float 12.0 "Size of terminal font";
       waybarSize = l.mkOpt t.int 16 "Size of font on waybar";
     };
+    fullName = l.mkOpt t.str "Nicholas Eastman" "User's full name";
     transparency = {
       applicationOpacity = l.mkOpt t.float 1.0 "Opacity of applications";
       desktopOpacity = l.mkOpt t.float 0.0 "Opacity for desktop items";

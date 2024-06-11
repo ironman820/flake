@@ -1,22 +1,11 @@
 {
-  lib,
-  config,
-  ...
+  cell,
+  inputs,
 }: let
-  inherit (lib) mkEnableOption mkIf;
-  inherit (lib.mine) enabled;
-
-  cfg = config.mine.hardware.bluetooth;
-  imp = config.mine.impermanence.enable;
+  inherit (inputs) nixpkgs;
+  inherit (inputs.cells) mine;
+  l = nixpkgs.lib // mine.lib // builtins;
 in {
-  options.mine.hardware.bluetooth = {
-    enable = mkEnableOption "Enable the module";
-  };
-  config = mkIf cfg.enable {
-    environment.persistence."/persist/root".directories = mkIf imp [
-      "/var/lib/bluetooth"
-    ];
-    hardware.bluetooth = enabled;
-    services.blueman = enabled;
-  };
+  hardware.bluetooth = l.enabled;
+  services.blueman = l.enabled;
 }

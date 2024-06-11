@@ -1,33 +1,25 @@
 {
-  config,
-  lib,
+  cell,
+  inputs,
   pkgs,
-  ...
 }: let
-  inherit (lib) mkEnableOption mkIf;
-  inherit (lib.mine) disabled enabled;
-
-  cfg = config.mine.hardware.sound;
+  inherit (inputs) nixpkgs;
+  inherit (inputs.cells) mine;
+  l = nixpkgs.lib // mine.lib // builtins;
 in {
-  options.mine.hardware.sound = {
-    enable = mkEnableOption "Enable sound";
-  };
-
-  config = mkIf cfg.enable {
-    environment.systemPackages = with pkgs; [
-      pavucontrol
-      pipewire
-    ];
-    hardware.pulseaudio = disabled;
-    security.rtkit = enabled;
-    services.pipewire = {
-      alsa = {
-        enable = true;
-        support32Bit = true;
-      };
+  environment.systemPackages = with pkgs; [
+    pavucontrol
+    pipewire
+  ];
+  hardware.pulseaudio = l.disabled;
+  security.rtkit = l.enabled;
+  services.pipewire = {
+    alsa = {
       enable = true;
-      pulse = enabled;
+      support32Bit = true;
     };
-    sound = disabled;
+    enable = true;
+    pulse = l.enabled;
   };
+  sound = l.disabled;
 }

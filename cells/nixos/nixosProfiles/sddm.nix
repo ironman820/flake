@@ -1,34 +1,27 @@
 {
+  cell,
   config,
-  lib,
-  pkgs,
-  ...
+  inputs,
 }: let
-  inherit (lib) mkEnableOption mkIf;
-
-  cfg = config.mine.dm.sddm;
-  imp = config.mine.impermanence.enable;
+  inherit (inputs) nixpkgs;
+  inherit (inputs.cells) mine;
+  c = config.vars.sddm;
+  l = nixpkgs.lib // mine.lib // builtins;
+  p = mine.packages;
 in {
-  options.mine.dm.sddm = {
-    enable = mkEnableOption "Enable SDDM";
-    wayland = mkEnableOption "Enable Wayland support";
+  options.vars.sddm = {
+    wayland = l.mkEnableOption "Enable Wayland support";
   };
 
-  config = mkIf cfg.enable {
-    environment = {
-      systemPackages = [pkgs.sddm-catppuccin];
-      persistence."/persist/root".files = mkIf imp [
-        "/var/lib/sddm/state.conf"
-      ];
-    };
-    services.xserver = {
-      displayManager.sddm = {
-        enable = true;
-        enableHidpi = true;
-        theme = "catppuccin-mocha";
-        wayland.enable = cfg.wayland;
-      };
+  config = {
+    environment.systemPackages = [
+      p.sddm-catppuccin
+    ];
+    services.displayManager.sddm = {
       enable = true;
+      enableHidpi = true;
+      theme = "catppuccin-mocha";
+      wayland.enable = c.wayland;
     };
   };
 }

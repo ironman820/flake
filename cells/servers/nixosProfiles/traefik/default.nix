@@ -2,7 +2,9 @@
   cell,
   config,
   inputs,
-}: {
+}: let
+  s = config.sops.secrets;
+in {
   networking.firewall.allowedTCPPorts = [80 443];
   services.traefik = {
     dynamicConfigOptions = {
@@ -78,5 +80,5 @@
     owner = config.users.users.traefik.name;
     sopsFile = ./__secrets/env.sops;
   };
-  systemd.services.traefik.serviceConfig.EnvironmentFile = [config.sops.secrets.cloudflare_email.path];
+  systemd.services.traefik.serviceConfig.EnvironmentFile = [s.cloudflare_email.path];
 }

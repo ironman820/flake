@@ -1,25 +1,26 @@
 {
+  cell,
+  inputs,
   lib,
   options,
   config,
-  ...
 }: let
-  inherit (lib) mkAliasDefinitions mkEnableOption mkIf types;
-  inherit (lib.mine) enabled mkBoolOpt mkOpt;
-  inherit (lib.types) listOf;
-
-  cfg = config.mine.de.xfce;
+  inherit (inputs) nixpkgs;
+  inherit (inputs.cells) mine;
+  c = config.vars.xfce;
+  l = nixpkgs.lib // mine.lib // builtins;
+  o = options.vars.xfce;
+  t = l.types;
 in {
-  options.mine.de.xfce = {
-    enable = mkEnableOption "Enable the module";
-    enableScreensaver = mkBoolOpt true "Enable screensaver";
-    excludePackages = mkOpt (listOf types.pkgs) [] "List of packages to exclude";
+  options.vars.xfce = {
+    enableScreensaver = l.mkBoolOpt true "Enable screensaver";
+    excludePackages = l.mkOpt (t.listOf t.pkgs) [] "List of packages to exclude";
   };
-  config = mkIf cfg.enable {
-    mine.gui-apps.thunar = enabled;
-    environment.xfce.excludePackages = mkAliasDefinitions options.mine.xfce.excludePackages;
+  config = {
+    environment.xfce.excludePackages = l.mkAliasDefinitions o.excludePackages;
     services.xserver.desktopManager.xfce = {
-      inherit (cfg) enable enableScreensaver;
+      inherit (c) enableScreensaver;
+      enable = true;
     };
   };
 }

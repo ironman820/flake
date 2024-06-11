@@ -1,13 +1,8 @@
 {
-  config,
-  lib,
+  cell,
+  inputs,
   pkgs,
-  ...
 }: let
-  inherit (lib) mkIf;
-  inherit (lib.mine) mkBoolOpt;
-
-  cfg = config.mine.libraries.python;
   myPythonPackages = py:
     with py; [
       autopep8
@@ -43,16 +38,10 @@
       yapf
     ];
 in {
-  options.mine.libraries.python = {
-    enable = mkBoolOpt true "Install the python interpreter";
-  };
-
-  config = mkIf cfg.enable {
-    environment.systemPackages = with pkgs; [
-      imagemagick
-      pre-commit
-      pyright
-      (python3.withPackages myPythonPackages)
-    ];
-  };
+  environment.systemPackages = with pkgs; [
+    imagemagick
+    pre-commit
+    pyright
+    (python3.withPackages myPythonPackages)
+  ];
 }

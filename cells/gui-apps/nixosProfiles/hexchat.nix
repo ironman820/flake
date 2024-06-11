@@ -1,19 +1,9 @@
 {
-  lib,
+  cell,
+  inputs,
   pkgs,
-  config,
-  ...
-}: let
-  inherit (lib) mkEnableOption mkIf;
-
-  cfg = config.mine.gui-apps.hexchat;
-in {
-  options.mine.gui-apps.hexchat = {
-    enable = mkEnableOption "Enable the module";
-  };
-  config = mkIf cfg.enable {
-    environment.systemPackages = with pkgs; [
-      hexchat
-    ];
-  };
+}: {
+  environment.systemPackages = with pkgs; [
+    hexchat
+  ];
 }

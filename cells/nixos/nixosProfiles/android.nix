@@ -1,25 +1,22 @@
 {
+  cell,
   config,
-  lib,
+  inputs,
   pkgs,
-  ...
 }: let
-  inherit (lib) mkEnableOption mkIf;
-  inherit (lib.mine) enabled;
-  cfg = config.mine.android;
+  inherit (inputs) nixpkgs;
+  inherit (inputs.cells) mine;
+  l = nixpkgs.lib // mine.lib // builtins;
+  p = mine.packages;
+  v = config.vars;
 in {
-  options.mine.android = {
-    enable = mkEnableOption "Enable the module";
-  };
-  config = mkIf cfg.enable {
-    mine.user.extraGroups = ["adbusers"];
-    environment.systemPackages = with pkgs; [
-      android-studio
-      open-android-backup
-    ];
-    programs.adb = enabled;
-    services.udev.packages = [
-      pkgs.android-udev-rules
-    ];
-  };
+  users.users.${v.username}.extraGroups = ["adbusers"];
+  environment.systemPackages = with pkgs; [
+    android-studio
+    p.open-android-backup
+  ];
+  programs.adb = l.enabled;
+  services.udev.packages = [
+    pkgs.android-udev-rules
+  ];
 }

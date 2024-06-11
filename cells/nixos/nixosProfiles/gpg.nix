@@ -1,23 +1,25 @@
 {
+  cell,
   config,
-  lib,
-  ...
+  inputs,
+  pkgs,
 }: let
-  inherit (lib) mkEnableOption mkIf;
-  inherit (lib.mine) mkBoolOpt mkOpt;
-  inherit (lib.types) str;
-  cfg = config.mine.gpg;
+  inherit (inputs) nixpkgs;
+  inherit (inputs.cells) mine;
+  c = config.vars.gpg;
+  l = nixpkgs.lib // mine.lib // builtins;
+  t = l.types;
 in {
-  options.mine.gpg = {
-    enable = mkEnableOption "Enable gpg";
-    enableSSHSupport = mkBoolOpt false "Enable SSH support for GPG";
-    pinentryFlavor = mkOpt str "curses" "GPG Agent pin-entry flavor";
+  options.vars.gpg = {
+    enableSSHSupport = l.mkBoolOpt false "Enable SSH support for GPG";
+    pinentryPackage = l.mkOpt (t.either t.pkgs t.str) "curses" "GPG Agent pin-entry flavor";
   };
 
-  config = mkIf cfg.enable {
+  config = {
     programs.gnupg.agent = {
-      inherit (cfg) enableSSHSupport pinentryFlavor;
+      inherit (c) enableSSHSupport;
       enable = true;
+      pinentryPackage = pkgs."pinentry-${c.pinentryPackage}";
     };
   };
 }

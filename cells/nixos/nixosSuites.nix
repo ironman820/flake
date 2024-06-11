@@ -3,12 +3,15 @@
   inputs,
 }: let
   inherit (cell) nixosProfiles;
-  inherit (inputs) home-manager nixpkgs sops-nix stylix;
-  inherit (inputs.cells) mine;
+  inherit (inputs) home-manager nix-ld nixos-hardware nixpkgs sops-nix;
+  inherit (inputs.cells) de gui-apps hardware libraries mine servers tui;
   boot = inputs.cells.boot.nixosProfiles;
+  h = nixos-hardware.nixosModules;
   l = nixpkgs.lib // mine.lib // builtins;
-  networking = inputs.cells.networking.nixosProfiles;
-  ssh = inputs.cells.ssh.nixosProfiles;
+  n = inputs.cells.networking.nixosProfiles;
+  p = nixosProfiles // de.nixosProfiles // gui-apps.nixosProfiles // hardware.nixosProfiles // libraries.nixosProfiles // mine.nixosProfiles // servers.nixosProfiles // tui.nixosProfiles;
+  s = inputs.cells.ssh.nixosProfiles;
+  v = inputs.cells.virtual.nixosProfiles;
 in rec {
   base = [
     home-manager.nixosModules.home-manager
@@ -18,102 +21,82 @@ in rec {
         useUserPackages = true;
       };
     }
-    mine.nixosProfiles.vars
-    networking.dhcp
-    {
-      nix.settings = {
-        substituters = [
-          "https://hyprland.cachix.org"
-        ];
-        trusted-public-keys = [
-          "hyprland.cachix.org-1:a7pgxzMz7+chwVL3/pzj6jIBMioiJM7ypFP8PwtkuGc="
-        ];
-      };
-    }
-    nixosProfiles.sops
-    nixosProfiles.stylix
-    ssh.server
+    p.vars
+    n.dhcp
+    nix-ld.nixosModules.nix-ld
+    p.git
+    p.just
+    p.sops
+    p.python
+    p.nix
+    s.server
     sops-nix.nixosModules.sops
-    stylix.nixosModules.stylix
     {system.stateVersion = "23.05";}
   ];
   laptop' = l.concatLists [
     workstation
-    # [
-    #   hardware = {
-    #     bluetooth = enabled;
-    #     intel-video = enabled;
-    #     power = enabled;
-    #   };
-    #   firmware = enabled;
-    #   networking.profiles = enabled;
-    #   services = {
-    #     logind = {
-    #       killUserProcesses = true;
-    #       lidSwitchExternalPower = "ignore";
-    #     };
-    #     xserver.libinput = {
-    #       enable = true;
-    #       touchpad.naturalScrolling = true;
-    #     };
-    #   };
-    #   ]
+    [
+      h.common-pc-laptop
+      h.common-pc-laptop-acpi_call
+      n.profiles
+      p.bluetooth
+      p.intel-video
+      p.power
+      p.firmware
+      p.neomutt
+      {
+        services = {
+          logind = {
+            killUserProcesses = true;
+            lidSwitchExternalPower = "ignore";
+          };
+          libinput = {
+            enable = true;
+            touchpad.naturalScrolling = true;
+          };
+        };
+      }
+    ]
   ];
   server = l.concatLists [
     base
     [
       boot.systemd
-      nixosProfiles.ld-cc
-      nixosProfiles.power-performance
-      nixosProfiles.sudo-no-password
-      ssh.server-pass-auth
+      p.ld-cc
+      p.power-performance
+      p.sudo-no-password
+      s.server-pass-auth
     ]
   ];
   workstation = l.concatLists [
     base
     [
       boot.grub
-      networking.networkmanager
-      # de.hyprland
-      #   gui-apps = {
-      #     alacritty = mkIf (terminal == "alacritty") enabled;
-      #     contour = mkIf (terminal == "contour") enabled;
-      #     floorp = mkIf (browser == "floorp") enabled;
-      #     kitty = mkIf (terminal == "kitty") enabled;
-      #     others = enabled;
-      #     wezterm = mkIf (terminal == "wezterm") enabled;
-      #     winbox = enabled;
-      #   };
-      #   hardware = {
-      #     sound = enabled;
-      #     yubikey = enabled;
-      #   };
-      #   libraries.java = enabled;
-      #   networking.basic.networkmanager = enabled;
-      #   servers.sync = enabled;
-      #   tui = {
-      #     flatpak = enabled;
-      #     neomutt = enabled;
-      #   };
-      #   virtual.host = enabled;
-      #   xdg = enabled;
-      # boot.kernel.sysctl = {
-      #   "vm.overcommit_memory" = 1;
-      # };
-      # environment.systemPackages = with pkgs; [
-      #   hplip
-      #   ntfs3g
-      #   wireguard-tools
-      # ];
-      # programs.system-config-printer = enabled;
-      # services = {
-      #   avahi = enabled;
-      #   printing = {
-      #     enable = true;
-      #     cups-pdf = enabled;
-      #     drivers = with pkgs; [gutenprint hplip];
-      #   };
-      # };
+      n.networkmanager
+      p.dunst
+      p.floorp
+      p.hyprland
+      p.kitty
+      p.others
+      p.sddm
+      p.winbox
+      p.sound
+      p.gpg
+      p.yubikey
+      p.java
+      n.networkmanager
+      p.sync
+      p.flatpak
+      v.host
+      p.xdg
+      p.printing
+      p.workstation
+      p.thunar
+      {
+        boot.kernel.sysctl = {
+          "vm.overcommit_memory" = 1;
+        };
+      }
     ]
   ];
 }

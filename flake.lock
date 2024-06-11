@@ -565,6 +565,26 @@
         "type": "github"
       }
     },
+    "nix-ld": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1701153607,
+        "narHash": "sha256-h+odOVyiGmEERMECoFOj5P7FPiMR8IPRzroFA4sKivg=",
+        "owner": "mic92",
+        "repo": "nix-ld",
+        "rev": "bf5aa84a713c31d95b4307e442e966d6c7fd7ae7",
+        "type": "github"
+      },
+      "original": {
+        "owner": "mic92",
+        "repo": "nix-ld",
+        "type": "github"
+      }
+    },
     "nixago": {
       "inputs": {
         "flake-utils": "flake-utils",
@@ -777,12 +797,14 @@
         "hyprland": "hyprland",
         "hyprland-plugins": "hyprland-plugins",
         "hyprlock": "hyprlock",
+        "nix-ld": "nix-ld",
         "nixos-hardware": "nixos-hardware",
         "nixpkgs": [
           "nixpkgs-unstable"
         ],
         "nixpkgs-stable": "nixpkgs-stable",
         "nixpkgs-unstable": "nixpkgs-unstable",
+        "sddm-catppuccin": "sddm-catppuccin",
         "sops-nix": "sops-nix",
         "std": [
           "hive",
@@ -790,6 +812,22 @@
         ],
         "tochd": "tochd",
         "waybar": "waybar"
+      }
+    },
+    "sddm-catppuccin": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1715610300,
+        "narHash": "sha256-J+pIrzdC07iyNPfHBt6bmzb8DC0oQQfT3lnXIL74BzQ=",
+        "owner": "catppuccin",
+        "repo": "sddm",
+        "rev": "a82a829a20be741c46067ed4903ee7d99e392378",
+        "type": "github"
+      },
+      "original": {
+        "owner": "catppuccin",
+        "repo": "sddm",
+        "type": "github"
       }
     },
     "sops-nix": {

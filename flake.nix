@@ -72,22 +72,12 @@
   #
   # overlays = with inputs; [flake.overlays.default];
   #
-  # systems.modules = {
-  #   nixos = with inputs; [
-  #     nix-ld.nixosModules.nix-ld
-  #   ];
-  # };
-  #
   # systems.hosts = {
   #   e105-laptop.modules = with inputs.nixos-hardware.nixosModules; [
   #     common-gpu-intel
   #     system76
   #   ];
   # };
-  #   ironman-laptop.modules = with inputs; [
-  #     nixos-hardware.nixosModules.dell-inspiron-5509
-  #   ];
-  #
 
   # Sources needed for packages
   # Where possible, I have used flakehub's system as a source for repos
@@ -177,11 +167,11 @@
       url = "github:hyprwm/hyprland-plugins";
     };
     hyprlock.url = "github:hyprwm/hyprlock";
-    # # Nix-LD is a dynamic linker that tries to mimick FHS file systems for hard-coded applications
-    # nix-ld = {
-    #   inputs.nixpkgs.follows = "nixpkgs";
-    #   url = "github:mic92/nix-ld";
-    # };
+    # Nix-LD is a dynamic linker that tries to mimick FHS file systems for hard-coded applications
+    nix-ld = {
+      inputs.nixpkgs.follows = "nixpkgs";
+      url = "github:mic92/nix-ld";
+    };
     nixpkgs.follows = "nixpkgs-unstable";
     # nixos-generators = {
     #   inputs.nixpkgs.follows = "nixpkgs";
@@ -237,13 +227,6 @@
       url = "github:Mic92/sops-nix";
     };
     std.follows = "hive/std";
-    stylix = {
-      inputs = {
-        home-manager.follows = "home-manager";
-        nixpkgs.follows = "nixpkgs";
-      };
-      url = "github:danth/stylix/release-23.11";
-    };
     # tmux-cheat-sh = {
     #   flake = false;
     #   url = "github:ironman820/tmux-cheat-sh";
@@ -266,7 +249,7 @@
     # };
     # # Unstable repo for latest and greatest packages
     # unstable.url = "github:NixOS/nixpkgs";
-    # waybar.url = "github:alexays/waybar";
+    waybar.url = "github:alexays/waybar";
     # yanky-nvim = {
     #   flake = false;
     #   url = "github:gbprod/yanky.nvim";

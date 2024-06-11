@@ -1,20 +1,15 @@
 {
+  cell,
   config,
-  lib,
-  osConfig,
-  ...
+  inputs,
 }: let
-  inherit (lib) mkIf;
-  inherit (lib.mine) mkBoolOpt;
-
-  cfg = config.mine.home.gui-apps.winbox;
-  os = osConfig.mine.gui-apps.winbox;
+  inherit (inputs) nixpkgs;
+  inherit (inputs.cells) mine;
+  l = nixpkgs.lib // mine.lib // builtins;
+  v = config.vars;
 in {
-  options.mine.home.gui-apps.winbox = {
-    enable = mkBoolOpt os.enable "Enable the module";
-  };
-  config = mkIf cfg.enable {
-    mine.home.de.hyprland = {
+  vars = l.mkIf (v ? "hyprland") {
+    hyprland = {
       windowrule = [
         "workspace 3,^(winbox.exe)$"
       ];

@@ -1,33 +1,27 @@
 {
+  cell,
   config,
-  lib,
+  inputs,
   pkgs,
-  ...
 }: let
-  inherit (lib) mkIf;
-  inherit (lib.mine) enabled disabled mkBoolOpt mkOpt;
-  inherit (lib.types) int str;
-
-  cfg = config.mine.nix;
-  imp = config.mine.impermanence.enable;
+  inherit (inputs) nixpkgs;
+  inherit (inputs.cells) mine;
+  c = config.vars.nix;
+  l = nixpkgs.lib // mine.lib // builtins;
+  t = l.types;
+  v = config.vars;
 in {
-  options.mine.nix = {
-    enable = mkBoolOpt true "Enable NIX settings.";
+  options.vars.nix = {
     gc = {
-      dates = mkOpt str "weekly" "Dates to run GC";
-      options = mkOpt str "--delete-older-than 7d" "Extra Garbage Collect Options.";
+      dates = l.mkOpt t.str "weekly" "Dates to run GC";
+      options = l.mkOpt t.str "--delete-older-than 7d" "Extra Garbage Collect Options.";
     };
-    settings.cores = mkOpt int 2 "Number of cores to run Nix operations";
+    settings.cores = l.mkOpt t.int 2 "Number of cores to run Nix operations";
   };
 
-  config = mkIf cfg.enable {
+  config = {
     environment = {
-      persistence."/persist/root".directories = mkIf imp [
-        "/root/.cache/nix"
-        "/root/.cache/nix-index"
-        "/root/.local/share/nix"
-      ];
-      sessionVariables.FLAKE = "/home/${config.mine.user.name}/.config/flake";
+      sessionVariables.FLAKE = "/home/${v.username}/.config/flake";
       systemPackages = with pkgs; [
         nh
         nix-output-monitor
@@ -36,27 +30,30 @@ in {
     };
     nix = {
       gc = {
-        inherit (cfg.gc) dates options;
+        inherit (c.gc) dates options;
         automatic = true;
       };
-      generateNixPathFromInputs = true;
-      generateRegistryFromInputs = true;
-      linkInputs = true;
       optimise.automatic = true;
       settings = {
-        inherit (cfg.settings) cores;
+        inherit (c.settings) cores;
         auto-optimise-store = true;
         experimental-features = ["nix-command" "flakes"];
+        substituters = [
+          "https://hyprland.cachix.org"
+        ];
+        trusted-public-keys = [
+          "hyprland.cachix.org-1:a7pgxzMz7+chwVL3/pzj6jIBMioiJM7ypFP8PwtkuGc="
+        ];
         trusted-users = [
           "root"
-          "${config.mine.user.name}"
+          "${config.vars.username}"
         ];
       };
     };
     programs = {
-      command-not-found = disabled;
-      nix-index = enabled;
-      nix-ld = enabled;
+      command-not-found = l.disabled;
+      nix-index = l.enabled;
+      nix-ld = l.enabled;
     };
   };
 }

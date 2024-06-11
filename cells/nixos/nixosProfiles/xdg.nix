@@ -1,24 +1,17 @@
 {
+  cell,
   config,
-  lib,
-  pkgs,
-  ...
+  inputs,
 }: let
-  inherit (lib) mkEnableOption mkIf mkMerge;
-  cfg = config.mine.xdg;
+  inherit (inputs) nixpkgs;
+  inherit (inputs.cells) mine;
+  l = nixpkgs.lib // mine.lib // builtins;
+  v = config.vars;
 in {
-  options.mine.xdg = {
-    enable = mkEnableOption "Enable xdg";
-  };
-
-  config = mkIf cfg.enable {
-    xdg.portal = {
-      inherit (cfg) enable;
-      config.common.default = "*";
-      wlr = {
-        inherit (config.mine.de.hyprland) enable;
-      };
-      xdgOpenUsePortal = true;
-    };
+  xdg.portal = {
+    enable = true;
+    config.common.default = "*";
+    wlr.enable = l.mkIf (v ? "hyprland") true;
+    xdgOpenUsePortal = true;
   };
 }

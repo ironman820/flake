@@ -1,39 +1,37 @@
 {
+  cell,
   config,
-  lib,
-  ...
+  inputs,
 }: let
-  inherit (lib) mkEnableOption mkIf mkMerge;
-  inherit (lib.mine) mkBoolOpt;
-
-  cfg = config.mine.networking.profiles;
-  sopsFile = ./secrets/profiles.yaml;
+  inherit (inputs) nixpkgs;
+  inherit (inputs.cells) mine;
+  basePath = "/etc/NetworkManager/system-connections";
+  c = config.vars.networking.profiles;
+  l = nixpkgs.lib // mine.lib // builtins;
+  mode = "0400";
+  sopsFile = ./__secrets/profiles.yaml;
 in {
-  options.mine.networking.profiles = {
-    enable = mkEnableOption "Enable the default settings?";
-    home = mkBoolOpt true "Load the home profiles";
-    work = mkBoolOpt false "Load Work profiles";
+  options.vars.networking.profiles = {
+    home = l.mkBoolOpt true "Load the home profiles";
+    work = l.mkBoolOpt false "Load Work profiles";
   };
 
-  config = mkIf cfg.enable {
-    mine.sops.secrets = mkMerge [
-      (mkIf cfg.home {
+  config = {
+    sops.secrets = l.mkMerge [
+      (l.mkIf c.home {
         da_psk = {
-          inherit sopsFile;
-          mode = "0400";
-          path = "/etc/NetworkManager/system-connections/DumbledoresArmy.nmconnection";
+          inherit mode sopsFile;
+          path = "${basePath}/DumbledoresArmy.nmconnection";
         };
       })
-      (mkIf cfg.work {
+      (l.mkIf c.work {
         office_psk = {
-          inherit sopsFile;
-          mode = "0400";
-          path = "/etc/NetworkManager/system-connections/office.nmconnection";
+          inherit mode sopsFile;
+          path = "${basePath}/office.nmconnection";
         };
         royell_vpn = {
-          inherit sopsFile;
-          mode = "0400";
-          path = "/etc/NetworkManager/system-connections/Royell.nmconnection";
+          inherit mode sopsFile;
+          path = "${basePath}/Royell.nmconnection";
         };
       })
     ];

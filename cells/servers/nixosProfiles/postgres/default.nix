@@ -1,39 +1,42 @@
 {
+  cell,
   config,
-  lib,
+  inputs,
   options,
   pkgs,
-  ...
 }: let
-  inherit (lib) mkAliasDefinitions mkEnableOption mkIf mkOverride strings;
-  inherit (lib.mine) mkBoolOpt mkOpt;
-  inherit (lib.types) str listOf attrs;
-
-  cfg = config.mine.servers.postgresql;
+  inherit (inputs) nixpkgs;
+  inherit (inputs.cells) mine;
+  c = v.postgresql;
+  l = nixpkgs.lib // mine.lib // builtins;
+  ls = l.strings;
+  o = options.vars.postgresql;
+  s = config.sops.secrets;
+  t = l.types;
+  v = config.vars;
 in {
-  options.mine.servers.postgresql = {
-    authentication = mkOpt str "" "Authentication options";
-    dbs = mkOpt (listOf str) [] "Databases to ensure are added to the server";
-    enable = mkEnableOption "Enable or disable postgresql service";
+  options.vars.postgresql = {
+    authentication = l.mkOpt t.str "" "Authentication options";
+    dbs = l.mkOpt (t.listOf t.str) [] "Databases to ensure are added to the server";
     pgadmin = {
-      enable = mkBoolOpt false "Enable PGAdmin";
-      email = mkOpt str config.mine.user.email "Initial admin Email";
-      firewall = mkBoolOpt true "Open the firewall?";
+      enable = l.mkEnableOption "Enable PGAdmin";
+      email = l.mkOpt t.str v.email "Initial admin Email";
+      firewall = l.mkBoolOpt true "Open the firewall?";
       settings =
-        mkOpt attrs
+        l.mkOpt t.attrs
         {
           "ALLOWED_HOSTS" = [
           ];
-          "CONFIG_DATABASE_URI" = "postgresql://${config.mine.user.name}:${config.mine.user.name}@localhost/${config.mine.user.name}";
+          "CONFIG_DATABASE_URI" = "postgresql://${v.username}:${v.username}@localhost/${v.username}";
         } "Settings for PGAdmin";
     };
-    script = mkOpt (listOf str) "" "Postgres Initial startup script.";
-    users = mkOpt (listOf attrs) [] "ensureUsers variables";
+    script = l.mkOpt (t.listOf t.str) "" "Postgres Initial startup script.";
+    users = l.mkOpt (t.listOf t.attrs) [] "ensureUsers variables";
   };
 
-  config = mkIf cfg.enable {
+  config = {
     mine = {
-      sops = mkIf cfg.pgadmin.enable {
+      sops = l.mkIf c.pgadmin.enable {
         enable = true;
         secrets = {
           pg_pass = {
@@ -45,39 +48,39 @@ in {
         };
       };
       servers.postgresql = {
-        authentication = mkOverride 10 ''
-          local all ${config.mine.user.name} peer
+        authentication = l.mkOverride 10 ''
+          local all ${v.username} peer
           local all all trust
         '';
         script = [
           ''
-            CREATE ROLE ${config.mine.user.name} WITH PASSWORD '${config.mine.user.name}' SUPERUSER CREATEROLE CREATEDB REPLICATION BYPASSRLS LOGIN;
+            CREATE ROLE ${v.username} WITH PASSWORD '${v.username}' SUPERUSER CREATEROLE CREATEDB REPLICATION BYPASSRLS LOGIN;
             CREATE DATABASE mine;
-            GRANT ALL PRIVILEGES ON ALL TABLES IN SCHEMA public TO ${config.mine.user.name};
-            GRANT ALL PRIVILEGES ON DATABASE postgres TO ${config.mine.user.name};
-            GRANT ALL PRIVILEGES ON DATABASE ${config.mine.user.name} TO ${config.mine.user.name};
+            GRANT ALL PRIVILEGES ON ALL TABLES IN SCHEMA public TO ${v.username};
+            GRANT ALL PRIVILEGES ON DATABASE postgres TO ${v.username};
+            GRANT ALL PRIVILEGES ON DATABASE ${v.username} TO ${v.username};
           ''
         ];
       };
     };
     services = {
-      pgadmin = mkIf cfg.pgadmin.enable {
+      pgadmin = l.mkIf c.pgadmin.enable {
         enable = true;
-        initialEmail = mkAliasDefinitions options.mine.servers.postgresql.pgadmin.email;
-        initialPasswordFile = config.sops.secrets.pg_pass.path;
-        openFirewall = mkAliasDefinitions options.mine.servers.postgresql.pgadmin.firewall;
-        settings = mkAliasDefinitions options.mine.servers.postgresql.pgadmin.settings;
+        initialEmail = l.mkAliasDefinitions o.pgadmin.email;
+        initialPasswordFile = s.pg_pass.path;
+        openFirewall = l.mkAliasDefinitions o.pgadmin.firewall;
+        settings = l.mkAliasDefinitions o.pgadmin.settings;
       };
       postgresql = {
-        authentication = mkAliasDefinitions options.mine.servers.postgresql.authentication;
+        authentication = l.mkAliasDefinitions o.authentication;
         enable = true;
-        ensureDatabases = mkAliasDefinitions options.mine.servers.postgresql.dbs;
-        ensureUsers = mkAliasDefinitions options.mine.servers.postgresql.users;
-        initialScript = pkgs.writeText "init-script" (strings.concatStringsSep "\n" config.mine.servers.postgresql.script);
+        ensureDatabases = l.mkAliasDefinitions o.dbs;
+        ensureUsers = l.mkAliasDefinitions o.users;
+        initialScript = pkgs.writeText "init-script" (ls.concatStringsSep "\n" c.script);
         package = pkgs.postgresql_14;
       };
     };
-    users.users.pgadmin = mkIf cfg.pgadmin.enable {
+    users.users.pgadmin = l.mkIf c.pgadmin.enable {
       extraGroups = [config.users.groups.keys.name];
     };
   };

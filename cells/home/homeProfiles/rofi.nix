@@ -2,13 +2,14 @@
   cell,
   config,
   inputs,
+  pkgs,
 }: let
   inherit (config.vars.applications) terminal;
   inherit (inputs) nixpkgs;
   inherit (inputs.cells) mine;
   l = nixpkgs.lib // mine.lib // builtins;
 in {
-  home.packages = [nixpkgs.nerdfonts];
+  home.packages = [pkgs.nerdfonts];
   programs.rofi = {
     enable = true;
     configPath = "${config.xdg.configHome}/rofi/default.rasi";
@@ -24,13 +25,13 @@ in {
       window-format = "{w} · {c} · {t}";
     };
     font = l.mkDefault "FiraCode Nerd Font Mono";
-    package = nixpkgs.rofi-wayland;
-    terminal = "${nixpkgs.${terminal}}/bin/${terminal}";
+    package = pkgs.rofi-wayland;
+    terminal = "${pkgs.${terminal}}/bin/${terminal}";
   };
   xdg.configFile = {
     "rofi/cliphist.sh" = {
       executable = true;
-      source = nixpkgs.writeShellScript "cliphist.sh" ''
+      source = pkgs.writeShellScript "cliphist.sh" ''
         # Cliphist
         #
         # by Stephan Raabe (2023)

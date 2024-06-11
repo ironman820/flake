@@ -2,8 +2,8 @@
   cell,
   inputs,
 }: let
-  inherit (inputs.cells) mine;
   inherit (inputs) haumea nixpkgs;
+  inherit (inputs.cells) mine;
   inherit (inputs.std) lib std;
 
   l = nixpkgs.lib // haumea.lib // mine.lib // builtins;

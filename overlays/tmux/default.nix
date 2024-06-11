@@ -7,6 +7,5 @@
         catppuccin-tmux
         tmux-fzf-url
         ;
-      sessionx = tmux-sessionx.packages.${prev.system}.default;
     };
 }

@@ -68,7 +68,7 @@ in {
           p.cheat-sh
           sensible
           {
-            plugin = sessionx;
+            plugin = p.sessionx;
             extraConfig = ''
               set -g @sessionx-bind 'o'
               set -g @sessionx-zoxide-mode 'on'

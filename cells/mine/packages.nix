@@ -6,6 +6,7 @@
   inherit (nixpkgs) writeShellScriptBin;
   inherit (nixpkgs.stdenv) mkDerivation;
   inherit (nixpkgs.tmuxPlugins) mkTmuxPlugin;
+  inherit (nixpkgs.vimUtils) buildVimPlugin;
 in {
   base16-onedark-scheme = mkDerivation {
     name = "base16-onedark-scheme";
@@ -36,8 +37,24 @@ in {
     src = inputs.tmux-cheat-sh;
     version = "0.0.1";
   };
+  conceal-nvim = buildVimPlugin {
+    name = "conceal-nvim";
+    src = inputs.conceal-nvim;
+  };
   networkmanagerapplet = nixpkgs.networkmanagerapplet.override {
     libnma = nixpkgs.libnma-gtk4;
+  };
+  nvim-cmp-nerdfont = buildVimPlugin {
+    name = "cmp-nerdfont";
+    src = inputs.nvim-cmp-nerdfont;
+  };
+  nvim-undotree = buildVimPlugin {
+    name = "undotree";
+    src = inputs.nvim-undotree;
+  };
+  one-small-step-for-vimkind = buildVimPlugin {
+    name = "one-small-step-for-vimkind";
+    src = inputs.one-small-step-for-vimkind;
   };
   open-android-backup = mkDerivation {
     buildPhase = ''
@@ -89,6 +106,12 @@ in {
       '';
     };
   sessionx = tmux-sessionx.packages.default;
+  tmux-fzf-url = mkTmuxPlugin {
+    pluginName = "tmux-fzf-url";
+    rtpFilePath = "fzf-url.tmux";
+    src = inputs.tmux-fzf-url;
+    version = "0.0.47";
+  };
   tochd = let
     inherit (nixpkgs) p7zip mame-tools;
     inherit (nixpkgs.python3Packages) buildPythonApplication;

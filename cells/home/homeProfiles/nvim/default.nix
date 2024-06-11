@@ -1,41 +1,32 @@
 {
+  cell,
   config,
-  lib,
-  osConfig,
+  inputs,
   pkgs,
-  ...
 }: let
-  inherit (lib) mkIf;
-  inherit (lib.mine) mkBoolOpt mkOpt;
-  inherit (lib.types) lines;
-
-  cfg = config.mine.home.tui.nvim;
-  imp = config.mine.home.impermanence.enable;
+  inherit (inputs) nixpkgs;
+  inherit (inputs.cells) mine;
+  c = config.vars.nvim;
   initLua = ''
     require("startup")
   '';
-  os = osConfig.mine.tui.nvim;
+  l = nixpkgs.lib // mine.lib // builtins;
+  p = mine.packages;
+  t = l.types;
 in {
-  options.mine.home.tui.nvim = {
-    enable = mkBoolOpt os.enable "Install NeoVim";
-    extraLuaConfig = mkOpt lines initLua "Extra Config";
+  options.vars.nvim = {
+    extraLuaConfig = l.mkOpt t.lines initLua "Extra Config";
   };
 
-  config = mkIf cfg.enable {
-    home = {
-      persistence."/persist/home".directories = mkIf imp [
-        ".cache/nvim"
-        ".local/share/nvim"
-        ".local/state/nvim"
-      ];
-      shellAliases = {
-        "nano" = "nvim";
-        "nv" = "nvim";
-      };
+  config = {
+    home.shellAliases = {
+      "nano" = "nvim";
+      "nv" = "nvim";
     };
     programs = {
-      neovim = mkIf cfg.enable {
-        inherit (cfg) enable extraLuaConfig;
+      neovim = {
+        inherit (c) extraLuaConfig;
+        enable = true;
         defaultEditor = true;
         plugins = with pkgs.vimPlugins; [
           aerial-nvim
@@ -48,10 +39,10 @@ in {
           cmp-git
           cmp-nvim-lsp
           cmp_luasnip
-          nvim-cmp-nerdfont
+          p.nvim-cmp-nerdfont
           cmp-path
           cloak-nvim
-          conceal-nvim
+          p.conceal-nvim
           conform-nvim
           vim-dadbod
           vim-dadbod-completion
@@ -84,7 +75,7 @@ in {
           nui-nvim
           obsidian-nvim
           oil-nvim
-          one-small-step-for-vimkind
+          p.one-small-step-for-vimkind
           persistence-nvim
           plenary-nvim
           promise-async
@@ -101,7 +92,7 @@ in {
           nvim-ts-autotag
           nvim-ts-context-commentstring
           nvim-ufo
-          nvim-undotree
+          p.nvim-undotree
           nvim-web-devicons
           which-key-nvim
         ];
@@ -113,8 +104,8 @@ in {
       };
     };
     xdg.configFile = {
-      "nvim/lua".source = ./config/lua;
-      "nvim/after/plugin".source = ./config/after/plugin;
+      "nvim/lua".source = ./__config/lua;
+      "nvim/after/plugin".source = ./__config/after/plugin;
     };
   };
 }

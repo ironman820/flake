@@ -2,16 +2,11 @@
   cell,
   inputs,
 }: let
-  inherit (cell) nixosProfiles;
   inherit (inputs) home-manager nix-ld nixos-hardware nixpkgs sops-nix;
-  inherit (inputs.cells) de gui-apps hardware libraries mine servers tui;
-  boot = inputs.cells.boot.nixosProfiles;
+  inherit (inputs.cells) mine;
   h = nixos-hardware.nixosModules;
   l = nixpkgs.lib // mine.lib // builtins;
-  n = inputs.cells.networking.nixosProfiles;
-  p = nixosProfiles // de.nixosProfiles // gui-apps.nixosProfiles // hardware.nixosProfiles // libraries.nixosProfiles // mine.nixosProfiles // servers.nixosProfiles // tui.nixosProfiles;
-  s = inputs.cells.ssh.nixosProfiles;
-  v = inputs.cells.virtual.nixosProfiles;
+  p = cell.nixosProfiles;
 in rec {
   base = [
     home-manager.nixosModules.home-manager
@@ -22,14 +17,14 @@ in rec {
       };
     }
     p.vars
-    n.dhcp
+    p.dhcp
     nix-ld.nixosModules.nix-ld
     p.git
     p.just
     p.sops
     p.python
     p.nix
-    s.server
+    p.ssh-server
     sops-nix.nixosModules.sops
     {system.stateVersion = "23.05";}
   ];
@@ -38,7 +33,7 @@ in rec {
     [
       h.common-pc-laptop
       h.common-pc-laptop-acpi_call
-      n.profiles
+      p.net-profiles
       p.bluetooth
       p.intel-video
       p.power
@@ -61,37 +56,36 @@ in rec {
   server = l.concatLists [
     base
     [
-      boot.systemd
+      p.systemd
       p.ld-cc
       p.power-performance
       p.sudo-no-password
-      s.server-pass-auth
+      p.ssh-server-pass-auth
     ]
   ];
   workstation = l.concatLists [
     base
     [
-      boot.grub
-      n.networkmanager
       p.dunst
-      p.floorp
-      p.hyprland
-      p.kitty
-      p.others
-      p.sddm
-      p.winbox
-      p.sound
-      p.gpg
-      p.yubikey
-      p.java
-      n.networkmanager
-      p.sync
       p.flatpak
-      v.host
-      p.xdg
+      p.floorp
+      p.gpg
+      p.grub
+      p.hyprland
+      p.java
+      p.kitty
+      p.networkmanager
+      p.others
       p.printing
-      p.workstation
+      p.sddm
+      p.sound
+      p.syncthing
       p.thunar
+      p.virtual-host
+      p.winbox
+      p.workstation
+      p.xdg
+      p.yubikey
       {
         boot.kernel.sysctl = {
           "vm.overcommit_memory" = 1;

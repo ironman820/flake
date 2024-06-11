@@ -3,16 +3,16 @@
   config,
   inputs,
 }: let
-  inherit (cell) nixosProfiles nixosSuites;
+  inherit (cell) nixosSuites;
   inherit (inputs) nixos-hardware nixpkgs;
   inherit (inputs.cells) mine;
   inherit (inputs.cells.mine) packages;
   h = nixos-hardware.nixosModules;
   l = nixpkgs.lib // mine.lib // builtins;
-  networking = inputs.cells.networking.nixosProfiles;
+  p = cell.nixosProfiles;
   profiles = [
-    networking.personal-drives
-    nixosProfiles.android
+    p.personal-drives
+    p.android
   ];
   suites = nixosSuites.laptop';
   v = config.vars;
@@ -49,6 +49,7 @@ in {
     ];
     vars = {
       inherit (config.vars) wallpaper;
+      imapfilter.home = true;
       fonts = {
         terminalSize = 10.0;
         waybarSize = 12;

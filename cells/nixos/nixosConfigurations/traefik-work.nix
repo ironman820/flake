@@ -6,17 +6,15 @@
   inherit (inputs) nixpkgs;
   inherit (inputs.cells) mine;
   l = nixpkgs.lib // mine.lib // builtins;
+  p = cell.nixosProfiles;
 in {
   imports = let
-    networking = inputs.cells.networking.nixosProfiles;
-    profiles = [
-      networking.static
-      servers.traefik
-      virtual.guest
+    profiles = with p; [
+      static-ip
+      traefik
+      virtual-guest
     ];
-    servers = inputs.cells.servers.nixosProfiles;
     suites = nixosSuites.server;
-    virtual = inputs.cells.virtual.nixosProfiles;
   in
     l.concatLists [
       [

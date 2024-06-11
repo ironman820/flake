@@ -1,60 +1,57 @@
 {
+  cell,
   config,
-  lib,
-  osConfig,
+  inputs,
   pkgs,
-  ...
 }: let
-  inherit (lib) mkIf;
-  inherit (lib.mine) mkBoolOpt mkOpt;
-  inherit (lib.types) int lines str;
+  inherit (inputs) nixpkgs;
+  inherit (inputs.cells) mine;
   inherit (pkgs) writeShellScript;
-
-  cfg = config.mine.home.tui.tmux;
-  os = osConfig.mine.tui.tmux;
+  c = v.tmux;
+  l = nixpkgs.lib // mine.lib // builtins;
+  p = mine.packages;
+  t = l.types;
+  v = config.vars;
 in {
-  options.mine.home.tui.tmux = {
-    enable = mkBoolOpt os.enable "Setup tmux";
-    baseIndex = mkOpt int 1 "Base number for windows";
-    clock24 = mkBoolOpt true "Use a 24 hour clock";
-    customPaneNavigationAndResize = mkBoolOpt true "Use hjkl for navigation";
-    escapeTime = mkOpt int 0 "Escape time";
-    extraConfig = mkOpt lines "" "Extra configuration options";
+  options.vars.tmux = {
+    baseIndex = l.mkOpt t.int 1 "Base number for windows";
+    clock24 = l.mkBoolOpt true "Use a 24 hour clock";
+    customPaneNavigationAndResize = l.mkBoolOpt true "Use hjkl for navigation";
+    escapeTime = l.mkOpt t.int 0 "Escape time";
+    extraConfig = l.mkOpt t.lines "" "Extra configuration options";
     historyLimit =
-      mkOpt int 1000000 "The number of lines to keep in scrollback history";
-    keyMode = mkOpt str "vi" "Key style used for control";
-    secureSocket = mkBoolOpt false "Use a secure socket to connect.";
+      l.mkOpt t.int 1000000 "The number of lines to keep in scrollback history";
+    keyMode = l.mkOpt t.str "vi" "Key style used for control";
+    secureSocket = l.mkBoolOpt false "Use a secure socket to connect.";
     shortcut =
-      mkOpt str "Space" "Default leader key that will be paired with <Ctrl>";
-    terminal = mkOpt str "screen-256color" "Default terminal config";
+      l.mkOpt t.str "Space" "Default leader key that will be paired with <Ctrl>";
+    terminal = l.mkOpt t.str "screen-256color" "Default terminal config";
   };
 
-  config = mkIf cfg.enable {
-    mine.home.tui.tmux = {
-      extraConfig = ''
-        source-file ~/.config/tmux/tmux.reset.conf
-        set-option -sa terminal-features ',${config.mine.home.user.settings.applications.terminal}:RGB'
+  config = {
+    vars.tmux.extraConfig = ''
+      source-file ~/.config/tmux/tmux.reset.conf
+      set-option -sa terminal-features ',${v.applications.terminal}:RGB'
 
-        set -g detach-on-destroy off
-        set -g renumber-windows on
-        set -g set-clipboard on
-        set -g status-position top
+      set -g detach-on-destroy off
+      set -g renumber-windows on
+      set -g set-clipboard on
+      set -g status-position top
 
-        bind-key -T copy-mode-vi v send-keys -X begin-selection
-        bind-key -T copy-mode-vi C-v send-keys -X rectangle-toggle
-        bind-key -T copy-mode-vi y send-keys -X copy-selection-and-cancel
-        bind-key -T prefix g display-popup -E -w 95% -h 95% -d '#{pane_current_path}' lazygit
-      '';
-    };
+      bind-key -T copy-mode-vi v send-keys -X begin-selection
+      bind-key -T copy-mode-vi C-v send-keys -X rectangle-toggle
+      bind-key -T copy-mode-vi y send-keys -X copy-selection-and-cancel
+      bind-key -T prefix g display-popup -E -w 95% -h 95% -d '#{pane_current_path}' lazygit
+    '';
     programs = {
       bash.initExtra = ''
         if [[ -z "$TMUX" ]]; then
-            tmux new-session -A -s ${config.home.username}
+            tmux new-session -A -s ${v.username}
         fi
       '';
       tmux = {
         inherit
-          (cfg)
+          (c)
           baseIndex
           clock24
           customPaneNavigationAndResize
@@ -68,7 +65,7 @@ in {
           ;
         enable = true;
         plugins = with pkgs.tmuxPlugins; [
-          cheat-sh
+          p.cheat-sh
           sensible
           {
             plugin = sessionx;

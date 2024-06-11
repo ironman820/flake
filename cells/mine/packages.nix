@@ -5,6 +5,7 @@
   inherit (inputs) nixpkgs;
   inherit (nixpkgs) writeShellScriptBin;
   inherit (nixpkgs.stdenv) mkDerivation;
+  inherit (nixpkgs.tmuxPlugins) mkTmuxPlugin;
 in {
   base16-onedark-scheme = mkDerivation {
     name = "base16-onedark-scheme";
@@ -25,6 +26,15 @@ in {
     pname = "catppuccin-neomutt";
     phases = "buildPhase";
     src = inputs.catppuccin-neomutt;
+  };
+  cheat-sh = mkTmuxPlugin {
+    pluginName = "cheat-sh";
+    postInstall = ''
+      sed -i -e "s|& cht\.sh|\& ${nixpkgs.cht-sh}/bin/cht.sh|g" $target/cheat.sh
+    '';
+    rtpFilePath = "cheat-sh.tmux";
+    src = inputs.tmux-cheat-sh;
+    version = "0.0.1";
   };
   networkmanagerapplet = nixpkgs.networkmanagerapplet.override {
     libnma = nixpkgs.libnma-gtk4;

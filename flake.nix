@@ -220,10 +220,10 @@
     #   url = "github:alexanderjeurissen/ranger_devicons";
     # };
     # # Catppuccin theme for SDDM
-    # sddm-catppuccin = {
-    #   flake = false;
-    #   url = "github:catppuccin/sddm";
-    # };
+    sddm-catppuccin = {
+      flake = false;
+      url = "github:catppuccin/sddm";
+    };
     # snowfall-lib = {
     #   inputs.nixpkgs.follows = "nixpkgs";
     #   url = "github:snowfallorg/lib";

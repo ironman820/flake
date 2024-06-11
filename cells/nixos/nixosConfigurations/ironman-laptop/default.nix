@@ -30,9 +30,8 @@ in {
 
   home-manager.users.${v.username} = {
     imports = let
-      inherit (inputs.cells) gui-apps tui;
-      inherit (inputs.cells.home) homeProfiles homeSuites;
-      h = homeProfiles // tui.homeProfiles // gui-apps.homeProfiles;
+      inherit (inputs.cells.home) homeSuites;
+      h = inputs.cells.home.homeProfiles;
       profiles = with h; [
         hexchat
         personal-email

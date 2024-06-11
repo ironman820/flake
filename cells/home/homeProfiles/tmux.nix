@@ -76,7 +76,7 @@ in {
           }
           yank
           {
-            plugin = tmux-fzf-url;
+            plugin = p.tmux-fzf-url;
             extraConfig = ''
               set -g @fzf-url-fzf-options '-p 60%,30% --prompt="   " --border-label=" Open URL "'
               set -g @fzf-url-history-limit '2000'

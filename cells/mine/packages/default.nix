@@ -29,6 +29,27 @@ in {
   networkmanagerapplet = nixpkgs.networkmanagerapplet.override {
     libnma = nixpkgs.libnma-gtk4;
   };
+  open-android-backup = mkDerivation {
+    buildPhase = ''
+      mkdir -p $out/bin
+      cp -r $src/* $out/bin/
+      mv $out/bin/backup.sh $out/bin/open-android-backup
+    '';
+    name = "open-android-backup";
+    propagatedBuildInputs = with nixpkgs; [
+      bc
+      curl
+      dialog
+      p7zip
+      pv
+    ];
+    src = nixpkgs.fetchzip {
+      hash = "sha256-ak3mOENbQ3W3iWZaEIabojaLfyatizs7tG2KSUgtAhM=";
+      stripRoot = false;
+      url = "https://github.com/mrrfv/open-android-backup/releases/download/v1.0.16/Open_Android_Backup_v1.0.16_Bundle.zip";
+    };
+    version = "1.0.16";
+  };
   sddm-catppuccin = let
     inherit (nixpkgs.qt5) qtquickcontrols2;
     inherit (nixpkgs.qt6) qtbase qtsvg wrapQtAppsHook;

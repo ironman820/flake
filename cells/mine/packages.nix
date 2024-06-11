@@ -2,7 +2,7 @@
   cell,
   inputs,
 }: let
-  inherit (inputs) nixpkgs;
+  inherit (inputs) nixpkgs tmux-sessionx;
   inherit (nixpkgs) writeShellScriptBin;
   inherit (nixpkgs.stdenv) mkDerivation;
   inherit (nixpkgs.tmuxPlugins) mkTmuxPlugin;
@@ -88,6 +88,7 @@ in {
         cp -R $src/src/* $out/share/sddm/themes/catppuccin-mocha/
       '';
     };
+  sessionx = tmux-sessionx.packages.default;
   tochd = let
     inherit (nixpkgs) p7zip mame-tools;
     inherit (nixpkgs.python3Packages) buildPythonApplication;

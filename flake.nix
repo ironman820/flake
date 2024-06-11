@@ -231,13 +231,13 @@
     #   flake = false;
     #   url = "github:wfxr/tmux-fzf-url";
     # };
-    # tmux-sessionx = {
-    #   inputs.nixpkgs.follows = "unstable";
-    #   url = "github:omerxx/tmux-sessionx";
-    # };
     tmux-cheat-sh = {
       flake = false;
       url = "github:ironman820/tmux-cheat-sh";
+    };
+    tmux-sessionx = {
+      inputs.nixpkgs.follows = "nixpkgs";
+      url = "github:omerxx/tmux-sessionx";
     };
     tochd = {
       flake = false;

@@ -227,10 +227,6 @@
       url = "github:Mic92/sops-nix";
     };
     std.follows = "hive/std";
-    # tmux-cheat-sh = {
-    #   flake = false;
-    #   url = "github:ironman820/tmux-cheat-sh";
-    # };
     # tmux-fzf-url = {
     #   flake = false;
     #   url = "github:wfxr/tmux-fzf-url";
@@ -239,6 +235,10 @@
     #   inputs.nixpkgs.follows = "unstable";
     #   url = "github:omerxx/tmux-sessionx";
     # };
+    tmux-cheat-sh = {
+      flake = false;
+      url = "github:ironman820/tmux-cheat-sh";
+    };
     tochd = {
       flake = false;
       url = "github:thingsiplay/tochd";

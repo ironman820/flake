@@ -1,24 +1,20 @@
 {
+  cell,
   config,
-  lib,
-  ...
+  inputs,
 }: let
-  inherit (lib) mkEnableOption mkIf;
-  cfg = config.mine.gui-apps.winbox;
+  inherit (inputs) nixpkgs;
+  inherit (inputs.cells) mine;
+  c = config.networking.firewall;
+  l = nixpkgs.lib // mine.lib // builtins;
 in {
-  options.mine.gui-apps.winbox = {
-    enable = mkEnableOption "Enable the default settings?";
-  };
-
-  config = mkIf cfg.enable {
-    networking.firewall = mkIf config.mine.networking.basic.firewall {
-      allowedTCPPorts = [
-        8291
-      ];
-      allowedUDPPorts = [
-        5678
-        20561
-      ];
-    };
+  networking.firewall = l.mkIf c.enable {
+    allowedTCPPorts = [
+      8291
+    ];
+    allowedUDPPorts = [
+      5678
+      20561
+    ];
   };
 }

@@ -1,32 +1,30 @@
+############################################################################################################################
+#                                               ! IMPORTANT !                                                              #
+# In its current implimentation, you need to enable podman and ensure the ubuntu container is created to use this package! #
+############################################################################################################################
 {
-  lib,
+  cell,
   config,
-  ...
+  inputs,
 }: let
-  inherit (lib) mkEnableOption mkIf;
-  inherit (lib.mine) enabled;
-
-  cfg = config.mine.home.gui-apps.glocom;
+  inherit (inputs) nixpkgs;
+  inherit (inputs.cells) mine;
+  l = nixpkgs.lib // mine.lib // builtins;
+  v = config.vars;
 in {
-  options.mine.home.gui-apps.glocom = {
-    enable = mkEnableOption "Enable the module";
+  vars = l.mkIf (v ? "hyprland") {
+    hyprland.windowrule = [
+      "workspace 8,^(gloCOM)$"
+    ];
   };
-  config = mkIf cfg.enable {
-    mine.home = {
-      de.hyprland.windowrule = [
-        "workspace 8,^(gloCOM)$"
-      ];
-      virtual.podman = enabled;
-    };
-    xdg.dataFile."applications/gloCOM.desktop".text = ''
-      [Desktop Entry]
-      Version=1.0
-      Encoding=UTF-8
-      Name=gloCOM (on ubuntu)
-      Type=Application
-      Exec=distrobox enter -n ubuntu -- /usr/bin/env bash -c /opt/gloCOM/bin/glocom %u
-      Icon=~/.local/share/icons/glocom.png
-    '';
-    xdg.dataFile."icons/glocom.png".source = ./logo.png;
-  };
+  xdg.dataFile."applications/gloCOM.desktop".text = ''
+    [Desktop Entry]
+    Version=1.0
+    Encoding=UTF-8
+    Name=gloCOM (on ubuntu)
+    Type=Application
+    Exec=distrobox enter -n ubuntu -- /usr/bin/env bash -c /opt/gloCOM/bin/glocom %u
+    Icon=~/.local/share/icons/glocom.png
+  '';
+  xdg.dataFile."icons/glocom.png".source = ./logo.png;
 }

@@ -1,35 +1,25 @@
 {
+  cell,
   config,
   inputs,
-  lib,
   pkgs,
-  ...
 }: let
-  inherit (builtins) ceil toString;
-  inherit (lib) mkEnableOption mkIf;
-  inherit (lib.mine) mkBoolOpt mkOpt;
-  inherit (lib.types) int;
-  inherit (config.mine.home.user.settings.applications) terminal;
-
-  cfg = config.mine.home.waybar;
-  imp = config.mine.home.impermanence.enable;
-  multiplier = cfg.resolution / 2160.0;
-  resolution_multiplier =
-    if multiplier < 0.5
-    then multiplier * 2
-    else multiplier;
+  inherit (inputs) nixpkgs;
+  inherit (inputs.cells) mine;
+  inherit (config.vars.applications) terminal;
+  c = config.vars.waybar;
+  l = nixpkgs.lib // mine.lib // builtins;
+  multiplier = c.resolution / 2160.0;
+  resolution_multiplier = l.ifThenElse (multiplier < 0.5) (multiplier * 2) multiplier;
+  t = l.types;
 in {
-  options.mine.home.waybar = {
-    enable = mkEnableOption "Enable the module";
-    resolution = mkOpt int 2160 "Screen height";
-    systemd = mkBoolOpt true "Start Waybar with Systemd";
+  options.vars.waybar = {
+    resolution = l.mkOpt t.int 2160 "Screen height";
+    systemd = l.mkBoolOpt true "Start Waybar with Systemd";
   };
-  config = mkIf cfg.enable {
-    home.persistence."/persist/home".directories = mkIf imp [
-      ".cache/mesa_shader_cache"
-    ];
+  config = {
     programs.waybar = {
-      inherit (cfg) enable;
+      enable = true;
       package = inputs.waybar.packages.${pkgs.system}.waybar;
       settings = {
         mainBar = {
@@ -77,7 +67,7 @@ in {
           };
           "wlr/taskbar" = {
             format = "{icon}";
-            icon-size = ceil (18 * resolution_multiplier);
+            icon-size = l.ceil (18 * resolution_multiplier);
             tooltip-format = "{title}";
             on-click = "activate";
             on-click-middle = "close";
@@ -152,8 +142,8 @@ in {
             };
           };
           "tray" = {
-            icon-size = ceil (21 * resolution_multiplier);
-            spacing = ceil (10 * resolution_multiplier);
+            icon-size = l.ceil (21 * resolution_multiplier);
+            spacing = l.ceil (10 * resolution_multiplier);
           };
           "clock" = {
             timezone = "America/Chicago";
@@ -307,21 +297,21 @@ in {
 
         #workspaces {
             background: @workspacesbackground1;
-            margin: ${toString (ceil (5 * resolution_multiplier))}px ${toString (ceil (1 * resolution_multiplier))}px ${toString (ceil (6 * resolution_multiplier))}px ${toString (ceil (1 * resolution_multiplier))}px;
-            padding: 0px ${toString (ceil (1 * resolution_multiplier))}px;
-            border-radius: ${toString (ceil (15 * resolution_multiplier))}px;
+            margin: ${toString (l.ceil (5 * resolution_multiplier))}px ${toString (l.ceil (1 * resolution_multiplier))}px ${toString (l.ceil (6 * resolution_multiplier))}px ${toString (l.ceil (1 * resolution_multiplier))}px;
+            padding: 0px ${toString (l.ceil (1 * resolution_multiplier))}px;
+            border-radius: ${toString (l.ceil (15 * resolution_multiplier))}px;
             border: 0px;
             font-weight: bold;
             font-style: normal;
             opacity: 0.8;
-            font-size: ${toString (ceil (16 * resolution_multiplier))}px;
+            font-size: ${toString (l.ceil (16 * resolution_multiplier))}px;
             color: @textcolor1;
         }
 
         #workspaces button {
-            padding: 0px ${toString (ceil (5 * resolution_multiplier))}px;
-            margin: ${toString (ceil (4 * resolution_multiplier))}px ${toString (ceil (3 * resolution_multiplier))}px;
-            border-radius: ${toString (ceil (15 * resolution_multiplier))}px;
+            padding: 0px ${toString (l.ceil (5 * resolution_multiplier))}px;
+            margin: ${toString (l.ceil (4 * resolution_multiplier))}px ${toString (l.ceil (3 * resolution_multiplier))}px;
+            border-radius: ${toString (l.ceil (15 * resolution_multiplier))}px;
             border: 0px;
             color: @textcolor1;
             background-color: @workspacesbackground2;
@@ -332,8 +322,8 @@ in {
         #workspaces button.active {
             color: @textcolor1;
             background: @workspacesbackground2;
-            border-radius: ${toString (ceil (15 * resolution_multiplier))}px;
-            min-width: ${toString (ceil (40 * resolution_multiplier))}px;
+            border-radius: ${toString (l.ceil (15 * resolution_multiplier))}px;
+            min-width: ${toString (l.ceil (40 * resolution_multiplier))}px;
             transition: all 0.3s ease-in-out;
             opacity:1.0;
         }
@@ -341,7 +331,7 @@ in {
         #workspaces button:hover {
             color: @textcolor1;
             background: @workspacesbackground2;
-            border-radius: ${toString (ceil (15 * resolution_multiplier))}px;
+            border-radius: ${toString (l.ceil (15 * resolution_multiplier))}px;
             opacity:0.7;
         }
 
@@ -350,10 +340,10 @@ in {
          * ----------------------------------------------------- */
 
         tooltip {
-            border-radius: ${toString (ceil (10 * resolution_multiplier))}px;
+            border-radius: ${toString (l.ceil (10 * resolution_multiplier))}px;
             background-color: @backgroundlight;
             opacity:0.8;
-            padding:${toString (ceil (20 * resolution_multiplier))}px;
+            padding:${toString (l.ceil (20 * resolution_multiplier))}px;
             margin:0px;
         }
 
@@ -367,11 +357,11 @@ in {
 
         #window {
             background: @backgroundlight;
-            margin: ${toString (ceil (8 * resolution_multiplier))}px ${toString (ceil (15 * resolution_multiplier))}px ${toString (ceil (8 * resolution_multiplier))}px 0px;
-            padding: ${toString (ceil (2 * resolution_multiplier))}px ${toString (ceil (10 * resolution_multiplier))}px 0px ${toString (ceil (10 * resolution_multiplier))}px;
-            border-radius: ${toString (ceil (12 * resolution_multiplier))}px;
+            margin: ${toString (l.ceil (8 * resolution_multiplier))}px ${toString (l.ceil (15 * resolution_multiplier))}px ${toString (l.ceil (8 * resolution_multiplier))}px 0px;
+            padding: ${toString (l.ceil (2 * resolution_multiplier))}px ${toString (l.ceil (10 * resolution_multiplier))}px 0px ${toString (l.ceil (10 * resolution_multiplier))}px;
+            border-radius: ${toString (l.ceil (12 * resolution_multiplier))}px;
             color:@textcolor2;
-            font-size:${toString (ceil (16 * resolution_multiplier))}px;
+            font-size:${toString (l.ceil (16 * resolution_multiplier))}px;
             font-weight:normal;
             opacity:0.8;
         }
@@ -386,19 +376,19 @@ in {
 
         #taskbar {
             background: @backgroundlight;
-            margin: ${toString (ceil (6 * resolution_multiplier))}px ${toString (ceil (15 * resolution_multiplier))}px ${toString (ceil (6 * resolution_multiplier))}px 0px;
+            margin: ${toString (l.ceil (6 * resolution_multiplier))}px ${toString (l.ceil (15 * resolution_multiplier))}px ${toString (l.ceil (6 * resolution_multiplier))}px 0px;
             padding:0px;
-            border-radius: ${toString (ceil (15 * resolution_multiplier))}px;
+            border-radius: ${toString (l.ceil (15 * resolution_multiplier))}px;
             font-weight: normal;
             font-style: normal;
             opacity:0.8;
-            border: ${toString (ceil (3 * resolution_multiplier))}px solid @backgroundlight;
+            border: ${toString (l.ceil (3 * resolution_multiplier))}px solid @backgroundlight;
         }
 
         #taskbar button {
             margin:0;
-            border-radius: ${toString (ceil (15 * resolution_multiplier))}px;
-            padding: 0px ${toString (ceil (5 * resolution_multiplier))}px 0px ${toString (ceil (5 * resolution_multiplier))}px;
+            border-radius: ${toString (l.ceil (15 * resolution_multiplier))}px;
+            padding: 0px ${toString (l.ceil (5 * resolution_multiplier))}px 0px ${toString (l.ceil (5 * resolution_multiplier))}px;
         }
 
         /* -----------------------------------------------------
@@ -434,23 +424,23 @@ in {
         #custom-system,
         #custom-waybarthemes,
         #keyboard-state {
-            margin-right: ${toString (ceil (23 * resolution_multiplier))}px;
-            font-size: ${toString (ceil (20 * resolution_multiplier))}px;
+            margin-right: ${toString (l.ceil (23 * resolution_multiplier))}px;
+            font-size: ${toString (l.ceil (20 * resolution_multiplier))}px;
             font-weight: bold;
             opacity: 0.8;
             color: @iconcolor;
         }
 
         #custom-system {
-            margin-right:${toString (ceil (15 * resolution_multiplier))}px;
+            margin-right:${toString (l.ceil (15 * resolution_multiplier))}px;
         }
 
         #custom-wallpaper {
-            margin-right:${toString (ceil (25 * resolution_multiplier))}px;
+            margin-right:${toString (l.ceil (25 * resolution_multiplier))}px;
         }
 
         #custom-waybarthemes, #custom-settings {
-            margin-right:${toString (ceil (20 * resolution_multiplier))}px;
+            margin-right:${toString (l.ceil (20 * resolution_multiplier))}px;
         }
 
         /* -----------------------------------------------------
@@ -458,16 +448,16 @@ in {
          * ----------------------------------------------------- */
 
         #idle_inhibitor {
-            margin-right: ${toString (ceil (17 * resolution_multiplier))}px;
-            font-size: ${toString (ceil (20 * resolution_multiplier))}px;
+            margin-right: ${toString (l.ceil (17 * resolution_multiplier))}px;
+            font-size: ${toString (l.ceil (20 * resolution_multiplier))}px;
             font-weight: bold;
             opacity: 0.8;
             color: @iconcolor;
         }
 
         #idle_inhibitor.activated {
-            margin-right: ${toString (ceil (15 * resolution_multiplier))}px;
-            font-size: ${toString (ceil (20 * resolution_multiplier))}px;
+            margin-right: ${toString (l.ceil (15 * resolution_multiplier))}px;
+            font-size: ${toString (l.ceil (20 * resolution_multiplier))}px;
             font-weight: bold;
             opacity: 0.8;
             color: #dc2f2f;
@@ -479,13 +469,13 @@ in {
 
         #custom-appmenu, #custom-appmenuwlr {
             background-color: @backgrounddark;
-            font-size: ${toString (ceil (16 * resolution_multiplier))}px;
+            font-size: ${toString (l.ceil (16 * resolution_multiplier))}px;
             color: @textcolor1;
-            border-radius: ${toString (ceil (15 * resolution_multiplier))}px;
-            padding: 0px ${toString (ceil (10 * resolution_multiplier))}px 0px ${toString (ceil (10 * resolution_multiplier))}px;
-            margin: ${toString (ceil (8 * resolution_multiplier))}px ${toString (ceil (14 * resolution_multiplier))}px ${toString (ceil (8 * resolution_multiplier))}px ${toString (ceil (14 * resolution_multiplier))}px;
+            border-radius: ${toString (l.ceil (15 * resolution_multiplier))}px;
+            padding: 0px ${toString (l.ceil (10 * resolution_multiplier))}px 0px ${toString (l.ceil (10 * resolution_multiplier))}px;
+            margin: ${toString (l.ceil (8 * resolution_multiplier))}px ${toString (l.ceil (14 * resolution_multiplier))}px ${toString (l.ceil (8 * resolution_multiplier))}px ${toString (l.ceil (14 * resolution_multiplier))}px;
             opacity:0.8;
-            border:${toString (ceil (3 * resolution_multiplier))}px solid @bordercolor;
+            border:${toString (l.ceil (3 * resolution_multiplier))}px solid @bordercolor;
         }
 
         /* -----------------------------------------------------
@@ -493,9 +483,9 @@ in {
          * ----------------------------------------------------- */
 
         #custom-exit {
-            margin: 0px ${toString (ceil (20 * resolution_multiplier))}px 0px 0px;
+            margin: 0px ${toString (l.ceil (20 * resolution_multiplier))}px 0px 0px;
             padding:0px;
-            font-size:${toString (ceil (20 * resolution_multiplier))}px;
+            font-size:${toString (l.ceil (20 * resolution_multiplier))}px;
             color: @iconcolor;
         }
 
@@ -505,12 +495,12 @@ in {
 
         #disk,#memory,#cpu,#language {
             margin:0px;
-            font-size:${toString (ceil (16 * resolution_multiplier))}px;
+            font-size:${toString (l.ceil (16 * resolution_multiplier))}px;
             color:@iconcolor;
         }
 
         #language {
-            margin-right:${toString (ceil (10 * resolution_multiplier))}px;
+            margin-right:${toString (l.ceil (10 * resolution_multiplier))}px;
         }
 
         /* -----------------------------------------------------
@@ -519,13 +509,13 @@ in {
 
         #clock {
             background-color: @backgrounddark;
-            font-size: ${toString (ceil (16 * resolution_multiplier))}px;
+            font-size: ${toString (l.ceil (16 * resolution_multiplier))}px;
             color: @textcolor1;
-            border-radius: ${toString (ceil (15 * resolution_multiplier))}px;
-            padding: ${toString (ceil (1 * resolution_multiplier))}px ${toString (ceil (10 * resolution_multiplier))}px 0px ${toString (ceil (10 * resolution_multiplier))}px;
-            margin: ${toString (ceil (8 * resolution_multiplier))}px ${toString (ceil (15 * resolution_multiplier))}px ${toString (ceil (8 * resolution_multiplier))}px 0px;
+            border-radius: ${toString (l.ceil (15 * resolution_multiplier))}px;
+            padding: ${toString (l.ceil (1 * resolution_multiplier))}px ${toString (l.ceil (10 * resolution_multiplier))}px 0px ${toString (l.ceil (10 * resolution_multiplier))}px;
+            margin: ${toString (l.ceil (8 * resolution_multiplier))}px ${toString (l.ceil (15 * resolution_multiplier))}px ${toString (l.ceil (8 * resolution_multiplier))}px 0px;
             opacity:0.8;
-            border:${toString (ceil (3 * resolution_multiplier))}px solid @bordercolor;
+            border:${toString (l.ceil (3 * resolution_multiplier))}px solid @bordercolor;
         }
 
         /* -----------------------------------------------------
@@ -534,11 +524,11 @@ in {
 
         #pulseaudio {
             background-color: @backgrounddark;
-            font-size: ${toString (ceil (16 * resolution_multiplier))}px;
+            font-size: ${toString (l.ceil (16 * resolution_multiplier))}px;
             color: @textcolor2;
-            border-radius: ${toString (ceil (15 * resolution_multiplier))}px;
-            padding: ${toString (ceil (2 * resolution_multiplier))}px ${toString (ceil (10 * resolution_multiplier))}px 0px ${toString (ceil (10 * resolution_multiplier))}px;
-            margin: ${toString (ceil (8 * resolution_multiplier))}px ${toString (ceil (15 * resolution_multiplier))}px ${toString (ceil (8 * resolution_multiplier))}px 0px;
+            border-radius: ${toString (l.ceil (15 * resolution_multiplier))}px;
+            padding: ${toString (l.ceil (2 * resolution_multiplier))}px ${toString (l.ceil (10 * resolution_multiplier))}px 0px ${toString (l.ceil (10 * resolution_multiplier))}px;
+            margin: ${toString (l.ceil (8 * resolution_multiplier))}px ${toString (l.ceil (15 * resolution_multiplier))}px ${toString (l.ceil (8 * resolution_multiplier))}px 0px;
             opacity:0.8;
         }
 
@@ -553,11 +543,11 @@ in {
 
         #network {
             background-color: @backgroundlight;
-            font-size: ${toString (ceil (16 * resolution_multiplier))}px;
+            font-size: ${toString (l.ceil (16 * resolution_multiplier))}px;
             color: @textcolor2;
-            border-radius: ${toString (ceil (15 * resolution_multiplier))}px;
-            padding: ${toString (ceil (2 * resolution_multiplier))}px ${toString (ceil (10 * resolution_multiplier))}px 0px ${toString (ceil (10 * resolution_multiplier))}px;
-            margin: ${toString (ceil (8 * resolution_multiplier))}px ${toString (ceil (15 * resolution_multiplier))}px ${toString (ceil (8 * resolution_multiplier))}px 0px;
+            border-radius: ${toString (l.ceil (15 * resolution_multiplier))}px;
+            padding: ${toString (l.ceil (2 * resolution_multiplier))}px ${toString (l.ceil (10 * resolution_multiplier))}px 0px ${toString (l.ceil (10 * resolution_multiplier))}px;
+            margin: ${toString (l.ceil (8 * resolution_multiplier))}px ${toString (l.ceil (15 * resolution_multiplier))}px ${toString (l.ceil (8 * resolution_multiplier))}px 0px;
             opacity:0.8;
         }
 
@@ -577,11 +567,11 @@ in {
 
         #bluetooth, #bluetooth.on, #bluetooth.connected {
             background-color: @backgroundlight;
-            font-size: ${toString (ceil (16 * resolution_multiplier))}px;
+            font-size: ${toString (l.ceil (16 * resolution_multiplier))}px;
             color: @textcolor2;
-            border-radius: ${toString (ceil (15 * resolution_multiplier))}px;
-            padding: ${toString (ceil (2 * resolution_multiplier))}px ${toString (ceil (10 * resolution_multiplier))}px 0px ${toString (ceil (10 * resolution_multiplier))}px;
-            margin: ${toString (ceil (8 * resolution_multiplier))}px ${toString (ceil (15 * resolution_multiplier))}px ${toString (ceil (8 * resolution_multiplier))}px 0px;
+            border-radius: ${toString (l.ceil (15 * resolution_multiplier))}px;
+            padding: ${toString (l.ceil (2 * resolution_multiplier))}px ${toString (l.ceil (10 * resolution_multiplier))}px 0px ${toString (l.ceil (10 * resolution_multiplier))}px;
+            margin: ${toString (l.ceil (8 * resolution_multiplier))}px ${toString (l.ceil (15 * resolution_multiplier))}px ${toString (l.ceil (8 * resolution_multiplier))}px 0px;
             opacity:0.8;
         }
 
@@ -597,11 +587,11 @@ in {
 
         #battery {
             background-color: @backgroundlight;
-            font-size: ${toString (ceil (16 * resolution_multiplier))}px;
+            font-size: ${toString (l.ceil (16 * resolution_multiplier))}px;
             color: @textcolor2;
-            border-radius: ${toString (ceil (15 * resolution_multiplier))}px;
-            padding: ${toString (ceil (2 * resolution_multiplier))}px ${toString (ceil (10 * resolution_multiplier))}px 0px ${toString (ceil (10 * resolution_multiplier))}px;
-            margin: ${toString (ceil (8 * resolution_multiplier))}px ${toString (ceil (15 * resolution_multiplier))}px ${toString (ceil (8 * resolution_multiplier))}px 0px;
+            border-radius: ${toString (l.ceil (15 * resolution_multiplier))}px;
+            padding: ${toString (l.ceil (2 * resolution_multiplier))}px ${toString (l.ceil (10 * resolution_multiplier))}px 0px ${toString (l.ceil (10 * resolution_multiplier))}px;
+            margin: ${toString (l.ceil (8 * resolution_multiplier))}px ${toString (l.ceil (15 * resolution_multiplier))}px ${toString (l.ceil (8 * resolution_multiplier))}px 0px;
             opacity:0.8;
         }
 
@@ -632,7 +622,7 @@ in {
          * ----------------------------------------------------- */
 
         #tray {
-            padding: 0px ${toString (ceil (15 * resolution_multiplier))}px 0px 0px;
+            padding: 0px ${toString (l.ceil (15 * resolution_multiplier))}px 0px 0px;
             color: @textcolor3;
         }
 
@@ -647,7 +637,7 @@ in {
 
       '';
       systemd = {
-        enable = cfg.systemd;
+        enable = c.systemd;
         target = "hyprland-session.target";
       };
     };

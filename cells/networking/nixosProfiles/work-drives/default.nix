@@ -2,7 +2,6 @@
   cell,
   config,
   inputs,
-  ...
 }: let
   sopsFile = ./__secrets/work.yml;
 in {

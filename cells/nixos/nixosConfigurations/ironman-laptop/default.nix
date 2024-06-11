@@ -2,17 +2,17 @@
   cell,
   config,
   inputs,
-  ...
 }: let
-  inherit (cell) nixosSuites;
-  inherit (inputs) haumea nixpkgs;
+  inherit (cell) nixosProfiles nixosSuites;
+  inherit (inputs) nixos-hardware nixpkgs;
   inherit (inputs.cells) mine;
-  inherit (inputs.cells.home) homeProfiles homeSuites;
   inherit (inputs.cells.mine) packages;
-  l = nixpkgs.lib // haumea.lib // mine.lib // builtins;
+  h = nixos-hardware.nixosModules;
+  l = nixpkgs.lib // mine.lib // builtins;
   networking = inputs.cells.networking.nixosProfiles;
   profiles = [
     networking.personal-drives
+    nixosProfiles.android
   ];
   suites = nixosSuites.laptop';
   v = config.vars;
@@ -21,23 +21,20 @@ in {
     [
       cell.bee
       cell.hardwareProfiles.ironman-laptop
+      h.common-cpu-intel
+      h.common-pc-ssd
     ]
     profiles
     suites
   ];
-  # [
-  #   hyprland.nixosModules.default
-  #   (cell.nixosModules.home homeModules)
-  #   cell.nixosModules.default
-  #   {system.stateVersion = stateVersion;}
-  # ]
-  # ++ nixosModules;
 
   home-manager.users.${v.username} = {
     imports = let
-      gui-apps = inputs.cells.gui-apps.homeProfiles;
-      profiles = with homeProfiles; [
-        gui-apps.hexchat
+      inherit (inputs.cells) gui-apps tui;
+      inherit (inputs.cells.home) homeProfiles homeSuites;
+      h = homeProfiles // tui.homeProfiles // gui-apps.homeProfiles;
+      profiles = with h; [
+        hexchat
         personal-email
       ];
       suites = homeSuites.laptop';
@@ -51,28 +48,20 @@ in {
       packages.tochd
     ];
     vars = {
-      stylix = {
-        inherit (config.vars.stylix) image;
-        fonts = {
-          terminalSize = 10.0;
-          waybarSize = 12;
-        };
+      inherit (config.vars) wallpaper;
+      fonts = {
+        terminalSize = 10.0;
+        waybarSize = 12;
       };
-      transparancy.terminalOpacity = 0.85;
+      transparency.terminalOpacity = 0.85;
+      waybar.resolution = 768;
     };
-    waybar.resolution = 768;
   };
   networking.hostName = "ironman-laptop";
-  #   # mine = {
-  #   #   android = enabled;
-  #   #   user.settings.stylix.image = ./ffvii.jpg;
-  #   #   networking.profiles.work = true;
-  #   # };
-  #   # environment.systemPackages = [
-  #   #   pkgs.devenv
-  #   # ];
-  #   services.tlp.settings.RUNTIME_PM_DISABLE = "02:00.0";
-  #   zramSwap = l.enabled;
-  # };
-  vars.stylix.image = ./__ffvii.jpg;
+  services.tlp.settings.RUNTIME_PM_DISABLE = "02:00.0";
+  vars = {
+    networking.profiles.work = true;
+    wallpaper = ./__ffvii.jpg;
+  };
+  zramSwap = l.enabled;
 }

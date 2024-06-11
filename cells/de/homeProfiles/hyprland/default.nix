@@ -3,6 +3,7 @@
   config,
   inputs,
   options,
+  pkgs,
 }: let
   inherit (inputs) nixpkgs;
   inherit (inputs.cells) mine;
@@ -12,11 +13,10 @@
   t = l.types;
   tr = v.transparency;
   v = config.vars;
-  s = v.stylix;
 in {
   options.vars.hyprland = {
     primaryScale = l.mkOpt t.str "1" "Scaling factor for the primary monitor";
-    wallpaper = l.mkOpt (t.either t.path t.str) s.image "Wallpaper to load with hyprpaper";
+    wallpaper = l.mkOpt (t.either t.path t.str) v.wallpaper "Wallpaper to load with hyprpaper";
     windowrule = l.mkOpt (t.listOf t.str) [] "V1 windowrules";
     windowrulev2 = l.mkOpt (t.listOf t.str) [] "V2 windowrules";
   };
@@ -213,7 +213,7 @@ in {
         exec-once = [
           "hyprpaper"
           "nm-applet"
-          "${nixpkgs.polkit_gnome}/libexec/polkit-gnome-authentication-agent-1"
+          "${pkgs.polkit_gnome}/libexec/polkit-gnome-authentication-agent-1"
           "wl-paste --watch cliphist store"
         ];
         general = {
@@ -274,7 +274,7 @@ in {
       '';
       "hypr/keybindings.sh" = {
         executable = true;
-        source = nixpkgs.writeShellScript "keybindings.sh" ''
+        source = pkgs.writeShellScript "keybindings.sh" ''
           #  _              _     _           _ _
           # | | _____ _   _| |__ (_)_ __   __| (_)_ __   __ _ ___
           # | |/ / _ \ | | | '_ \| | '_ \ / _` | | '_ \ / _` / __|
@@ -321,7 +321,7 @@ in {
         ];
       "hypr/screenshot.sh" = {
         executable = true;
-        source = nixpkgs.writeShellScript "screenshot.sh" ''
+        source = pkgs.writeShellScript "screenshot.sh" ''
           #  ____                               _           _
           # / ___|  ___ _ __ ___  ___ _ __  ___| |__   ___ | |_
           # \___ \ / __| '__/ _ \/ _ \ '_ \/ __| '_ \ / _ \| __|
@@ -340,16 +340,16 @@ in {
 
           options="$option2\n$option3"
 
-          choice=$(echo -e "$options" | ${nixpkgs.rofi}/bin/rofi -dmenu -replace -config ~/.config/rofi/config-screenshot.rasi -i -no-show-icons -l 2 -width 30 -p "Take Screenshot")
+          choice=$(echo -e "$options" | ${pkgs.rofi}/bin/rofi -dmenu -replace -config ~/.config/rofi/config-screenshot.rasi -i -no-show-icons -l 2 -width 30 -p "Take Screenshot")
 
           case $choice in
               $option2)
-                  ${nixpkgs.grim}/bin/grim -g "$(${nixpkgs.slurp}/bin/slurp)" - | ${nixpkgs.swappy}/bin/swappy -f -
+                  ${pkgs.grim}/bin/grim -g "$(${pkgs.slurp}/bin/slurp)" - | ${pkgs.swappy}/bin/swappy -f -
                   notify-send "Screenshot created" "Mode: Selected area"
               ;;
               $option3)
                   sleep 3
-                  ${nixpkgs.grim}/bin/grim - | ${nixpkgs.swappy}/bin/swappy -f -
+                  ${pkgs.grim}/bin/grim - | ${pkgs.swappy}/bin/swappy -f -
                   notify-send "Screenshot created" "Mode: Fullscreen"
               ;;
           esac
@@ -363,9 +363,9 @@ in {
       };
       "hypr/wallpaper.sh" = {
         executable = true;
-        source = nixpkgs.writeShellScript "wallpaper.sh" ''
+        source = pkgs.writeShellScript "wallpaper.sh" ''
           pkill hyprpaper
-          ${nixpkgs.hyprpaper}/bin/hyprpaper
+          ${pkgs.hyprpaper}/bin/hyprpaper
         '';
       };
     };

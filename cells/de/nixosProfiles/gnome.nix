@@ -1,60 +1,53 @@
 {
-  config,
-  lib,
+  cell,
+  inputs,
   pkgs,
-  ...
 }: let
-  inherit (lib) mkEnableOption mkIf;
-  inherit (lib.mine) enabled;
-  cfg = config.mine.de.gnome;
+  inherit (inputs) nixpkgs;
+  inherit (inputs.cells) mine;
+  l = nixpkgs.lib // mine.lib // builtins;
 in {
-  options.mine.de.gnome = {
-    enable = mkEnableOption "Enable the default settings?";
+  mine.gpg.pinentryFlavor = "gnome3";
+  environment = {
+    gnome.excludePackages =
+      (with pkgs; [
+        gnome-tour
+        gnome-photos
+      ])
+      ++ (with pkgs.gnome; [
+        cheese
+        gnome-maps
+        gnome-software
+      ]);
+    systemPackages =
+      [pkgs.gnome-extension-manager]
+      ++ (with pkgs.gnome; [
+        gnome-tweaks
+        seahorse
+      ])
+      ++ (with pkgs.gnomeExtensions; [
+        appindicator
+        caffeine
+        compact-top-bar
+        lock-keys
+        no-overview
+        pano
+        power-profile-switcher
+        syncthing-indicator
+        tactile
+        weather-oclock
+      ]);
   };
-
-  config = mkIf cfg.enable {
-    mine.gpg.pinentryFlavor = "gnome3";
-    environment = {
-      gnome.excludePackages =
-        (with pkgs; [
-          gnome-tour
-          gnome-photos
-        ])
-        ++ (with pkgs.gnome; [
-          cheese
-          gnome-maps
-          gnome-software
-        ]);
-      systemPackages =
-        [pkgs.gnome-extension-manager]
-        ++ (with pkgs.gnome; [
-          gnome-tweaks
-          seahorse
-        ])
-        ++ (with pkgs.gnomeExtensions; [
-          appindicator
-          caffeine
-          compact-top-bar
-          lock-keys
-          no-overview
-          pano
-          power-profile-switcher
-          syncthing-indicator
-          tactile
-          weather-oclock
-        ]);
-    };
-    services = {
-      gnome.gnome-keyring = enabled;
-      udev.packages = with pkgs.gnome; [gnome-settings-daemon];
-      xserver = {
-        desktopManager.gnome = enabled;
-        # displayManager = {
-        #   gdm = enabled;
-        # };
-        enable = true;
-        xkb.layout = "us";
-      };
+  services = {
+    gnome.gnome-keyring = l.enabled;
+    udev.packages = with pkgs.gnome; [gnome-settings-daemon];
+    xserver = {
+      desktopManager.gnome = l.enabled;
+      # displayManager = {
+      #   gdm = enabled;
+      # };
+      enable = true;
+      xkb.layout = "us";
     };
   };
 }

@@ -2,6 +2,7 @@
   cell,
   config,
   inputs,
+  pkgs,
 }: let
   inherit (inputs) nixpkgs;
   inherit (inputs.cells) mine;
@@ -9,7 +10,7 @@
   s = config.sops.secrets;
   v = config.vars;
 in {
-  environment.systemPackages = with nixpkgs; [
+  environment.systemPackages = with pkgs; [
     cifs-utils
     enum4linux
     suidChroot

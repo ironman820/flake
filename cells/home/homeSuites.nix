@@ -2,25 +2,26 @@
   cell,
   inputs,
 }: let
-  inherit (inputs) nixpkgs sops-nix stylix;
-  inherit (inputs.cells) mine;
-  d = inputs.cells.de.homeProfiles;
+  inherit (inputs) nixpkgs sops-nix;
+  inherit (inputs.cells) de gui-apps hardware mine servers tui;
   g = inputs.cells.gui-apps.homeProfiles;
-  h = cell.homeProfiles // mine.homeProfiles;
-  hw = inputs.cells.hardware.homeProfiles;
+  h = cell.homeProfiles // de.homeProfiles // gui-apps.homeProfiles // hardware.homeProfiles // mine.homeProfiles // servers.homeProfiles // tui.homeProfiles;
   l = nixpkgs.lib // mine.lib // builtins;
   s = inputs.cells.ssh.homeProfiles;
-  sr = inputs.cells.servers.homeProfiles;
   v = inputs.cells.virtual.homeProfiles;
 in rec {
   base = with h; [
-    h.stylix
     sops
     s.auth-keys
     sops-nix.homeManagerModules.sops
-    stylix.homeManagerModules.stylix
     vars
-    {home.stateVersion = "23.05";}
+    {
+      home.stateVersion = "23.05";
+      xdg.userDirs = {
+        enable = true;
+        createDirectories = true;
+      };
+    }
   ];
   laptop' = l.concatLists [
     workstation
@@ -37,11 +38,14 @@ in rec {
       h.dunst
       h.rofi
       h.video-tools
-      hw.yubikey
-      d.hyprland
+      h.yubikey
+      h.hyprland
+      h.wlogout
       s.config
-      sr.sync
+      h.sync
+      h.waybar
       v.host
+      {xdg = l.enabled;}
     ]
   ];
 }

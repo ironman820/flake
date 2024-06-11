@@ -2,26 +2,26 @@
   cell,
   config,
   inputs,
-  lib,
   options,
+  pkgs,
 }: let
   inherit (inputs) nixpkgs;
   inherit (inputs.cells) mine;
   l = nixpkgs.lib // mine.lib // builtins;
   ll = l.lists;
   # ls = l.strings;
-  lt = l.types;
+  t = l.types;
 
   autoMaster = l.concatStringsSep "\n" (
-    ll.flatten (l.mkAliasDefinitions options.mine.networking.autofs.shares).content.contents
+    ll.flatten (l.mkAliasDefinitions options.vars.autofs.shares).content.contents
   );
 in {
-  options.mine.networking.autofs = {
-    shares = l.mkOpt (lt.listOf lt.str) [] "List of shares to add to the autoMaster list";
+  options.vars.autofs = {
+    shares = l.mkOpt (t.listOf t.str) [] "List of shares to add to the autoMaster list";
   };
 
   config = {
-    environment.systemPackages = with nixpkgs; [
+    environment.systemPackages = with pkgs; [
       curlftpfs
       fuse
     ];

@@ -2,6 +2,7 @@
   cell,
   config,
   inputs,
+  pkgs,
 }: let
   inherit (inputs) nixpkgs;
   inherit (inputs.cells) mine;
@@ -15,10 +16,10 @@ in {
   config = {
     home.packages = l.mkMerge [
       [
-        nixpkgs.ffmpeg
+        pkgs.ffmpeg
       ]
       (l.mkIf c.handbrake [
-        nixpkgs.handbrake
+        pkgs.handbrake
       ])
     ];
   };

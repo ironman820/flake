@@ -12,7 +12,6 @@ in {
     enable = mkEnableOption "Enable the module";
   };
   config = mkIf cfg.enable {
-    mine.tui.imapfilter.enable = true;
     environment.systemPackages = with pkgs; [
       abook
       cacert
@@ -20,6 +19,7 @@ in {
       fim
       gettext
       isync
+      imapfilter
       khal
       lieer
       lynx

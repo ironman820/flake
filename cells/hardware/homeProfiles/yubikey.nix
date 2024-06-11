@@ -1,11 +1,10 @@
 {
   cell,
   inputs,
-}: let
-  inherit (inputs) nixpkgs;
-in {
-  home.packages = with nixpkgs; [
-    yubioath-flutter
+  pkgs,
+}: {
+  home.packages = [
+    pkgs.yubioath-flutter
   ];
   programs.gpg = {
     scdaemonSettings = {

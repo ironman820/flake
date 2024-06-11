@@ -227,13 +227,13 @@
       url = "github:Mic92/sops-nix";
     };
     std.follows = "hive/std";
-    # tmux-fzf-url = {
-    #   flake = false;
-    #   url = "github:wfxr/tmux-fzf-url";
-    # };
     tmux-cheat-sh = {
       flake = false;
       url = "github:ironman820/tmux-cheat-sh";
+    };
+    tmux-fzf-url = {
+      flake = false;
+      url = "github:wfxr/tmux-fzf-url";
     };
     tmux-sessionx = {
       inputs.nixpkgs.follows = "nixpkgs";

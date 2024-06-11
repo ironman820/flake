@@ -9,7 +9,7 @@
   ];
   xdg.configFile."swappy/config".text = ''
     [Default]
-    save_dir=${config.xdg.homeFolder}/Pictures/01-Screenshots
+    save_dir=${config.home.homeDirectory}/Pictures/01-Screenshots
     save_filename_format=screenshot-%Y%m%d-%H%M%S.png
     show_panel=false
     line_size=5

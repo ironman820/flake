@@ -135,10 +135,10 @@
     #   flake = false;
     #   url = "github:laytan/cloak.nvim";
     # };
-    # conceal-nvim = {
-    #   flake = false;
-    #   url = "github:Jxstxs/conceal.nvim";
-    # };
+    conceal-nvim = {
+      flake = false;
+      url = "github:Jxstxs/conceal.nvim";
+    };
     # deploy-rs.url = "github:serokell/deploy-rs";
     disko = {
       inputs.nixpkgs.follows = "nixpkgs";
@@ -185,22 +185,22 @@
     # nixpkgs-ba45a55.url = "github:nixos/nixpkgs/ba45a55";
     nixpkgs-stable.url = "github:nixos/nixpkgs/nixos-24.05";
     nixpkgs-unstable.url = "github:nixos/nixpkgs/nixos-unstable";
-    # nvim-cmp-nerdfont = {
-    #   flake = false;
-    #   url = "github:chrisgrieser/cmp-nerdfont";
-    # };
-    # nvim-undotree = {
-    #   flake = false;
-    #   url = "github:jiaoshijie/undotree";
-    # };
+    nvim-cmp-nerdfont = {
+      flake = false;
+      url = "github:chrisgrieser/cmp-nerdfont";
+    };
+    nvim-undotree = {
+      flake = false;
+      url = "github:jiaoshijie/undotree";
+    };
     # obsidian-nvim = {
     #   flake = false;
     #   url = "github:epwalsh/obsidian.nvim";
     # };
-    # one-small-step-for-vimkind = {
-    #   flake = false;
-    #   url = "github:jbyuki/one-small-step-for-vimkind";
-    # };
+    one-small-step-for-vimkind = {
+      flake = false;
+      url = "github:jbyuki/one-small-step-for-vimkind";
+    };
     # plymouth-themes = {
     #   flake = false;
     #   url = "github:adi1090x/plymouth-themes";

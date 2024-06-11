@@ -1,26 +1,24 @@
 {
+  cell,
   config,
-  lib,
-  pkgs,
-  ...
+  inputs,
 }: let
-  inherit (config.lib.file) mkOutOfStoreSymlink;
-  inherit (config.mine.home) user;
-  inherit (lib) mkEnableOption mkIf mkMerge;
-
-  cfg = config.mine.home.tui.imapfilter;
+  inherit (inputs) nixpkgs;
+  inherit (inputs.cells) mine;
+  c = config.vars.imapfilter;
   configFolder = "${config.xdg.configHome}/imapfilter";
-  pwd = "/home/${user.name}/.config/flake/modules/home/tui/imapfilter";
-  sopsFile = ./secrets/imapfilter.yaml;
+  l = nixpkgs.lib // mine.lib // builtins;
+  lf = config.lib.file;
+  pwd = "${config.xdg.configHome}/flake/cells/home/homeProfiles/imapfilter";
+  sopsFile = ./__secrets/imapfilter.yaml;
 in {
-  options.mine.home.tui.imapfilter = {
-    enable = mkEnableOption "Enable the module";
-    work = mkEnableOption "Enable the work email account";
-    home = mkEnableOption "Enable the home account";
+  options.vars.imapfilter = {
+    work = l.mkEnableOption "Enable the work email account";
+    home = l.mkEnableOption "Enable the home account";
   };
-  config = mkIf cfg.enable {
-    mine.home.sops.secrets = mkMerge [
-      (mkIf cfg.work {
+  config = {
+    sops.secrets = l.mkMerge [
+      (l.mkIf c.work {
         imapfilter_work = {
           inherit sopsFile;
           path = "${configFolder}/work.lua";
@@ -54,7 +52,7 @@ in {
           path = "${configFolder}/work_voip_email.lua";
         };
       })
-      (mkIf cfg.home {
+      (l.mkIf c.home {
         imapfilter_home = {
           inherit sopsFile;
           path = "${configFolder}/home.lua";
@@ -62,29 +60,17 @@ in {
       })
     ];
     home.shellAliases.imapfilter = "imapfilter -c \"${configFolder}/config.lua\"";
-    # Moved to neomutt config
-    # systemd.user = {
-    #   services."imapfilter" = {
-    #     Unit.Description = "Run IMAPFilter in the background.";
-    #     Install.WantedBy = ["default.target"];
-    #     Service.ExecStart = "${pkgs.imapfilter}/bin/imapfilter -c \"${configFolder}/config.lua\"";
-    #   };
-    #   timers."imapfilter" = {
-    #     Install.WantedBy = ["timers.target"];
-    #     Timer.OnCalendar = "*:0/5";
-    #   };
-    # };
     xdg.configFile = {
-      "imapfilter/cleanuphome.lua".source = mkOutOfStoreSymlink "${pwd}/config/cleanuphome.lua";
-      "imapfilter/cleanupwork.lua".source = mkOutOfStoreSymlink "${pwd}/config/cleanupwork.lua";
-      "imapfilter/config.lua".source = mkOutOfStoreSymlink "${pwd}/config/config.lua";
-      "imapfilter/utilities.lua".source = mkOutOfStoreSymlink "${pwd}/config/utilities.lua";
-      "imapfilter/home.lua" = mkIf (!cfg.home) {
+      "imapfilter/cleanuphome.lua".source = lf.mkOutOfStoreSymlink "${pwd}/config/cleanuphome.lua";
+      "imapfilter/cleanupwork.lua".source = lf.mkOutOfStoreSymlink "${pwd}/config/cleanupwork.lua";
+      "imapfilter/config.lua".source = lf.mkOutOfStoreSymlink "${pwd}/config/config.lua";
+      "imapfilter/utilities.lua".source = lf.mkOutOfStoreSymlink "${pwd}/config/utilities.lua";
+      "imapfilter/home.lua" = l.mkIf (!c.home) {
         text = ''
           return nil
         '';
       };
-      "imapfilter/work.lua" = mkIf (!cfg.work) {
+      "imapfilter/work.lua" = l.mkIf (!c.work) {
         text = ''
           return nil
         '';

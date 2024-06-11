@@ -77,6 +77,22 @@
         "type": "github"
       }
     },
+    "conceal-nvim": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1701804831,
+        "narHash": "sha256-4Nhcjk89WD0Kw9iD0YsZ202tRTWlhFHxhVp2kyoju/Y=",
+        "owner": "Jxstxs",
+        "repo": "conceal.nvim",
+        "rev": "1aff9fc5d1157aef1c7c88b6df6d6db21268d00a",
+        "type": "github"
+      },
+      "original": {
+        "owner": "Jxstxs",
+        "repo": "conceal.nvim",
+        "type": "github"
+      }
+    },
     "devshell": {
       "inputs": {
         "nixpkgs": [
@@ -771,6 +787,54 @@
         "type": "github"
       }
     },
+    "nvim-cmp-nerdfont": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1700663605,
+        "narHash": "sha256-alHMwjzYZO5rCgQUUUEcGNkW3PuYJFfGyo531wNw7p4=",
+        "owner": "chrisgrieser",
+        "repo": "cmp-nerdfont",
+        "rev": "a3b7c0cadb7bd389f513eecda376d4c6bec90003",
+        "type": "github"
+      },
+      "original": {
+        "owner": "chrisgrieser",
+        "repo": "cmp-nerdfont",
+        "type": "github"
+      }
+    },
+    "nvim-undotree": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1707485506,
+        "narHash": "sha256-FIYDyfkaIS9C16ClWKLMdpSPv/OrcOalVVsyFJBU2eI=",
+        "owner": "jiaoshijie",
+        "repo": "undotree",
+        "rev": "eab459ab87dd249617b5f7187bb69e614a083047",
+        "type": "github"
+      },
+      "original": {
+        "owner": "jiaoshijie",
+        "repo": "undotree",
+        "type": "github"
+      }
+    },
+    "one-small-step-for-vimkind": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1716827666,
+        "narHash": "sha256-gR4RnMW1BUuVNo5sj0V/pBzT8ayLipZsrWuwNZwCvyM=",
+        "owner": "jbyuki",
+        "repo": "one-small-step-for-vimkind",
+        "rev": "e92abbce0b9b77fed1aaf6f122fb18b7045b15ec",
+        "type": "github"
+      },
+      "original": {
+        "owner": "jbyuki",
+        "repo": "one-small-step-for-vimkind",
+        "type": "github"
+      }
+    },
     "paisano": {
       "inputs": {
         "call-flake": "call-flake",
@@ -821,6 +885,7 @@
       "inputs": {
         "base16-schemes": "base16-schemes",
         "catppuccin-neomutt": "catppuccin-neomutt",
+        "conceal-nvim": "conceal-nvim",
         "disko": "disko",
         "haumea": [
           "std",
@@ -839,6 +904,9 @@
         ],
         "nixpkgs-stable": "nixpkgs-stable",
         "nixpkgs-unstable": "nixpkgs-unstable",
+        "nvim-cmp-nerdfont": "nvim-cmp-nerdfont",
+        "nvim-undotree": "nvim-undotree",
+        "one-small-step-for-vimkind": "one-small-step-for-vimkind",
         "sddm-catppuccin": "sddm-catppuccin",
         "sops-nix": "sops-nix",
         "std": [

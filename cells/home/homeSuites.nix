@@ -8,40 +8,61 @@
   l = nixpkgs.lib // mine.lib // builtins;
 in rec {
   base = with h; [
+    bat
+    default-home
+    just
+    git
+    gpg
+    man
+    nvim
     sops
-    h.ssh-auth-keys
-    sops-nix.homeManagerModules.sops
+    ssh-auth-keys
+    tmux
     vars
-    {
-      home.stateVersion = "23.05";
-      xdg.userDirs = {
-        enable = true;
-        createDirectories = true;
-      };
-    }
+    yazi
+    sops-nix.homeManagerModules.sops
   ];
   laptop' = l.concatLists [
     workstation
     (with h; [
       bluetooth
       neomutt
+      imapfilter
     ])
+  ];
+  rcm = l.concatLists [
+    server
+    [
+      {
+        programs.git.extraConfig.safe.directory = "/data/rcm";
+      }
+    ]
+  ];
+  server = l.concatLists [
+    base
+    [
+      h.server-sops
+    ]
   ];
   workstation = l.concatLists [
     base
     (with h; [
+      flatpak
       floorp
+      hyprland
       kitty
       dunst
+      others
       rofi
-      video-tools
-      yubikey
-      hyprland
-      wlogout
       ssh-config
+      swappy
       syncthing
-      waybar
+      video-tools
       virtual-host
+      waybar
+      winbox
+      wlogout
+      yubikey
       {xdg = l.enabled;}
     ])
   ];

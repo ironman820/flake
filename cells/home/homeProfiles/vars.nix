@@ -31,7 +31,7 @@ in {
       inactiveOpacity = l.mkOpt t.float tr.inactiveOpacity "Interactive application opacity";
       terminalOpacity = l.mkOpt t.float tr.terminalOpacity "Opacity of terminal applications";
     };
-    username = l.mkOpt l.str c.username "Username for this user";
+    username = l.mkOpt t.str c.username "Username for this user";
     wallpaper = l.mkOpt (t.either t.path t.str) c.wallpaper "Wallpaper location";
   };
 }

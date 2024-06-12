@@ -4,8 +4,9 @@
   pkgs,
 }: let
   inherit (inputs) nixpkgs;
-  inherit (inputs.cells) mine;
+  inherit (inputs.cells) idracclient mine;
   l = nixpkgs.lib // mine.lib // builtins;
+  p = mine.packages // idracclient.packages;
 in {
   home = {
     packages = with pkgs; [
@@ -14,7 +15,7 @@ in {
       du-dust
       eltclsh
       fzf
-      idracclient
+      p.idracclient
       inetutils
       jq
       neofetch
@@ -27,7 +28,7 @@ in {
       restic
       rclone
       ripgrep
-      switchssh
+      p.switchssh
       unzip
       yq
       zip
@@ -64,7 +65,6 @@ in {
     };
     eza = {
       enable = true;
-      enableAliases = true;
       extraOptions = ["--group-directories-first" "--header"];
       git = true;
       icons = true;

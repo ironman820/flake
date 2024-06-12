@@ -3,7 +3,7 @@
   inputs,
 }: let
   inherit (inputs) nixpkgs tmux-sessionx;
-  inherit (nixpkgs) writeShellScriptBin;
+  inherit (nixpkgs) writeScriptBin writeShellScriptBin;
   inherit (nixpkgs.stdenv) mkDerivation;
   inherit (nixpkgs.tmuxPlugins) mkTmuxPlugin;
   inherit (nixpkgs.vimUtils) buildVimPlugin;
@@ -106,6 +106,14 @@ in {
       '';
     };
   sessionx = tmux-sessionx.packages.default;
+  switchssh = writeScriptBin "switchssh" ''
+    #!${nixpkgs.expect}/bin/expect
+    eval spawn -noecho ssh $argv
+    interact {
+      \177 { send "\010" }
+      "\033\[3~" { send "\177" }
+    }
+  '';
   tmux-fzf-url = mkTmuxPlugin {
     pluginName = "tmux-fzf-url";
     rtpFilePath = "fzf-url.tmux";

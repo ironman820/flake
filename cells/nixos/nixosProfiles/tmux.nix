@@ -1,32 +1,32 @@
 {
+  cell,
   config,
-  lib,
+  inputs,
   pkgs,
-  ...
 }: let
-  inherit (lib) mkEnableOption mkIf;
-  inherit (lib.mine) mkBoolOpt mkOpt;
-  inherit (lib.types) int lines str;
-
-  cfg = config.mine.tui.tmux;
+  inherit (inputs) nixpkgs;
+  inherit (inputs.cells) mine;
+  c = config.vars.tmux;
+  l = nixpkgs.lib // mine.lib // builtins;
+  p = mine.packages;
+  t = l.types;
 in {
-  options.mine.tui.tmux = {
-    enable = mkBoolOpt true "Setup tmux";
-    baseIndex = mkOpt int 1 "Base number for windows";
-    clock24 = mkBoolOpt true "Use a 24 hour clock";
-    customPaneNavigationAndResize = mkBoolOpt true "Use hjkl for navigation";
-    escapeTime = mkOpt int 0 "Escape time";
-    extraConfig = mkOpt lines "" "Extra configuration options";
+  options.vars.tmux = {
+    baseIndex = l.mkOpt t.int 1 "Base number for windows";
+    clock24 = l.mkBoolOpt true "Use a 24 hour clock";
+    customPaneNavigationAndResize = l.mkBoolOpt true "Use hjkl for navigation";
+    escapeTime = l.mkOpt t.int 0 "Escape time";
+    extraConfig = l.mkOpt t.lines "" "Extra configuration options";
     historyLimit =
-      mkOpt int 1000000 "The number of lines to keep in scrollback history";
-    keyMode = mkOpt str "vi" "Key style used for control";
-    secureSocket = mkEnableOption "Use a secure socket to connect.";
+      l.mkOpt t.int 1000000 "The number of lines to keep in scrollback history";
+    keyMode = l.mkOpt t.str "vi" "Key style used for control";
+    secureSocket = l.mkEnableOption "Use a secure socket to connect.";
     shortcut =
-      mkOpt str "Space" "Default leader key that will be paired with <Ctrl>";
-    terminal = mkOpt str "screen-256color" "Default terminal config";
+      l.mkOpt t.str "Space" "Default leader key that will be paired with <Ctrl>";
+    terminal = l.mkOpt t.str "screen-256color" "Default terminal config";
   };
 
-  config = mkIf cfg.enable {
+  config = {
     programs.tmux = {
       extraConfigBeforePlugins = ''
         source-file /etc/tmux.reset.conf
@@ -42,7 +42,7 @@ in {
         bind-key -T prefix g display-popup -E -w 95% -h 95% -d '#{pane_current_path}' lazygit
       '';
       inherit
-        (cfg)
+        (c)
         baseIndex
         clock24
         customPaneNavigationAndResize
@@ -56,12 +56,12 @@ in {
         ;
       enable = true;
       plugins = with pkgs.tmuxPlugins; [
-        catppuccin-tmux
-        cheat-sh
+        # catppuccin-tmux
+        p.cheat-sh
         sensible
-        sessionx
+        p.sessionx
         yank
-        tmux-fzf-url
+        p.tmux-fzf-url
       ];
     };
     environment.etc = {

@@ -1,73 +1,75 @@
 {
+  cell,
   config,
-  lib,
+  inputs,
   pkgs,
-  ...
 }: let
-  inherit (lib) mkEnableOption mkIf;
-  inherit (lib.mine) enabled mkBoolOpt mkOpt;
-  inherit (lib.types) either str path;
-  cfg = config.mine.servers.gitlab;
+  inherit (inputs) nixpkgs;
+  inherit (inputs.cells) mine;
+  c = v.gitlab;
+  f = config.networking.firewall;
+  l = nixpkgs.lib // mine.lib // builtins;
+  t = l.types;
+  v = config.vars;
 in {
-  options.mine.servers.gitlab = {
-    enable = mkEnableOption "Enable or disable gitlab";
+  options.vars.gitlab = {
     databasePassFile =
-      mkOpt (either str path) "" "File with the database password";
-    ipAddress = mkOpt str "" "IP address for gitlab instance";
-    host = mkOpt str config.system.name "Hostname for gitlab instance";
+      l.mkOpt (t.either t.str t.path) "" "File with the database password";
+    ipAddress = l.mkOpt t.str "" "IP address for gitlab instance";
+    host = l.mkOpt t.str config.system.name "Hostname for gitlab instance";
     initialRootPasswordFile =
-      mkOpt (either str path) "" "file with the initial root password";
+      l.mkOpt (t.either t.str t.path) "" "file with the initial root password";
     secrets = {
-      secretFile = mkOpt (either str path) "" "file with the gitlab secret";
-      otpFile = mkOpt (either str path) "" "Secret storage file";
-      dbFile = mkOpt (either str path) "" "secret storage file";
+      secretFile = l.mkOpt (t.either t.str t.path) "" "file with the gitlab secret";
+      otpFile = l.mkOpt (t.either t.str t.path) "" "Secret storage file";
+      dbFile = l.mkOpt (t.either t.str t.path) "" "secret storage file";
     };
     smtp = {
-      address = mkOpt str "" "SMTP sever address";
-      authentication = mkOpt str "" "Authentication type";
-      domain = mkOpt str "" "Email domain name";
-      enable = mkBoolOpt false "Enable GitLab email settings";
-      passwordFile = mkOpt (either str path) "" "File with password for email";
-      username = mkOpt str "" "Username for email";
+      address = l.mkOpt t.str "" "SMTP sever address";
+      authentication = l.mkOpt t.str "" "Authentication type";
+      domain = l.mkOpt t.str "" "Email domain name";
+      enable = l.mkBoolOpt false "Enable GitLab email settings";
+      passwordFile = t.mkOpt (t.either t.str t.path) "" "File with password for email";
+      username = l.mkOpt t.str "" "Username for email";
     };
   };
 
-  config = mkIf cfg.enable {
-    mine.servers.caddy = {
-      inherit (cfg) enable;
-      virtualHosts = let
-        passLoc = {
-          extraConfig = ''
-            reverse_proxy unix//run/gitlab/gitlab-workhorse.socket {
-              header_up X-Forwarded-Proto https
-              header_up X-Forwarded-Ssl on
-            }
-          '';
-        };
-      in {
-        "${cfg.ipAddress}" = passLoc;
-        "${cfg.host}" = passLoc;
-      };
-    };
-    networking.firewall = mkIf config.mine.networking.basic.firewall {
+  config = {
+    networking.firewall = l.mkIf f.enable {
       allowedTCPPorts = [22 80 443];
     };
     services = {
+      caddy = {
+        enable = true;
+        virtualHosts = let
+          passLoc = {
+            extraConfig = ''
+              reverse_proxy unix//run/gitlab/gitlab-workhorse.socket {
+                header_up X-Forwarded-Proto https
+                header_up X-Forwarded-Ssl on
+              }
+            '';
+          };
+        in {
+          "${c.ipAddress}" = passLoc;
+          "${c.host}" = passLoc;
+        };
+      };
       gitlab = {
-        inherit (cfg) enable host initialRootPasswordFile;
-        databasePasswordFile = cfg.databasePassFile;
+        inherit (c) host initialRootPasswordFile;
+        databasePasswordFile = c.databasePassFile;
         https = true;
-        initialRootEmail = config.mine.user.email;
+        initialRootEmail = v.email;
         port = 443;
         secrets = {
-          inherit (cfg.secrets) secretFile otpFile dbFile;
+          inherit (c.secrets) secretFile otpFile dbFile;
           jwsFile =
             pkgs.runCommand "oidcKeyBase" {}
             "${pkgs.openssl}/bin/openssl genrsa 2048 > $out";
         };
-        smtp = mkIf cfg.smtp.enable {
+        smtp = l.mkIf c.smtp.enable {
           inherit
-            (cfg.smtp)
+            (c.smtp)
             address
             authentication
             domain
@@ -77,7 +79,7 @@ in {
             ;
         };
       };
-      openssh = enabled;
+      openssh = l.enabled;
     };
     systemd.services.gitlab-backup.environment.BACKUP = "dump";
   };

@@ -8,6 +8,7 @@
   inherit (inputs.cells) mine;
   c = config.vars.nvim;
   initLua = ''
+
     require("startup")
   '';
   l = nixpkgs.lib // mine.lib // builtins;

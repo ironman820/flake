@@ -22,7 +22,7 @@ in rec {
     yazi
     sops-nix.homeManagerModules.sops
   ];
-  laptop' = l.concatLists [
+  laptop = l.concatLists [
     workstation
     (with h; [
       bluetooth

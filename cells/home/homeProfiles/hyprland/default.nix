@@ -43,17 +43,6 @@ in {
         "opacity 1.0 override 1.0 override,class:^(Wezterm)$"
       ];
     };
-    #   rofi = enabled;
-    #   swappy = enabled;
-    #   tui.just.homePersist = mkIf imp [
-    #     "mkdir -p /persist/home/.cache/cliphist"
-    #   ];
-    #   waybar = enabled;
-    #   wlogout = enabled;
-    #   xdg = {
-    #     enable = true;
-    #   };
-    # };
     programs.hyprlock = {
       enable = true;
       settings = {
@@ -202,7 +191,7 @@ in {
           shadow_range = 30;
           shadow_render_power = 3;
         };
-        "device:epic-mouse-v1".sensitivity = -0.5;
+        # "device:epic-mouse-v1".sensitivity = -0.5;
         dwindle = {
           pseudotile = true;
           preserve_split = true;

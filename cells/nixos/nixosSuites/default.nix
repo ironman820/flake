@@ -15,8 +15,17 @@ in rec {
         useGlobalPkgs = true;
         useUserPackages = true;
       };
+      nix.settings = {
+        substituters = [
+          "https://hyprland.cachix.org"
+        ];
+        trusted-public-keys = [
+          "hyprland.cachix.org-1:a7pgxzMz7+chwVL3/pzj6jIBMioiJM7ypFP8PwtkuGc="
+        ];
+      };
     }
     vars
+    default-nixos
     dhcp
     nix-ld.nixosModules.nix-ld
     git
@@ -74,7 +83,7 @@ in rec {
       }
     ])
   ];
-  laptop' = l.concatLists [
+  laptop = l.concatLists [
     workstation
     (with p; [
       h.common-pc-laptop
@@ -121,32 +130,36 @@ in rec {
   ];
   workstation = l.concatLists [
     base
-    [
-      p.dunst
-      p.flatpak
-      p.floorp
-      p.gpg
-      p.grub
-      p.hyprland
-      p.java
-      p.kitty
-      p.networkmanager
-      p.others
-      p.printing
-      p.sddm
-      p.sound
-      p.syncthing
-      p.thunar
-      p.virtual-host
-      p.winbox
-      p.workstation
-      p.xdg
-      p.yubikey
+    (with p; [
+      dunst
+      flatpak
+      floorp
+      gpg
+      grub
+      hyprland
+      java
+      kitty
+      networkmanager
+      others
+      printing
+      sddm
+      sound
+      syncthing
+      thunar
+      virtual-host
+      winbox
+      xdg
+      yubikey
       {
         boot.kernel.sysctl = {
           "vm.overcommit_memory" = 1;
         };
+        environment.systemPackages = with nixpkgs; [
+          hplip
+          ntfs3g
+          wireguard-tools
+        ];
       }
-    ]
+    ])
   ];
 }

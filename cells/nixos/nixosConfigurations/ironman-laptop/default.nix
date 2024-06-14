@@ -14,7 +14,7 @@
     p.personal-drives
     p.android
   ];
-  suites = nixosSuites.laptop';
+  suites = nixosSuites.laptop;
   v = config.vars;
 in {
   imports = l.concatLists [
@@ -36,7 +36,7 @@ in {
         hexchat
         personal-email
       ];
-      suites = homeSuites.laptop';
+      suites = homeSuites.laptop;
     in
       l.concatLists [
         profiles

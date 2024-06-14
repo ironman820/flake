@@ -2,6 +2,7 @@
   cell,
   config,
   inputs,
+  pkgs,
 }: let
   inherit (inputs) nixpkgs;
   inherit (inputs.cells) mine;
@@ -14,13 +15,20 @@ in {
   };
 
   config = {
-    environment.systemPackages = [
-      p.sddm-catppuccin
-    ];
+    # environment.systemPackages = [
+    #   p.where-is-my-sddm-theme
+    # ];
     services.displayManager.sddm = {
       enable = true;
       enableHidpi = true;
-      theme = "catppuccin-mocha";
+      package = p.sddm;
+      settings = {
+        Users = {
+          RememberLastUser = true;
+          RememberLastSession = true;
+        };
+      };
+      theme = "where_is_my_sddm_theme";
       wayland.enable = c.wayland;
     };
   };

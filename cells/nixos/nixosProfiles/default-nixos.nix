@@ -38,7 +38,6 @@ in {
       bashmount
       bat
       btop
-      catppuccin-btop
       delta
       entr
       eza
@@ -47,13 +46,12 @@ in {
       nerdfonts
       p7zip
       ssh-to-age
-      flake
       sops
       steam-run
       terminus-nerdfont
       wget
       just
-      tealdear
+      tealdeer
     ])
     ++ (with pkgs.bat-extras; [
       batdiff
@@ -69,9 +67,6 @@ in {
   ];
   hardware.enableRedistributableFirmware = true;
   i18n.defaultLocale = "en_US.UTF-8";
-  mine.user.extraGroups = [
-    "dialout"
-  ];
   location.provider = "geoclue2";
   programs = {
     direnv = {
@@ -93,7 +88,10 @@ in {
   time.timeZone = "America/Chicago";
   users.users.${v.username} = {
     createHome = true;
-    extraGroups = ["wheel"];
+    extraGroups = [
+    "dialout"
+    "wheel"
+    ];
     group = "users";
     hashedPasswordFile = config.sops.secrets.user_pass.path;
     home = "/home/${v.username}";

@@ -77,6 +77,12 @@ in {
     };
     version = "1.0.16";
   };
+  sddm = nixpkgs.sddm.override {
+    extraPackages = [
+      nixpkgs.where-is-my-sddm-theme
+    ];
+    withWayland = true;
+  };
   sddm-catppuccin = let
     inherit (nixpkgs.qt5) qtquickcontrols2;
     inherit (nixpkgs.qt6) qtbase qtsvg wrapQtAppsHook;

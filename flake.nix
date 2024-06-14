@@ -38,6 +38,7 @@
       devShells = std.harvest self ["mine" "shell"];
       packages = std.harvest self [
         ["grub-cyberexs" "packages"]
+        ["idracclient" "packages"]
         ["mine" "packages"]
       ];
     }
@@ -247,8 +248,6 @@
     #   flake = false;
     #   url = "github:xiyaowong/transparent.nvim";
     # };
-    # # Unstable repo for latest and greatest packages
-    # unstable.url = "github:NixOS/nixpkgs";
     waybar.url = "github:alexays/waybar";
     # yanky-nvim = {
     #   flake = false;

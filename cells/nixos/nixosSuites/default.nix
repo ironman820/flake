@@ -132,6 +132,7 @@ in rec {
     base
     (with p; [
       dunst
+      dwm
       flatpak
       floorp
       gpg

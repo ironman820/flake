@@ -168,6 +168,10 @@
       url = "github:hyprwm/hyprland-plugins";
     };
     hyprlock.url = "github:hyprwm/hyprlock";
+    ironman-dwm = {
+      flake = false;
+      url = "github:ironman820/ironman-dwm";
+    };
     # Nix-LD is a dynamic linker that tries to mimick FHS file systems for hard-coded applications
     nix-ld = {
       inputs.nixpkgs.follows = "nixpkgs";

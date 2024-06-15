@@ -3,11 +3,13 @@
   inputs,
 }: let
   inherit (inputs) nixpkgs tmux-sessionx;
+  # inherit (inputs) nixpkgs nixpkgs-2311 tmux-sessionx;
   inherit (nixpkgs) writeScriptBin writeShellScriptBin;
   inherit (nixpkgs.stdenv) mkDerivation;
   inherit (nixpkgs.tmuxPlugins) mkTmuxPlugin;
   inherit (nixpkgs.vimUtils) buildVimPlugin;
 in {
+  # inherit (nixpkgs-2311) openssh;
   base16-onedark-scheme = mkDerivation {
     name = "base16-onedark-scheme";
     version = "2018-01-04";

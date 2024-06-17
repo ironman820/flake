@@ -134,7 +134,6 @@ in rec {
       dunst
       dwm
       flatpak
-      floorp
       gpg
       grub
       hyprland

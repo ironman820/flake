@@ -8,7 +8,7 @@
     brave
     blender
     calibre
-    floorp
+    firefox
     gimp
     google-chrome
     keepassxc

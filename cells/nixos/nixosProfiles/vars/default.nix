@@ -11,7 +11,7 @@
 in {
   options.vars = {
     applications = {
-      browser = l.mkOpt t.str "floorp" "Preferred default browser";
+      browser = l.mkOpt t.str "firefox" "Preferred default browser";
       fileManager = l.mkOpt t.str "yazi" "Preferred file manager";
       terminal = l.mkOpt t.str "kitty" "Preferred terminal";
     };

@@ -28,6 +28,7 @@
         (functions "lib")
         (functions "nixosProfiles")
         (functions "nixosSuites")
+        (pkgs "overlays")
         (installables "packages")
         (devshells "shell")
         diskoConfigurations
@@ -188,7 +189,7 @@
     # nixpkgs-acc5f7b.url = "github:nixos/nixpkgs/acc5f7b";
     # # ba45a55 - The last stable update of PHP 7.4
     # nixpkgs-ba45a55.url = "github:nixos/nixpkgs/ba45a55";
-    # nixpkgs-2311.url = "github:nixos/nixpkgs/nixos-23.11";
+    nixpkgs-2311.url = "github:nixos/nixpkgs/nixos-23.11";
     nixpkgs-stable.url = "github:nixos/nixpkgs/nixos-24.05";
     nixpkgs-unstable.url = "github:nixos/nixpkgs/nixos-unstable";
     nvim-cmp-nerdfont = {

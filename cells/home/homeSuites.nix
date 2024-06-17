@@ -47,6 +47,7 @@ in rec {
   workstation = l.concatLists [
     base
     (with h; [
+      dwm
       flatpak
       floorp
       hyprland

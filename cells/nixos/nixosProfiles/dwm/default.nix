@@ -3,8 +3,9 @@
   inputs,
   pkgs,
 }: {
-  environment.systemPackages = [
-    pkgs.dmenu
+  environment.systemPackages = with pkgs; [
+    dmenu
+    feh
   ];
   services.xserver.windowManager.dwm = {
     enable = true;

@@ -54,6 +54,14 @@ in {
               inherit mode;
               path = mkDefault "${config.home.homeDirectory}/.ssh/github_work.pub";
             };
+            id_ed25519_work = {
+              inherit mode;
+              path = mkDefault "${config.home.homeDirectory}/.ssh/id_ed25519_work";
+            };
+            id_ed25519_work_pub = {
+              inherit mode;
+              path = mkDefault "${config.home.homeDirectory}/.ssh/id_ed25519_work.pub";
+            };
             id_ed25519_sk = {
               inherit mode;
               path = mkDefault "${config.home.homeDirectory}/.ssh/id_ed25519_sk";

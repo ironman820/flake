@@ -15,14 +15,6 @@ in rec {
         useGlobalPkgs = true;
         useUserPackages = true;
       };
-      nix.settings = {
-        extra-substituters = [
-          "https://hyprland.cachix.org"
-        ];
-        extra-trusted-public-keys = [
-          "hyprland.cachix.org-1:a7pgxzMz7+chwVL3/pzj6jIBMioiJM7ypFP8PwtkuGc="
-        ];
-      };
     }
     vars
     default-nixos
@@ -95,6 +87,9 @@ in rec {
       firmware
       neomutt
       {
+        environment.systemPackages = with nixpkgs; [
+          zathura
+        ];
         services = {
           logind = {
             killUserProcesses = true;
@@ -136,7 +131,6 @@ in rec {
       flatpak
       gpg
       grub
-      hyprland
       java
       kitty
       networkmanager

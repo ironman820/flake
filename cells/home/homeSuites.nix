@@ -49,8 +49,6 @@ in rec {
     (with h; [
       dwm
       flatpak
-      floorp
-      hyprland
       kitty
       dunst
       others
@@ -60,8 +58,6 @@ in rec {
       syncthing
       video-tools
       virtual-host
-      waybar
-      winbox
       wlogout
       yubikey
       {xdg = l.enabled;}

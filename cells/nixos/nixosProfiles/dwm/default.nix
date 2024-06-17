@@ -7,10 +7,16 @@
     dmenu
     feh
   ];
-  services.xserver.windowManager.dwm = {
+  services.xserver = {
     enable = true;
-    package = pkgs.dwm.overrideAttrs (oa: {
-      src = inputs.ironman-dwm;
-    });
+    windowManager.dwm = {
+      enable = true;
+      package = pkgs.dwm.overrideAttrs (oa: {
+        src = inputs.ironman-dwm;
+      });
+    };
   };
+  xdg.portal.extraPortals = with pkgs; [
+    xdg-desktop-portal-gtk
+  ];
 }

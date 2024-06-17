@@ -162,13 +162,13 @@
       inputs.nixpkgs.follows = "nixpkgs";
       url = "github:nix-community/home-manager";
     };
-    hypridle.url = "github:hyprwm/hypridle";
-    hyprland.url = "git+https://github.com/hyprwm/Hyprland?submodules=1";
-    hyprland-plugins = {
-      inputs.hyprland.follows = "hyprland";
-      url = "github:hyprwm/hyprland-plugins";
-    };
-    hyprlock.url = "github:hyprwm/hyprlock";
+    # hypridle.url = "github:hyprwm/hypridle";
+    # hyprland.url = "git+https://github.com/hyprwm/Hyprland?submodules=1";
+    # hyprland-plugins = {
+    #   inputs.hyprland.follows = "hyprland";
+    #   url = "github:hyprwm/hyprland-plugins";
+    # };
+    # hyprlock.url = "github:hyprwm/hyprlock";
     ironman-dwm = {
       flake = false;
       url = "github:ironman820/ironman-dwm";
@@ -254,7 +254,7 @@
     #   flake = false;
     #   url = "github:xiyaowong/transparent.nvim";
     # };
-    waybar.url = "github:alexays/waybar";
+    # waybar.url = "github:alexays/waybar";
     # yanky-nvim = {
     #   flake = false;
     #   url = "github:gbprod/yanky.nvim";

@@ -54,7 +54,6 @@ in {
         waybarSize = 12;
       };
       transparency.terminalOpacity = 0.85;
-      waybar.resolution = 768;
     };
   };
   networking.hostName = "ironman-laptop";

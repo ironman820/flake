@@ -9,26 +9,26 @@
   inherit (nixpkgs.vimUtils) buildVimPlugin;
 in {
   inherit (cell.overlays) openssh;
-  base16-onedark-scheme = mkDerivation {
-    name = "base16-onedark-scheme";
-    version = "2018-01-04";
-    src = inputs.base16-schemes;
-    buildPhase = ''
-      mkdir -p $out
-      cp $src/onedark.yaml $out/theme.yaml
-    '';
-    phases = "buildPhase";
-  };
-  catppuccin-neomutt = mkDerivation rec {
-    buildPhase = ''
-      mkdir -p $out
-      cp -r $src/neomuttrc $out/catppuccin-neomutt
-    '';
-    name = pname;
-    pname = "catppuccin-neomutt";
-    phases = "buildPhase";
-    src = inputs.catppuccin-neomutt;
-  };
+  # base16-onedark-scheme = mkDerivation {
+  #   name = "base16-onedark-scheme";
+  #   version = "2018-01-04";
+  #   src = inputs.base16-schemes;
+  #   buildPhase = ''
+  #     mkdir -p $out
+  #     cp $src/onedark.yaml $out/theme.yaml
+  #   '';
+  #   phases = "buildPhase";
+  # };
+  # catppuccin-neomutt = mkDerivation rec {
+  #   buildPhase = ''
+  #     mkdir -p $out
+  #     cp -r $src/neomuttrc $out/catppuccin-neomutt
+  #   '';
+  #   name = pname;
+  #   pname = "catppuccin-neomutt";
+  #   phases = "buildPhase";
+  #   src = inputs.catppuccin-neomutt;
+  # };
   cheat-sh = mkTmuxPlugin {
     pluginName = "cheat-sh";
     postInstall = ''
@@ -84,34 +84,6 @@ in {
     ];
     withWayland = true;
   };
-  sddm-catppuccin = let
-    inherit (nixpkgs.qt5) qtquickcontrols2;
-    inherit (nixpkgs.qt6) qtbase qtsvg wrapQtAppsHook;
-  in
-    mkDerivation {
-      dontBuild = true;
-      pname = "sddm-catppuccin";
-      version = "1.0";
-
-      nativeBuildInputs = [
-        qtbase
-        wrapQtAppsHook
-      ];
-
-      propagatedUserEnvPkgs = [
-        qtbase
-        qtquickcontrols2
-        qtsvg
-      ];
-
-      src = inputs.sddm-catppuccin;
-
-      installPhase = ''
-        mkdir -p $out/share/sddm/themes/catppuccin-mocha/
-        cp $src/pertheme/mocha.conf $out/share/sddm/themes/catppuccin-mocha/theme.conf
-        cp -R $src/src/* $out/share/sddm/themes/catppuccin-mocha/
-      '';
-    };
   sessionx = tmux-sessionx.packages.default;
   switchssh = writeScriptBin "switchssh" ''
     #!${nixpkgs.expect}/bin/expect

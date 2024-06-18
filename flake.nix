@@ -84,50 +84,13 @@
   # Sources needed for packages
   # Where possible, I have used flakehub's system as a source for repos
   inputs = {
-    base16-schemes = {
-      flake = false;
-      url = "github:tinted-theming/base16-schemes";
-    };
-    # catppuccin-bat = {
+    # base16-schemes = {
     #   flake = false;
-    #   url = "github:catppuccin/bat";
+    #   url = "github:tinted-theming/base16-schemes";
     # };
-    # catppuccin-btop = {
+    # catppuccin-neomutt = {
     #   flake = false;
-    #   url = "github:catppuccin/btop";
-    # };
-    # # catppuccin theme for grub
-    # catppuccin-grub = {
-    #   flake = false;
-    #   url = "github:catppuccin/grub";
-    # };
-    # catppuccin-kitty = {
-    #   flake = false;
-    #   url = "github:catppuccin/kitty";
-    # };
-    # catppuccin-lazygit = {
-    #   flake = false;
-    #   url = "github:catppuccin/lazygit";
-    # };
-    catppuccin-neomutt = {
-      flake = false;
-      url = "github:catppuccin/neomutt";
-    };
-    # catppuccin-rofi = {
-    #   flake = false;
-    #   url = "github:catppuccin/rofi";
-    # };
-    # catppuccin-starship = {
-    #   flake = false;
-    #   url = "github:catppuccin/starship";
-    # };
-    # catppuccin-tmux = {
-    #   flake = false;
-    #   url = "github:catppuccin/tmux";
-    # };
-    # catppuccin-yazi = {
-    #   flake = false;
-    #   url = "github:uncenter/ctp-yazi";
+    #   url = "github:catppuccin/neomutt";
     # };
     # cellular-automaton-nvim = {
     #   flake = false;
@@ -146,11 +109,6 @@
       inputs.nixpkgs.follows = "nixpkgs";
       url = "github:nix-community/disko";
     };
-    # # Snowfallorg's Flake utility
-    # flake = {
-    #   inputs.nixpkgs.follows = "nixpkgs";
-    #   url = "github:snowfallorg/flake";
-    # };
     # flake-utils.url = "github:numtide/flake-utils";
     haumea.follows = "std/haumea";
     hive = {
@@ -178,13 +136,13 @@
       inputs.nixpkgs.follows = "nixpkgs";
       url = "github:mic92/nix-ld";
     };
-    nixpkgs.follows = "nixpkgs-unstable";
     # nixos-generators = {
     #   inputs.nixpkgs.follows = "nixpkgs";
     #   url = "github:nix-community/nixos-generators";
     # };
     # Nixos curated Hardware settings/drivers
     nixos-hardware.url = "github:nixos/nixos-hardware";
+    nixpkgs.follows = "nixpkgs-unstable";
     # # acc5f7b - IcedTea v8 Stable
     # nixpkgs-acc5f7b.url = "github:nixos/nixpkgs/acc5f7b";
     # # ba45a55 - The last stable update of PHP 7.4
@@ -215,15 +173,6 @@
     # ranger-devicons = {
     #   flake = false;
     #   url = "github:alexanderjeurissen/ranger_devicons";
-    # };
-    # # Catppuccin theme for SDDM
-    sddm-catppuccin = {
-      flake = false;
-      url = "github:catppuccin/sddm";
-    };
-    # snowfall-lib = {
-    #   inputs.nixpkgs.follows = "nixpkgs";
-    #   url = "github:snowfallorg/lib";
     # };
     # SOPS Based secret management to encrypt secrets updated to Github
     sops-nix = {

@@ -1,21 +1,5 @@
 {
   "nodes": {
-    "base16-schemes": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1702718998,
-        "narHash": "sha256-VTczZi1C4WSzejpTFbneMonAdarRLtDnFehVxWs6ad0=",
-        "owner": "tinted-theming",
-        "repo": "base16-schemes",
-        "rev": "2b6f2d0677216ddda50c9cabd6ee70fae4665f81",
-        "type": "github"
-      },
-      "original": {
-        "owner": "tinted-theming",
-        "repo": "base16-schemes",
-        "type": "github"
-      }
-    },
     "blank": {
       "locked": {
         "lastModified": 1625557891,
@@ -43,22 +27,6 @@
       "original": {
         "owner": "divnix",
         "repo": "call-flake",
-        "type": "github"
-      }
-    },
-    "catppuccin-neomutt": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1664239314,
-        "narHash": "sha256-ye16nP2DL4VytDKB+JdMkBXU+Y9Z4dHmY+DsPcR2EG0=",
-        "owner": "catppuccin",
-        "repo": "neomutt",
-        "rev": "f6ce83da47cc36d5639b0d54e7f5f63cdaf69f11",
-        "type": "github"
-      },
-      "original": {
-        "owner": "catppuccin",
-        "repo": "neomutt",
         "type": "github"
       }
     },
@@ -562,8 +530,6 @@
     },
     "root": {
       "inputs": {
-        "base16-schemes": "base16-schemes",
-        "catppuccin-neomutt": "catppuccin-neomutt",
         "conceal-nvim": "conceal-nvim",
         "disko": "disko",
         "haumea": [
@@ -584,7 +550,6 @@
         "nvim-cmp-nerdfont": "nvim-cmp-nerdfont",
         "nvim-undotree": "nvim-undotree",
         "one-small-step-for-vimkind": "one-small-step-for-vimkind",
-        "sddm-catppuccin": "sddm-catppuccin",
         "sops-nix": "sops-nix",
         "std": [
           "hive",
@@ -594,22 +559,6 @@
         "tmux-fzf-url": "tmux-fzf-url",
         "tmux-sessionx": "tmux-sessionx",
         "tochd": "tochd"
-      }
-    },
-    "sddm-catppuccin": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1718281987,
-        "narHash": "sha256-sIqyTESrtNITrD1eBpqycMrVa/sXa0BO4AzDoXyPGSA=",
-        "owner": "catppuccin",
-        "repo": "sddm",
-        "rev": "ced86e86bdf41192f69a527bd7b2c3a13ace7bba",
-        "type": "github"
-      },
-      "original": {
-        "owner": "catppuccin",
-        "repo": "sddm",
-        "type": "github"
       }
     },
     "sops-nix": {

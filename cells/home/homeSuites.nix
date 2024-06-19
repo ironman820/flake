@@ -17,6 +17,7 @@ in rec {
     nvim
     sops
     ssh-auth-keys
+    ssh-config
     tmux
     vars
     yazi
@@ -53,7 +54,6 @@ in rec {
       dunst
       others
       rofi
-      ssh-config
       swappy
       syncthing
       video-tools

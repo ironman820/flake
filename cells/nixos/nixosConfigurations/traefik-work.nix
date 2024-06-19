@@ -1,5 +1,6 @@
 {
   cell,
+  config,
   inputs,
 }: let
   inherit (cell) nixosSuites;
@@ -7,6 +8,7 @@
   inherit (inputs.cells) mine;
   l = nixpkgs.lib // mine.lib // builtins;
   p = cell.nixosProfiles;
+  v = config.vars;
 in {
   imports = let
     profiles = with p; [
@@ -25,6 +27,18 @@ in {
       suites
     ];
 
+  home-manager.users.${v.username} = {
+    imports = let
+      inherit (inputs.cells.home) homeSuites;
+      # h = inputs.cells.home.homeProfiles;
+      profiles = [];
+      suites = homeSuites.server;
+    in
+      l.concatLists [
+        profiles
+        suites
+      ];
+  };
   services.traefik = {
     dynamicConfigOptions = {
       http = {

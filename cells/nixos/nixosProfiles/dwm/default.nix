@@ -6,6 +6,7 @@
   environment.systemPackages = with pkgs; [
     dmenu
     feh
+    networkmanager_dmenu
   ];
   services.xserver = {
     enable = true;

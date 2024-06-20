@@ -31,6 +31,7 @@
         (pkgs "overlays")
         (installables "packages")
         (devshells "shell")
+        colmenaConfigurations
         diskoConfigurations
         nixosConfigurations
       ];
@@ -44,6 +45,7 @@
       ];
     }
     {
+      colmenaHive = myCollect self "colmenaConfigurations";
       diskoConfigurations = myCollect self "diskoConfigurations";
       nixosConfigurations = myCollect self "nixosConfigurations";
     };
@@ -100,6 +102,10 @@
     #   flake = false;
     #   url = "github:laytan/cloak.nvim";
     # };
+    colmena = {
+      inputs.nixpkgs.follows = "nixpkgs";
+      url = "github:zhaofengli/colmena";
+    };
     conceal-nvim = {
       flake = false;
       url = "github:Jxstxs/conceal.nvim";
@@ -112,7 +118,10 @@
     # flake-utils.url = "github:numtide/flake-utils";
     haumea.follows = "std/haumea";
     hive = {
-      inputs.nixpkgs.follows = "nixpkgs";
+      inputs = {
+        colmena.follows = "colmena";
+        nixpkgs.follows = "nixpkgs";
+      };
       url = "github:divnix/hive";
     };
     # Home manager to keep track of dotfiles

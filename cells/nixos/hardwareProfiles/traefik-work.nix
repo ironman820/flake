@@ -1,10 +1,13 @@
 {
   cell,
   inputs,
-  lib,
   modulesPath,
   ...
-}: {
+}: let
+  inherit (inputs) nixpkgs;
+  inherit (inputs.cells) mine;
+  l = nixpkgs.lib // mine.lib // builtins;
+in {
   imports = [
     (modulesPath + "/profiles/qemu-guest.nix")
     inputs.disko.nixosModules.disko
@@ -21,5 +24,5 @@
 
   disko.devices = cell.diskoConfigurations.traefik-work;
 
-  nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
+  nixpkgs.hostPlatform = l.mkDefault "x86_64-linux";
 }

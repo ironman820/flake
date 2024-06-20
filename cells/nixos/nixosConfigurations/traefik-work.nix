@@ -3,7 +3,6 @@
   config,
   inputs,
 }: let
-  inherit (cell) nixosSuites;
   inherit (inputs) nixpkgs;
   inherit (inputs.cells) mine;
   l = nixpkgs.lib // mine.lib // builtins;
@@ -16,7 +15,7 @@ in {
       traefik
       virtual-guest
     ];
-    suites = nixosSuites.server;
+    suites = cell.nixosSuites.server;
   in
     l.concatLists [
       [
@@ -159,6 +158,7 @@ in {
     firewall.allowedTCPPorts = [
       3128
     ];
+    hostName = "traefik-work";
     interfaces."ens18".ipv4.addresses = [
       {
         address = "192.168.20.4";

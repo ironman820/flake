@@ -21,6 +21,7 @@ in
         std.devshellProfiles.default
       ];
       packages = with nixpkgs; [
+        colmena
         nix-index
         nix-tree
         tree

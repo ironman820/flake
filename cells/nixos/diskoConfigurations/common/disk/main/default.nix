@@ -1,4 +1,4 @@
 {
-  device = "/dev/vda";
+  device = "/dev/sda";
   type = "disk";
 }

@@ -179,6 +179,9 @@
     #   flake = false;
     #   url = "github:adi1090x/plymouth-themes";
     # };
+    quick-nix-registry = {
+      url = "github:divnix/quick-nix-registry";
+    };
     # ranger-devicons = {
     #   flake = false;
     #   url = "github:alexanderjeurissen/ranger_devicons";

@@ -207,6 +207,22 @@
         "type": "github"
       }
     },
+    "globalRegistry": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1717415742,
+        "narHash": "sha256-HKvoLGZUsBpjkxWkdtctGYj6RH0bl6vcw0OjTOqyzJk=",
+        "owner": "NixOS",
+        "repo": "flake-registry",
+        "rev": "895a65f8d5acf848136ee8fe8e8f736f0d27df96",
+        "type": "github"
+      },
+      "original": {
+        "owner": "NixOS",
+        "repo": "flake-registry",
+        "type": "github"
+      }
+    },
     "haumea": {
       "inputs": {
         "nixpkgs": [
@@ -569,6 +585,24 @@
         "type": "github"
       }
     },
+    "quick-nix-registry": {
+      "inputs": {
+        "globalRegistry": "globalRegistry"
+      },
+      "locked": {
+        "lastModified": 1627589359,
+        "narHash": "sha256-h0UhOgGtHwEcb2looQXIFPNmRwiFtXo4bEuBboPJzJo=",
+        "owner": "divnix",
+        "repo": "quick-nix-registry",
+        "rev": "9f1beb3e4de2e538b14ed8ddc71b706fd33b08dd",
+        "type": "github"
+      },
+      "original": {
+        "owner": "divnix",
+        "repo": "quick-nix-registry",
+        "type": "github"
+      }
+    },
     "root": {
       "inputs": {
         "colmena": "colmena",
@@ -592,6 +626,7 @@
         "nvim-cmp-nerdfont": "nvim-cmp-nerdfont",
         "nvim-undotree": "nvim-undotree",
         "one-small-step-for-vimkind": "one-small-step-for-vimkind",
+        "quick-nix-registry": "quick-nix-registry",
         "sops-nix": "sops-nix",
         "std": [
           "hive",

@@ -33,6 +33,10 @@ in {
         inherit (c.gc) dates options;
         automatic = true;
       };
+      localRegistry = {
+        enable = true;
+        cacheGlobalRegistry = true;
+      };
       optimise.automatic = true;
       settings = {
         inherit (c.settings) cores;

@@ -16,7 +16,6 @@ in rec {
     man
     nvim
     sops
-    ssh-auth-keys
     ssh-config
     tmux
     vars

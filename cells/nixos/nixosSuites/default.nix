@@ -2,7 +2,7 @@
   cell,
   inputs,
 }: let
-  inherit (inputs) home-manager nix-ld nixos-hardware nixpkgs sops-nix;
+  inherit (inputs) home-manager nix-ld nixos-hardware nixpkgs quick-nix-registry sops-nix;
   inherit (inputs.cells) mine;
   h = nixos-hardware.nixosModules;
   l = nixpkgs.lib // mine.lib // builtins;
@@ -21,10 +21,12 @@ in rec {
     dhcp
     nix-ld.nixosModules.nix-ld
     git
-    sops
     python
+    ssh-config
+    sops
     nix
     nvim
+    quick-nix-registry.nixosModules.local-registry
     ssh-server
     sops-nix.nixosModules.sops
     tmux

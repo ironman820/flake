@@ -10,6 +10,7 @@ in {
   xdg.dataFile = {
     "dwm/autostart.sh".source = writeShellScript "autostart.sh" ''
       feh --no-fehbg --bg-fill ~/.local/share/dwm/wallpaper.png
+      picom -b
     '';
     "dwm/wallpaper.png".source = v.wallpaper;
   };

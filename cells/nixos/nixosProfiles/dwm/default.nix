@@ -7,6 +7,7 @@
     dmenu
     feh
     networkmanager_dmenu
+    picom
   ];
   services.xserver = {
     enable = true;

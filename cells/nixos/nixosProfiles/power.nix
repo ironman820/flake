@@ -21,7 +21,7 @@ in {
         CPU_BOOST_ON_BAT = 0;
         CPU_SCALING_GOVERNOR_ON_AC = "performance";
         CPU_SCALING_GOVERNOR_ON_BAT = "powersave";
-        SATA_LINKPWR_ON_BAT = "med_power_with_dipm min_power";
+        SATA_LINKPWR_ON_BAT = "medium_power";
         WIFI_PWR_ON_AC = "off";
         WIFI_PWR_ON_BAT = "off";
       };

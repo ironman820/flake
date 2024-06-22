@@ -10,6 +10,7 @@
   ck = c.kitty;
   cf = c.fonts;
   l = nixpkgs.lib // mine.lib // builtins;
+  p = mine.packages;
   t = l.types;
 in {
   options.vars.kitty = {
@@ -43,7 +44,7 @@ in {
     home = {
       # file.".config/kitty/themes.conf".source = nixpkgs.catppuccin-kitty;
       packages = [
-        pkgs.nerdfonts
+        p.nerdfonts
       ];
     };
     programs.kitty = {

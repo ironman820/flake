@@ -8,8 +8,9 @@
   inherit (inputs) nixpkgs;
   inherit (inputs.cells) mine;
   l = nixpkgs.lib // mine.lib // builtins;
+  p = mine.packages;
 in {
-  home.packages = [pkgs.nerdfonts];
+  home.packages = [p.nerdfonts];
   programs.rofi = {
     enable = true;
     configPath = "${config.xdg.configHome}/rofi/default.rasi";

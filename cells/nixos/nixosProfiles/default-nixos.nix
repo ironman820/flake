@@ -7,6 +7,7 @@
   inherit (inputs) nixpkgs;
   inherit (inputs.cells) mine;
   l = nixpkgs.lib // mine.lib // builtins;
+  p = mine.packages;
   v = config.vars;
 in {
   boot = {
@@ -26,8 +27,8 @@ in {
   };
   console = {
     font = "Lat2-Terminus16";
-    packages = with pkgs; [
-      inconsolata-nerdfont
+    packages = with p; [
+      nerdfonts
     ];
     useXkbConfig = true; # use xkbOptions in tty.
   };
@@ -43,12 +44,11 @@ in {
       eza
       fzf
       git-extras
-      nerdfonts
+      p.nerdfonts
       p7zip
       ssh-to-age
       sops
       steam-run
-      terminus-nerdfont
       wget
       just
       tealdeer
@@ -62,7 +62,7 @@ in {
       prettybat
     ]);
   fonts.packages = with pkgs; [
-    nerdfonts
+    p.nerdfonts
     meslo-lgs-nf
   ];
   hardware.enableRedistributableFirmware = true;
@@ -89,8 +89,8 @@ in {
   users.users.${v.username} = {
     createHome = true;
     extraGroups = [
-    "dialout"
-    "wheel"
+      "dialout"
+      "wheel"
     ];
     group = "users";
     hashedPasswordFile = config.sops.secrets.user_pass.path;

@@ -42,6 +42,14 @@ in {
     name = "conceal-nvim";
     src = inputs.conceal-nvim;
   };
+  nerdfonts = nixpkgs.nerdfonts.override {
+    fonts = [
+      "DejaVuSansMono"
+      "FiraCode"
+      "IosevkaTerm"
+      "Terminus"
+    ];
+  };
   networkmanagerapplet = nixpkgs.networkmanagerapplet.override {
     libnma = nixpkgs.libnma-gtk4;
   };

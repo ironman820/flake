@@ -19,7 +19,7 @@ in {
       inetutils
       jq
       neofetch
-      nerdfonts
+      p.nerdfonts
       nodejs_18
       p7zip
       poppler_utils

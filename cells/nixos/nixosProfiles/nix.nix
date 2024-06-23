@@ -6,8 +6,11 @@
 }: let
   inherit (inputs) nixpkgs;
   inherit (inputs.cells) mine;
+  b = "/etc/nixpkgs/channels";
   c = config.vars.nix;
   l = nixpkgs.lib // mine.lib // builtins;
+  nixpkgsPath = "${b}/nixpkgs";
+  nixpkgs2311Path = "${b}/nixpkgs-2311";
   t = l.types;
   v = config.vars;
 in {
@@ -33,11 +36,15 @@ in {
         inherit (c.gc) dates options;
         automatic = true;
       };
-      localRegistry = {
-        enable = true;
-        cacheGlobalRegistry = true;
-      };
+      nixPath = [
+        "nixpkgs=${nixpkgsPath}"
+        "nixpkgs2311=${nixpkgs2311Path}"
+      ];
       optimise.automatic = true;
+      registry = with inputs; {
+        nixpkgs.flake = nixpkgs;
+        nixpkgs2311.flake = nixpkgs-2311;
+      };
       settings = {
         inherit (c.settings) cores;
         auto-optimise-store = true;

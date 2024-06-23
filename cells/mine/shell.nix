@@ -13,6 +13,12 @@ in
         std.devshellProfiles.default
       ];
       name = "mine shell";
+      env = [
+        {
+          name = "FLAKE";
+          value = "/home/ironman/.config/flake.git/nixvim";
+        }
+      ];
       motd = l.mkForce ''
 
         {202}{bold}Welcome to the New Standard{reset}

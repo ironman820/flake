@@ -14,8 +14,8 @@
   environment.systemPackages = with pkgs; [
     libva-utils
   ];
-  hardware.opengl = {
+  hardware.graphics = {
     enable = true;
-    driSupport32Bit = true;
+    enable32Bit = true;
   };
 }

@@ -10,16 +10,22 @@
 in
   l.mapAttrs (_: lib.dev.mkShell) {
     default = {...}: {
+      imports = [
+        std.devshellProfiles.default
+      ];
       name = "mine shell";
+      env = [
+        {
+          name = "FLAKE";
+          value = "/home/ironman/.config/flake.git/hive";
+        }
+      ];
       motd = l.mkForce ''
 
         {202}{bold}Welcome to the New Standard{reset}
 
         $(menu)
       '';
-      imports = [
-        std.devshellProfiles.default
-      ];
       packages = with nixpkgs; [
         colmena
         nix-index

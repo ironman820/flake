@@ -116,7 +116,6 @@
       url = "github:nix-community/disko";
     };
     # flake-utils.url = "github:numtide/flake-utils";
-    haumea.follows = "std/haumea";
     hive = {
       inputs = {
         colmena.follows = "colmena";
@@ -204,7 +203,10 @@
       url = "github:wfxr/tmux-fzf-url";
     };
     tmux-sessionx = {
-      inputs.nixpkgs.follows = "nixpkgs";
+      inputs = {
+        flake-parts.follows = "nixvim/flake-parts";
+        nixpkgs.follows = "nixpkgs";
+      };
       url = "github:omerxx/tmux-sessionx";
     };
     tochd = {

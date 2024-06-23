@@ -2,14 +2,16 @@
   cell,
   inputs,
 }: let
-  inherit (inputs) haumea nixpkgs;
+  inherit (inputs) nixpkgs;
   inherit (inputs.cells) mine;
   inherit (inputs.std) lib std;
-
-  l = nixpkgs.lib // haumea.lib // mine.lib // builtins;
+  l = nixpkgs.lib // mine.lib // builtins;
 in
   l.mapAttrs (_: lib.dev.mkShell) {
     default = {...}: {
+      imports = [
+        std.devshellProfiles.default
+      ];
       name = "mine shell";
       motd = l.mkForce ''
 
@@ -17,9 +19,6 @@ in
 
         $(menu)
       '';
-      imports = [
-        std.devshellProfiles.default
-      ];
       packages = with nixpkgs; [
         colmena
         nix-index

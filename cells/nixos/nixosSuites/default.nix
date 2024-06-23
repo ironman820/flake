@@ -26,7 +26,6 @@ in rec {
     sops
     nix
     nvim
-    quick-nix-registry.nixosModules.local-registry
     ssh-server
     sops-nix.nixosModules.sops
     tmux

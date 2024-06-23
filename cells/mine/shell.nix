@@ -6,6 +6,7 @@
   inherit (inputs.cells) mine;
   inherit (inputs.std) lib std;
   l = nixpkgs.lib // mine.lib // builtins;
+  p = mine.packages;
 in
   l.mapAttrs (_: lib.dev.mkShell) {
     default = {...}: {
@@ -29,6 +30,7 @@ in
         colmena
         nix-index
         nix-tree
+        p.nixvim
         tree
       ];
     };

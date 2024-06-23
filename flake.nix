@@ -158,6 +158,16 @@
     nixpkgs-2311.url = "github:nixos/nixpkgs/nixos-23.11";
     nixpkgs-stable.url = "github:nixos/nixpkgs/nixos-24.05";
     nixpkgs-unstable.url = "github:nixos/nixpkgs/nixos-unstable";
+    nixvim = {
+      inputs = {
+        devshell.follows = "hive/devshell";
+        flake-compat.follows = "colmena/flake-compat";
+        home-manager.follows = "home-manager";
+        nix-darwin.follows = "hive/std/blank";
+        nixpkgs.follows = "nixpkgs";
+      };
+      url = "github:nix-community/nixvim";
+    };
     nvim-cmp-nerdfont = {
       flake = false;
       url = "github:chrisgrieser/cmp-nerdfont";

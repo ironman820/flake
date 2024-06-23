@@ -3,10 +3,15 @@
   inputs,
 }: let
   inherit (inputs) nixpkgs tmux-sessionx;
+  inherit (inputs.nixvim.legacyPackages.${nixpkgs.system}) makeNixvimWithModule;
   inherit (nixpkgs) writeScriptBin writeShellScriptBin;
   inherit (nixpkgs.stdenv) mkDerivation;
   inherit (nixpkgs.tmuxPlugins) mkTmuxPlugin;
   inherit (nixpkgs.vimUtils) buildVimPlugin;
+  nixvimModule = {
+    module = import ./__nixvim;
+    pkgs = nixpkgs;
+  };
 in {
   inherit (cell.overlays) openssh;
   # base16-onedark-scheme = mkDerivation {
@@ -53,6 +58,7 @@ in {
   networkmanagerapplet = nixpkgs.networkmanagerapplet.override {
     libnma = nixpkgs.libnma-gtk4;
   };
+  nixvim = makeNixvimWithModule nixvimModule;
   nvim-cmp-nerdfont = buildVimPlugin {
     name = "cmp-nerdfont";
     src = inputs.nvim-cmp-nerdfont;

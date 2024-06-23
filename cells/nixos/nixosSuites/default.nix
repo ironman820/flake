@@ -38,11 +38,13 @@ in rec {
       pdns
       pdns-recursor
     ])
-    {
-      environment.systemPackages = with nixpkgs; [
-        dig
-      ];
-    }
+    [
+      {
+        environment.systemPackages = with nixpkgs; [
+          dig
+        ];
+      }
+    ]
   ];
   gitlab = l.concatLists [
     server

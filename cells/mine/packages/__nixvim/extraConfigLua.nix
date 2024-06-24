@@ -151,6 +151,7 @@
         go({ severity = severity })
       end
     end
+
     local map = user_util.map
     map("]d", diagnostic_goto(true), { desc = "Next Diagnostic", mode = "n" })
     map("[d", diagnostic_goto(false), { desc = "Prev Diagnostic", mode = "n" })

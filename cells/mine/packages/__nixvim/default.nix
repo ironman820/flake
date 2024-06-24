@@ -7,5 +7,6 @@
     ./globals.nix
     ./keymaps.nix
     ./opts.nix
+    ./plugins
   ];
 }

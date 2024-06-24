@@ -49,33 +49,6 @@
       diskoConfigurations = myCollect self "diskoConfigurations";
       nixosConfigurations = myCollect self "nixosConfigurations";
     };
-  # checks = builtins.mapAttrs (system: deployLib: deployLib.deployChecks self.deploy) inputs.deploy-rs.lib;
-  #
-  # deploy.nodes = {
-  #   pxe-work = {
-  #     hostname = "pxe.desk";
-  #     fastConnection = true;
-  #     interactiveSudo = false;
-  #     profiles.system = {
-  #       sshUser = "ironman";
-  #       path = inputs.deploy-rs.lib.x86_64-linux.activate.nixos self.nixosConfigurations.pxe-work;
-  #       user = "root";
-  #     };
-  #   };
-  #   rcm-work = {
-  #     hostname = "rcm.desk";
-  #     fastConnection = true;
-  #     interactiveSudo = false;
-  #     profiles.system = {
-  #       sshUser = "ironman";
-  #       path = inputs.deploy-rs.lib.x86_64-linux.activate.nixos self.nixosConfigurations.rcm-work;
-  #       user = "root";
-  #     };
-  #   };
-  # };
-  #
-  # overlays = with inputs; [flake.overlays.default];
-  #
   # systems.hosts = {
   #   e105-laptop.modules = with inputs.nixos-hardware.nixosModules; [
   #     common-gpu-intel
@@ -159,13 +132,7 @@
     nixpkgs-stable.url = "github:nixos/nixpkgs/nixos-24.05";
     nixpkgs-unstable.url = "github:nixos/nixpkgs/nixos-unstable";
     nixvim = {
-      inputs = {
-        devshell.follows = "hive/devshell";
-        flake-compat.follows = "colmena/flake-compat";
-        home-manager.follows = "home-manager";
-        nix-darwin.follows = "hive/std/blank";
-        nixpkgs.follows = "nixpkgs";
-      };
+      inputs.nixpkgs.follows = "nixpkgs";
       url = "github:nix-community/nixvim";
     };
     nvim-cmp-nerdfont = {
@@ -213,10 +180,7 @@
       url = "github:wfxr/tmux-fzf-url";
     };
     tmux-sessionx = {
-      inputs = {
-        flake-parts.follows = "nixvim/flake-parts";
-        nixpkgs.follows = "nixpkgs";
-      };
+      inputs.nixpkgs.follows = "nixpkgs";
       url = "github:omerxx/tmux-sessionx";
     };
     tochd = {

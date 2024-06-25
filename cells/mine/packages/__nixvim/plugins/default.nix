@@ -4,5 +4,6 @@
     ./autoclose.nix
     ./autosave.nix
     ./autosession.nix
+    ./barbecue.nix
   ];
 }

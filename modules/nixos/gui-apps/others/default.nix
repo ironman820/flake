@@ -17,6 +17,7 @@ in {
       brave
       blender
       calibre
+      feishin
       floorp
       gimp
       google-chrome

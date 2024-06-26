@@ -127,6 +127,7 @@ in {
     xdg.configFile = let
       inherit (config.mine.home.user.settings.applications) browser;
     in {
+      "mutt/convertToHtmlMultipart".source = "${pkgs.convertToHtmlMultipart}/bin/convertToHtmlMultipart";
       "mutt/mailcap".text = ''
         text/calendar; ${pkgs.khal}/bin/khal import %s ;
         text/csv; ${pkgs.libreoffice-fresh}/lib/libreoffice/program/soffice %s ;
@@ -344,6 +345,34 @@ in {
         unalternates *
         unset signature
       '';
+      # "mutt/send-from-mutt".source = pkgs.writeShellScript "send-from-mutt" ''
+      #   # Put the message, send to stdin, in a variable
+      #   message="$(cat -)"
+      #   # Look at the first argument,
+      #   # Use it to determine the account to use
+      #   # If not set, assume work
+      #   # All remaining arguments should be recipient addresses which should be passed to msmtp
+      #   case "$(echo "$1" | tr '[A-Z]' '[a-z]')" in
+      #       "work") account="work"; shift ;;
+      #       "home") account="home"; shift ;;
+      #       *) account="work"; ;;
+      #   esac
+      #
+      #   cleanHeaders () {
+      #       # In the headers, delete any lines starting with markdown
+      #       cat - | sed '0,/^$/{/^Markdown/Id;}'
+      #   }
+      #
+      #   echo "$message" > ~/sample.eml
+      #
+      #   echo "---------------\r\n" >> ~/sample.eml
+      #
+      #   echo "$message" | sed '/^$/q' | grep -q -i 'Markdown: true' \
+      #       && echo "$message" | cleanHeaders | convertToHtmlMultipart | msmtp --account="$account" "$@" \
+      #       || echo "$message" | cleanHeaders | msmtp --account="$account" "$@"
+      #       # && echo "$message" | cleanHeaders | convertToHtmlMultipart >> ~/sample.eml \
+      #       # || echo "$message" | cleanHeaders >> ~/sample.eml
+      # '';
       "mutt/theme".source = "${pkgs.catppuccin-neomutt}/catppuccin-neomutt";
       "mutt/work.mailboxes".text = ''
         mailboxes "=Archive" "=Archives" "=Archives/2020" "=Archives/2021" "=Archives/2022" "=Archives/2023" "=Drafts" "=INBOX" "=Junk E-mail" "=Sent" "=Spambox" "=Trash" "=Unwanted"

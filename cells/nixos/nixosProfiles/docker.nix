@@ -1,24 +1,19 @@
 {
+  cell,
   config,
-  lib,
+  inputs,
   pkgs,
-  ...
 }: let
-  inherit (lib) mkEnableOption mkIf;
-  inherit (lib.mine) enabled;
-  cfg = config.mine.virtual.docker;
+  inherit (inputs) nixpkgs;
+  inherit (inputs.cells) mine;
+  l = nixpkgs.lib // mine.lib // builtins;
+  v = config.vars;
 in {
-  options.mine.virtual.docker = {
-    enable = mkEnableOption "Enable Docker";
-  };
-
-  config = mkIf cfg.enable {
-    environment.systemPackages = with pkgs; [
-      docker-compose
-    ];
-    mine.user.extraGroups = [
-      "docker"
-    ];
-    virtualisation.docker = enabled;
-  };
+  environment.systemPackages = with pkgs; [
+    docker-compose
+  ];
+  users.users.${v.username}.extraGroups = [
+    "docker"
+  ];
+  virtualisation.docker = l.enabled;
 }

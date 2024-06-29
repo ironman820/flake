@@ -37,6 +37,14 @@ in {
         hostname = "10.10.183.2";
         user = "royell";
       };
+      "minecraft-home" = {
+        extraOptions = {
+          "IdentitiesOnly" = "yes";
+          "IdentityFile" = "~/.ssh/deploy_ed25519";
+        };
+        hostname = "192.168.254.8";
+        user = "ironman";
+      };
     };
   };
   sops = {

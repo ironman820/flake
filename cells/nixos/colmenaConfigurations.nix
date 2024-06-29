@@ -10,6 +10,12 @@
       targetUser = "ironman";
     };
   };
+  minecraft-home = {
+    imports = [
+      cell.nixosConfigurations.minecraft-home
+    ];
+    deployment.targetUser = "ironman";
+  };
   traefik-work = {
     deployment = {
       targetHost = "traefik.desk";

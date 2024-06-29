@@ -48,7 +48,6 @@ in {
       p7zip
       ssh-to-age
       sops
-      steam-run
       wget
       just
       tealdeer

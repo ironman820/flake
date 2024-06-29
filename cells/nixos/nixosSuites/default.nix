@@ -140,6 +140,7 @@ in rec {
       printing
       sddm
       sound
+      steam-run
       syncthing
       thunar
       virtual-host

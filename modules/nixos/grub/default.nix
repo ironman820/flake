@@ -8,7 +8,6 @@
   inherit (lib.mine) enabled disabled;
 
   cfg = config.mine.boot.grub;
-  imp = config.mine.impermanence.enable;
 in {
   options.mine.boot.grub = {
     enable = mkEnableOption "Enable the default settings?";
@@ -23,9 +22,6 @@ in {
       };
       plymouth = enabled;
     };
-    environment.persistence."/persist/root".directories = mkIf imp [
-      "/var/lib/plymouth"
-    ];
     stylix.targets = {
       grub = disabled;
       plymouth = disabled;

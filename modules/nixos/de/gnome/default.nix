@@ -13,7 +13,6 @@ in {
   };
 
   config = mkIf cfg.enable {
-    mine.gpg.pinentryFlavor = "gnome3";
     environment = {
       gnome.excludePackages =
         (with pkgs; [

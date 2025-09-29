@@ -13,7 +13,6 @@
 
   apps = usr.applications;
   cfg = config.mine.home.de.hyprland;
-  imp = config.mine.home.impermanence.enable;
   os = osConfig.mine.de.hyprland;
   stlx = usr.stylix;
   tsp = usr.transparancy;
@@ -61,18 +60,12 @@ in {
       };
       rofi = enabled;
       swappy = enabled;
-      tui.just.homePersist = mkIf imp [
-        "mkdir -p /persist/home/.cache/cliphist"
-      ];
       waybar = enabled;
       wlogout = enabled;
       xdg = {
         enable = true;
       };
     };
-    home.persistence."/persist/home".directories = mkIf imp [
-      ".cache/cliphist"
-    ];
     wayland.windowManager.hyprland = {
       enable = true;
       extraConfig = ''

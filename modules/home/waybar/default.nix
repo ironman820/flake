@@ -12,7 +12,6 @@
   inherit (config.mine.home.user.settings.applications) terminal;
 
   cfg = config.mine.home.waybar;
-  imp = config.mine.home.impermanence.enable;
   multiplier = cfg.resolution / 2160.0;
   resolution_multiplier =
     if multiplier < 0.5
@@ -25,9 +24,6 @@ in {
     systemd = mkBoolOpt true "Start Waybar with Systemd";
   };
   config = mkIf cfg.enable {
-    home.persistence."/persist/home".directories = mkIf imp [
-      ".cache/mesa_shader_cache"
-    ];
     programs.waybar = {
       inherit (cfg) enable;
       package = inputs.waybar.packages.${pkgs.system}.waybar;

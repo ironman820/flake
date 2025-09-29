@@ -8,7 +8,6 @@
   inherit (lib.mine) mkBoolOpt;
 
   cfg = config.mine.home.tui.flatpak;
-  imp = config.mine.home.impermanence.enable;
   os = osConfig.mine.tui.flatpak;
 in {
   options.mine.home.tui.flatpak = {
@@ -22,12 +21,6 @@ in {
         "flatpak install -uy com.github.tchx84.Flatseal"
         "flatpak install -uy org.gnome.gitlab.YaLTeR.VideoTrimmer"
       ];
-      homePersist = mkIf imp [
-        "mkdir -p /persist/home/.local/share/flatpak"
-      ];
     };
-    home.persistence."/persist/home".directories = mkIf imp [
-      ".local/share/flatpak"
-    ];
   };
 }

@@ -1,8 +1,8 @@
-_: {
+{inputs, ...}: {
   vars = {
     applications = {
-      browser = "floorp"; # string with just the application name
-      fileManager = "yazi"; # String with just the application name
+      browser = "google-chrome"; # string with just the application name
+      fileManager = "dolphin"; # String with just the application name
       terminal = "kitty"; # String for the application name
     };
     stylix = {
@@ -13,6 +13,7 @@ _: {
       };
       fonts = {
         terminalFont = "IosevkaTerm Nerd Font";
+        terminalFontPackage = inputs.nixpkgs.nerd-fonts.iosevka-term;
         terminalSize = 12.0; # Default size of terminal fonts
         waybarSize = 16;
       };

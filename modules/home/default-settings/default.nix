@@ -24,10 +24,10 @@ in {
       };
       eza = {
         inherit (cfg) enable;
-        enableAliases = true;
+        enableBashIntegration = true;
         extraOptions = ["--group-directories-first" "--header"];
         git = true;
-        icons = true;
+        icons = "auto";
       };
     };
     xdg.configFile."btop/themes".source = pkgs.catppuccin-btop;

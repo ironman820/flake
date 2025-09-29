@@ -5,30 +5,30 @@
   ...
 }: let
   inherit (lib) mkEnableOption mkIf;
+  inherit (lib.mine) mkBoolOpt;
 
   cfg = config.mine.dm.sddm;
-  imp = config.mine.impermanence.enable;
 in {
   options.mine.dm.sddm = {
     enable = mkEnableOption "Enable SDDM";
-    wayland = mkEnableOption "Enable Wayland support";
+    wayland = mkBoolOpt true "Enable Wayland support";
   };
 
   config = mkIf cfg.enable {
     environment = {
-      systemPackages = [pkgs.sddm-catppuccin];
-      persistence."/persist/root".files = mkIf imp [
-        "/var/lib/sddm/state.conf"
-      ];
+      systemPackages = [(
+        pkgs.catppuccin-sddm.override {
+          flavor = "mocha";
+        }
+      )];
     };
-    services.xserver = {
+    services = {
       displayManager.sddm = {
         enable = true;
         enableHidpi = true;
         theme = "catppuccin-mocha";
         wayland.enable = cfg.wayland;
       };
-      enable = true;
     };
   };
 }

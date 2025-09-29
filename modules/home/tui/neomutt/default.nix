@@ -11,7 +11,6 @@
 
   cfg = config.mine.home.tui.neomutt;
   configFolder = "${config.xdg.configHome}/mutt";
-  imp = config.mine.home.impermanence.enable;
   os = osConfig.mine.tui.neomutt;
 in {
   options.mine.home.tui.neomutt = {
@@ -96,34 +95,29 @@ in {
       file."scripts/just/emailpass.sh".source = writeShellScript "emailpass.sh" ''
         7z x -o/home/${config.mine.home.user.name}/.local/share/password-store/ email-pass.7z
       '';
-      persistence."/persist/home".directories = mkIf imp [
-        ".cache/mutt-wizard"
-        ".local/share/mail"
-        ".local/share/password-store"
-      ];
       shellAliases.mail = "neomutt";
     };
     programs.neomutt = enabled;
-    systemd.user = {
-      services."imapcheck" = {
-        Unit.Description = "Run mutt-wizard to check all email accounts.";
-        Install.WantedBy = ["default.target"];
-        Service = {
-          ExecStart = [
-            "${pkgs.imapfilter}/bin/imapfilter -c \"${config.xdg.configHome}/imapfilter/config.lua\""
-            "${pkgs.isync}/bin/mbsync -a"
-          ];
-          Type = "oneshot";
-        };
-      };
-      timers."imapcheck" = {
-        Install.WantedBy = ["timers.target"];
-        Timer = {
-          OnStartupSec = "150";
-          OnCalendar = "*:0/5";
-        };
-      };
-    };
+    # systemd.user = {
+    #   services."imapcheck" = {
+    #     Unit.Description = "Run mutt-wizard to check all email accounts.";
+    #     Install.WantedBy = ["default.target"];
+    #     Service = {
+    #       ExecStart = [
+    #         "${pkgs.imapfilter}/bin/imapfilter -c \"${config.xdg.configHome}/imapfilter/config.lua\""
+    #         "${pkgs.isync}/bin/mbsync -a"
+    #       ];
+    #       Type = "oneshot";
+    #     };
+    #   };
+    #   timers."imapcheck" = {
+    #     Install.WantedBy = ["timers.target"];
+    #     Timer = {
+    #       OnStartupSec = "150";
+    #       OnCalendar = "*:0/5";
+    #     };
+    #   };
+    # };
     xdg.configFile = let
       inherit (config.mine.home.user.settings.applications) browser;
     in {

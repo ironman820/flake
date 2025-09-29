@@ -92,6 +92,5 @@ in {
         name = "Tela-black-dark";
       };
     };
-    services.gpg-agent.pinentryFlavor = "gnome3";
   };
 }

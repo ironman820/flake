@@ -1,43 +1,37 @@
 {
-  config,
   lib,
   pkgs,
   ...
 }: let
-  inherit (lib) mkIf;
   inherit (lib.mine) enabled;
-
-  imp = config.mine.home.impermanence.enable;
 in {
   config = {
     home = {
-      packages = with pkgs; [
-        dig
-        duf
-        du-dust
-        eltclsh
-        fzf
-        idracclient
-        inetutils
-        jq
-        neofetch
-        nerdfonts
-        nodejs_18
-        p7zip
-        poppler_utils
-        pv
-        qrencode
-        restic
-        rclone
-        ripgrep
-        switchssh
-        unzip
-        yq
-        zip
-      ];
-      persistence."/persist/home".directories = mkIf imp [
-        ".local/share/atuin"
-      ];
+      packages = with pkgs;
+        [
+          dig
+          duf
+          du-dust
+          eltclsh
+          fzf
+          idracclient
+          inetutils
+          jq
+          neofetch
+          nodejs
+          p7zip
+          poppler_utils
+          pv
+          qrencode
+          restic
+          rclone
+          ripgrep
+          switchssh
+          unzip
+          yq
+          zip
+        ]
+        ++ builtins.filter lib.attrsets.isDerivation (builtins.attrValues pkgs.nerd-fonts);
       sessionPath = ["$HOME/bin" "$HOME/.local/bin"];
       shellAliases = {
         "df" = "duf -only local";
@@ -45,7 +39,7 @@ in {
         # "ducks" = "du -chs * 2>/dev/null | sort -rh | head -11 && du -chs .* 2>/dev/null | sort -rh | head -11";
         "gmount" = "rclone mount google:/ ~/Drive/";
       };
-      stateVersion = "23.05";
+      stateVersion = "25.05";
     };
     # manual = {
     #   html.enable = false;

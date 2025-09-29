@@ -21,7 +21,6 @@ in {
         enable = true;
         wayland = true;
       };
-      gpg.pinentryFlavor = "qt";
       gui-apps = {
         alacritty = mkIf (terminal == "alacritty") enabled;
         kitty = mkIf (terminal == "kitty") enabled;

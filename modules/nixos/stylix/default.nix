@@ -46,15 +46,15 @@ in {
       fonts = {
         monospace = {
           name = "FiraCode Nerd Font Mono";
-          package = pkgs.nerdfonts;
+          package = pkgs.nerd-fonts.fira-mono;
         };
         sansSerif = {
           name = "DejaVuSansM Nerd Font";
-          package = pkgs.nerdfonts;
+          package = pkgs.nerd-fonts.dejavu-sans-mono;
         };
         serif = {
           name = "FiraCode Nerd Font";
-          package = pkgs.nerdfonts;
+          package = pkgs.nerd-fonts.fira-code;
         };
       };
       homeManagerIntegration = {

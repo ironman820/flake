@@ -1,6 +1,7 @@
 {
   config,
   lib,
+  pkgs,
   ...
 }: let
   inherit (lib) mkEnableOption mkIf;
@@ -19,6 +20,10 @@ in {
         5678
         20561
       ];
+    };
+    programs.winbox = {
+      enable = true;
+      package = pkgs.winbox4;
     };
   };
 }

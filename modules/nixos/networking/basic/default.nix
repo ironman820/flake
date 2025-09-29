@@ -10,7 +10,6 @@
   inherit (lib.types) int listOf str;
 
   cfg = config.mine.networking.basic;
-  imp = config.mine.impermanence.enable;
   nm = config.mine.networking.basic.networkmanager;
 in {
   options.mine.networking.basic = {
@@ -32,9 +31,6 @@ in {
 
   config = mkIf cfg.enable {
     environment = {
-      persistence."/persist/root".directories = mkIf imp [
-        "/etc/NetworkManager/system-connections"
-      ];
       systemPackages = mkIf (nm.enable && nm.applet) (mkMerge [
         [pkgs.networkmanagerapplet]
         (mkIf config.mine.de.hyprland.enable [pkgs.networkmanager_dmenu])

@@ -17,9 +17,10 @@ in {
   config = mkIf cfg.enable {
     mine = {
       boot.grub = enabled;
-      de.hyprland = enabled;
+      de.plasma = enabled;
       gui-apps = {
         alacritty = mkIf (terminal == "alacritty") enabled;
+        chromium = mkIf (browser == "google-chrome") enabled;
         contour = mkIf (terminal == "contour") enabled;
         floorp = mkIf (browser == "floorp") enabled;
         kitty = mkIf (terminal == "kitty") enabled;
@@ -34,7 +35,7 @@ in {
       libraries.java = enabled;
       networking.basic.networkmanager = enabled;
       sops = enabled;
-      servers.sync = enabled;
+      servers.resilio = enabled;
       tui = {
         flatpak = enabled;
         neomutt = enabled;
@@ -48,9 +49,14 @@ in {
     environment.systemPackages = with pkgs; [
       hplip
       ntfs3g
+      obsidian
       wireguard-tools
+      zed-editor
     ];
-    programs.system-config-printer = enabled;
+    programs = {
+      steam = enabled;
+      system-config-printer = enabled;
+    };
     services = {
       avahi = enabled;
       printing = {
@@ -58,6 +64,7 @@ in {
         cups-pdf = enabled;
         drivers = with pkgs; [gutenprint hplip];
       };
+      udisks2 = enabled;
     };
   };
 }

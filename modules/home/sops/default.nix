@@ -9,7 +9,6 @@
   inherit (lib.mine) mkBoolOpt mkOpt;
   inherit (lib.types) attrs path;
   cfg = config.mine.home.sops;
-  imp = config.mine.home.impermanence.enable;
   mode = "0400";
   sopsFile = ./secrets/work-keys.yaml;
 in {
@@ -121,9 +120,6 @@ in {
     };
     home = {
       packages = mkIf cfg.install (with pkgs; [sops]);
-      persistence."/persist/home".files = mkIf imp [
-        ".config/sops/age/keys.txt"
-      ];
     };
     sops = {
       age = mkAliasDefinitions options.mine.home.sops.age;

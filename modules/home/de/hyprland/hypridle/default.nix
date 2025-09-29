@@ -15,17 +15,17 @@ in {
     mine.home.hyprlock = enabled;
     services.hypridle = {
       inherit (cfg) enable;
-      listeners = [
-        {
-          timeout = 300;
-          onTimeout = "loginctl lock-session";
-          onResume = "";
-        }
-      ];
-      lockCmd = "pidof hyprlock || hyprlock";
-      unlockCmd = "";
-      afterSleepCmd = "hyprctl dispatch dpms on";
-      beforeSleepCmd = "loginctl lock-session";
+      # listeners = [
+      #   {
+      #     timeout = 300;
+      #     onTimeout = "loginctl lock-session";
+      #     onResume = "";
+      #   }
+      # ];
+      # lockCmd = "pidof hyprlock || hyprlock";
+      # unlockCmd = "";
+      # afterSleepCmd = "hyprctl dispatch dpms on";
+      # beforeSleepCmd = "loginctl lock-session";
     };
   };
 }

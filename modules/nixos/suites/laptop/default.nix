@@ -15,22 +15,15 @@ in {
     mine = {
       hardware = {
         bluetooth = enabled;
-        intel-video = enabled;
         power = enabled;
       };
       firmware = enabled;
       suites.workstation = enabled;
       networking.profiles = enabled;
     };
-    services = {
-      logind = {
-        killUserProcesses = true;
-        lidSwitchExternalPower = "ignore";
-      };
-      xserver.libinput = {
-        enable = true;
-        touchpad.naturalScrolling = true;
-      };
+    services.logind = {
+      killUserProcesses = true;
+      lidSwitchExternalPower = "ignore";
     };
   };
 }

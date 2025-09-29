@@ -8,4 +8,5 @@
 # All other arguments for this function are your flake inputs.
 {channels, ...}: final: prev: {
   inherit (channels.unstable) imapfilter;
+  inherit (prev.mine) urlview;
 }

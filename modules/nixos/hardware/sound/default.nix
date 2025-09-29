@@ -18,16 +18,17 @@ in {
       pavucontrol
       pipewire
     ];
-    hardware.pulseaudio = disabled;
     security.rtkit = enabled;
-    services.pipewire = {
-      alsa = {
+    services = {
+      pipewire = {
+        alsa = {
+          enable = true;
+          support32Bit = true;
+        };
         enable = true;
-        support32Bit = true;
+        pulse = enabled;
       };
-      enable = true;
-      pulse = enabled;
+      pulseaudio = disabled;
     };
-    sound = disabled;
   };
 }

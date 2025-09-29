@@ -39,6 +39,7 @@ in {
         set -g renumber-windows on
         set -g set-clipboard on
         set -g status-position top
+        set -g mouse on
 
         bind-key -T copy-mode-vi v send-keys -X begin-selection
         bind-key -T copy-mode-vi C-v send-keys -X rectangle-toggle
@@ -48,8 +49,9 @@ in {
     };
     programs = {
       bash.initExtra = ''
-        if [[ -z "$TMUX" ]]; then
-            tmux new-session -A -s ${config.home.username}
+        if [ $DISPLAY ]; then
+          [[ $- != *i* ]] && return
+          [ -z "''${TMUX}" ] && { tmux new-session -A -s ${config.home.username} && exit; }
         fi
       '';
       tmux = {
@@ -79,7 +81,7 @@ in {
           }
           yank
           {
-            plugin = tmux-fzf-url;
+            plugin = fzf-tmux-url;
             extraConfig = ''
               set -g @fzf-url-fzf-options '-p 60%,30% --prompt="   " --border-label=" Open URL "'
               set -g @fzf-url-history-limit '2000'

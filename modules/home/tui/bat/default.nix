@@ -8,7 +8,6 @@
   inherit (lib.mine) enabled mkBoolOpt;
 
   cfg = config.mine.home.tui.bat;
-  imp = config.mine.home.impermanence.enable;
 in {
   options.mine.home.tui.bat = {
     enable = mkBoolOpt true "Enable the module";
@@ -16,9 +15,6 @@ in {
   };
   config = mkIf cfg.enable {
     home = {
-      persistence."/persist/home".directories = mkIf imp [
-        ".cache/bat"
-      ];
       shellAliases = {
         "cat" = "bat";
         "diff" = "batdiff";

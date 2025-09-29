@@ -10,7 +10,6 @@
 
   cfg = config.mine.home.tui.git;
   configFolder = "${config.xdg.configHome}/lazygit";
-  imp = config.mine.home.impermanence.enable;
   os = osConfig.mine.tui.git;
 in {
   options.mine.home.tui.git = {
@@ -19,11 +18,8 @@ in {
 
   config = mkIf cfg.enable {
     home = {
-      persistence."/persist/home".files = mkIf imp [
-        ".config/lazygit/state.yml"
-      ];
       sessionVariables = {
-        LG_CONFIG_FILE = "${configFolder}/config.yml";
+        LG_CONFIG_FILE = "${configFolder}/config.yml,${configFolder}/themes/mocha/mauve.yml";
       };
       shellAliases = {
         lg = "lazygit";
@@ -60,9 +56,10 @@ in {
         userName = config.mine.home.user.fullName;
         userEmail = config.mine.home.user.email;
       };
+      lazygit = enabled;
     };
     xdg.configFile = {
-      "lazygit/config.yml".source = ./lazygit.yml;
+      # "lazygit/config.yml".source = ./lazygit.yml;
       "lazygit/themes".source = pkgs.catppuccin-lazygit;
     };
   };

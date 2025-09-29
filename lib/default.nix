@@ -1,6 +1,5 @@
 {lib, ...}: let
-  inherit (lib) mkOption strings;
-  inherit (lib.attrsets) filterAttrs mapAttrsToList;
+  inherit (lib) mkOption;
   inherit (lib.types) bool;
 in rec {
   disabled = {enable = false;};
@@ -14,19 +13,4 @@ in rec {
   mkOpt' = type: default: mkOpt type default null;
   mkBoolOpt = mkOpt bool;
   mkBoolOpt' = mkOpt' bool;
-  mkPxeMenu = args:
-    ''
-      UI menu.c32
-      TIMEOUT 300
-    ''
-    + strings.concatStringsSep "\n" (mapAttrsToList
-      (
-        name: value: ''
-          LABEL ${name}
-            MENU LABEL ${value.content.label}
-            KERNEL ${value.content.kernel}
-            append ${value.content.append}
-        ''
-      )
-      (filterAttrs (_: v: v.condition) args));
 }

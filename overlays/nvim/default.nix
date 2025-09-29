@@ -7,9 +7,6 @@
         (prev.mine)
         nvim-cmp-nerdfont
         conceal-nvim
-        nvim-undotree
-        one-small-step-for-vimkind
-        transparent-nvim
         ;
       nvim-treesitter =
         channels.unstable.vimPlugins.nvim-treesitter

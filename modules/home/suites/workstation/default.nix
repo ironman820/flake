@@ -17,7 +17,6 @@ in {
 
   config = mkIf cfg.enable {
     mine.home = {
-      de.hyprland = enabled;
       gui-apps = {
         alacritty = mkIf (terminal == "alacritty") enabled;
         contour = mkIf (terminal == "contour") enabled;
@@ -26,11 +25,10 @@ in {
         wezterm = mkIf (terminal == "wezterm") enabled;
       };
       hardware.yubikey = enabled;
-      rofi = enabled;
-      servers.sync = enabled;
       tui.neomutt = enabled;
       video-tools = enabled;
       virtual.host = enabled;
     };
+    services.udiskie = enabled;
   };
 }

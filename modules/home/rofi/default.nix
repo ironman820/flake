@@ -12,7 +12,6 @@ in {
   options.mine.home.rofi = {enable = mkEnableOption "Setup rofi";};
 
   config = mkIf cfg.enable {
-    home = {packages = with pkgs; [nerdfonts];};
     programs.rofi = {
       inherit (cfg) enable;
       configPath = "/home/${config.mine.home.user.name}/.config/rofi/default.rasi";
@@ -30,7 +29,7 @@ in {
       font = mkDefault "FiraCode Nerd Font Mono";
       package = pkgs.rofi-wayland;
       terminal = "${pkgs.${terminal}}/bin/${terminal}";
-      theme = mkDefault "${pkgs.catppuccin-rofi}/catppuccin-mocha.rasi";
+      # theme = mkDefault "${pkgs.catppuccin-rofi}/catppuccin-mocha.rasi";
     };
     xdg.configFile = {
       "rofi/cliphist.sh" = {

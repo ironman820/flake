@@ -10,7 +10,6 @@
   inherit (lib.types) lines;
 
   cfg = config.mine.home.tui.nvim;
-  imp = config.mine.home.impermanence.enable;
   initLua = ''
     require("startup")
   '';
@@ -23,11 +22,6 @@ in {
 
   config = mkIf cfg.enable {
     home = {
-      persistence."/persist/home".directories = mkIf imp [
-        ".cache/nvim"
-        ".local/share/nvim"
-        ".local/state/nvim"
-      ];
       shellAliases = {
         "nano" = "nvim";
         "nv" = "nvim";
@@ -101,7 +95,7 @@ in {
           nvim-ts-autotag
           nvim-ts-context-commentstring
           nvim-ufo
-          nvim-undotree
+          undotree
           nvim-web-devicons
           which-key-nvim
         ];

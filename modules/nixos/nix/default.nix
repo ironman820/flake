@@ -9,7 +9,6 @@
   inherit (lib.types) int str;
 
   cfg = config.mine.nix;
-  imp = config.mine.impermanence.enable;
 in {
   options.mine.nix = {
     enable = mkBoolOpt true "Enable NIX settings.";
@@ -22,11 +21,6 @@ in {
 
   config = mkIf cfg.enable {
     environment = {
-      persistence."/persist/root".directories = mkIf imp [
-        "/root/.cache/nix"
-        "/root/.cache/nix-index"
-        "/root/.local/share/nix"
-      ];
       sessionVariables.FLAKE = "/home/${config.mine.user.name}/.config/flake";
       systemPackages = with pkgs; [
         nh

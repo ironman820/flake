@@ -1,8 +1,9 @@
-{config, ...}: {
+{lib, ...}: let
+  inherit (lib.mine) enabled;
+in {
   imports = [
     ../modules.nix
   ];
-  mine.home = {
-    user.name = config.snowfallorg.user.name;
-  };
+  mine.home.suites.workstation = enabled;
+  snowfallorg.user = enabled;
 }

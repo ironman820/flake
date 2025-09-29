@@ -35,8 +35,10 @@ in {
     };
     security.pam.u2f = {
       enable = true;
-      cue = true;
-      origin = "pam://ironman";
+      settings = {
+        cue = true;
+        origin = "pam://ironman";
+      };
     };
     services = {
       pcscd.enable = true;

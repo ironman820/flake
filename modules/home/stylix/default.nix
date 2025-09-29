@@ -45,7 +45,7 @@ in {
       fonts = {
         monospace = {
           name = stlx.fonts.terminalFont;
-          package = pkgs.nerdfonts;
+          package = stlx.fonts.terminalFontPackage;
         };
         sansSerif = {
           name = "DejaVuSansM Nerd Font";

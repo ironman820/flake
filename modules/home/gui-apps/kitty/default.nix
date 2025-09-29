@@ -47,9 +47,6 @@ in {
     };
     home = {
       file.".config/kitty/themes.conf".source = pkgs.catppuccin-kitty;
-      packages = [
-        pkgs.nerdfonts
-      ];
     };
     programs.kitty = {
       inherit (cfg) extraConfig settings;

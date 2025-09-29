@@ -56,12 +56,12 @@ in {
         ;
       enable = true;
       plugins = with pkgs.tmuxPlugins; [
-        catppuccin-tmux
+        catppuccin
         cheat-sh
         sensible
         sessionx
         yank
-        tmux-fzf-url
+        fzf-tmux-url
       ];
     };
     environment.etc = {

@@ -26,7 +26,7 @@ in {
         mercurial
         pyright
         nil
-        nixfmt
+        nixfmt-classic
         statix
         stylua
         taplo-lsp
@@ -97,7 +97,7 @@ in {
         nvim-ts-autotag
         nvim-ts-context-commentstring
         nvim-ufo
-        nvim-undotree
+        undotree
         nvim-web-devicons
         which-key-nvim
       ]);

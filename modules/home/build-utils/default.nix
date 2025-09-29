@@ -1,5 +1,9 @@
-{ config, inputs, lib, options, pkgs, ... }:
-let
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}: let
   inherit (lib) mkEnableOption mkIf;
   cfg = config.mine.home.build-utils;
 in {

@@ -18,6 +18,7 @@
       };
       systems.modules.nixos = with inputs; [
         disko.nixosModules.disko
+        nvf.nixosModules.default
         sops-nix.nixosModules.sops
         stylix.nixosModules.stylix
       ];
@@ -64,6 +65,14 @@
     nvim-cmp-nerdfont = {
       flake = false;
       url = "github:chrisgrieser/cmp-nerdfont";
+    };
+    nvf = {
+      url = "github:notashelf/nvf";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+    obsidian-nvim = {
+      flake = false;
+      url = "github:epwalsh/obsidian.nvim";
     };
     snowfall-flake = {
       url = "github:snowfallorg/flake";

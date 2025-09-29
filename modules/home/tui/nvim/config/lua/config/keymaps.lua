@@ -2,9 +2,6 @@ local map = require("user-util").map
 
 map("q", "<Nop>")
 
-map("jk", "<esc>", { noremap = true, silent = true, mode = "i" })
-map("kj", "<esc>", { noremap = true, silent = true, mode = "i" })
-
 -- better up/down
 map("j", "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = true, mode = { "n", "x" } })
 map("<Down>", "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = true, mode = { "n", "x" } })

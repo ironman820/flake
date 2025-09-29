@@ -5,7 +5,7 @@
   ...
 }: let
   inherit (lib) mkIf;
-  inherit (lib.mine) mkBoolOpt;
+  inherit (lib.mine) enabled mkBoolOpt;
 
   cfg = config.mine.tui.nvim;
 in {
@@ -101,14 +101,79 @@ in {
         nvim-web-devicons
         which-key-nvim
       ]);
-    programs.neovim = {
+    programs.nvf = {
       inherit (cfg) enable;
-      defaultEditor = true;
-      viAlias = true;
-      vimAlias = true;
-      withNodeJs = true;
-      withPython3 = false;
-      withRuby = false;
+      settings.vim = {
+        autocomplete.nvim-cmp = enabled;
+        clipboard = {
+          enable = true;
+          registers = "unnamedplus";
+          providers.wl-copy = enabled;
+        };
+        globals.root_spec = ["lsp" [".git" "lua"] "cwd"];
+        keymaps = [
+          {
+            key = "jk";
+            mode = "i";
+            action = "<esc>";
+          }
+          {
+            key = "kj";
+            mode = "i";
+            action = "<esc>";
+          }
+        ];
+        lineNumberMode = "relNumber";
+        options = {
+          autowrite = true;
+          conceallevel = 2;
+          confirm = true;
+          expandtab = true;
+          foldlevel = 99;
+          formatoptions = "jcroqlnt";
+          grepformat = "%f:%l:%c:%m";
+          grepprg = "rg --vimgrep";
+          ignorecase = true;
+          inccommand = "nosplit";
+          laststatus = 3;
+          list = true;
+          mouse = "a";
+          pumblend = 10;
+          pumheight = 10;
+          scrolloff = 4;
+          sessionoptions = ["buffers" "curdir" "tabpages" "winsize" "help" "globals" "skiprtp" "folds"];
+          shiftround = true;
+          shiftwidth = 2;
+          sidescrolloff = 8;
+          smartindent = true;
+          splitkeep = "screen";
+          tabstop = 2;
+          tm = 300;
+          undofile = true;
+          undolevels = 10000;
+          updatetime = 200;
+          virtualedit = "block";
+          wildmode = "longest:full,full";
+          winminwidth = 5;
+          fillchars = {
+            foldopen = "";
+            foldclose = "";
+            fold = " ";
+            foldsep = " ";
+            diff = "╱";
+            eob = " ";
+          };
+        };
+        searchCase = "smart";
+        spellcheck = {
+          enable = true;
+          languages = ["en"];
+        };
+        ui.modes-nvim = {
+          enable = true;
+          setupOpts.setCursorline = true;
+        };
+      };
     };
   };
 }

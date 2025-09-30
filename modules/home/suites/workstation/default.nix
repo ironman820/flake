@@ -25,7 +25,6 @@ in {
         wezterm = mkIf (terminal == "wezterm") enabled;
       };
       hardware.yubikey = enabled;
-      tui.neomutt = enabled;
       video-tools = enabled;
       virtual.host = enabled;
     };

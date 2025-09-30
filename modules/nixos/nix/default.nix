@@ -21,7 +21,7 @@ in {
 
   config = mkIf cfg.enable {
     environment = {
-      sessionVariables.FLAKE = "/home/${config.mine.user.name}/.config/flake";
+      sessionVariables.NH_FLAKE = "/home/${config.mine.user.name}/git/flake";
       systemPackages = with pkgs; [
         nh
         nix-output-monitor

@@ -38,7 +38,6 @@ in {
       servers.resilio = enabled;
       tui = {
         flatpak = enabled;
-        neomutt = enabled;
       };
       virtual.host = enabled;
       xdg = enabled;
@@ -47,6 +46,7 @@ in {
       "vm.overcommit_memory" = 1;
     };
     environment.systemPackages = with pkgs; [
+      # bottles
       hplip
       ntfs3g
       obsidian

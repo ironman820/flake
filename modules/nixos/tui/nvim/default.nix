@@ -141,7 +141,7 @@ in {
           pumblend = 10;
           pumheight = 10;
           scrolloff = 4;
-          sessionoptions = ["buffers" "curdir" "tabpages" "winsize" "help" "globals" "skiprtp" "folds"];
+          # sessionoptions = ["buffers" "curdir" "tabpages" "winsize" "help" "globals" "skiprtp" "folds"];
           shiftround = true;
           shiftwidth = 2;
           sidescrolloff = 8;
@@ -155,14 +155,14 @@ in {
           virtualedit = "block";
           wildmode = "longest:full,full";
           winminwidth = 5;
-          fillchars = {
-            foldopen = "";
-            foldclose = "";
-            fold = " ";
-            foldsep = " ";
-            diff = "╱";
-            eob = " ";
-          };
+          # fillchars = ''{
+          #   foldopen = "",
+          #   foldclose = "",
+          #   fold = " ",
+          #   foldsep = " ",
+          #   diff = "╱",
+          #   eob = " ",
+          # }'';
         };
         searchCase = "smart";
         spellcheck = {

@@ -111,7 +111,7 @@ in {
           registers = "unnamedplus";
           providers.wl-copy = enabled;
         };
-        globals.root_spec = ["lsp" [".git" "lua"] "cwd"];
+        # globals.root_spec = ["lsp" [".git" "lua"] "cwd"];
         keymaps = [
           {
             key = "jk";
@@ -126,54 +126,45 @@ in {
         ];
         lineNumberMode = "relNumber";
         options = {
-          autowrite = true;
-          conceallevel = 2;
+          # autowrite = true;
+          # conceallevel = 2;
           confirm = true;
           expandtab = true;
-          foldlevel = 99;
-          formatoptions = "jcroqlnt";
-          grepformat = "%f:%l:%c:%m";
-          grepprg = "rg --vimgrep";
-          ignorecase = true;
-          inccommand = "nosplit";
-          laststatus = 3;
-          list = true;
+          # foldlevel = 99;
+          # formatoptions = "jcroqlnt";
+          # grepformat = "%f:%l:%c:%m";
+          # grepprg = "rg --vimgrep";
+          # ignorecase = true;
+          # inccommand = "nosplit";
+          # laststatus = 3;
+          # list = true;
           mouse = "a";
-          pumblend = 10;
-          pumheight = 10;
+          # pumblend = 10;
+          # pumheight = 10;
           scrolloff = 4;
-          # sessionoptions = ["buffers" "curdir" "tabpages" "winsize" "help" "globals" "skiprtp" "folds"];
           shiftround = true;
           shiftwidth = 2;
-          sidescrolloff = 8;
-          smartindent = true;
-          splitkeep = "screen";
+          # sidescrolloff = 8;
+          # smartindent = true;
+          # splitkeep = "screen";
           tabstop = 2;
           tm = 300;
-          undofile = true;
-          undolevels = 10000;
+          # undofile = true;
+          # undolevels = 10000;
           updatetime = 200;
-          virtualedit = "block";
-          wildmode = "longest:full,full";
-          winminwidth = 5;
-          # fillchars = ''{
-          #   foldopen = "",
-          #   foldclose = "",
-          #   fold = " ",
-          #   foldsep = " ",
-          #   diff = "╱",
-          #   eob = " ",
-          # }'';
+          # virtualedit = "block";
+          # wildmode = "longest:full,full";
+          # winminwidth = 5;
         };
         searchCase = "smart";
         spellcheck = {
           enable = true;
           languages = ["en"];
         };
-        ui.modes-nvim = {
-          enable = true;
-          setupOpts.setCursorline = true;
-        };
+        # ui.modes-nvim = {
+        #   enable = true;
+        #   setupOpts.setCursorline = true;
+        # };
       };
     };
   };

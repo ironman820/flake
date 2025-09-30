@@ -38,14 +38,6 @@ in {
         barbecue-nvim
         bufferline-nvim
         catppuccin-nvim
-        nvim-cmp
-        cmp-buffer
-        cmp-cmdline
-        cmp-git
-        cmp-nvim-lsp
-        cmp_luasnip
-        nvim-cmp-nerdfont
-        cmp-path
         cloak-nvim
         conceal-nvim
         conform-nvim
@@ -58,13 +50,10 @@ in {
         nvim-dap-virtual-text
         diffview-nvim
         dressing-nvim
-        friendly-snippets
-        # git-worktree-nvim
         gitsigns-nvim
         hop-nvim
         vim-illuminate
         indent-blankline-nvim
-        # lazygit-nvim
         nvim-lint
         nvim-lspconfig
         lualine-nvim
@@ -73,9 +62,7 @@ in {
         nvim-navic
         neoconf-nvim
         neodev-nvim
-        # neogit
         neo-tree-nvim
-        # noice-nvim
         nvim-notify
         nui-nvim
         obsidian-nvim
@@ -104,7 +91,21 @@ in {
     programs.nvf = {
       inherit (cfg) enable;
       settings.vim = {
-        autocomplete.nvim-cmp = enabled;
+        autocomplete.blink-cmp = {
+          enable = true;
+          friendly-snippets = enabled;
+          mappings = {
+            next = "<C-j>";
+            previous = "<C-k>";
+            scrollDocsDown = "<C-d>";
+            scrollDocsUp = "<C-u>";
+          };
+          sourcePlugins = {
+            emoji = enabled;
+            ripgrep = enabled;
+            spell = enabled;
+          };
+        };
         clipboard = {
           enable = true;
           registers = "unnamedplus";

@@ -106,6 +106,7 @@ in {
             spell = enabled;
           };
         };
+        autopairs.nvim-autopairs = enabled;
         clipboard = {
           enable = true;
           registers = "unnamedplus";

@@ -107,11 +107,17 @@ in {
           };
         };
         autopairs.nvim-autopairs = enabled;
+        binds = {
+          cheatsheet = enabled;
+          hardtime-nvim = enabled;
+          whichKey = enabled;
+        };
         clipboard = {
           enable = true;
           registers = "unnamedplus";
           providers.wl-copy = enabled;
         };
+        comments.comment-nvim = enabled;
         # globals.root_spec = ["lsp" [".git" "lua"] "cwd"];
         keymaps = [
           {

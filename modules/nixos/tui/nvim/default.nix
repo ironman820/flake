@@ -14,80 +14,80 @@ in {
   };
 
   config = mkIf cfg.enable {
-    environment.systemPackages =
-      (with pkgs; [
-        alejandra
-        fd
-        ripgrep
-        tree-sitter
-        xclip
-        efm-langserver
-        lua-language-server
-        mercurial
-        pyright
-        nil
-        nixfmt-classic
-        statix
-        stylua
-        taplo-lsp
-      ])
-      ++ (with pkgs.luaPackages; [luacheck])
-      ++ (with pkgs.vimPlugins; [
-        aerial-nvim
-        alpha-nvim
-        barbecue-nvim
-        bufferline-nvim
-        catppuccin-nvim
-        cloak-nvim
-        conceal-nvim
-        conform-nvim
-        vim-dadbod
-        vim-dadbod-completion
-        vim-dadbod-ui
-        nvim-dap
-        nvim-dap-python
-        nvim-dap-ui
-        nvim-dap-virtual-text
-        diffview-nvim
-        dressing-nvim
-        gitsigns-nvim
-        hop-nvim
-        vim-illuminate
-        indent-blankline-nvim
-        nvim-lint
-        nvim-lspconfig
-        lualine-nvim
-        luasnip
-        mini-nvim
-        nvim-navic
-        neoconf-nvim
-        neodev-nvim
-        neo-tree-nvim
-        nvim-notify
-        nui-nvim
-        obsidian-nvim
-        oil-nvim
-        one-small-step-for-vimkind
-        persistence-nvim
-        plenary-nvim
-        promise-async
-        rainbow-delimiters-nvim
-        nvim-spectre
-        telescope-nvim
-        telescope-fzf-native-nvim
-        todo-comments-nvim
-        nvim-treesitter.withAllGrammars
-        nvim-treesitter-context
-        nvim-treesitter-textobjects
-        transparent-nvim
-        trouble-nvim
-        nvim-ts-autotag
-        nvim-ts-context-commentstring
-        nvim-ufo
-        undotree
-        nvim-web-devicons
-        which-key-nvim
-      ]);
+    # environment.systemPackages =
+    #   (with pkgs; [
+    #     alejandra
+    #     fd
+    #     ripgrep
+    #     tree-sitter
+    #     xclip
+    #     efm-langserver
+    #     lua-language-server
+    #     mercurial
+    #     pyright
+    #     nil
+    #     nixfmt-classic
+    #     statix
+    #     stylua
+    #     taplo-lsp
+    #   ])
+    #   ++ (with pkgs.luaPackages; [luacheck])
+    #   ++ (with pkgs.vimPlugins; [
+    #     aerial-nvim
+    #     alpha-nvim
+    #     barbecue-nvim
+    #     bufferline-nvim
+    #     catppuccin-nvim
+    #     cloak-nvim
+    #     conceal-nvim
+    #     conform-nvim
+    #     vim-dadbod
+    #     vim-dadbod-completion
+    #     vim-dadbod-ui
+    #     nvim-dap
+    #     nvim-dap-python
+    #     nvim-dap-ui
+    #     nvim-dap-virtual-text
+    #     diffview-nvim
+    #     dressing-nvim
+    #     gitsigns-nvim
+    #     hop-nvim
+    #     vim-illuminate
+    #     indent-blankline-nvim
+    #     nvim-lint
+    #     nvim-lspconfig
+    #     lualine-nvim
+    #     luasnip
+    #     mini-nvim
+    #     nvim-navic
+    #     neoconf-nvim
+    #     neodev-nvim
+    #     neo-tree-nvim
+    #     nvim-notify
+    #     nui-nvim
+    #     obsidian-nvim
+    #     oil-nvim
+    #     one-small-step-for-vimkind
+    #     persistence-nvim
+    #     plenary-nvim
+    #     promise-async
+    #     rainbow-delimiters-nvim
+    #     nvim-spectre
+    #     telescope-nvim
+    #     telescope-fzf-native-nvim
+    #     todo-comments-nvim
+    #     nvim-treesitter.withAllGrammars
+    #     nvim-treesitter-context
+    #     nvim-treesitter-textobjects
+    #     transparent-nvim
+    #     trouble-nvim
+    #     nvim-ts-autotag
+    #     nvim-ts-context-commentstring
+    #     nvim-ufo
+    #     undotree
+    #     nvim-web-devicons
+    #     which-key-nvim
+    #   ]);
     programs.nvf = {
       inherit (cfg) enable;
       settings.vim = {

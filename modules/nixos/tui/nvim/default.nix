@@ -109,7 +109,13 @@ in {
         binds = {
           cheatsheet = enabled;
           hardtime-nvim = enabled;
-          whichKey = enabled;
+          whichKey = {
+            enable = true;
+            register = {
+              c = "Git Conflict";
+              d = "Debug";
+            };
+          };
         };
         clipboard = {
           enable = true;

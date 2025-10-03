@@ -219,6 +219,9 @@ in {
           enable = true;
           languages = ["en"];
         };
+        statusline.lualine = enabled;
+        tabline.nvimBufferline = enabled;
+        telescope = enabled;
         # ui.modes-nvim = {
         #   enable = true;
         #   setupOpts.setCursorline = true;

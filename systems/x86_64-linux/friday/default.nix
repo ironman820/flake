@@ -13,7 +13,10 @@ in {
     environment.systemPackages = with pkgs; [
       mmex
     ];
-    mine.suites.laptop = enabled;
+    mine = {
+      networking.profiles.work = true;
+      suites.laptop = enabled;
+    };
     system.stateVersion = "25.05";
   };
 }

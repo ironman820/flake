@@ -14,9 +14,9 @@ in {
   };
 
   config = mkIf cfg.enable {
-    # environment.systemPackages =
-    #   (with pkgs; [
-    #     alejandra
+    environment.systemPackages =
+      with pkgs; [
+        alejandra
     #     fd
     #     ripgrep
     #     tree-sitter
@@ -24,11 +24,10 @@ in {
     #     efm-langserver
     #     lua-language-server
     #     mercurial
-    #     pyright
-    #     nil
+        nil
     #     nixfmt-classic
-    #     statix
-    #     stylua
+        statix
+        stylua
     #     taplo-lsp
     #   ])
     #   ++ (with pkgs.luaPackages; [luacheck])
@@ -87,7 +86,7 @@ in {
     #     undotree
     #     nvim-web-devicons
     #     which-key-nvim
-    #   ]);
+      ];
     programs.nvf = {
       inherit (cfg) enable;
       settings.vim = {
@@ -129,6 +128,20 @@ in {
             stepOver = "<leader>dO";
           };
           ui = enabled;
+        };
+        diagnostics = {
+          enable = true;
+          config = {
+            update_in_insert = true;
+            virtual_lines = true;
+          };
+          nvim-lint = {
+            enable = true;
+            linters_by_ft = {
+              nix = ["statix"];
+              python = ["pylint"];
+            };
+          };
         };
         formatter.conform-nvim = {
           enable = true;

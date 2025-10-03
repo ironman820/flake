@@ -43,7 +43,6 @@ in {
       ssh-to-age
       snowfallorg.flake
       sops
-      steam-run
       wget
     ])
     ++ (with pkgs.bat-extras; [

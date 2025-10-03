@@ -24,6 +24,11 @@ in {
           mode = "0400";
           path = "${settingsPath}/DumbledoresArmy.nmconnection";
         };
+        ironman_psk = {
+          inherit sopsFile;
+          mode = "0400";
+          path = "${settingsPath}/Ironman.nmconnection";
+        };
       })
       (mkIf cfg.work {
         d105_psk = {

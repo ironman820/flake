@@ -165,6 +165,10 @@ in {
             };
           };
         };
+        git = {
+          enable = true;
+          neogit = enabled;
+        };
         # globals.root_spec = ["lsp" [".git" "lua"] "cwd"];
         keymaps = [
           {

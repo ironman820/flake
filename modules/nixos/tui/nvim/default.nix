@@ -118,6 +118,18 @@ in {
           providers.wl-copy = enabled;
         };
         comments.comment-nvim = enabled;
+        debugger.nvim-dap = {
+          enable = true;
+          mappings = {
+            goDown = "<leader>dj";
+            goUp = "<leader>dk";
+            hover = "<leader>dw";
+            stepInto = "<leader>di";
+            stepOut = "<leader>do";
+            stepOver = "<leader>dO";
+          };
+          ui = enabled;
+        };
         # globals.root_spec = ["lsp" [".git" "lua"] "cwd"];
         keymaps = [
           {

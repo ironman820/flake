@@ -8,6 +8,7 @@
 
   cfg = config.mine.networking.profiles;
   sopsFile = ./secrets/profiles.yaml;
+  settingsPath = "/etc/NetworkManager/system-connections";
 in {
   options.mine.networking.profiles = {
     enable = mkEnableOption "Enable the default settings?";
@@ -21,19 +22,24 @@ in {
         da_psk = {
           inherit sopsFile;
           mode = "0400";
-          path = "/etc/NetworkManager/system-connections/DumbledoresArmy.nmconnection";
+          path = "${settingsPath}/DumbledoresArmy.nmconnection";
         };
       })
       (mkIf cfg.work {
+        d105_psk = {
+          inherit sopsFile;
+          mode = "0400";
+          path = "${settingsPath}/105-desk.nmconnection";
+        };
         office_psk = {
           inherit sopsFile;
           mode = "0400";
-          path = "/etc/NetworkManager/system-connections/office.nmconnection";
+          path = "${settingsPath}/office.nmconnection";
         };
         royell_vpn = {
           inherit sopsFile;
           mode = "0400";
-          path = "/etc/NetworkManager/system-connections/Royell.nmconnection";
+          path = "${settingsPath}/Royell.nmconnection";
         };
       })
     ];

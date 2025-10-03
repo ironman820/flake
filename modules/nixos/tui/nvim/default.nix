@@ -130,6 +130,17 @@ in {
           };
           ui = enabled;
         };
+        formatter.conform-nvim = {
+          enable = true;
+          setupOpts = {
+            formatters_by_ft = {
+              lua = ["stylua"];
+              nix = ["alejandra"];
+              php = ["phpcbf" "phpcsfixer"];
+              python = ["isort" "black"];
+            };
+          };
+        };
         # globals.root_spec = ["lsp" [".git" "lua"] "cwd"];
         keymaps = [
           {

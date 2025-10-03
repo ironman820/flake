@@ -123,6 +123,11 @@ in {
           providers.wl-copy = enabled;
         };
         comments.comment-nvim = enabled;
+        dashboard.startify = {
+          enable = true;
+          changeToDir = false;
+          changeToVCRoot = true;
+        };
         debugger.nvim-dap = {
           enable = true;
           mappings = {

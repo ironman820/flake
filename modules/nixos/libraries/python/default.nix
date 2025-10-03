@@ -14,6 +14,7 @@
       black
       cffi
       click
+      conda
       dbus-next
       debugpy
       flake8

@@ -1,14 +1,13 @@
 {
   description = "A not-so basic flake";
 
-  outputs = inputs:
+  outputs =
+    inputs:
     inputs.snowfall-lib.mkFlake {
       inherit inputs;
       src = ./.;
       channels-config.allowUnfree = true;
-      overlays = with inputs; [
-        snowfall-flake.overlays."package/flake"
-      ];
+      overlays = with inputs; [ snowfall-flake.overlays."package/flake" ];
       snowfall = {
         namespace = "mine";
         meta = {
@@ -18,6 +17,7 @@
       };
       systems.modules.nixos = with inputs; [
         disko.nixosModules.disko
+        neovim.nixosModules.default
         sops-nix.nixosModules.sops
         stylix.nixosModules.stylix
       ];
@@ -59,6 +59,10 @@
     home-manager = {
       inputs.nixpkgs.follows = "nixpkgs";
       url = "github:nix-community/home-manager/release-25.05";
+    };
+    neovim = {
+      inputs.nixpkgs.follows = "unstable";
+      url = "github:ironman820/neovim/updates";
     };
     nixpkgs.url = "github:nixos/nixpkgs/nixos-25.05";
     nvim-cmp-nerdfont = {

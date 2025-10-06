@@ -16,7 +16,6 @@ in {
       packages = with pkgs; [
         # barrier
         dia
-        # glocom
         qgis
         wireshark
         zoom-us

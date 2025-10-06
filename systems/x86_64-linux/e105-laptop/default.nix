@@ -6,6 +6,7 @@
   inherit (lib.mine) enabled;
 in {
   imports = [
+    ./disko.nix
     ./hardware.nix
     # ../../../common/drives/work.nix
     # ../../../common/drives/personal.nix
@@ -13,20 +14,11 @@ in {
 
   config = {
     mine = {
-      # android = enabled;
       user.settings.stylix.image = ./voidbringer.png;
       suites.laptop = enabled;
       user.name = "niceastman";
-      # virtual = {
-      #   host = enabled;
-      #   podman = enabled;
-      # };
       networking.profiles.work = true;
     };
-    # environment.systemPackages = [
-    #   pkgs.devenv
-    # ];
-    # programs.usbtop = enabled;
     services.tlp.settings.RUNTIME_PM_DISABLE = "00:14.3";
     system.stateVersion = "25.05";
     zramSwap = enabled;

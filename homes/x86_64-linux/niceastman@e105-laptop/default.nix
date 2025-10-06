@@ -12,7 +12,6 @@ in {
     ../modules.nix
   ];
   # home = {packages = with pkgs; [mine.blockyalarm steam-run];};
-  home = {packages = with pkgs; [steam-run];};
   mine.home = {
     sops.secrets = {
       deploy_ed25519 = {
@@ -32,7 +31,6 @@ in {
       yb_keys.sopsFile = ./secrets/yb_keys.sops;
     };
     gui-apps.glocom = enabled;
-    networking = enabled;
     suites.workstation = enabled;
     tui.neomutt = {
       notmuchWork = true;

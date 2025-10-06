@@ -15,6 +15,14 @@
           title = "Ironman's Config";
         };
       };
+      systems.hosts = {
+        e105-laptop.modules = with inputs; [
+          nixos-hardware.nixosModules.system76
+        ];
+        friday.modules = with inputs; [
+          nixos-hardware.nixosModules.lenovo-thinkpad-e14-amd
+        ];
+      };
       systems.modules.nixos = with inputs; [
         disko.nixosModules.disko
         neovim.nixosModules.default
@@ -60,6 +68,7 @@
       inputs.nixpkgs.follows = "unstable";
       url = "github:ironman820/neovim/updates";
     };
+    nixos-hardware.url = "github:NixOS/nixos-hardware/master";
     nixpkgs.url = "github:nixos/nixpkgs/nixos-25.05";
     snowfall-flake = {
       url = "github:snowfallorg/flake";

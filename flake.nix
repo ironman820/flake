@@ -48,10 +48,6 @@
       flake = false;
       url = "github:catppuccin/rofi";
     };
-    conceal-nvim = {
-      flake = false;
-      url = "github:Jxstxs/conceal.nvim";
-    };
     disko = {
       inputs.nixpkgs.follows = "nixpkgs";
       url = "github:nix-community/disko";
@@ -66,10 +62,6 @@
       # url = "/home/ironman/git/neovim";
     };
     nixpkgs.url = "github:nixos/nixpkgs/nixos-25.05";
-    nvim-cmp-nerdfont = {
-      flake = false;
-      url = "github:chrisgrieser/cmp-nerdfont";
-    };
     snowfall-flake = {
       url = "github:snowfallorg/flake";
       inputs.nixpkgs.follows = "unstable";

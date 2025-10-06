@@ -427,6 +427,28 @@
         "type": "github"
       }
     },
+    "neovim": {
+      "inputs": {
+        "nixCats": "nixCats",
+        "nixpkgs": [
+          "unstable"
+        ]
+      },
+      "locked": {
+        "lastModified": 1759725843,
+        "narHash": "sha256-pGc+fieW9vk+iDT+ltxx3OrfgUngfDhevfvJpKGqxpE=",
+        "owner": "ironman820",
+        "repo": "neovim",
+        "rev": "ffcfd624cc4217e136b34da8d5dbc69bac43b76f",
+        "type": "github"
+      },
+      "original": {
+        "owner": "ironman820",
+        "ref": "updates",
+        "repo": "neovim",
+        "type": "github"
+      }
+    },
     "nixCats": {
       "locked": {
         "lastModified": 1758545673,
@@ -528,6 +550,7 @@
         "conceal-nvim": "conceal-nvim",
         "disko": "disko",
         "home-manager": "home-manager",
+        "neovim": "neovim",
         "nixpkgs": "nixpkgs",
         "nvim-cmp-nerdfont": "nvim-cmp-nerdfont",
         "snowfall-flake": "snowfall-flake",

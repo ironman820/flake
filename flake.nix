@@ -63,6 +63,7 @@
     neovim = {
       inputs.nixpkgs.follows = "unstable";
       url = "github:ironman820/neovim/updates";
+      # url = "/home/ironman/git/neovim";
     };
     nixpkgs.url = "github:nixos/nixpkgs/nixos-25.05";
     nvim-cmp-nerdfont = {

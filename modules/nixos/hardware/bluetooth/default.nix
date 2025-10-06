@@ -10,9 +10,12 @@
 in {
   options.mine.hardware.bluetooth = {
     enable = mkEnableOption "Enable the module";
+    utility = mkEnableOption "Install a control utility";
   };
   config = mkIf cfg.enable {
     hardware.bluetooth = enabled;
-    services.blueman = enabled;
+    services.blueman = {
+      enable = cfg.utility;
+    };
   };
 }

@@ -11,7 +11,7 @@
   os = osConfig.mine.hardware.bluetooth;
 in {
   options.mine.home.hardware.bluetooth = {
-    enable = mkBoolOpt os.enable "Enable the module";
+    enable = mkBoolOpt os.utility "Enable the module";
   };
   config = mkIf cfg.enable {
     services.blueman-applet.enable = true;

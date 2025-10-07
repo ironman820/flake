@@ -1,11 +1,17 @@
 {
   config,
   ...
-}: let
+}:
+let
   sopsFile = ./files/keys.yaml;
   mode = "0400";
   sshPath = "${config.home.homeDirectory}/.ssh";
-in {
+  deployIdentity = {
+    identitiesOnly = true;
+    identityFile = "${sshPath}/deploy_ed25519";
+  };
+in
+{
   config = {
     home = {
       file = {
@@ -28,6 +34,24 @@ in {
       includes = [
         "~/.ssh/my-config"
       ];
+      matchBlocks = {
+        "cr1" = {
+          hostname = "162.216.110.106";
+          user = "royell";
+        };
+        "er1" = {
+          hostname = "162.216.110.104";
+          user = "royell";
+        };
+        "er1.crvl" = {
+          hostname = "162.216.110.8";
+          user = "royell";
+        };
+        "preseem" = {
+          hostname = "208.80.144.36";
+          user = "root";
+        } // deployIdentity;
+      };
     };
     mine.home.sops.secrets = {
       deploy_ed25519 = {

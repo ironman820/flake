@@ -13,23 +13,7 @@ in {
   ];
   # home = {packages = with pkgs; [mine.blockyalarm steam-run];};
   mine.home = {
-    sops.secrets = {
-      deploy_ed25519 = {
-        mode = "0400";
-        path = "${sshFolder}/deploy_ed25519";
-      };
-      github_home = {inherit sopsFile;};
-      github_home_pub.path = "${sshFolder}/github_home.pub";
-      github_work_pub.path = "${sshFolder}/github.pub";
-      id_ed25519_sk = {inherit sopsFile;};
-      id_ed25519_sk_work_pub.path = "${sshFolder}/id_ed25519_sk.pub";
-      id_ed25519_sk_work2 = {
-        inherit sopsFile;
-        mode = "0400";
-        path = "${sshFolder}/id_ed25519_sk_work2";
-      };
-      yb_keys.sopsFile = ./secrets/yb_keys.sops;
-    };
+    sops.secrets.yb_keys.sopsFile = ./secrets/yb_keys.sops;
     gui-apps.glocom = enabled;
     suites.workstation = enabled;
     tui.neomutt = {

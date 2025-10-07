@@ -10,7 +10,6 @@
   inherit (lib.types) attrs path;
   cfg = config.mine.home.sops;
   mode = "0400";
-  sopsFile = ./secrets/work-keys.yaml;
 in {
   options.mine.home.sops = {
     enable = mkBoolOpt true "Enable root secrets";
@@ -28,86 +27,6 @@ in {
       sops = {
         secrets = mkMerge [
           {
-            authorized_keys = {
-              inherit mode;
-              path = "${config.home.homeDirectory}/.ssh/authorized_keys";
-            };
-            deploy_ed25519_pub = {
-              inherit mode;
-              path = "${config.home.homeDirectory}/.ssh/deploy_ed25519.pub";
-            };
-            github_home = {
-              inherit mode;
-              path = "${config.home.homeDirectory}/.ssh/github";
-            };
-            github_home_pub = {
-              inherit mode;
-              path = mkDefault "${config.home.homeDirectory}/.ssh/github.pub";
-            };
-            github_servers_pub = {
-              inherit mode;
-              path =
-                mkDefault "${config.home.homeDirectory}/.ssh/github_servers.pub";
-            };
-            github_work_pub = {
-              inherit mode;
-              path = mkDefault "${config.home.homeDirectory}/.ssh/github_work.pub";
-            };
-            id_ed25519_work = {
-              inherit mode;
-              path = mkDefault "${config.home.homeDirectory}/.ssh/id_ed25519_work";
-            };
-            id_ed25519_work_pub = {
-              inherit mode;
-              path = mkDefault "${config.home.homeDirectory}/.ssh/id_ed25519_work.pub";
-            };
-            id_ed25519_sk = {
-              inherit mode;
-              path = mkDefault "${config.home.homeDirectory}/.ssh/id_ed25519_sk";
-            };
-            id_ed25519_sk_pub = {
-              inherit mode;
-              path =
-                mkDefault "${config.home.homeDirectory}/.ssh/id_ed25519_sk.pub";
-            };
-            id_ed25519_sk_work_pub = {
-              inherit mode;
-              path =
-                mkDefault
-                "${config.home.homeDirectory}/.ssh/id_ed25519_sk_work.pub";
-            };
-            id_ed25519_sk_work2_pub = {
-              inherit mode;
-              path =
-                mkDefault
-                "${config.home.homeDirectory}/.ssh/id_ed25519_sk_work2.pub";
-            };
-            id_rsa_yubikey_pub = {
-              inherit mode;
-              path =
-                mkDefault "${config.home.homeDirectory}/.ssh/id_rsa_yubikey.pub";
-            };
-            my-config = {
-              inherit mode;
-              format = "binary";
-              sopsFile = ./secrets/my-config.sops;
-              path = "${config.home.homeDirectory}/.ssh/my-config";
-            };
-            royell_git_work = {
-              inherit mode;
-              sopsFile = mkDefault sopsFile;
-              path = "${config.home.homeDirectory}/.ssh/royell_git";
-            };
-            royell_git_servers_pub = {
-              inherit mode sopsFile;
-              path =
-                mkDefault
-                "${config.home.homeDirectory}/.ssh/royell_git_servers.pub";
-            };
-            royell_git_work_pub = {
-              inherit mode sopsFile;
-              path = mkDefault "${config.home.homeDirectory}/.ssh/royell_git.pub";
-            };
             yb_keys = {
               inherit mode;
               format = "binary";

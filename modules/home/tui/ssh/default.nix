@@ -1,12 +1,22 @@
 {
   config,
-  lib,
   ...
 }: let
-  inherit (lib) mkIf;
+  sopsFile = ./files/keys.yaml;
+  mode = "0400";
+  sshPath = "${config.home.homeDirectory}/.ssh";
 in {
   config = {
     home = {
+      file = {
+        ".ssh/deploy_ed25519.pub".source = ./files/deploy_ed25519.pub;
+        ".ssh/github_home.pub".source = ./files/github_home.pub;
+        ".ssh/github_servers.pub".source = ./files/github_servers.pub;
+        ".ssh/github_work.pub".source = ./files/github_work.pub;
+        ".ssh/id_rsa_yubikey.pub".source = ./files/id_rsa_yubikey.pub;
+        ".ssh/royell_git_servers.pub".source = ./files/royell_git_servers.pub;
+        ".ssh/royell_git_work.pub".source = ./files/royell_git_work.pub;
+      };
       shellAliases = {
         "s" = "kitten ssh";
       };
@@ -18,16 +28,25 @@ in {
       includes = [
         "~/.ssh/my-config"
       ];
-      matchBlocks = {
-        "cs1.frm.ryr" = {
-          extraOptions = {
-            "KexAlgorithms" = "+diffie-hellman-group1-sha1";
-            # "HostKeyAlgorithms" = "+ssh-dss";
-            "Ciphers" = "+3des-cbc";
-          };
-          hostname = "10.10.183.2";
-          user = "royell";
-        };
+    };
+    mine.home.sops.secrets = {
+      deploy_ed25519 = {
+        inherit mode sopsFile;
+        path = "${sshPath}/deploy_ed25519";
+      };
+      github = {
+        inherit mode sopsFile;
+        path = "${sshPath}/github";
+      };
+      my-config = {
+        inherit mode;
+        format = "binary";
+        sopsFile = ./files/my-config.sops;
+        path = "${sshPath}/my-config";
+      };
+      royell_git = {
+        inherit mode sopsFile;
+        path = "${sshPath}/royell_git";
       };
     };
   };

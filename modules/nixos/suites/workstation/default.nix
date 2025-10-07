@@ -39,7 +39,10 @@ in {
       tui = {
         flatpak = enabled;
       };
-      virtual.host = enabled;
+      virtual = {
+        host = enabled;
+        podman = enabled;
+      };
       xdg = enabled;
     };
     boot.kernel.sysctl = {

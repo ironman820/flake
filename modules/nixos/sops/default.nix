@@ -20,7 +20,6 @@ in {
   };
 
   config = mkIf cfg.enable {
-    mine.sops.secrets.user_pass.neededForUsers = true;
     sops = {
       age = mkAliasDefinitions options.mine.sops.age;
       defaultSopsFile = mkAliasDefinitions options.mine.sops.defaultSopsFile;

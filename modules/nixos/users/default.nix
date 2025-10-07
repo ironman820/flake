@@ -42,8 +42,6 @@ in {
       mkOpt (nullOr package) defaultIcon
       "The profile picture to use for the user.";
     name = mkOpt str "ironman" "Username";
-    password = mkOpt (nullOr str) null "Default password";
-    hashedPasswordFile = mkOpt (nullOr (either path str)) config.sops.secrets.user_pass.path "User's password hashed into a file for reference.";
     settings = {
       applications = let
         apps = vars.applications;
@@ -79,12 +77,7 @@ in {
 
   config = {
     users.users.${cfg.name} =
-      (
-        if (cfg.password != null)
-        then {inherit (cfg) password;}
-        else {inherit (cfg) hashedPasswordFile;}
-      )
-      // {
+      {
         createHome = true;
         extraGroups = ["wheel"] ++ cfg.extraGroups;
         group = "users";

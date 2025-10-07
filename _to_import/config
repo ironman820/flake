@@ -1,0 +1,362 @@
+Host 10.10.50.10
+    User root
+    Port 923
+Host 10.10.240.3
+{{ template "ssh-switch" -}}
+Host 10.105.20.2
+{{ template "ssh-switch" -}}
+Host alerts
+    HostName alerts.royell.org
+    User royell
+{{ template "ssh-sk" . -}}
+Host auth
+  HostName auth.royell.org
+  User niceastman
+{{ template "ssh-deploy" -}}
+Host auth.home
+  HostName 192.168.248.38
+  User root
+{{ template "ssh-deploy" -}}
+Host backup
+    HostName 208.80.144.49
+    User root
+Host calix-shelf
+    HostName 10.31.3.14
+    User royell
+    KexAlgorithms +diffie-hellman-group1-sha1
+    Ciphers +3des-cbc
+Host cameras
+    HostName 208.80.144.63
+    User royell
+{{ template "ssh-sk" . -}}
+Host cpanel
+    HostName wns1.royell.org
+    User root
+{{ template "ssh-sk" . -}}
+Host cr1.fb.aub
+    HostName 162.216.110.49
+    User royell
+Host cs1
+    HostName 100.64.0.18
+    User royell
+Host cs1.cstr.mm
+    HostName 10.10.36.2
+{{ template "ssh-switch" -}}
+Host cs1.igr.nbrln
+    HostName 10.10.51.2
+{{ template "ssh-switch" -}}
+Host cs1.irvg.mm
+    HostName 10.10.177.3
+{{ template "ssh-switch" -}}
+Host cs1.ltfld.mm
+    HostName 172.29.132.2
+{{ template "ssh-switch" -}}
+Host cs1.mm.gir
+    HostName 10.10.200.2
+{{ template "ssh-switch" -}}
+Host cs1.mm.vrdn
+    HostName 172.29.129.2
+{{ template "ssh-switch" -}}
+Host cs1.wav.190
+    HostName 100.64.0.6
+{{ template "ssh-switch" -}}
+Host cs1.twr.wvry
+    HostName 10.10.213.2
+{{ template "ssh-switch" -}}
+Host cs2.twr.wvry
+    HostName 10.10.49.2
+{{ template "ssh-switch" -}}
+Host cs1.vrdn.wt
+    HostName 100.64.0.66
+{{ template "ssh-switch" -}}
+Host cs1.wt.fkln
+    HostName 10.10.208.2
+{{ template "ssh-switch" -}}
+Host cs2
+    HostName 100.64.0.19
+    User royell
+Host cs3.mm.crvl
+    HostName 100.64.0.36
+{{ template "ssh-switch" -}}
+Host dhcp
+    HostName 208.91.182.74
+    HostKeyAlgorithms +ssh-rsa
+    Port 8222
+    User root
+Host dhcp.desk
+    HostName 192.168.21.4
+    User root
+{{ template "ssh-sk" . -}}
+Host dns1
+    HostName dns1.royell.org
+    User root
+Host dns2
+    HostName dns2.royell.org
+    User root
+Host dns.desk
+    HostName 192.168.20.2
+    User ironman
+{{ template "ssh-sk" . -}}
+Host docker
+    HostName docker.royell.org
+    User royell
+Host docker2
+    HostName 208.80.144.53
+    User royell
+Host docker.desk
+    HostName 192.168.20.11
+    User ironman
+{{ template "ssh-sk" . -}}
+Host friday
+  HostName 192.168.254.215
+  User ironman
+	IdentitiesOnly yes
+	IdentityFile ~/.ssh/id_ed25519_sk
+	IdentityFile ~/.ssh/id_ed25519_sk_work2
+Host cs1.mf.gir
+	HostName 10.10.240.3
+	User royell
+Host git.royell.org
+    HostName git.royell.org
+	IdentitiesOnly yes
+	IdentityFile ~/.ssh/royell_git
+Host 172.16.0.13
+    HostName 172.16.0.13
+	IdentitiesOnly yes
+	IdentityFile ~/.ssh/royell_git
+Host git.home
+    HostName 192.168.254.9
+	IdentitiesOnly yes
+	IdentityFile ~/.ssh/id_ed25519_sk
+	IdentityFile ~/.ssh/id_ed25519_sk_work2
+Host github
+  HostName github.com
+  User git
+  ControlMaster no
+  MACs hmac-sha2-512-etm@openssh.com,hmac-sha2-256-etm@openssh.com,umac-128-etm@openssh.com,hmac-sha2-512,hmac-sha2-256,umac-128@openssh.com
+  IdentitiesOnly yes
+  IdentityFile ~/.ssh/github
+Host github.com
+  IdentitiesOnly yes
+  IdentityFile ~/.ssh/github
+Host google
+	HostName google.royell.co
+	User royell
+{{ template "ssh-deploy" -}}
+Host guacamole.desk
+	HostName 192.168.20.7
+Host health
+  HostName health.royell.org
+  User royell
+Host home-netbox
+	HostName 192.168.253.3
+	User ironman
+Host k8-1
+	HostName 192.168.21.9
+	User royell
+Host k8-2
+	HostName 192.168.21.10
+	User royell
+Host k8-3
+	HostName 192.168.21.11
+	User royell
+Host mail
+	HostName webmail.royell.org
+	User royell
+	IdentitiesOnly yes
+	IdentityFile ~/.ssh/id_ed25519_work
+Host mail2
+	HostName 208.80.144.31
+	User royell
+Host massmail
+	HostName 208.80.144.64
+	User royell
+	IdentitiesOnly yes
+	IdentityFile ~/.ssh/id_ed25519_sk
+	IdentityFile ~/.ssh/id_ed25519_sk_work2
+	IdentityFile ~/.ssh/id_rsa_yubikey.pub
+Host mysql
+	HostName mysql.royell.org
+	User royell
+Host mysql2
+	HostName mysql2.royell.org
+	User royell
+Host mysql.home
+	HostName 192.168.253.5
+	User ironman
+Host netbox
+	HostName netbox.royell.org
+	User root
+Host netmon
+	HostName netmon.royell.org
+	User root
+Host nokia
+	HostName nokia.royell.org
+	User royell
+Host nokia2
+	HostName nokia2.royell.org
+	User royell
+Host observium
+	HostName observium.royell.org
+	User root
+	IdentitiesOnly yes
+	IdentityFile ~/.ssh/id_ed25519_sk
+	IdentityFile ~/.ssh/id_ed25519_sk_work2
+Host omv
+    HostName 192.168.248.5
+    User ironman
+{{ template "ssh-deploy" -}}
+Host pass.royell
+    HostName 208.80.144.66
+    User royell
+    IdentitiesOnly yes
+    IdentityFile ~/.ssh/id_ed25519_sk
+Host pdu1
+  HostName 100.64.0.58
+  User royell
+Host pdu2
+  HostName 100.64.0.59
+  User royell
+Host pdu3
+  HostName 100.64.0.60
+  User royell
+Host pdu4
+  HostName 100.64.0.61
+  User royell
+Host 192.168.254.2
+	HostName 192.168.254.2
+	User ironman
+	IdentitiesOnly yes
+	IdentityFile ~/.ssh/id_ed25519_sk
+	IdentityFile ~/.ssh/id_ed25519_sk_work2
+Host pdns.desk
+	HostName 192.168.20.2
+	User ironman
+	IdentitiesOnly yes
+	IdentityFile ~/.ssh/id_ed25519_sk
+	IdentityFile ~/.ssh/id_ed25519_sk_work2
+Host printers.home
+	HostName 192.168.254.10
+	User root
+Host pve.desk
+	HostName 192.168.20.253
+	User root
+Host pve2.desk
+	HostName 192.168.21.2
+	User root
+Host pve-old.home
+  HostName 192.168.248.3
+  User root
+{{ template "ssh-deploy" -}}
+Host pve.home
+  HostName 192.168.250.50
+  User root
+{{ template "ssh-deploy" -}}
+Host pve2.home
+  HostName 192.168.250.51
+  User root
+{{ template "ssh-deploy" -}}
+Host pxe.desk
+	HostName 192.168.20.3
+	User ironman
+{{ template "ssh-deploy" -}}
+Host pxe.home
+	HostName 192.168.254.8
+	User ironman
+{{ template "ssh-deploy" -}}
+Host qc.desk
+	HostName 192.168.20.7
+	User ironman
+	IdentitiesOnly yes
+	IdentityFile ~/.ssh/id_ed25519_sk
+	IdentityFile ~/.ssh/id_ed25519_sk_work2
+Host radius
+	HostName radius.royell.org
+	User root
+	KexAlgorithms +diffie-hellman-group-exchange-sha1
+	HostKeyAlgorithms +ssh-rsa
+Host rcm.desk
+  HostName 192.168.21.110
+  User root
+{{ template "ssh-deploy" -}}
+Host rcm2
+  HostName rcm2.royell.org
+  User royell
+{{ template "ssh-deploy" -}}
+Host rcm2.desk
+  HostName 192.168.21.104
+  User ironman
+{{ template "ssh-deploy" -}}
+Host rcm2.home
+	HostName 192.168.248.119
+	User ironman
+{{ template "ssh-deploy" -}}
+Host rcm3
+	HostName rcm3.royell.org
+	User royell
+	RemoteForward /run/user/1000/gnupg/S.gpg-agent /run/user/1000/gnupg/S.gpg-agent.extra
+Host royell-git
+	HostName git.royell.org
+Host smx
+  HostName smx.royell.org
+  User royell
+Host tasks2
+  HostName 192.168.248.40
+  User ironman
+{{ template "ssh-deploy" -}}
+Host tdarr
+	HostName 192.168.253.12
+	User ironman
+	IdentitiesOnly yes
+	IdentityFile ~/.ssh/id_ed25519_sk
+	IdentityFile ~/.ssh/id_ed25519_sk_work2
+Host tdarr2
+	HostName 192.168.253.13
+	User ironman
+	IdentitiesOnly yes
+	IdentityFile ~/.ssh/id_ed25519_sk
+	IdentityFile ~/.ssh/id_ed25519_sk_work2
+Host traefik.desk
+  HostName 192.168.20.3
+  User root
+{{ template "ssh-deploy" -}}
+Host traefik.home
+  HostName 192.168.252.102
+  Port 2222
+  User root
+{{ template "ssh-deploy" -}}
+Host virtual1
+	HostName virtual.royell.org
+	User root
+Host virtual2
+	HostName virtual2.royell.org
+	User root
+Host virtual4
+  HostName virtual.royell.org
+  User root
+  Port 2224
+Host virtual5
+  HostName virtual.royell.org
+  User root
+  Port 2225
+Host virtual6
+  HostName virtual.royell.org
+  User root
+  Port 2226
+Host virtual7
+  HostName virtual.royell.org
+  User root
+  Port 2227
+Host voip
+	HostName voip.royell.org
+	Port 2020
+	User root
+	IdentitiesOnly yes
+	IdentityFile ~/.ssh/id_ed25519_sk_work.pub
+Host wolnut
+  HostName 192.168.248.202
+  User ironman
+{{ template "ssh-deploy" -}}
+Host zabbix
+  HostName zabbix.royell.org
+  User royell

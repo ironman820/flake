@@ -1,9 +1,11 @@
 {
+  config,
   lib,
   pkgs,
   ...
 }: let
   inherit (lib.mine) enabled;
+  inherit (config) mine;
 in {
   boot = {
     kernel.sysctl = {
@@ -96,4 +98,8 @@ in {
     DefaultTimeoutStopSec=10s
   '';
   time.timeZone = "America/Chicago";
+  users.users = {
+    root.initialPassword = "@ppl3Sauc3";
+    ${mine.user.name}.initialPassword = "@ppl3Sauc3";
+  };
 }

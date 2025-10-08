@@ -54,6 +54,43 @@
         "type": "github"
       }
     },
+    "neovim": {
+      "inputs": {
+        "nixCats": "nixCats",
+        "nixpkgs": [
+          "unstable"
+        ]
+      },
+      "locked": {
+        "lastModified": 1759864690,
+        "narHash": "sha256-aXg6sbUcmzMY2vJDK/d1xMUWxekZUkVYeFwZD0Q2w8s=",
+        "owner": "ironman820",
+        "repo": "neovim",
+        "rev": "44f8d3c32e09ba60f2f55d360b50e259700482c8",
+        "type": "github"
+      },
+      "original": {
+        "owner": "ironman820",
+        "ref": "updates",
+        "repo": "neovim",
+        "type": "github"
+      }
+    },
+    "nixCats": {
+      "locked": {
+        "lastModified": 1758545673,
+        "narHash": "sha256-MMcEImF7vHqImzrdRlSFCbzGq0ebi/5eSYwypNGr+AA=",
+        "owner": "BirdeeHub",
+        "repo": "nixCats-nvim",
+        "rev": "91f9a4b4605cc3aed835e180eb58a5bd73236407",
+        "type": "github"
+      },
+      "original": {
+        "owner": "BirdeeHub",
+        "repo": "nixCats-nvim",
+        "type": "github"
+      }
+    },
     "nixos-hardware": {
       "locked": {
         "lastModified": 1759582739,
@@ -106,9 +143,12 @@
         "catppuccin-kitty": "catppuccin-kitty",
         "disko": "disko",
         "flake-parts": "flake-parts",
+        "neovim": "neovim",
         "nixos-hardware": "nixos-hardware",
         "nixpkgs": "nixpkgs",
         "sops-nix": "sops-nix",
+        "tmux-cheat-sh": "tmux-cheat-sh",
+        "tmux-sessionx": "tmux-sessionx",
         "unstable": "unstable"
       }
     },
@@ -129,6 +169,45 @@
       "original": {
         "owner": "Mic92",
         "repo": "sops-nix",
+        "type": "github"
+      }
+    },
+    "tmux-cheat-sh": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1705611608,
+        "narHash": "sha256-G9SNKK9e0wkGCZtlYWlAtwA2UVwV5CpEC6FLjQAbE/c=",
+        "owner": "ironman820",
+        "repo": "tmux-cheat-sh",
+        "rev": "93111ba6cb1aec4331226e90f5ac20ad3f43cef2",
+        "type": "github"
+      },
+      "original": {
+        "owner": "ironman820",
+        "repo": "tmux-cheat-sh",
+        "type": "github"
+      }
+    },
+    "tmux-sessionx": {
+      "inputs": {
+        "flake-parts": [
+          "flake-parts"
+        ],
+        "nixpkgs": [
+          "unstable"
+        ]
+      },
+      "locked": {
+        "lastModified": 1754419178,
+        "narHash": "sha256-a/wI6UMQayOfQswIm690ypyT/Lxfbz0Uja21ZbqN3Xk=",
+        "owner": "omerxx",
+        "repo": "tmux-sessionx",
+        "rev": "fe704934f8cec16f07fcb9e722ed868fd769c647",
+        "type": "github"
+      },
+      "original": {
+        "owner": "omerxx",
+        "repo": "tmux-sessionx",
         "type": "github"
       }
     },

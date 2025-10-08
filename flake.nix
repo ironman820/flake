@@ -41,7 +41,7 @@
               { system, self', ... }:
               nixosSystem {
                 specialArgs = {
-                  inherit system self';
+                  inherit inputs system self';
                 };
                 modules = ([
                   nixosModules.default
@@ -49,6 +49,7 @@
                 ])
                 ++ (with inputs; [
                   disko.nixosModules.disko
+                  neovim.nixosModules.default
                   nixos-hardware.nixosModules.lenovo-thinkpad-e14-amd
                   sops-nix.nixosModules.sops
                 ]);
@@ -78,7 +79,10 @@
             # packages.bar = pkgs.callPackage ./bar/package.nix {
             #   foo = config.packages.foo;
             # };
-            packages.catppuccin-kitty = pkgs.callPackage ./packages/catppuccin-kitty { inherit inputs pkgs; };
+            packages = {
+              catppuccin-kitty = pkgs.callPackage ./packages/catppuccin-kitty { inherit inputs pkgs; };
+              cheat-sh = pkgs.callPackage ./packages/cheat-sh { inherit inputs pkgs; };
+            };
           };
       }
     );
@@ -117,11 +121,11 @@
     #   inputs.nixpkgs.follows = "nixpkgs";
     #   url = "github:nix-community/home-manager/release-25.05";
     # };
-    # neovim = {
-    #   inputs.nixpkgs.follows = "unstable";
-    #   url = "github:ironman820/neovim/updates";
-    #   # url = "/home/ironman/git/neovim";
-    # };
+    neovim = {
+      inputs.nixpkgs.follows = "unstable";
+      url = "github:ironman820/neovim/updates";
+      # url = "/home/ironman/git/neovim";
+    };
     nixos-hardware.url = "github:NixOS/nixos-hardware/master";
     nixpkgs.url = "github:nixos/nixpkgs/nixos-25.05";
     # snowfall-flake = {
@@ -141,14 +145,17 @@
     #   inputs.nixpkgs.follows = "nixpkgs";
     #   url = "github:danth/stylix/release-25.05";
     # };
-    # tmux-cheat-sh = {
-    #   flake = false;
-    #   url = "github:ironman820/tmux-cheat-sh";
-    # };
-    # tmux-sessionx = {
-    #   inputs.nixpkgs.follows = "unstable";
-    #   url = "github:omerxx/tmux-sessionx";
-    # };
+    tmux-cheat-sh = {
+      flake = false;
+      url = "github:ironman820/tmux-cheat-sh";
+    };
+    tmux-sessionx = {
+      inputs = {
+        flake-parts.follows = "flake-parts";
+        nixpkgs.follows = "unstable";
+      };
+      url = "github:omerxx/tmux-sessionx";
+    };
     unstable.url = "github:nixos/nixpkgs/nixos-unstable";
   };
 }

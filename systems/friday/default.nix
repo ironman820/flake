@@ -7,6 +7,7 @@
   ...
 }:
 let
+  inherit (lib) mkDefault;
   inherit (lib.mine) disabled enabled;
 in
 {
@@ -113,19 +114,27 @@ in
           blender
           calibre
           self'.packages.catppuccin-kitty
+          self'.packages.catppuccin-lazygit
           (catppuccin-sddm.override {
             flavor = "mocha";
           })
           curlftpfs
+          diff-so-fancy
           distrobox
           firmware-manager
           fuse
+          gimp
+          gnupg
+          git
+          git-filter-repo
+          github-cli
+          gh
+          glab
           hplip
           imagemagick
           just
           kitty
-          gimp
-          gnupg
+          lazygit
           libreoffice-fresh
           mmex
           nh
@@ -156,6 +165,7 @@ in
       bluetooth = enabled;
       gpgSmartcards = enabled;
     };
+    home-manager.users.${config.mine.user.name} = import ./ironman-home.nix { inherit config inputs lib pkgs; };
     mine = {
       networking = {
         basic.networkmanager = enabled;
@@ -188,12 +198,15 @@ in
       };
     };
     nixCats = enabled;
-    nixpkgs.config.allowUnfree = true;
     powerManagement = enabled // {
       powertop = enabled;
     };
     programs = {
       command-not-found = disabled;
+      git = enabled // {
+        lfs = enabled;
+        prompt = enabled;
+      };
       gnupg.agent = enabled // {
         enableSSHSupport = true;
       };
@@ -269,7 +282,12 @@ in
         killUserProcesses = true;
         lidSwitchExternalPower = "ignore";
       };
-      openssh = enabled;
+      openssh = enabled // {
+        settings = {
+          PasswordAuthentication = true;
+          PermitRootLogin = mkDefault "no";
+        };
+      };
       pcscd = enabled;
       pipewire = enabled // {
         alsa = enabled // {

@@ -1,6 +1,7 @@
 {
   config,
   lib,
+  osConfig,
   pkgs,
   ...
 }: let
@@ -18,7 +19,7 @@ in {
     email = mkOpt str "29488820+ironman820@users.noreply.github.com" "User email";
     fullName = mkOpt str "Nicholas Eastman" "Full Name";
     homeDirectory = mkOpt (nullOr str) home-directory "The user's home directory";
-    name = mkOpt (nullOr str) config.snowfallorg.user.name "User Name";
+    name = mkOpt (nullOr str) osConfig.mine.user.name "User Name";
     settings = {
       applications = let
         apps = vars.applications;

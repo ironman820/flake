@@ -1,52 +1,24 @@
 {
   config,
   lib,
-  osConfig,
+  myFlake,
+  myPkgs,
   pkgs,
   ...
-}: let
+}:
+let
   inherit (lib) mkIf;
-  inherit (lib.mine) mkBoolOpt mkOpt;
-  inherit (lib.types) int lines str;
+  inherit (lib.mine) enabled mkBoolOpt;
   inherit (pkgs) writeShellScript;
 
   cfg = config.mine.home.tui.tmux;
-  os = osConfig.mine.tui.tmux;
-in {
+in
+{
   options.mine.home.tui.tmux = {
-    enable = mkBoolOpt os.enable "Setup tmux";
-    baseIndex = mkOpt int 1 "Base number for windows";
-    clock24 = mkBoolOpt true "Use a 24 hour clock";
-    customPaneNavigationAndResize = mkBoolOpt true "Use hjkl for navigation";
-    escapeTime = mkOpt int 0 "Escape time";
-    extraConfig = mkOpt lines "" "Extra configuration options";
-    historyLimit =
-      mkOpt int 1000000 "The number of lines to keep in scrollback history";
-    keyMode = mkOpt str "vi" "Key style used for control";
-    secureSocket = mkBoolOpt false "Use a secure socket to connect.";
-    shortcut =
-      mkOpt str "Space" "Default leader key that will be paired with <Ctrl>";
-    terminal = mkOpt str "screen-256color" "Default terminal config";
+    enable = mkBoolOpt true "Setup tmux";
   };
 
   config = mkIf cfg.enable {
-    mine.home.tui.tmux = {
-      extraConfig = ''
-        source-file ~/.config/tmux/tmux.reset.conf
-        set-option -sa terminal-features ',${config.mine.home.user.settings.applications.terminal}:RGB'
-
-        set -g detach-on-destroy off
-        set -g renumber-windows on
-        set -g set-clipboard on
-        set -g status-position top
-        set -g mouse on
-
-        bind-key -T copy-mode-vi v send-keys -X begin-selection
-        bind-key -T copy-mode-vi C-v send-keys -X rectangle-toggle
-        bind-key -T copy-mode-vi y send-keys -X copy-selection-and-cancel
-        bind-key -T prefix g display-popup -E -w 95% -h 95% -d '#{pane_current_path}' lazygit
-      '';
-    };
     programs = {
       bash.initExtra = ''
         if [ $DISPLAY ]; then
@@ -54,26 +26,36 @@ in {
           [ -z "''${TMUX}" ] && { tmux new-session -A -s ${config.home.username} && exit; }
         fi
       '';
-      tmux = {
-        inherit
-          (cfg)
-          baseIndex
-          clock24
-          customPaneNavigationAndResize
-          escapeTime
-          extraConfig
-          historyLimit
-          keyMode
-          secureSocket
-          shortcut
-          terminal
-          ;
-        enable = true;
+      tmux = enabled // {
+        baseIndex = 1;
+        clock24 = true;
+        customPaneNavigationAndResize = true;
+        escapeTime = 0;
+        extraConfig = ''
+          source-file ~/.config/tmux/tmux.reset.conf
+          set-option -sa terminal-features ',${config.mine.home.user.settings.applications.terminal}:RGB'
+
+          set -g detach-on-destroy off
+          set -g renumber-windows on
+          set -g set-clipboard on
+          set -g status-position top
+          set -g mouse on
+
+          bind-key -T copy-mode-vi v send-keys -X begin-selection
+          bind-key -T copy-mode-vi C-v send-keys -X rectangle-toggle
+          bind-key -T copy-mode-vi y send-keys -X copy-selection-and-cancel
+          bind-key -T prefix g display-popup -E -w 95% -h 95% -d '#{pane_current_path}' lazygit
+        '';
+        historyLimit = 1000000;
+        keyMode = "vi";
+        secureSocket = false;
+        shortcut = "Space";
+        terminal = "screen-256color";
         plugins = with pkgs.tmuxPlugins; [
-          cheat-sh
+          myPkgs.cheat-sh
           sensible
           {
-            plugin = sessionx;
+            plugin = myFlake.inputs.tmux-sessionx.packages.${pkgs.system}.default;
             extraConfig = ''
               set -g @sessionx-bind 'o'
               set -g @sessionx-zoxide-mode 'on'

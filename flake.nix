@@ -28,14 +28,28 @@
       let
         inherit (lib) nixosSystem;
 
-        lib = inputs.nixpkgs.lib.extend (final: prev: { mine = import ./modules/lib { lib = prev; }; });
+        lib = inputs.nixpkgs.lib.extend (final: prev: { mine = import ./modules/lib { inherit inputs; lib = prev; }; });
       in
       {
-        imports = [
+        imports = with inputs; [
           # Optional: use external flake logic, e.g.
           # inputs.foo.flakeModules.default
+          home-manager.flakeModules.home-manager
         ];
         flake = rec {
+          homeModules = {
+            default = _: {
+              home-manager = {
+                useGlobalPkgs = true;
+                useUserPackages = true;
+              };
+            };
+            kitty = ./modules/home/kitty.nix;
+            putty = ./modules/home/putty;
+            sops = ./modules/home/sops;
+            tmux = ./modules/home/tmux.nix;
+            user = ./modules/home/user.nix;
+          };
           nixosConfigurations = {
             friday = withSystem "x86_64-linux" (
               { system, self', ... }:
@@ -44,26 +58,30 @@
                   inherit inputs system self';
                 };
                 modules = ([
-                  nixosModules.default
+                  homeModules.default
                   ./systems/friday
+                ]) ++ (with nixosModules; [
+                  default
+                  networking
+                  user
                 ])
                 ++ (with inputs; [
                   disko.nixosModules.disko
+                  home-manager.nixosModules.home-manager
                   neovim.nixosModules.default
-                  nixos-hardware.nixosModules.lenovo-thinkpad-e14-amd
                   sops-nix.nixosModules.sops
+                  nixos-hardware.nixosModules.lenovo-thinkpad-e14-amd
                 ]);
               }
             );
           };
-          nixosModules.default =
-            { ... }:
-            {
-              imports = [
-                ./modules/networking
-                ./modules/user
-              ];
+          nixosModules = {
+            default = _: {
+              nixpkgs.config.allowUnfree = true;
             };
+            networking = ./modules/networking;
+            user = ./modules/user;
+          };
         };
         systems = [
           # systems for which you want to build the `perSystem` attributes
@@ -71,7 +89,7 @@
           # ...
         ];
         perSystem =
-          { config, pkgs, ... }:
+          { pkgs, ... }:
           {
             # Recommended: move all package definitions here.
             # e.g. (assuming you have a nixpkgs input)
@@ -81,6 +99,7 @@
             # };
             packages = {
               catppuccin-kitty = pkgs.callPackage ./packages/catppuccin-kitty { inherit inputs pkgs; };
+              catppuccin-lazygit = pkgs.callPackage ./packages/catppuccin-lazygit { inherit inputs pkgs; };
               cheat-sh = pkgs.callPackage ./packages/cheat-sh { inherit inputs pkgs; };
             };
           };
@@ -100,10 +119,10 @@
       flake = false;
       url = "github:catppuccin/kitty";
     };
-    # catppuccin-lazygit = {
-    #   flake = false;
-    #   url = "github:catppuccin/lazygit";
-    # };
+    catppuccin-lazygit = {
+      flake = false;
+      url = "github:catppuccin/lazygit";
+    };
     # catppuccin-neomutt = {
     #   flake = false;
     #   url = "github:catppuccin/neomutt";
@@ -117,10 +136,10 @@
       url = "github:nix-community/disko";
     };
     flake-parts.url = "github:hercules-ci/flake-parts";
-    # home-manager = {
-    #   inputs.nixpkgs.follows = "nixpkgs";
-    #   url = "github:nix-community/home-manager/release-25.05";
-    # };
+    home-manager = {
+      inputs.nixpkgs.follows = "nixpkgs";
+      url = "github:nix-community/home-manager/release-25.05";
+    };
     neovim = {
       inputs.nixpkgs.follows = "unstable";
       url = "github:ironman820/neovim/updates";

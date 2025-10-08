@@ -16,6 +16,22 @@
         "type": "github"
       }
     },
+    "catppuccin-lazygit": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1745275813,
+        "narHash": "sha256-4eJEOEfwLBc4EoQ32TpuhXS3QDvQ8FtT7EgpotEKV7o=",
+        "owner": "catppuccin",
+        "repo": "lazygit",
+        "rev": "c24895902ec2a3cb62b4557f6ecd8e0afeed95d5",
+        "type": "github"
+      },
+      "original": {
+        "owner": "catppuccin",
+        "repo": "lazygit",
+        "type": "github"
+      }
+    },
     "disko": {
       "inputs": {
         "nixpkgs": [
@@ -51,6 +67,27 @@
       "original": {
         "owner": "hercules-ci",
         "repo": "flake-parts",
+        "type": "github"
+      }
+    },
+    "home-manager": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1758463745,
+        "narHash": "sha256-uhzsV0Q0I9j2y/rfweWeGif5AWe0MGrgZ/3TjpDYdGA=",
+        "owner": "nix-community",
+        "repo": "home-manager",
+        "rev": "3b955f5f0a942f9f60cdc9cacb7844335d0f21c3",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nix-community",
+        "ref": "release-25.05",
+        "repo": "home-manager",
         "type": "github"
       }
     },
@@ -141,8 +178,10 @@
     "root": {
       "inputs": {
         "catppuccin-kitty": "catppuccin-kitty",
+        "catppuccin-lazygit": "catppuccin-lazygit",
         "disko": "disko",
         "flake-parts": "flake-parts",
+        "home-manager": "home-manager",
         "neovim": "neovim",
         "nixos-hardware": "nixos-hardware",
         "nixpkgs": "nixpkgs",

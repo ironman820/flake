@@ -1,5 +1,5 @@
 {
-  inputs,
+  config,
   lib,
   pkgs,
   ...
@@ -8,22 +8,6 @@ let
   inherit (lib.mine) enabled;
 in
 {
-  _module.args = rec {
-    inherit lib;
-    myFlake = inputs.self;
-    myPkgs = myFlake.packages.${pkgs.system};
-  };
-  imports =
-    (with inputs.self.homeModules; [
-      kitty
-      putty
-      sops
-      tmux
-      user
-    ])
-    ++ (with inputs; [
-      sops-nix.homeManagerModules.sops
-    ]);
   home = {
     packages = with pkgs; [
       ffmpeg

@@ -165,7 +165,7 @@ in
       bluetooth = enabled;
       gpgSmartcards = enabled;
     };
-    home-manager.users.${config.mine.user.name} = import ./ironman-home.nix { inherit config inputs lib pkgs; };
+    home-manager.users."${config.mine.user.name}" = inputs.self.homeConfigurations.ironman;
     mine = {
       networking = {
         basic.networkmanager = enabled;

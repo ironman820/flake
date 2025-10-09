@@ -37,6 +37,30 @@
           home-manager.flakeModules.home-manager
         ];
         flake = rec {
+          homeConfigurations = {
+            ironman = let
+              system = "x86_64-linux";
+            in
+            inputs.home-manager.lib.homeManagerConfiguration {
+              pkgs = inputs.nixpkgs.legacyPackages.${system};
+              modules = let
+                inherit (inputs.self) homeModules;
+              in [
+                ./systems/friday/ironman-home.nix
+                inputs.sops-nix.homeManagerModules.sops
+                homeModules.kitty
+                homeModules.putty
+                homeModules.sops
+                homeModules.tmux
+                homeModules.user
+              ];
+              extraSpecialArgs = {
+                inherit inputs lib;
+                myFlake = inputs.self;
+                myPkgs = inputs.self.packages.${system};
+              };
+            };
+          };
           homeModules = {
             default = _: {
               home-manager = {

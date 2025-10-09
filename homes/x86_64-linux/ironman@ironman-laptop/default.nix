@@ -33,7 +33,7 @@ in {
     };
     waybar.resolution = 768;
   };
-  home = {
-    packages = [pkgs.tochd];
-  };
+  # home = {
+  #   packages = [pkgs.tochd];
+  # };
 }

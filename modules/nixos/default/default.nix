@@ -62,7 +62,7 @@ in
     ++ builtins.filter lib.attrsets.isDerivation (builtins.attrValues pkgs.nerd-fonts);
   hardware.enableRedistributableFirmware = true;
   home-manager = {
-    useGlobalPkgs = true;
+    useGlobalPkgs = false;
     useUserPackages = true;
   };
   i18n = {

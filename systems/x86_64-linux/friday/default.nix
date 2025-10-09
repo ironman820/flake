@@ -1,4 +1,5 @@
 {
+  config,
   lib,
   pkgs,
   ...
@@ -15,7 +16,7 @@ in {
       cifs-utils
       enum4linux
       mmex
-      suidChroot
+      # suidChroot
     ];
     mine = {
       networking.profiles.work = true;

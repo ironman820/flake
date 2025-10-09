@@ -1,4 +1,4 @@
-{config, ...}: let
+{config, lib, ...}: let
   inherit (lib.mine) enabled;
 in {
   imports = [

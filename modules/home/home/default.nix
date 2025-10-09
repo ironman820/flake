@@ -98,8 +98,7 @@ in {
         };
       };
       home-manager = enabled;
-      starship = {
-        enable = true;
+      starship = enabled // {
         enableBashIntegration = true;
       };
       zoxide = enabled;

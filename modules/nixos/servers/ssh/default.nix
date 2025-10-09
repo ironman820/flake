@@ -3,8 +3,8 @@
   config,
   ...
 }: let
-  inherit (lib) mkDefault mkIf;
-  inherit (lib.mine) mkBoolOpt;
+  inherit (lib) mkIf;
+  inherit (lib.mine) enabled mkBoolOpt;
 
   cfg = config.mine.servers.ssh;
 in {
@@ -14,11 +14,9 @@ in {
   };
   config = mkIf cfg.enable {
     services = {
-      openssh = {
-        enable = true;
+      openssh = enabled // {
         settings = {
           inherit (cfg) PasswordAuthentication;
-          PermitRootLogin = mkDefault "no";
         };
       };
     };

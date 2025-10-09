@@ -114,7 +114,10 @@
       flake = false;
       url = "github:laytan/cloak.nvim";
     };
-    deploy-rs.url = "github:serokell/deploy-rs";
+    deploy-rs = {
+      inputs.nixpkgs.follows = "nixpkgs";
+      url = "github:serokell/deploy-rs";
+    };
     disko = {
       inputs.nixpkgs.follows = "nixpkgs";
       url = "github:nix-community/disko";
@@ -138,7 +141,7 @@
     # acc5f7b - IcedTea v8 Stable
     nixpkgs-acc5f7b.url = "github:nixos/nixpkgs/acc5f7b";
     # ba45a55 - The last stable update of PHP 7.4
-    # nixpkgs-ba45a55.url = "github:nixos/nixpkgs/ba45a55";
+    nixpkgs-ba45a55.url = "github:nixos/nixpkgs/6e3a86f";
     nvim-undotree = {
       flake = false;
       url = "github:jiaoshijie/undotree";
@@ -189,7 +192,10 @@
       url = "github:omerxx/tmux-sessionx";
     };
     unstable.url = "github:nixos/nixpkgs/nixos-unstable";
-    waybar.url = "github:alexays/waybar";
+    waybar = {
+      inputs.nixpkgs.follows = "nixpkgs";
+      url = "github:alexays/waybar";
+    };
     yanky-nvim = {
       flake = false;
       url = "github:gbprod/yanky.nvim";

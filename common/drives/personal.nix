@@ -15,7 +15,7 @@ in {
   environment.systemPackages = with pkgs; [
     cifs-utils
     enum4linux
-    suidChroot
+    # suidChroot
   ];
   fileSystems."/mnt/nas/media" = {
     device = "//192.168.254.252/Media";

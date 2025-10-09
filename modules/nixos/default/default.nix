@@ -3,17 +3,19 @@
   lib,
   pkgs,
   ...
-}: let
+}:
+let
   inherit (lib.mine) enabled;
   inherit (config) mine;
-in {
+in
+{
   boot = {
     kernel.sysctl = {
       "net.core.default_qdisc" = "fq";
       "net.ipv4.tcp_congestion_control" = "bbr";
       "vm.swappiness" = 10;
     };
-    kernelModules = ["tcp_bbr"];
+    kernelModules = [ "tcp_bbr" ];
     kernelParams = [
       "quiet"
     ];
@@ -52,12 +54,17 @@ in {
       batwatch
       prettybat
     ]);
-  fonts.packages = with pkgs;
+  fonts.packages =
+    with pkgs;
     [
       meslo-lgs-nf
     ]
     ++ builtins.filter lib.attrsets.isDerivation (builtins.attrValues pkgs.nerd-fonts);
   hardware.enableRedistributableFirmware = true;
+  home-manager = {
+    useGlobalPkgs = false;
+    useUserPackages = true;
+  };
   i18n = {
     defaultLocale = "en_US.UTF-8";
     extraLocaleSettings = {
@@ -77,8 +84,14 @@ in {
   ];
   location.provider = "geoclue2";
   nix.settings = {
-    experimental-features = ["nix-command" "flakes"];
-    trusted-users = ["root" "@wheel"];
+    experimental-features = [
+      "nix-command"
+      "flakes"
+    ];
+    trusted-users = [
+      "root"
+      "@wheel"
+    ];
   };
   programs = {
     direnv = {

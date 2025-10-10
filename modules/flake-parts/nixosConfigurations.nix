@@ -1,4 +1,5 @@
 {
+  flakeRoot,
   inputs,
   lib,
   config,
@@ -14,7 +15,7 @@ in
       name: module:
       let
         specialArgs = {
-          inherit inputs;
+          inherit flakeRoot inputs;
           hostConfig = module // {
             name = lib.removePrefix prefix name;
           };
@@ -31,6 +32,7 @@ in
             {
               home-manager.extraSpecialArgs = specialArgs;
             }
+            sops-nix.nixosModules.sops
           ]);
         };
       }

@@ -1,9 +1,5 @@
-home-nas: ENC[AES256_GCM,data:NLXt2VmcOVDci/7JXEd3QVApHU1Y+b7tOqCC21PK7nZHeBq6Ug==,iv:3IWFFUXeRClWefRrv95rsq1vWcDjq4Q5sp5aRFjsDFQ=,tag:lP3X1rjVKhX0HOW+qhLh4w==,type:str]
+home-nas: ENC[AES256_GCM,data:WxNvZq1nPKZyJRS96iqW6WmIiDkOCXzKd+yqv+pNa8uHhbwMH38sGr+gXfDjgQWKr5pCeY8ipBB5zThy32BwgxFkPwL2UGWU2aRt2ivpQJxeMJRwcaYe7P5yGdtlWD77H0gQDbscskKeJxGR5w==,iv:0b8oaUTRLSYjQBI8h9X2FunnRrnfx0b9e0RWrHQc/Cc=,tag:ZuAwVSDklgBtVbP8Fh9Irg==,type:str]
 sops:
-    kms: []
-    gcp_kms: []
-    azure_kv: []
-    hc_vault: []
     age:
         - recipient: age1nny857q3ujh77zved353ufzte5clv444783m6jc4xthmn43r75wqcputn0
           enc: |
@@ -23,8 +19,7 @@ sops:
             ekNDM1B0RXhFUGxuSldGTjNVNTFOODQKYs8DydLKxOa5x7hvAHZCoE4YQkS6rIi2
             vHX5/WZulpcdmat9nKXRAEMCQBtWZGBu+/G5lJzHuR331oHDWzd/JA==
             -----END AGE ENCRYPTED FILE-----
-    lastmodified: "2024-03-10T14:50:40Z"
-    mac: ENC[AES256_GCM,data:IF7c2MYishyQY3piRk5N/jKKJCxBKs7dyHoIQ76950tw58ELruvot0OX/K6EU8NTIUvoNrIqZDpYB0rvswAqOpmMH+XdMykD1MpyfDFT5tp9s8UisZkDMk9b8ygrCi1hxftnu5DcLixF0Z9l/JZjL8NSk3qyH/P78pAWGNolcR4=,iv:ZxEn4eQjehF8OJ8KJFf36DNtYk/BZc05zvcwPZZ7iBQ=,tag:W0NoajogSroI/1o3m9/XlQ==,type:str]
-    pgp: []
+    lastmodified: "2025-10-11T14:27:37Z"
+    mac: ENC[AES256_GCM,data:gBX7S5/8acumrdstZD0RjUJhAQvff0FloJ3vC2KZKMS2TYiCNqA5f9sod4kGaOKz9He8RohC8ywScI/aYDDfo4eoTLCw26YB9mFhp+Eg8anBJ+Rx78p1Cv83RniY/cV8iYy5fFzjm3pxKCMhmkVYrAO6Xv4T/pz48RSwjnsO4SY=,iv:GfZeeINQRTVFyh0b533x+7ZTzrgGCMdMsit22/eZpB8=,tag:Nz0TQf5uJVeGq3a3CfkFaw==,type:str]
     unencrypted_suffix: _unencrypted
-    version: 3.8.1
+    version: 3.11.0

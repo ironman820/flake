@@ -10,6 +10,9 @@
       imports = with config.flake.nixosModules; [
         apps-base
         boot-grub
+        drive-shares
+        ironman
+        sops
         (modulesPath + "/installer/scan/not-detected.nix")
       ];
 

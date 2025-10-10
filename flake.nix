@@ -12,6 +12,23 @@
     };
     import-tree.url = "github:vic/import-tree";
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
+    sops-nix = {
+      inputs.nixpkgs.follows = "nixpkgs";
+      url = "github:mic92/sops-nix";
+    };
   };
-  outputs = inputs: inputs.flake-parts.lib.mkFlake { inherit inputs; } (inputs.import-tree ./modules);
+  outputs =
+    inputs:
+    inputs.flake-parts.lib.mkFlake { inherit inputs; } (
+      top@{ self, ... }:
+      {
+        _module.args = {
+          inherit inputs;
+          flakeRoot = self.outPath;
+        };
+        imports = [
+          (inputs.import-tree ./modules)
+        ];
+      }
+    );
 }

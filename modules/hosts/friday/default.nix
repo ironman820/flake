@@ -8,6 +8,7 @@
       apps-gui
       base
       config.flake.diskoConfigurations.friday
+      drive-shares-personal
       x64-linux
     ];
     # TODO: replace with the correct scan from friday

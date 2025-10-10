@@ -1,13 +1,9 @@
 {
-  flake.nixosModules.grub =
+  flake.nixosModules.boot-grub =
     {
-      lib,
       pkgs,
       ...
     }:
-    let
-      inherit (lib.mine) enabled disabled;
-    in
     {
       boot = {
         loader.grub = {
@@ -15,7 +11,7 @@
           device = "nodev";
           theme = "${pkgs.grub-cyberexs}/share/grub/themes/CyberEXS";
         };
-        plymouth = enabled;
+        plymouth.enable = true;
       };
       # stylix.targets = {
       #   grub = disabled;

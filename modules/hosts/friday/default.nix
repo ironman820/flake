@@ -8,7 +8,6 @@
       apps-gui
       base
       config.flake.diskoConfigurations.friday
-      grub
       x64-linux
     ];
     # TODO: replace with the correct scan from friday
@@ -18,14 +17,6 @@
     #   inherit (lib.mine) enabled;
     # in
     # {
-    # imports = [
-    #   ./hardware.nix
-    # ];
-    # environment.systemPackages = with pkgs; [
-    #   cifs-utils
-    #   enum4linux
-    #   # suidChroot
-    # ];
     # mine = {
     #   networking.profiles.work = true;
     #   sops.secrets.nas_auth.sopsFile = ./secrets/secrets.yml;

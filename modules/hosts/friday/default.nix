@@ -3,16 +3,23 @@
   ...
 }:
 {
-  flake.modules.nixos."hosts/friday".imports = with config.flake.modules.nixos; [
+  flake.nixosModules."hosts/friday" = {
+    imports = with config.flake.nixosModules; [
+      apps-gui
+      base
+      config.flake.diskoConfigurations.friday
+      grub
+      x64-linux
+    ];
+    # TODO: replace with the correct scan from friday
+    facter.reportPath = ./facter.json;
     # let
     #   # inherit (builtins) toString;
     #   inherit (lib.mine) enabled;
     # in
     # {
-    apps.gui
     # imports = [
     #   ./hardware.nix
-    #   #   ./disko.nix
     # ];
     # environment.systemPackages = with pkgs; [
     #   cifs-utils
@@ -37,7 +44,6 @@
     #     in
     #     [ "${automount_opts},credentials=${config.sops.secrets.nas_auth.path},uid=${uid},gid=${gid}" ];
     # };
-    # system.stateVersion = "25.05";
     # };
-  ];
+  };
 }

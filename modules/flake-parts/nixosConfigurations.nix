@@ -9,7 +9,7 @@ let
   collectHostsModules = modules: lib.filterAttrs (name: _: lib.hasPrefix prefix name) modules;
 in
 {
-  flake.nixosConfigurations = lib.pipe (collectHostsModules config.flake.modules.nixos) [
+  flake.nixosConfigurations = lib.pipe (collectHostsModules config.flake.nixosModules) [
     (lib.mapAttrs' (
       name: module:
       let
@@ -23,13 +23,15 @@ in
       {
         name = lib.removePrefix prefix name;
         value = inputs.nixpkgs.lib.nixosSystem {
-          inherit specialArgs;
-          modules = module.imports ++ [
-            inputs.home-manager.nixosModules.home-manager
+          inherit lib specialArgs;
+          modules = module.imports ++ (with inputs; [
+            disko.nixosModules.disko
+            facter-modules.nixosModules.facter
+            home-manager.nixosModules.home-manager
             {
               home-manager.extraSpecialArgs = specialArgs;
             }
-          ];
+          ]);
         };
       }
     ))

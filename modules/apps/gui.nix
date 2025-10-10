@@ -1,8 +1,9 @@
-{ pkgs, ... }:
 {
-  flake.modules.nixos.apps.gui = {
-    environment.systemPackages = with pkgs; [
-      mmex
-    ];
-  };
+  flake.nixosModules.apps-gui =
+    { pkgs, ... }:
+    {
+      environment.systemPackages = with pkgs; [
+        mmex
+      ];
+    };
 }

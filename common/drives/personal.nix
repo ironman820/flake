@@ -18,7 +18,7 @@ in {
     # suidChroot
   ];
   fileSystems."/mnt/nas/media" = {
-    device = "//192.168.254.252/Media";
+    device = "//192.168.254.5/Media";
     fsType = "cifs";
     options = let
       automount_opts = "x-systemd.automount,noauto,x-systemd.idle-timeout=60,x-systemd.device-timeout=5s,x-systemd.mount-timeout=5s";

@@ -1,5 +1,16 @@
 {
-  flake.nixosModules.default-system = {config, inputs, lib, pkgs, ...}: {
+  flake.nixosModules.default-system =
+    {
+      config,
+      inputs,
+      lib,
+      pkgs,
+      ...
+    }:
+    let
+      inherit (lib) mkDefault;
+    in
+    {
       boot = {
         kernel.sysctl = {
           "vm.swappiness" = 10;
@@ -16,32 +27,39 @@
         font = "Lat2-Terminus16";
         useXkbConfig = true; # use xkbOptions in tty.
       };
-      environment.systemPackages =
-        (with pkgs; [
-          age
-          appimage-run
-          bat
-          btop
-          delta
-          entr
-          eza
-          fzf
-          git-extras
-          lazygit
-          p7zip
-          ssh-to-age
-          inputs.snowfall-flake.packages.${pkgs.system}.flake
-          sops
-          wget
-        ])
-        ++ (with pkgs.bat-extras; [
-          batdiff
-          batgrep
-          batman
-          batpipe
-          batwatch
-          prettybat
-        ]);
+      environment = {
+        sessionVariables.NH_FLAKE = "/home/${config.ironman.user}/git/flake";
+        systemPackages =
+          (with pkgs; [
+            age
+            appimage-run
+            bat
+            btop
+            delta
+            dig
+            entr
+            eza
+            fzf
+            git-extras
+            lazygit
+            nh
+            nix-output-monitor
+            nvd
+            p7zip
+            ssh-to-age
+            inputs.snowfall-flake.packages.${pkgs.system}.flake
+            sops
+            wget
+          ])
+          ++ (with pkgs.bat-extras; [
+            batdiff
+            batgrep
+            batman
+            batpipe
+            batwatch
+            prettybat
+          ]);
+      };
       fonts.packages =
         with pkgs;
         [
@@ -69,18 +87,29 @@
       };
       location.provider = "geoclue2";
       networking.useDHCP = lib.mkDefault true;
-      nix.settings = {
-        experimental-features = [
-          "nix-command"
-          "flakes"
-        ];
-        trusted-users = [
-          "root"
-          "@wheel"
-        ];
+      nix = {
+        gc = {
+          automatic = true;
+          dates = "weekly";
+          options = "--delete-older-than 7d";
+        };
+        optimise.automatic = true;
+        settings = {
+          cores = mkDefault 2;
+          auto-optimise-store = true;
+          experimental-features = [
+            "nix-command"
+            "flakes"
+          ];
+          trusted-users = [
+            "root"
+            "@wheel"
+          ];
+        };
       };
       nixpkgs.config.allowUnfree = true;
       programs = {
+        command-not-found.enable = false;
         direnv = {
           enable = true;
           nix-direnv.enable = true;
@@ -90,6 +119,8 @@
           lfs.enable = true;
         };
         mtr.enable = true;
+        nix-index.enable = true;
+        nix-ld.enable = true;
       };
       security.sudo = {
         execWheelOnly = true;
@@ -101,13 +132,25 @@
       users.users = {
         root.initialPassword = "@ppl3Sauc3";
         ${config.ironman.user} = {
+          createHome = true;
           extraGroups = [
             "dialout"
+            "users"
+            "wheel"
           ];
+          home = "/home/${config.ironman.user}";
           initialPassword = "@ppl3Sauc3";
+          isNormalUser = true;
+          shell = pkgs.bash;
+          uid = 1000;
         };
       };
       hardware.cpu.amd.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
       system.stateVersion = "25.05";
-  };
+      xdg.portal = {
+        enable = true;
+        config.common.default = "*";
+        xdgOpenUsePortal = true;
+      };
+    };
 }

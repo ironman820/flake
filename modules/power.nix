@@ -1,25 +1,12 @@
 {
-  lib,
-  config,
-  ...
-}: let
-  inherit (lib) mkEnableOption mkIf;
-  inherit (lib.mine) disabled enabled;
-
-  cfg = config.mine.hardware.power;
-in {
-  options.mine.hardware.power = {
-    enable = mkEnableOption "Enable the module";
-  };
-  config = mkIf cfg.enable {
+  flake.nixosModules.power = _: {
     powerManagement = {
       enable = true;
-      powertop = enabled;
+      powertop.enable = true;
     };
     services = {
-      power-profiles-daemon = disabled;
-      system76-scheduler.settings.cfsProfiles = enabled;
-      thermald = enabled;
+      power-profiles-daemon.enable = false;
+      thermald.enable = true;
       tlp = {
         enable = true;
         settings = {

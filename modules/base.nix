@@ -10,8 +10,8 @@
         apps-base
         boot-grub
         default-system
-        firmware
         ironman
+        ssh
         sops
         (modulesPath + "/installer/scan/not-detected.nix")
       ];

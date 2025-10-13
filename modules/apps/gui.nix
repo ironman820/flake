@@ -12,6 +12,7 @@
         kitty
         libreoffice-fresh
         obs-studio
+        obsidian
         putty
         remmina
         telegram-desktop

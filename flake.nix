@@ -11,6 +11,10 @@
       url = "github:nix-community/home-manager/release-25.05";
     };
     import-tree.url = "github:vic/import-tree";
+    neovim = {
+      inputs.nixpkgs.follows = "nixpkgs";
+      url = "github:ironman820/neovim/updates";
+    };
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
     snowfall-flake = {
       url = "github:snowfallorg/flake";

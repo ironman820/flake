@@ -32,6 +32,7 @@ in
             {
               home-manager.extraSpecialArgs = specialArgs;
             }
+            neovim.nixosModules.default
             sops-nix.nixosModules.sops
           ]);
         };

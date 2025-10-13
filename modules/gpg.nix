@@ -1,7 +1,7 @@
 {
-  flake.nixosModules.gpg = _: {
+  flake.nixosModules.gpg = {lib, ...}: {
     programs.gnupg.agent = {
-      enableSSHSupport = false;
+      enableSSHSupport = lib.mkDefault false;
       enable = true;
     };
   };

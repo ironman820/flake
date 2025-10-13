@@ -155,10 +155,6 @@
       flake = false;
       url = "github:alexanderjeurissen/ranger_devicons";
     };
-    snowfall-flake = {
-      url = "github:snowfallorg/flake";
-      inputs.nixpkgs.follows = "unstable";
-    };
     snowfall-lib = {
       url = "github:snowfallorg/lib";
       inputs.nixpkgs.follows = "nixpkgs";

@@ -5,13 +5,12 @@
       environment.systemPackages = with pkgs; [
         audacity
         blender
-        calibre
-        catppuccin-kitty
+        # TODO: fix catppuccin-kitty package
+        # catppuccin-kitty
         firefox
         gimp
         kitty
         libreoffice-fresh
-        mmex
         obs-studio
         putty
         remmina

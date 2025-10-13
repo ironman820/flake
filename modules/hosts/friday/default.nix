@@ -3,15 +3,18 @@
   ...
 }:
 {
-  flake.nixosModules."hosts/friday" = {
+  flake.nixosModules."hosts/friday" = {pkgs, ...}: {
     imports = with config.flake.nixosModules; [
-      apps-gui
       base
       config.flake.diskoConfigurations.friday
       drive-shares-personal
+      laptop
       x64-linux
     ];
-    # TODO: replace with the correct scan from friday
+    environment.systemPackages = with pkgs; [
+      calibre
+      mmex
+    ];
     facter.reportPath = ./facter.json;
     # let
     #   # inherit (builtins) toString;

@@ -124,7 +124,7 @@
     };
     flake-utils.url = "github:numtide/flake-utils";
     home-manager = {
-      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.nixpkgs.follows = "unstable";
       url = "github:nix-community/home-manager/release-25.05";
     };
     neovim = {

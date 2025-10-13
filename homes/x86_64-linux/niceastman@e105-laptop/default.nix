@@ -15,11 +15,12 @@ in {
   mine.home = {
     sops.secrets.yb_keys.sopsFile = ./secrets/yb_keys.sops;
     gui-apps.glocom = enabled;
+    neomutt = enabled;
     suites.workstation = enabled;
-    tui.neomutt = {
-      notmuchWork = true;
-      workEmail = true;
-    };
+    # tui.neomutt = {
+    #   notmuchWork = true;
+    #   workEmail = true;
+    # };
     user.settings.stylix.image = ../../../systems/x86_64-linux/e105-laptop/voidbringer.png;
     work-tools = enabled;
   };

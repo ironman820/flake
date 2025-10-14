@@ -16,6 +16,7 @@
       mmex
     ];
     facter.reportPath = ./facter.json;
+    home-manager.users.ironman = config.flake.homeConfigurations.user-ironman;
     ironman.network-profiles.work = true;
     # mine = {
     #   sops.secrets.nas_auth.sopsFile = ./secrets/secrets.yml;

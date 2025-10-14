@@ -1,6 +1,7 @@
 {inputs, ...}: {
-  imports = [
-    inputs.disko.flakeModules.default
+  imports = with inputs; [
+    disko.flakeModules.default
+    home-manager.flakeModules.home-manager
   ];
   systems = [
     "x86_64-linux"

@@ -16,7 +16,7 @@
       mmex
     ];
     facter.reportPath = ./facter.json;
-    home-manager.users.ironman = config.flake.homeConfigurations.user-ironman;
+    home-manager.users.ironman = config.flake.homeConfigurations.ironman;
     ironman.network-profiles.work = true;
     nix.settings.cores = 4;
     services.tlp.settings.RUNTIME_PM_DENYLIST = "03:00.0";

@@ -28,7 +28,7 @@
         useXkbConfig = true; # use xkbOptions in tty.
       };
       environment = {
-        sessionVariables.NH_FLAKE = "/home/${config.ironman.user}/git/flake";
+        sessionVariables.NH_FLAKE = "/home/${config.ironman.user.name}/git/flake";
         systemPackages =
           (with pkgs; [
             age
@@ -131,14 +131,15 @@
       time.timeZone = "America/Chicago";
       users.users = {
         root.initialPassword = "@ppl3Sauc3";
-        ${config.ironman.user} = {
+        ${config.ironman.user.name} = {
           createHome = true;
+          description = config.ironman.user.fullName;
           extraGroups = [
             "dialout"
             "users"
             "wheel"
           ];
-          home = "/home/${config.ironman.user}";
+          home = "/home/${config.ironman.user.name}";
           initialPassword = "@ppl3Sauc3";
           isNormalUser = true;
           shell = pkgs.bash;

@@ -6,7 +6,7 @@
       ...
     }:
     {
-        users.users.${config.ironman.user}.extraGroups = [ "networkmanager" ];
+        users.users.${config.ironman.user.name}.extraGroups = [ "networkmanager" ];
         networking.networkmanager.enable = lib.mkDefault true;
     };
 }

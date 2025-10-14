@@ -5,7 +5,7 @@
       environment.systemPackages = with pkgs; [
         virt-manager
       ];
-      users.users.${config.ironman.user}.extraGroups = [
+      users.users.${config.ironman.user.name}.extraGroups = [
         "libvirtd"
       ];
       programs.virt-manager.enable = true;

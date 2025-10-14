@@ -1,6 +1,6 @@
 {config, ...}:
 {
-  flake.homeConfigurations.user-ironman = {
+  flake.homeConfigurations.ironman = {
     imports = with config.flake.homeModules; [
       base
     ];

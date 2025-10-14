@@ -9,6 +9,7 @@
         # catppuccin-kitty
         firefox
         gimp
+        google-chrome
         kitty
         libreoffice-fresh
         obs-studio

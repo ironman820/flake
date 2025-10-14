@@ -1,19 +1,19 @@
 {
   flake.homeModules.git =
     {
-      config,
+      # config,
       flakeRoot,
       osConfig,
       ...
     }:
     let
-      configFolder = "${config.xdg.configHome}/lazygit";
+      # configFolder = "${config.xdg.configHome}/lazygit";
       os = osConfig.ironman.user;
     in
     {
       home = {
         sessionVariables = {
-          LG_CONFIG_FILE = "${configFolder}/config.yml,${configFolder}/themes/mocha/mauve.yml";
+          # LG_CONFIG_FILE = "${configFolder}/config.yml,${configFolder}/themes/mocha/mauve.yml";
         };
         shellAliases = {
           lg = "lazygit";

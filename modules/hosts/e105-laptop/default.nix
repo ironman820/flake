@@ -18,6 +18,7 @@
       user.name = "niceastman";
       network-profiles.work = true;
     };
+    networking.hostName = "e105-laptop";
     nix.settings.cores = 4;
     services.system76-scheduler.settings.cfsProfiles.enable = true;
   };

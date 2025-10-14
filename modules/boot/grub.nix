@@ -9,7 +9,7 @@
         loader.grub = {
           efiSupport = true;
           device = "nodev";
-          theme = "${pkgs.grub-cyberexs}/share/grub/themes/CyberEXS";
+          # theme = "${pkgs.grub-cyberexs}/share/grub/themes/CyberEXS";
         };
         plymouth.enable = true;
       };

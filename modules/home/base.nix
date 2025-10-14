@@ -1,19 +1,32 @@
 { config, inputs, ... }:
 {
   flake.homeModules.base =
-    { flakeRoot, pkgs, ... }:
     {
-      imports = with config.flake.homeModules; [
-        flatpak
-        just
-        kitty
-        podman
-        inputs.sops-nix.homeModules.sops
-        sops
-        yubikey
-      ];
+      flakeRoot,
+      osConfig,
+      pkgs,
+      ...
+    }:
+    {
+      imports =
+        (with config.flake.homeModules; [
+          flatpak
+          git
+          just
+          kitty
+          podman
+          ssh
+          sops
+          tmux
+          yubikey
+        ])
+        ++ (with inputs; [
+          neovim.homeModules.default
+          sops-nix.homeModules.sops
+        ]);
       home = {
         file."putty/sessions/FS Switch".source = flakeRoot + "/.config/putty/${"FS%20Switch"}";
+        homeDirectory = osConfig.users.users.${osConfig.ironman.user.name}.home;
         sessionPath = [
           "$HOME/bin"
           "$HOME/.local/bin"
@@ -31,12 +44,16 @@
           "gmount" = "rclone mount google:/ ~/Drive/";
           "htop" = "btop";
           "man" = "batman";
+          "nv" = "nvim";
           "rg" = "batgrep";
           "top" = "btop";
           "watch" = "batwatch --command";
         };
         stateVersion = "25.05";
+        username = osConfig.ironman.user.name;
       };
+      nixCats.enable = true;
+      nixpkgs.config.allowUnfree = true;
       programs = {
         atuin = {
           enable = true;
@@ -128,6 +145,15 @@
           tray = "never";
         };
       };
-      # xdg.configFile."btop/themes".source = pkgs.catppuccin-btop;
+      xdg = {
+        enable = true;
+        configFile = {
+          "tealdeer/config.toml".text = ''
+            [updates]
+            auto_update = true
+          '';
+          # "btop/themes".source = pkgs.catppuccin-btop;
+        };
+      };
     };
 }

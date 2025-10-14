@@ -37,6 +37,7 @@
           inherit (config.ironman.user) name;
         in
         {
+          ironman.user.email = lib.strings.trim (builtins.readFile "${config.users.users.${name}.home}/.ironman/personal-email");
           services.autofs.autoMaster = strings.concatStringsSep "\n" (
             lists.flatten (mkAliasDefinitions options.ironman.drive-shares).content.contents
           );

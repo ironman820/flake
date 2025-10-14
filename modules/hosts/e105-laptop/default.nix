@@ -8,11 +8,11 @@
       base
       config.flake.diskoConfigurations.e105-laptop
       drive-shares-personal
+      e105-laptop-hardware
       intel-video
       laptop
       x64-linux
     ];
-    facter.reportPath = ./facter.json;
     home-manager.users.niceastman = config.flake.homeConfigurations.niceastman;
     ironman = {
       user.name = "niceastman";

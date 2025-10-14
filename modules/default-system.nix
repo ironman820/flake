@@ -146,7 +146,6 @@
           uid = 1000;
         };
       };
-      hardware.cpu.amd.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
       system.stateVersion = "25.05";
       xdg.portal = {
         enable = true;

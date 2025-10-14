@@ -8,6 +8,7 @@
       base
       config.flake.diskoConfigurations.friday
       drive-shares-personal
+      friday-hardware
       laptop
       x64-linux
     ];
@@ -15,7 +16,6 @@
       calibre
       mmex
     ];
-    facter.reportPath = ./facter.json;
     home-manager.users.ironman = config.flake.homeConfigurations.ironman;
     ironman.network-profiles.work = true;
     networking.hostName = "friday";

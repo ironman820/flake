@@ -27,7 +27,6 @@ in
           inherit lib specialArgs;
           modules = module.imports ++ (with inputs; [
             disko.nixosModules.disko
-            facter-modules.nixosModules.facter
             home-manager.nixosModules.home-manager
             {
               home-manager.extraSpecialArgs = specialArgs;

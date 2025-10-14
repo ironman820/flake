@@ -18,9 +18,6 @@
     facter.reportPath = ./facter.json;
     home-manager.users.ironman = config.flake.homeConfigurations.user-ironman;
     ironman.network-profiles.work = true;
-    # mine = {
-    #   sops.secrets.nas_auth.sopsFile = ./secrets/secrets.yml;
-    # };
     nix.settings.cores = 4;
     services.tlp.settings.RUNTIME_PM_DENYLIST = "03:00.0";
   };

@@ -19,6 +19,7 @@
         udiskie
         vlc
         virt-viewer
+        yubioath-flutter
       ];
       programs.winbox = {
         enable = true;

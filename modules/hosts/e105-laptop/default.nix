@@ -15,7 +15,13 @@
     ];
     home-manager.users.niceastman = config.flake.homeConfigurations.niceastman;
     ironman = {
-      user.name = "niceastman";
+      user = {
+        name = "niceastman";
+        email = {
+          bob = "nic.eastman";
+          site = "royell.org";
+        };
+      };
       network-profiles.work = true;
     };
     networking.hostName = "e105-laptop";

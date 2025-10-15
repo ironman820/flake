@@ -88,6 +88,7 @@
       location.provider = "geoclue2";
       networking.useDHCP = lib.mkDefault true;
       nix = {
+        channel.enable = false;
         gc = {
           automatic = true;
           dates = "weekly";

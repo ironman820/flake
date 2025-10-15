@@ -8,15 +8,15 @@
       flake = false;
       url = "github:catppuccin/kitty";
     };
+    darkmatter-grub-theme = {
+      inputs.nixpkgs.follows = "nixpkgs";
+      url = "gitlab:vandalbyte/darkmatter-grub-theme";
+    };
     disko = {
       inputs.nixpkgs.follows = "nixpkgs";
       url = "github:nix-community/disko";
     };
     flake-parts.url = "github:hercules-ci/flake-parts";
-    grub-cyberexs = {
-      flake = false;
-      url = "github:henriquelopes42/themegrub.cyberexs";
-    };
     home-manager = {
       inputs.nixpkgs.follows = "nixpkgs";
       url = "github:nix-community/home-manager";

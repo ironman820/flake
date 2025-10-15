@@ -1,11 +1,12 @@
-
 {
-  flake.nixosModules.sddm = {pkgs, ...}: {
-    config = {
+  flake.nixosModules.sddm =
+    { pkgs, ... }:
+    {
       environment = {
         systemPackages = [
-          (pkgs.catppuccin-sddm.override {
-            flavor = "mocha";
+          pkgs.kdePackages.qtmultimedia
+          (pkgs.sddm-astronaut.override {
+            embeddedTheme = "cyberpunk";
           })
         ];
       };
@@ -13,10 +14,9 @@
         displayManager.sddm = {
           enable = true;
           enableHidpi = true;
-          theme = "catppuccin-mocha";
+          theme = "sddm-astronaut-theme";
           wayland.enable = true;
         };
       };
     };
-  };
 }

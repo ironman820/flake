@@ -26,6 +26,7 @@ in
         value = inputs.nixpkgs.lib.nixosSystem {
           inherit lib specialArgs;
           modules = module.imports ++ (with inputs; [
+            darkmatter-grub-theme.nixosModule
             disko.nixosModules.disko
             home-manager.nixosModules.home-manager
             {

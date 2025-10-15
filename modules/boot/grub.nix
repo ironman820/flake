@@ -1,21 +1,17 @@
 {
-  flake.nixosModules.boot-grub =
-    {
-      pkgs,
-      ...
-    }:
-    {
-      boot = {
-        loader.grub = {
-          efiSupport = true;
-          device = "nodev";
-          theme = "${pkgs.local.grub-cyberexs}/share/grub/themes/CyberEXS";
+  flake.nixosModules.boot-grub = _: {
+    boot = {
+      loader.grub = {
+        efiSupport = true;
+        device = "nodev";
+        darkmatter-theme = {
+          enable = true;
+          style = "nixos";
+          icon = "color";
+          resolution = "1080p";
         };
-        plymouth.enable = true;
       };
-      # stylix.targets = {
-      #   grub = disabled;
-      #   plymouth = disabled;
-      # };
+      plymouth.enable = true;
     };
+  };
 }

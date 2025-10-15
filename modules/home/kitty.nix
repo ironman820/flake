@@ -1,11 +1,11 @@
 {
   flake.homeModules.kitty =
     {
-      # pkgs,
+      pkgs,
       ...
     }:
     {
-      # home.file.".config/kitty/themes.conf".source = pkgs.catppuccin-kitty;
+      home.file.".config/kitty/themes.conf".source = pkgs.local.catppuccin-kitty;
       programs.kitty = {
         enable = true;
         font = {

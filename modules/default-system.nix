@@ -107,7 +107,12 @@
           ];
         };
       };
-      nixpkgs.config.allowUnfree = true;
+      nixpkgs = {
+        config.allowUnfree = true;
+        overlays = [
+          inputs.self.overlays.default
+        ];
+      };
       programs = {
         command-not-found.enable = false;
         direnv = {

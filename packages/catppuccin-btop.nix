@@ -8,6 +8,7 @@ in mkDerivation rec {
   '';
   name = pname;
   pname = "catppuccin-btop";
+  version = inputs.catppuccin-btop.rev;
   phases = "buildPhase";
   src = inputs.catppuccin-btop;
 }

@@ -5,8 +5,7 @@
       environment.systemPackages = with pkgs; [
         audacity
         blender
-        # TODO: fix catppuccin-kitty package
-        # catppuccin-kitty
+        local.catppuccin-kitty
         firefox
         gimp
         google-chrome

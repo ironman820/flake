@@ -53,7 +53,12 @@
         username = osConfig.ironman.user.name;
       };
       nixCats.enable = true;
-      nixpkgs.config.allowUnfree = true;
+      nixpkgs = {
+        config.allowUnfree = true;
+        overlays = [
+          inputs.self.overlays.default
+        ];
+      };
       programs = {
         atuin = {
           enable = true;
@@ -152,7 +157,7 @@
             [updates]
             auto_update = true
           '';
-          # "btop/themes".source = pkgs.catppuccin-btop;
+          "btop/themes".source = pkgs.local.catppuccin-btop;
         };
       };
     };

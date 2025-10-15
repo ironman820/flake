@@ -28,14 +28,11 @@ in {
     (with pkgs; [
       age
       appimage-run
-      bashmount
       bat
       btop
-      # catppuccin-btop
       delta
       entr
       eza
-      # flake
       fzf
       git-extras
       lazygit

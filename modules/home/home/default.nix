@@ -38,14 +38,10 @@ in {
         "du" = "dust -xd1 --skip-total";
         # "ducks" = "du -chs * 2>/dev/null | sort -rh | head -11 && du -chs .* 2>/dev/null | sort -rh | head -11";
         "gmount" = "rclone mount google:/ ~/Drive/";
+        "htop" = "btop";
       };
       stateVersion = "25.05";
     };
-    # manual = {
-    #   html.enable = false;
-    #   manpages.enable = false;
-    #   json.enable = false;
-    # };
     programs = {
       atuin = {
         enable = true;
@@ -56,11 +52,25 @@ in {
         enableCompletion = true;
         enableVteIntegration = true;
       };
+      btop = {
+        enable = true;
+        settings = {
+          color_theme = "catppuccin_mocha.theme";
+          vim_keys = true;
+        };
+      };
       dircolors = enabled;
       direnv = {
         enable = true;
         enableBashIntegration = true;
         nix-direnv = enabled;
+      };
+      eza = {
+        enable = true;
+        enableBashIntegration = true;
+        extraOptions = ["--group-directories-first" "--header"];
+        git = true;
+        icons = "auto";
       };
       gpg = {
         enable = true;
@@ -106,5 +116,6 @@ in {
         maxCacheTtl = 21600;
       };
     };
+    xdg.configFile."btop/themes".source = pkgs.catppuccin-btop;
   };
 }

@@ -1,0 +1,178 @@
+mbsync: |
+    IMAPStore nic.eastman@royell.org-remote
+    Host mail.royell.org
+    Port 993
+    User nic.eastman
+    Pass "Ju24ne06"
+    AuthMechs LOGIN
+    SSLType IMAPS
+    CertificateFile /etc/ssl/certs/ca-certificates.crt
+
+    MaildirStore nic.eastman@royell.org-local
+    Subfolders Verbatim
+    Path ~/.local/share/mail/nic.eastman@royell.org/
+    Inbox ~/.local/share/mail/nic.eastman@royell.org/INBOX
+
+    Channel nic.eastman@royell.org
+    Expunge Both
+    Remove Both
+    Far :nic.eastman@royell.org-remote:
+    Near :nic.eastman@royell.org-local:
+    Patterns * !"[Gmail]/All Mail"
+    Create Both
+    SyncState *
+    MaxMessages 0
+    ExpireUnread no
+    # End profile
+
+    IMAPStore nicholas.m.eastman@gmail.com-remote
+    Host imap.gmail.com
+    Port 993
+    User nicholas.m.eastman@gmail.com
+    Pass "xofjtantdgmubkit"
+    AuthMechs LOGIN
+    SSLType IMAPS
+    CertificateFile /etc/ssl/certs/ca-certificates.crt
+    Timeout 60
+
+    MaildirStore nicholas.m.eastman@gmail.com-local
+    Subfolders Verbatim
+    Path ~/.local/share/mail/nicholas.m.eastman@gmail.com/
+    Inbox ~/.local/share/mail/nicholas.m.eastman@gmail.com/INBOX
+
+    Channel nicholas.m.eastman@gmail.com
+    Expunge Both
+    Remove Both
+    Far :nicholas.m.eastman@gmail.com-remote:
+    Near :nicholas.m.eastman@gmail.com-local:
+    Patterns *
+    Create Both
+    SyncState *
+    MaxMessages 0
+    ExpireUnread no
+    # End profile
+muttrc_work_email: |
+    # vim: filetype=neomuttrc
+    # muttrc file for account nic.eastman@royell.org
+    set realname = "Nicholas Eastman"
+    set from = "nic.eastman@royell.org"
+    set sendmail = "msmtp -a work"
+    # set sendmail = "$HOME/.config/mutt/send-from-mutt work"
+    # set edit_headers=yes
+    # my_hdr Markdown: false
+    alias me Nicholas Eastman <nic.eastman@royell.org>
+    set folder = "$HOME/.local/share/mail/nic.eastman@royell.org"
+    set header_cache = $HOME/.cache/mutt-wizard/nic.eastman@royell.org/headers
+    set message_cachedir = $HOME/.cache/mutt-wizard/nic.eastman@royell.org/bodies
+    set mbox_type = Maildir
+    set hostname = "royell.org"
+    source $HOME/.config/mutt/switch.muttrc
+    set spoolfile = +INBOX
+    set postponed = +Drafts
+    set trash = +Trash
+    set record = +Sent
+    set signature = $HOME/.config/mutt/signatures/work.sig
+    set sig_on_top = yes
+    set nm_default_url = "notmuch://$HOME/.local/share/mail/nic.eastman@royell.org"
+    set nm_query_type = "threads"
+    bind index \\ vfolder-from-query
+
+    source $HOME/.config/mutt/work.mailboxes
+muttrc_personal_email: |
+    # vim: filetype=neomuttrc
+    # muttrc file for account nicholas.m.eastman@gmail.com
+    set realname = "Nicholas Eastman"
+    set from = "nicholas.m.eastman@gmail.com"
+    set sendmail = "msmtp -a home"
+    alias me Nicholas Eastman <nicholas.m.eastman@gmail.com>
+    # set nm_db_limit = 5000
+    set folder = "$HOME/.local/share/mail/nicholas.m.eastman@gmail.com"
+    set header_cache = $HOME/.cache/mutt-wizard/nicholas.m.eastman@gmail.com/headers
+    set message_cachedir = $HOME/.cache/mutt-wizard/nicholas.m.eastman@gmail.com/bodies
+    set nm_default_url = "notmuch://$HOME/.local/share/mail/nicholas.m.eastman@gmail.com"
+    set mbox_type = Maildir
+    set hostname = "gmail.com"
+    source $HOME/.config/mutt/switch.muttrc
+    set spoolfile = +INBOX
+    set postponed = "+[Gmail]/Drafts"
+    set trash = "+[Gmail]/Trash"
+    set record = "+[Gmail]/Sent Mail"
+    set signature = $HOME/.config/mutt/signatures/personal.sig
+    set sig_on_top = yes
+    set nm_query_type = "threads"
+    bind index \\ vfolder-from-query
+
+    macro index g1 "<sync-mailbox><enter-command>source $HOME/.config/mutt/accounts/master.muttrc<enter><change-folder>!<enter>"
+    macro index g2 "<sync-mailbox><enter-command>source $HOME/.config/mutt/accounts/work.muttrc<enter><change-folder>!<enter>"
+    macro index o "<shell-escape>mw -y nicholas.m.eastman@gmail.com<enter>" "run mbsync to sync nicholas.m.eastman@gmail.com"
+    macro index,pager Ma ";<save-message>=[Gmail]/All Mail<enter>" "move mail to archive"
+    macro index,pager ga "<change-folder>=[Gmail]/All Mail<enter>" "go to archive"
+    macro index,pager gi "<change-folder>=INBOX<enter>" "go to inbox"
+    macro index,pager Mi ";<save-message>=INBOX<enter>" "move mail to inbox"
+    macro index,pager Mt ";<save-message>=[Gmail]/Trash<enter>" "move mail to trash"
+    macro index,pager gt "<change-folder>=[Gmail]/Trash<enter>" "go to trash"
+msmtp_config: |
+    account home
+    host smtp.gmail.com
+    port 587
+    from nicholas.m.eastman@gmail.com
+    user nicholas.m.eastman@gmail.com
+    passwordeval "pass nicholas.m.eastman@gmail.com"
+    auth on
+    tls on
+    tls_trust_file /etc/ssl/certs/ca-certificates.crt
+    logfile ~/.config/msmtp/msmtp.log
+    # tls_starttls
+
+    account work
+    host mail.royell.org
+    port 366
+    from nic.eastman@royell.org
+    user nic.eastman
+    passwordeval "pass nic.eastman@royell.org"
+    auth on
+    tls on
+    tls_trust_file /etc/ssl/certs/ca-certificates.crt
+    logfile ~/.config/msmtp/msmtp.log
+    tls_starttls on
+notmuch-personal-config: |
+    [database]
+    path=.local/share/mail/nicholas.m.eastman@gmail.com
+    [user]
+    name=Nicholas Eastman
+    primary_email=nicholas.m.eastman@gmail.com
+    [new]
+    tags=
+    ignore=/.*[.](json|lock|bak|mbsyncstate|uidvalidity)$/
+    [search]
+    exclude_tags=spam;
+    [maildir]
+    synchronize_flags=true
+    [crypto]
+    gpg_path=gpg
+notmuch-work-config: |
+    [database]
+    path=.local/share/mail/nic.eastman@royell.org
+    [user]
+    name=Nicholas Eastman
+    primary_email=nic.eastman@royell.org
+    [new]
+    tags=
+    ignore=/.*[.](json|lock|bak|mbsyncstate|uidvalidity)$/
+    [search]
+    exclude_tags=spam;
+    [maildir]
+    synchronize_flags=true
+    [crypto]
+    gpg_path=gpg
+work_sig: |
+    Nic Eastman
+    Infrastructure Manager
+    Royell Communications, Inc.
+    Phone 217-965-3699
+    Fax 217-965-3951
+    Cell 217-416-9485
+    E-mail nic.eastman@royell.org
+personal_sig: |
+    Nic Eastman
+    Professional Unprofessional

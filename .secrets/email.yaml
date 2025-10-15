@@ -1,0 +1,26 @@
+work-email-password: ENC[AES256_GCM,data:IvVm6vB+QUk=,iv:gV//gKKMT8GvkiuHcqI3X4VHy0KJBZe2tmyILYJkf6A=,tag:WhLl3MKnu10qogiRTpqi/g==,type:str]
+work-email-signature: ENC[AES256_GCM,data:SUS7PLpHtN+nFJx6929p+UZTUk0Sjh7AL6Jco8/dh8e6kXeUKNHjlXc3/LVpbrRuccOLvhzZ9xX+AaJLziwURgoXFFW4lGW9n4oXuMVwxiGOTW4PGpoJgWrarwRNM0jA8hOpZvPyh5TixbdEcWGrWmnQ4dnyr0fzNcA2aIas36cAWHO23puxcKmtJ30QZBa8epXjkVDCFuAoRdM=,iv:xDyzogOO4GmhOvhzNtA5fC58B9Xxe6tPZ4me+fx7Glc=,tag:/110xOrdZR5FBHy2m4Y8jw==,type:str]
+sops:
+    age:
+        - recipient: age1nny857q3ujh77zved353ufzte5clv444783m6jc4xthmn43r75wqcputn0
+          enc: |
+            -----BEGIN AGE ENCRYPTED FILE-----
+            YWdlLWVuY3J5cHRpb24ub3JnL3YxCi0+IFgyNTUxOSArbFdJWG1tWi9BdTJGcU5a
+            eTFSa2sxZ0lPNSt0dDVDN21vNGpYcUhUWTFJCklHL2tHQ2dnb1FBZHRBZUpTelAw
+            aVMzS0FxaXR2b2FJVzhPV2dwMmtpWmcKLS0tIHd4d0dmT1lUQUpVU0x6ckU3dnJx
+            aVZRekR3cGM0a2ExYXdiQi90bU1tMmMKQgqFB+2LY2KUZqN1APE41QfiyC6JYI1n
+            RzARFXhIr1It3mkNxfE62QQeqQy95qhWJomlRiIEqJ0tTUzxfh++cw==
+            -----END AGE ENCRYPTED FILE-----
+        - recipient: age1et3rsqjzt2z70vt0p8p4jcm47ms8e22um57vj5nvfpss58zwlcfsmcddrt
+          enc: |
+            -----BEGIN AGE ENCRYPTED FILE-----
+            YWdlLWVuY3J5cHRpb24ub3JnL3YxCi0+IFgyNTUxOSB1bmVVdHRaZUpnU3RIQjZ1
+            K09ma2wrbFNKckQvN0IwaE81R2JVQ3lBc0NvCjE0SG9HcDVLZGk5NVUyQ0FGaTB3
+            YVp4WWd2bUd4djFiOHAveEQvcUlFbjQKLS0tIE11OXJaUXVGVSsrcGN4b3VrYU1x
+            UUhSQVlTR3RZMTV0K2I4Q0dFZTNnUU0KrgqlcAOe6sLrdUrUb0m7ZEyzcz0UoOw7
+            Aw9TUNeM4hUjky8+cG01kIw1xibdsn4cStHvLAwiKQET/F2mUCnq9w==
+            -----END AGE ENCRYPTED FILE-----
+    lastmodified: "2025-10-15T18:53:33Z"
+    mac: ENC[AES256_GCM,data:PnlGwxmRiqKhiv9t4Db57b77uH0JIw80Daj/99BGjrSQESv2uySpSCwVFrqqUBkR+GjX7IiAh0PlJs/I30XewkujYTNEY0xiA8VYUcCfwOUG0onavzM8NWNqDUjkjd0PmK9UNcqkREWFeSdLtgvMAGKg0X7umk7aiO61U76ilYQ=,iv:M6b9LcKfha7eTvNkc/4JeopRN290YKeAOSrJekpMf+E=,tag:H/BW7PBkenx+uMGB/cnd1g==,type:str]
+    unencrypted_suffix: _unencrypted
+    version: 3.11.0

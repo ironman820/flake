@@ -33,6 +33,7 @@
         ];
         sessionVariables = {
           BROWSER = "google-chrome";
+          EDITOR = "nvim";
         };
         shellAliases = {
           "cat" = "bat";

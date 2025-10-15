@@ -20,10 +20,17 @@
             default = "Nicholas Eastman";
             description = "The user's full name";
           };
-          email = mkOption {
-            type = types.str;
-            default = "";
-            description = "The user's email address";
+          email = {
+            bob = mkOption {
+              type = types.str;
+              default = "!!USER@DOMAIN!!";
+              description = "The user's email address";
+            };
+            site = mkOption {
+              type = types.str;
+              default = "";
+              description = "email domain";
+            };
           };
         };
         drive-shares = mkOption {
@@ -37,7 +44,10 @@
           inherit (config.ironman.user) name;
         in
         {
-          ironman.user.email = lib.strings.trim (builtins.readFile "${config.users.users.${name}.home}/.ironman/personal-email");
+          ironman.user.email = {
+            bob = lib.mkDefault "nicholas.m.eastman";
+            site = lib.mkDefault "gmail.com";
+          };
           services.autofs.autoMaster = strings.concatStringsSep "\n" (
             lists.flatten (mkAliasDefinitions options.ironman.drive-shares).content.contents
           );

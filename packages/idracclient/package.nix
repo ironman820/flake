@@ -1,5 +1,5 @@
 {pkgs, ...}: let
-  inherit (pkgs.python3Packages) buildPythonApplication aiohttp;
+  inherit (pkgs.python3Packages) buildPythonApplication aiohttp setuptools;
   myPkgs = import (builtins.fetchGit {
     # Descriptive name to make the store path easier to identify
     name = "my-old-revision";
@@ -11,10 +11,12 @@
   pname = "idracclient";
   idracclient = buildPythonApplication {
     inherit name pname version;
+    build-system = [ setuptools ];
 
     propagatedBuildInputs = [
       aiohttp
     ];
+    pyproject = true;
 
     src = ./.;
   };

@@ -10,7 +10,7 @@
       environment.systemPackages =
         with pkgs;
         [
-          # catppuccin-lazygit
+          local.catppuccin-lazygit
           cifs-utils
           diff-so-fancy
           dig
@@ -29,7 +29,7 @@
           glibc
           gnumake
           hplip
-          # idracclient
+          local.idracclient
           inetutils
           jq
           just
@@ -44,7 +44,7 @@
           restic
           rclone
           ripgrep
-          # switchssh
+          local.switchssh
           tealdeer
           trashy
           unzip

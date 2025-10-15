@@ -8,6 +8,10 @@
       flake = false;
       url = "github:catppuccin/kitty";
     };
+    catppuccin-lazygit = {
+      flake = false;
+      url = "github:catppuccin/lazygit";
+    };
     darkmatter-grub-theme = {
       inputs.nixpkgs.follows = "nixpkgs";
       url = "gitlab:vandalbyte/darkmatter-grub-theme";

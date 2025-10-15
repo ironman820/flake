@@ -10,4 +10,5 @@ in mkDerivation rec {
   pname = "catppuccin-lazygit";
   phases = "buildPhase";
   src = inputs.catppuccin-lazygit;
+  version = inputs.catppuccin-lazygit.rev;
 }

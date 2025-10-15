@@ -43,15 +43,14 @@
             bind-key -T prefix g display-popup -E -w 95% -h 95% -d '#{pane_current_path}' lazygit
           '';
           plugins = with pkgs.tmuxPlugins; [
-            # cheat-sh
             sensible
-            # {
-            #   plugin = sessionx;
-            #   extraConfig = ''
-            #     set -g @sessionx-bind 'o'
-            #     set -g @sessionx-zoxide-mode 'on'
-            #   '';
-            # }
+            {
+              plugin = tmux-sessionx;
+              extraConfig = ''
+                set -g @sessionx-bind 'o'
+                set -g @sessionx-zoxide-mode 'on'
+              '';
+            }
             yank
             {
               plugin = fzf-tmux-url;

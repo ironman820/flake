@@ -28,9 +28,8 @@
         keyMode = "vi";
         plugins = with pkgs.tmuxPlugins; [
           catppuccin
-          # cheat-sh
           sensible
-          # sessionx
+          tmux-sessionx
           yank
           fzf-tmux-url
         ];

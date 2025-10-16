@@ -33,16 +33,16 @@
               "pager"
             ];
           }
+          {
+            action = "display-message";
+            key = "l";
+            map = [ "index" ];
+          }
         ];
         changeFolderWhenSourcingAccount = true;
         macros = [
           {
-            action = "<shell-escape>mbsync --all<enter>";
-            key = "o";
-            map = [ "index" ];
-          }
-          {
-            action = ";<save-message>=Archive<enter>";
+            action = ";<save-message>Archive<enter>";
             key = "Ma";
             map = [
               "index"
@@ -50,7 +50,7 @@
             ];
           }
           {
-            action = "<change-folder>=Archive<enter>";
+            action = "<change-folder>Archive<enter>";
             key = "ga";
             map = [
               "index"
@@ -74,7 +74,7 @@
             ];
           }
           {
-            action = ";<save-message>=Trash<enter>";
+            action = ";<save-message>Trash<enter>";
             key = "Mt";
             map = [
               "index"
@@ -82,7 +82,7 @@
             ];
           }
           {
-            action = "<change-folder>=Trash<enter>";
+            action = "<change-folder>Trash<enter>";
             key = "gt";
             map = [
               "index"

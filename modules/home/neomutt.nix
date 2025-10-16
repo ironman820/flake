@@ -74,6 +74,7 @@
             ];
           }
         ];
+        sort = "reverse-date-received";
         vimKeys = true;
       };
     };

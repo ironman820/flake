@@ -41,6 +41,10 @@
       url = "github:mic92/sops-nix";
     };
     stable.url = "github:nixos/nixpkgs/nixos-25.05";
+    tokyonight = {
+      flake = false;
+      url = "github:folke/tokyonight.nvim";
+    };
   };
   outputs =
     inputs:

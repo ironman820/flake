@@ -14,7 +14,7 @@
     {
       home = {
         sessionVariables = {
-          LG_CONFIG_FILE = "${configFolder}/config.yml,${configFolder}/themes/mocha/mauve.yml";
+          LG_CONFIG_FILE = "${configFolder}/config.yml,${configFolder}/themes/tokyonight_night.yml";
         };
         shellAliases = {
           lg = "lazygit";
@@ -58,7 +58,7 @@
       };
       xdg.configFile = {
         "lazygit/config.yml".source = flakeRoot + "/.config/lazygit.yml";
-        "lazygit/themes".source = pkgs.local.catppuccin-lazygit;
+        "lazygit/themes".source = pkgs.local.tokyonight-lazygit;
       };
     };
 }

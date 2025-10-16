@@ -58,7 +58,7 @@
             ];
           }
           {
-            action = ";<save-message>Inbox<enter>";
+            action = ";<save-message>=Inbox<enter>";
             key = "Mi";
             map = [
               "index"

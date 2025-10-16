@@ -39,8 +39,8 @@
           "diff" = "batdiff";
           "df" = "duf -only local";
           "du" = "dust -xd1 --skip-total";
-          "ducks" =
-            "\du -chs * 2>/dev/null | sort -rh | head -11 && du -chs .* 2>/dev/null | sort -rh | head -11";
+          # "ducks" =
+          #   "${pkgs.coreutils}/bin/du -chs * 2>/dev/null | sort -rh | head -11 && ${pkgs.coreutils}/bin/du -chs .* 2>/dev/null | sort -rh | head -11";
           "gmount" = "rclone mount google:/ ~/Drive/";
           "htop" = "btop";
           "man" = "batman";

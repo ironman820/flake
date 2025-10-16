@@ -43,6 +43,7 @@
             bind-key -T prefix g display-popup -E -w 95% -h 95% -d '#{pane_current_path}' lazygit
           '';
           plugins = with pkgs.tmuxPlugins; [
+            catppuccin
             sensible
             {
               plugin = tmux-sessionx;

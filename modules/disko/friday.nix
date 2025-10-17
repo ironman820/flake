@@ -66,17 +66,15 @@
                 {
                   "/root" = {
                     mountpoint = "/";
-                    mountOptions = mountOpts ++ [ "subvol=root" ];
+                    mountOptions = mountOpts;
                   };
                   "/nix" = {
                     mountpoint = "/nix";
                     mountOptions = mountOpts ++ [
-                      "subvol=nix"
                       "noatime"
                     ];
                   };
                 };
-              mountpoint = "/partition-root";
             };
           };
         };
@@ -94,17 +92,22 @@
                 {
                   "/home" = {
                     mountpoint = "/home";
-                    mountOptions = mountOpts ++ [ "subvol=home" ];
+                    mountOptions = mountOpts;
                   };
                   "/ironman" = {
                     mountpoint = "/home/ironman";
-                    mountOptions = mountOpts ++ [ "subvol=ironman" ];
+                    mountOptions = mountOpts;
                   };
                   "/root" = {
                     mountpoint = "/root";
-                    mountOptions = mountOpts ++ [ "subvol=root_home" ];
+                    mountOptions = mountOpts;
+                  };
+                  "/docker" = {
+                    mountpoint = "/home/ironman/docker";
+                    mountOptions = mountOpts ++ [ "nodatacow" ];
                   };
                 };
+              # mountpoint = "/partition-root";
             };
           };
         };

@@ -49,29 +49,31 @@
               {
                 "/root" = {
                   mountpoint = "/";
-                  mountOptions = mountOpts ++ [ "subvol=root" ];
+                  mountOptions = mountOpts;
                 };
                 "/nix" = {
                   mountpoint = "/nix";
                   mountOptions = mountOpts ++ [
-                    "subvol=nix"
                     "noatime"
                   ];
                 };
                 "/home" = {
                   mountpoint = "/home";
-                  mountOptions = mountOpts ++ [ "subvol=home" ];
+                  mountOptions = mountOpts;
                 };
                 "/home/niceastman" = {
                   mountpoint = "/home/niceastman";
-                  mountOptions = mountOpts ++ [ "subvol=niceastman" ];
+                  mountOptions = mountOpts;
                 };
                 "/home/root" = {
                   mountpoint = "/root";
-                  mountOptions = mountOpts ++ [ "subvol=root_home" ];
+                  mountOptions = mountOpts;
+                };
+                "/docker" = {
+                  mountpoint = "/home/niceastman/docker";
+                  mountOptions = [ "nodatacow" ];
                 };
               };
-            mountpoint = "/partition-root";
           };
         };
       };

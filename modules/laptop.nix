@@ -14,8 +14,13 @@
       sddm
       sound
       virtual-host
-      virtual-podman
+      virtual-docker
       yubikey
+    ];
+    environment.systemPackages = with pkgs; [
+      distrobox
+      docker-compose
+      freerdp
     ];
     hardware.bluetooth.enable = true;
     programs = {

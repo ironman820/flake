@@ -16,6 +16,7 @@
         putty
         remmina
         telegram-desktop
+        thunderbird
         udiskie
         vlc
         virt-viewer

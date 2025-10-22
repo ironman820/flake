@@ -21,6 +21,10 @@
         };
       };
       programs = {
+        diff-so-fancy = {
+          enable = true;
+          enableGitIntegration = true;
+        };
         gh = {
           enable = true;
           settings = {
@@ -29,30 +33,31 @@
           };
         };
         git = {
-          aliases = {
-            pushall = "!git remote | xargs -L1 git push --all";
-            graph = "log --decorate --oneline --graph";
-            add-nowhitespace = "!git diff -U0 -w --no-color | git apply --cached --ignore-whitespace --undiff-zero -";
-          };
-          diff-so-fancy.enable = true;
           enable = true;
-          extraConfig = {
-            feature.manyFiles = true;
-            init.defaultBranch = "main";
-            gpg.format = "ssh";
-            merge.tool = "vimdiff";
-          };
           ignores = [
             ".direnv"
             "result"
           ];
           lfs.enable = true;
+          settings = {
+            aliases = {
+              pushall = "!git remote | xargs -L1 git push --all";
+              graph = "log --decorate --oneline --graph";
+              add-nowhitespace = "!git diff -U0 -w --no-color | git apply --cached --ignore-whitespace --undiff-zero -";
+            };
+            feature.manyFiles = true;
+            init.defaultBranch = "main";
+            gpg.format = "ssh";
+            merge.tool = "vimdiff";
+            user = {
+              email = "29488820+ironman820@users.noreply.github.com";
+              name = os.fullName;
+            };
+          };
           signing = {
             key = "~/.ssh/github";
             signByDefault = true;
           };
-          userName = os.fullName;
-          userEmail = "29488820+ironman820@users.noreply.github.com";
         };
         lazygit.enable = true;
       };

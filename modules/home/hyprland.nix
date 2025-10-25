@@ -6,6 +6,7 @@
       hypridle
       hyprland-config
       hyprlock
+      mako
     ];
   };
 }

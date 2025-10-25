@@ -4,9 +4,6 @@
     { config, ... }:
     {
       home.sessionVariables.NIXOS_OZONE_WL = "1";
-      programs = {
-        alacritty.enable = true;
-      };
       wayland.windowManager.hyprland = {
         enable = true;
         settings = {

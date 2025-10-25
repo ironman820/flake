@@ -6,6 +6,7 @@
   flake.nixosModules."hosts/friday" = {pkgs, ...}: {
     imports = with config.flake.nixosModules; [
       base
+      de-hyprland
       config.flake.diskoConfigurations.friday
       drive-shares-personal
       friday-hardware

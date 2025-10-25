@@ -96,7 +96,9 @@
         settings = {
           "$mod" = "SUPER";
           bind = [
-            "$mod, q, exec, kitty"
+            "$mod, Q, exec, kitty"
+            "$mod, W, killactive,"
+            "$mod, M, exit,"
             # ", Print, exec, grimblast copy area"
           ]
           ++ (

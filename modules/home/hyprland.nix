@@ -7,6 +7,7 @@
       hyprland-config
       hyprlock
       mako
+      waybar
     ];
   };
 }

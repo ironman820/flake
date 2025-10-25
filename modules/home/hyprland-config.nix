@@ -43,7 +43,7 @@
         configFile = {
           "omarchy/current/background".source = flakeRoot + "/.config/backgrounds/voidbringer.png";
           "hypr/autostart.conf".text = ''
-            exec-once = uwsm-app -- hypridle
+            exec-once = uwsm-app -- waybar
           '';
           "hypr/omarchy-launch-floating-terminal-with-presentation".source =
             pkgs.writeShellScript "omarchy-launch-floating-terminal-with-presentation"

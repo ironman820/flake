@@ -36,19 +36,24 @@
           EDITOR = "nvim";
         };
         shellAliases = {
-          "cat" = "bat";
-          "diff" = "batdiff";
-          "df" = "duf -only local";
-          "du" = "dust -xd1 --skip-total";
+          ".." = "cd ..";
+          "..." = "cd ../..";
+          "...." = "cd ../../..";
+          cat = "bat";
+          d = "docker";
+          decompress = "tar -xzf";
+          diff = "batdiff";
+          df = "duf -only local";
+          du = "dust -xd1 --skip-total";
           # "ducks" =
           #   "${pkgs.coreutils}/bin/du -chs * 2>/dev/null | sort -rh | head -11 && ${pkgs.coreutils}/bin/du -chs .* 2>/dev/null | sort -rh | head -11";
-          "gmount" = "rclone mount google:/ ~/Drive/";
-          "htop" = "btop";
-          "man" = "batman";
-          "nv" = "nvim";
-          "rg" = "batgrep";
-          "top" = "btop";
-          "watch" = "batwatch --command";
+          gmount = "rclone mount google:/ ~/Drive/";
+          htop = "btop";
+          man = "batman";
+          nv = "nvim";
+          rg = "batgrep";
+          top = "btop";
+          watch = "batwatch --command";
         };
         stateVersion = "25.05";
         username = osConfig.ironman.user.name;

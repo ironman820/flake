@@ -10,6 +10,7 @@
     {
       imports =
         (with config.flake.homeModules; [
+          bash
           flatpak
           git
           just
@@ -69,14 +70,6 @@
         atuin = {
           enable = true;
           flags = [ "--disable-up-arrow" ];
-        };
-        bash = {
-          bashrcExtra = ''
-            eval $(${pkgs.bat-extras.batpipe}/bin/batpipe)
-          '';
-          enable = true;
-          enableCompletion = true;
-          enableVteIntegration = true;
         };
         bat.enable = true;
         btop = {

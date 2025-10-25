@@ -16,6 +16,7 @@
       settings = {
         bold_font = "auto";
         bold_italic_font = "auto";
+        confirm_os_window_close = 0;
         cursor_shape = "beam";
         enable_audio_bell = false;
         italic_font = "auto";

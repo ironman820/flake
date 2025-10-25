@@ -208,6 +208,11 @@
             broken_path_overlay.foreground = "#ff007c";
           };
         };
+        fzf = {
+          enable = true;
+          enableBashIntegration = true;
+          tmux.enableShellIntegration = true;
+        };
         gpg = {
           enable = true;
           settings = {

@@ -30,6 +30,9 @@
               ) 9
             )
           );
+          source = [
+            "${config.xdg.configHome}/hypr/autostart.conf"
+          ];
           windowrule = [
             "fullscreen, class:Screensaver"
           ];
@@ -37,6 +40,9 @@
       };
       xdg.configFile = {
         "omarchy/current/background".source = flakeRoot + "/.config/backgrounds/voidbringer.png";
+        "hypr/autostart.conf".text = ''
+          exec-once = uwsm-app -- hypridle
+        '';
         "uwsm/env".source = "${config.home.sessionVariablesPackage}/etc/profile.d/hm-session-vars.sh";
       };
     };

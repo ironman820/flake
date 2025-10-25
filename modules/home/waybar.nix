@@ -12,7 +12,7 @@
           spacing = 0;
           height = 26;
           modules-left = [
-            "custom/omarchy"
+            "custom/omanix"
             "hyprland/workspaces"
           ];
           modules-center = [
@@ -52,11 +52,11 @@
               "5" = [ ];
             };
           };
-          "custom/omarchy" = {
-            format = "<span font='omarchy'>\ue900</span>";
-            on-click = "omarchy-menu";
+          "custom/omanix" = {
+            format = "❄️";
+            on-click = "omanix-menu";
             on-click-right = "omarchy-launch-terminal";
-            tooltip-format = "Omarchy Menu\n\nSuper + Alt + Space";
+            tooltip-format = "Omanix Menu\n\nSuper + Alt + Space";
           };
           "custom/update" = {
             format = "";

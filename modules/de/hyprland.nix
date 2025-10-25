@@ -1,9 +1,20 @@
 {
-  flake.nixosModules.de-hyprland = {
-    environment.sessionVariables.NIXOS_OZONE_WL = "1";
-    programs.hyprland = {
-      enable = true;
-      withUWSM = true;
+  flake.nixosModules.de-hyprland =
+    { pkgs, ... }:
+    {
+      environment = {
+        sessionVariables.NIXOS_OZONE_WL = "1";
+        systemPackages = with pkgs; [
+          alacritty
+        ];
+      };
+      programs = {
+        hyprland = {
+          enable = true;
+          withUWSM = true;
+        };
+        hyprlock.enable = true;
+      };
+      services.hypridle.enable = true;
     };
-  };
 }

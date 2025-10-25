@@ -1,3 +1,4 @@
+{ flakeRoot, ...}:
 {
   flake.homeModules.hyprland =
     { config, pkgs, ... }:
@@ -222,6 +223,7 @@
         };
       };
       xdg.configFile = {
+        "omarchy/current/background".source = flakeRoot + "/.config/backgrounds/voidbringer.png";
         "omarchy/current/theme/hyprlock.conf".text = ''
           $color = rgba(26,27,38,1.0)
           $inner_color = rgba(26,27,38,0.8)

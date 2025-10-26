@@ -4,7 +4,6 @@
     {
       flakeRoot,
       osConfig,
-      pkgs,
       ...
     }:
     {
@@ -37,6 +36,7 @@
         sessionVariables = {
           BROWSER = "google-chrome";
           EDITOR = "nvim";
+          TERMINAL = "kitty";
         };
         shellAliases = {
           ".." = "cd ..";

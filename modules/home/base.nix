@@ -11,6 +11,7 @@
       imports =
         (with config.flake.homeModules; [
           bash
+          btop
           eza
           flatpak
           git
@@ -73,13 +74,6 @@
           flags = [ "--disable-up-arrow" ];
         };
         bat.enable = true;
-        btop = {
-          enable = true;
-          settings = {
-            color_theme = "catppuccin_mocha.theme";
-            vim_keys = true;
-          };
-        };
         dircolors.enable = true;
         direnv = {
           enable = true;
@@ -152,7 +146,6 @@
             [updates]
             auto_update = true
           '';
-          "btop/themes".source = pkgs.local.catppuccin-btop;
         };
       };
     };

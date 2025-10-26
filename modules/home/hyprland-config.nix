@@ -162,7 +162,7 @@
             ''SUPER CTRL, T, Show time, exec, notify-send "    $(date +"%A %H:%M  —  %d %B W%V %Y")"''
             ''SUPER CTRL, B, Show battery remaining, exec, notify-send "󰁹    Battery is at $(omarchy-battery-remaining)%"''
 
-            ''SUPER, RETURN, Terminal, exec, $terminal --working-directory="$(omarchy-cmd-terminal-cwd)"''
+            ''SUPER, RETURN, Terminal, exec, $terminal --working-directory="$(omanix-cmd-terminal-cwd)"''
             "SUPER SHIFT, F, File manager, exec, uwsm-app -- nautilus --new-window"
             "SUPER SHIFT, B, Browser, exec, $browser"
             "SUPER SHIFT ALT, B, Browser (private), exec, $browser --private"

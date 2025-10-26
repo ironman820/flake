@@ -24,7 +24,7 @@
             "SUPER, X, Cut, sendshortcut, CTRL, X,"
             "SUPER CTRL, V, Clipboard, exec, omarchy-launch-walker -m clipboard"
             # Close windows
-            "SUPER, W, Close active window, killactive,"
+            "SUPER, Q, Close active window, killactive,"
             "CTRL ALT, DELETE, Close all Windows, exec, omarchy-hyprland-window-close-all"
 
             # Control tiling

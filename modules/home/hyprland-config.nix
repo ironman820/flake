@@ -31,6 +31,7 @@
               ) 9
             )
           );
+          monitor = ",highres,0x0,1";
           source = [
             "${config.xdg.configHome}/hypr/autostart.conf"
           ];

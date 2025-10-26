@@ -45,6 +45,10 @@
       flake = false;
       url = "github:folke/tokyonight.nvim";
     };
+    walker = {
+      inputs.nixpkgs.follows = "nixpkgs";
+      url = "github:abenz1267/walker";
+    };
   };
   outputs =
     inputs:

@@ -6,7 +6,6 @@
         alacritty
         gum
         libxkbcommon
-        walker
         (writeShellScriptBin "omanix-cmd-terminal-cwd" ''
           # Go from current active terminal to its child shell process and run cwd there
           terminal_pid=$(hyprctl activewindow | awk '/pid:/ {print $2}')

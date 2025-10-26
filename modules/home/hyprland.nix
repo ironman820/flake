@@ -1,4 +1,4 @@
-{ config, ... }:
+{ config, inputs, ... }:
 {
   flake.homeModules.hyprland = {
     imports = with config.flake.homeModules; [
@@ -8,6 +8,8 @@
       hyprlock
       mako
       omanix
+      inputs.walker.homeManagerModules.default
+      walker
       waybar
     ];
   };

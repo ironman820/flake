@@ -89,6 +89,31 @@
         "type": "github"
       }
     },
+    "elephant": {
+      "inputs": {
+        "nixpkgs": [
+          "walker",
+          "nixpkgs"
+        ],
+        "systems": [
+          "walker",
+          "systems"
+        ]
+      },
+      "locked": {
+        "lastModified": 1759675127,
+        "narHash": "sha256-AsYUdOukKNXIu47CpQNJeAccu524sIj9UTuP9Aadycs=",
+        "owner": "abenz1267",
+        "repo": "elephant",
+        "rev": "abfa18c844f1028b0b2beef456fee6d40e98dfad",
+        "type": "github"
+      },
+      "original": {
+        "owner": "abenz1267",
+        "repo": "elephant",
+        "type": "github"
+      }
+    },
     "flake-compat": {
       "flake": false,
       "locked": {
@@ -324,7 +349,8 @@
         "snowfall-flake": "snowfall-flake",
         "sops-nix": "sops-nix",
         "stable": "stable",
-        "tokyonight": "tokyonight"
+        "tokyonight": "tokyonight",
+        "walker": "walker"
       }
     },
     "snowfall-flake": {
@@ -409,6 +435,21 @@
         "type": "github"
       }
     },
+    "systems": {
+      "locked": {
+        "lastModified": 1689347949,
+        "narHash": "sha256-12tWmuL2zgBgZkdoB6qXZsgJEH9LR3oUgpaQq2RbI80=",
+        "owner": "nix-systems",
+        "repo": "default-linux",
+        "rev": "31732fcf5e8fea42e59c2488ad31a0e651500f68",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nix-systems",
+        "repo": "default-linux",
+        "type": "github"
+      }
+    },
     "tokyonight": {
       "flake": false,
       "locked": {
@@ -422,6 +463,28 @@
       "original": {
         "owner": "folke",
         "repo": "tokyonight.nvim",
+        "type": "github"
+      }
+    },
+    "walker": {
+      "inputs": {
+        "elephant": "elephant",
+        "nixpkgs": [
+          "nixpkgs"
+        ],
+        "systems": "systems"
+      },
+      "locked": {
+        "lastModified": 1761494719,
+        "narHash": "sha256-QvRbagUBQH4mlqscyUBIeSaa55z/JjsP/9H8jYW4JwE=",
+        "owner": "abenz1267",
+        "repo": "walker",
+        "rev": "ba35a8bf43f795df366c7dd38d20e75f2f27b682",
+        "type": "github"
+      },
+      "original": {
+        "owner": "abenz1267",
+        "repo": "walker",
         "type": "github"
       }
     }

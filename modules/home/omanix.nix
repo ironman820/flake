@@ -3,6 +3,37 @@
     { pkgs, ... }:
     {
       home.packages = with pkgs; [
+        alacritty
+        gum
+        libxkbcommon
+        walker
+        (writeShellScriptBin "omanix-launch-editor" ''
+          case "${"EDITOR:-nvim"}" in
+          nvim | vim | nano | micro | hx | helix)
+            exec setsid uwsm-app -- "$TERMINAL" -e "$EDITOR" "$@"
+            ;;
+          *)
+            exec setsid uwsm-app -- "$EDITOR" "$@"
+            ;;
+          esac
+        '')
+        (writeShellScriptBin "omanix-launch-floating-terminal-with-presentation" ''
+          cmd="$*"
+          exec setsid uwsm-app -- alacritty -o font.size=9 --class=Omanix --title=Omanix -e bash -c "omanix-show-logo; $cmd; omanix-show-done"
+        '')
+        (writeShellScriptBin "omanix-launch-walker" ''
+          # Ensure elephant is running before launching walker
+          if ! pgrep -x elephant > /dev/null; then
+            setsid uwsm-app -- elephant &
+          fi
+
+          # Ensure walker service is running
+          if ! pgrep -f "walker --gapplication-service" > /dev/null; then
+            setsid uwsm-app -- walker --gapplication-service &
+          fi
+
+          exec walker --width 644 --maxheight 300 --minheight 300 "$@"
+        '')
         (writeShellScriptBin "omanix-menu" ''
           # Set to true when going directly to a submenu, so we can exit directly
           BACK_TO_EXIT=false
@@ -35,49 +66,25 @@
               fi
             fi
 
-            echo -e "$options" | omarchy-launch-walker --dmenu --width 295 --minheight 1 --maxheight 600 -p "$prompt…" "''${args[@]}" 2>/dev/null
+            echo -e "$options" | omanix-launch-walker --dmenu --width 295 --minheight 1 --maxheight 600 -p "$prompt…" "''${args[@]}" 2>/dev/null
           }
 
           terminal() {
-            alacritty --class=Omarchy -e "$@"
+            alacritty --class=Omanix -e "$@"
           }
 
           present_terminal() {
-            omarchy-launch-floating-terminal-with-presentation $1
+            omanix-launch-floating-terminal-with-presentation $1
           }
 
           open_in_editor() {
             notify-send "Editing config file" "$1"
-            omarchy-launch-editor "$1"
-          }
-
-          install() {
-            present_terminal "echo 'Installing $1...'; sudo pacman -S --noconfirm $2"
-          }
-
-          install_and_launch() {
-            present_terminal "echo 'Installing $1...'; sudo pacman -S --noconfirm $2 && setsid gtk-launch $3"
-          }
-
-          install_font() {
-            present_terminal "echo 'Installing $1...'; sudo pacman -S --noconfirm --needed $2 && sleep 2 && omarchy-font-set '$3'"
-          }
-
-          install_terminal() {
-            present_terminal "omarchy-install-terminal $1"
-          }
-
-          aur_install() {
-            present_terminal "echo 'Installing $1 from AUR...'; yay -S --noconfirm $2"
-          }
-
-          aur_install_and_launch() {
-            present_terminal "echo 'Installing $1 from AUR...'; yay -S --noconfirm $2 && setsid gtk-launch $3"
+            omanix-launch-editor "$1"
           }
 
           show_learn_menu() {
             case $(menu "Learn" "  Keybindings\n  Omarchy\n  Hyprland\n󰣇  Arch\n  Neovim\n󱆃  Bash") in
-            *Keybindings*) omarchy-menu-keybindings ;;
+            *Keybindings*) omanix-menu-keybindings ;;
             *Omarchy*) omarchy-launch-webapp "https://learn.omacom.io/2/the-omarchy-manual" ;;
             *Hyprland*) omarchy-launch-webapp "https://wiki.hypr.land/" ;;
             *Arch*) omarchy-launch-webapp "https://wiki.archlinux.org/title/Main_page" ;;
@@ -243,7 +250,6 @@
             *Style*) show_install_style_menu ;;
             *Development*) show_install_development_menu ;;
             *Editor*) show_install_editor_menu ;;
-            *Terminal*) show_install_terminal_menu ;;
             *AI*) show_install_ai_menu ;;
             *Windows*) present_terminal "omarchy-windows-vm install" ;;
             *Gaming*) show_install_gaming_menu ;;
@@ -255,7 +261,6 @@
             case $(menu "Install" "  Dropbox\n  Tailscale\n󰟵  Bitwarden\n  Chromium Account") in
             *Dropbox*) present_terminal omarchy-install-dropbox ;;
             *Tailscale*) present_terminal omarchy-install-tailscale ;;
-            *Bitwarden*) install_and_launch "Bitwarden" "bitwarden bitwarden-cli" "bitwarden" ;;
             *Chromium*) present_terminal omarchy-install-chromium-google-account ;;
             *) show_install_menu ;;
             esac
@@ -264,40 +269,6 @@
           show_install_editor_menu() {
             case $(menu "Install" "  VSCode\n  Cursor\n  Zed\n  Sublime Text\n  Helix\n  Emacs") in
             *VSCode*) present_terminal omarchy-install-vscode ;;
-            *Cursor*) install_and_launch "Cursor" "cursor-bin" "cursor" ;;
-            *Zed*) install_and_launch "Zed" "zed" "dev.zed.Zed" ;;
-            *Sublime*) aur_install_and_launch "Sublime Text" "sublime-text-4" "sublime_text" ;;
-            *Helix*) install "Helix" "helix" ;;
-            *Emacs*) install "Emacs" "emacs-wayland" && systemctl --user enable --now emacs.service ;;
-            *) show_install_menu ;;
-            esac
-          }
-
-          show_install_terminal_menu() {
-            case $(menu "Install" "  Alacritty\n  Ghostty\n  Kitty") in
-            *Alacritty*) install_terminal "alacritty" ;;
-            *Ghostty*) install_terminal "ghostty" ;;
-            *Kitty*) install_terminal "kitty" ;;
-            *) show_install_menu ;;
-            esac
-          }
-
-          show_install_ai_menu() {
-            ollama_pkg=$(
-              (command -v nvidia-smi &>/dev/null && echo ollama-cuda) ||
-                (command -v rocminfo &>/dev/null && echo ollama-rocm) ||
-                echo ollama
-            )
-
-            case $(menu "Install" "󱚤  Claude Code\n󱚤  Cursor CLI [AUR]\n󱚤  Gemini [AUR]\n󱚤  OpenAI Codex [AUR]\n󱚤  LM Studio\n󱚤  Ollama\n󱚤  Crush\n󱚤  opencode") in
-            *Claude*) install "Claude Code" "claude-code" ;;
-            *Cursor*) aur_install "Cursor CLI" "cursor-cli" ;;
-            *OpenAI*) aur_install "OpenAI Codex" "openai-codex-bin" ;;
-            *Gemini*) aur_install "Gemini" "gemini-cli" ;;
-            *Studio*) install "LM Studio" "lmstudio" ;;
-            *Ollama*) install "Ollama" $ollama_pkg ;;
-            *Crush*) install "Crush" "crush-bin" ;;
-            *opencode*) install "opencode" "opencode" ;;
             *) show_install_menu ;;
             esac
           }
@@ -305,8 +276,6 @@
           show_install_gaming_menu() {
             case $(menu "Install" "  Steam\n  RetroArch [AUR]\n󰍳  Minecraft") in
             *Steam*) present_terminal omarchy-install-steam ;;
-            *RetroArch*) aur_install_and_launch "RetroArch" "retroarch retroarch-assets libretro libretro-fbneo" "com.libretro.RetroArch.desktop" ;;
-            *Minecraft*) aur_install_and_launch "Minecraft [AUR]" "minecraft-launcher" "minecraft-launcher" ;;
             *) show_install_menu ;;
             esac
           }
@@ -315,17 +284,6 @@
             case $(menu "Install" "󰸌  Theme\n  Background\n  Font") in
             *Theme*) present_terminal omarchy-theme-install ;;
             *Background*) nautilus ~/.config/omarchy/current/theme/backgrounds ;;
-            *Font*) show_install_font_menu ;;
-            *) show_install_menu ;;
-            esac
-          }
-
-          show_install_font_menu() {
-            case $(menu "Install" "  Meslo LG Mono\n  Fira Code\n  Victor Code\n  Bistream Vera Mono" "--width 350") in
-            *Meslo*) install_font "Meslo LG Mono" "ttf-meslo-nerd" "MesloLGL Nerd Font" ;;
-            *Fira*) install_font "Fira Code" "ttf-firacode-nerd" "FiraCode Nerd Font" ;;
-            *Victor*) install_font "Victor Code" "ttf-victor-mono-nerd" "VictorMono Nerd Font" ;;
-            *Bistream*) install_font "Bistream Vera Code" "ttf-bitstream-vera-mono-nerd" "BitstromWera Nerd Font" ;;
             *) show_install_menu ;;
             esac
           }
@@ -486,6 +444,176 @@
           else
             show_main_menu
           fi
+        '')
+        (writeShellScriptBin "omanix-menu-keybindings" ''
+          # A script to display Hyprland keybindings defined in your configuration
+          # using walker for an interactive search menu.
+
+          declare -A KEYCODE_SYM_MAP
+
+          build_keymap_cache() {
+            local keymap
+            keymap="$(xkbcli compile-keymap)" || {
+              echo "Failed to compile keymap" >&2
+              return 1
+            }
+
+            while IFS=, read -r code sym; do
+              [[ -z "$code" || -z "$sym" ]] && continue
+              KEYCODE_SYM_MAP["$code"]="$sym"
+            done < <(
+              awk '
+                BEGIN { sec = "" }
+                /xkb_keycodes/ { sec = "codes"; next }
+                /xkb_symbols/  { sec = "syms";  next }
+                sec == "codes" {
+                  if (match($0, /<([A-Za-z0-9_]+)>\s*=\s*([0-9]+)\s*;/, m)) code_by_name[m[1]] = m[2]
+                }
+                sec == "syms" {
+                  if (match($0, /key\s*<([A-Za-z0-9_]+)>\s*\{\s*\[\s*([^, \]]+)/, m)) sym_by_name[m[1]] = m[2]
+                }
+                END {
+                  for (k in code_by_name) {
+                    c = code_by_name[k]
+                    s = sym_by_name[k]
+                    if (c != "" && s != "" && s != "NoSymbol") print c "," s
+                  }
+                }
+              ' <<<"$keymap"
+            )
+          }
+
+          lookup_keycode_cached() {
+            printf '%s\n' "''${KEYCODE_SYM_MAP[$1]}"
+          }
+
+          parse_keycodes() {
+            local start end elapsed
+            [[ "''${DEBUG:-0}" == "1" ]] && start=$(date +%s.%N)
+            while IFS= read -r line; do
+              if [[ "$line" =~ code:([0-9]+) ]]; then
+                code="''${BASH_REMATCH[1]}"
+                symbol=$(lookup_keycode_cached "$code" "$XKB_KEYMAP_CACHE")
+                echo "''${line/code:''${code}/$symbol}"
+              else
+                echo "$line"
+              fi
+            done
+
+            if [[ "$DEBUG" == "1" ]]; then
+              end=$(date +%s.%N)
+              # fall back to awk if bc is missing
+              if command -v bc >/dev/null 2>&1; then
+                elapsed=$(echo "$end - $start" | bc)
+              else
+                elapsed=$(awk -v s="$start" -v e="$end" 'BEGIN{printf "%.6f", (e - s)}')
+              fi
+              echo "[DEBUG] parse_keycodes elapsed: ''${elapsed}s" >&2
+            fi
+          }
+
+          # Fetch dynamic keybindings from Hyprland
+          #
+          # Also do some pre-processing:
+          # - Remove standard Omarchy bin path prefix
+          # - Remove uwsm prefix
+          # - Map numeric modifier key mask to a textual rendition
+          # - Output comma-separated values that the parser can understand
+          dynamic_bindings() {
+            hyprctl -j binds |
+              jq -r '.[] | {modmask, key, keycode, description, dispatcher, arg} | "\(.modmask),\(.key)@\(.keycode),\(.description),\(.dispatcher),\(.arg)"' |
+              sed -r \
+                -e 's/null//' \
+                -e 's,~/.local/share/omarchy/bin/,,' \
+                -e 's,uwsm app -- ,,' \
+                -e 's,uwsm-app -- ,,' \
+                -e 's/@0//' \
+                -e 's/,@/,code:/' \
+                -e 's/^0,/,/' \
+                -e 's/^1,/SHIFT,/' \
+                -e 's/^4,/CTRL,/' \
+                -e 's/^5,/SHIFT CTRL,/' \
+                -e 's/^8,/ALT,/' \
+                -e 's/^9,/SHIFT ALT,/' \
+                -e 's/^12,/CTRL ALT,/' \
+                -e 's/^13,/SHIFT CTRL ALT,/' \
+                -e 's/^64,/SUPER,/' \
+                -e 's/^65,/SUPER SHIFT,/' \
+                -e 's/^68,/SUPER CTRL,/' \
+                -e 's/^69,/SUPER SHIFT CTRL,/' \
+                -e 's/^72,/SUPER ALT,/' \
+                -e 's/^73,/SUPER SHIFT ALT,/' \
+                -e 's/^76,/SUPER CTRL ALT,/' \
+                -e 's/^77,/SUPER SHIFT CTRL ALT,/'
+          }
+
+          # Parse and format keybindings
+          #
+          # `awk` does the heavy lifting:
+          # - Set the field separator to a comma ','.
+          # - Joins the key combination (e.g., "SUPER + Q").
+          # - Joins the command that the key executes.
+          # - Prints everything in a nicely aligned format.
+          parse_bindings() {
+            awk -F, '
+          {
+              # Combine the modifier and key (first two fields)
+              key_combo = $1 " + " $2;
+
+              # Clean up: strip leading "+" if present, trim spaces
+              gsub(/^[ \t]*\+?[ \t]*/, "", key_combo);
+              gsub(/[ \t]+$/, "", key_combo);
+
+              # Use description, if set
+              action = $3;
+
+              if (action == "") {
+                  # Reconstruct the command from the remaining fields
+                  for (i = 4; i <= NF; i++) {
+                      action = action $i (i < NF ? "," : "");
+                  }
+
+                  # Clean up trailing commas, remove leading "exec, ", and trim
+                  sub(/,$/, "", action);
+                  gsub(/(^|,)[[:space:]]*exec[[:space:]]*,?/, "", action);
+                  gsub(/^[ \t]+|[ \t]+$/, "", action);
+                  gsub(/[ \t]+/, " ", key_combo);  # Collapse multiple spaces to one
+
+                  # Escape XML entities
+                  gsub(/&/, "\\&amp;", action);
+                  gsub(/</, "\\&lt;", action);
+                  gsub(/>/, "\\&gt;", action);
+                  gsub(/"/, "\\&quot;", action);
+                  gsub(/'"'"'/, "\\&apos;", action);
+              }
+
+              if (action != "") {
+                  printf "%-35s → %s\n", key_combo, action;
+              }
+          }'
+          }
+
+          monitor_height=$(hyprctl monitors -j | jq -r '.[] | select(.focused == true) | .height')
+          menu_height=$((monitor_height * 40 / 100))
+
+          build_keymap_cache
+
+          dynamic_bindings |
+            sort -u |
+            parse_keycodes |
+            parse_bindings |
+            walker --dmenu -p 'Keybindings' --width 800 --height "$menu_height"
+        '')
+        (writeShellScriptBin "omanix-show-done" ''
+          echo
+          gum spin --spinner "globe" --title "Done! Press any key to close..." -- bash -c 'read -n 1 -s'
+        '')
+        (writeShellScriptBin "omanix-show-logo" ''
+          clear
+          echo -e "\033[32m"
+          cat <~/.local/share/omanix/logo.txt
+          echo -e "\033[0m"
+          echo
         '')
       ];
     };

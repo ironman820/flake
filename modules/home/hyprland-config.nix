@@ -11,11 +11,9 @@
         settings = {
           # Application bindings
           "$terminal" = "uwsm-app -- $TERMINAL";
-          "$browser" = "omarchy-launch-browser";
+          "$browser" = "omanix-launch-browser";
 
           bind = [
-            "SUPER, Q, exec, kitty"
-            "SUPER, W, killactive,"
             "SUPER, M, exit,"
             # ", Print, exec, grimblast copy area"
           ];
@@ -123,7 +121,7 @@
             "SUPER CTRL, E, Emoji picker, exec, omarchy-launch-walker -m symbols"
             "SUPER ALT, SPACE, Omarchy menu, exec, omarchy-menu"
             "SUPER, ESCAPE, Power menu, exec, omarchy-menu system"
-            "SUPER, K, Show key bindings, exec, omarchy-menu-keybindings"
+            "SUPER, K, Show key bindings, exec, omanix-menu-keybindings"
             ", XF86Calculator, Calculator, exec, gnome-calculator"
 
             # Aesthetics
@@ -236,7 +234,6 @@
             "MOZ_ENABLE_WAYLAND,1"
             "ELECTRON_OZONE_PLATFORM_HINT,wayland"
             "OZONE_PLATFORM,wayland"
-            "TERMINAL=kitty"
             "XDG_SESSION_TYPE,wayland"
 
             # Allow better support for screen sharing (Google Meet, Discord, etc)

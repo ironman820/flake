@@ -24,6 +24,22 @@
             echo "$HOME"
           fi
         '')
+        (writeShellScriptBin "omanix-launch-browser" ''
+          default_browser=$(xdg-settings get default-web-browser)
+          browser_exec=$(sed -n 's/^Exec=\([^ ]*\).*/\1/p' {~/.local,~/.nix-profile,/usr}/share/applications/$default_browser 2>/dev/null | head -1)
+
+          if [[ $browser_exec = "" ]]; then
+            browser_exec=$BROWSER
+          fi
+
+          if [[ $browser_exec =~ (firefox|zen|librewolf) ]]; then
+            private_flag="--private-window"
+          else
+            private_flag="--incognito"
+          fi
+
+          exec setsid uwsm-app -- "$browser_exec" "''${@/--private/$private_flag}"
+        '')
         (writeShellScriptBin "omanix-launch-editor" ''
           case "${"EDITOR:-nvim"}" in
           nvim | vim | nano | micro | hx | helix)

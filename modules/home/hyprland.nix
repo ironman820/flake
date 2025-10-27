@@ -8,6 +8,7 @@
       hyprlock
       mako
       omanix
+      swayosd
       inputs.walker.homeManagerModules.default
       walker
       waybar

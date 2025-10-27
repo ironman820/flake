@@ -22,7 +22,7 @@
             "SUPER, C, Copy, sendshortcut, CTRL, Insert,"
             "SUPER, V, Paste, sendshortcut, SHIFT, Insert,"
             "SUPER, X, Cut, sendshortcut, CTRL, X,"
-            "SUPER CTRL, V, Clipboard, exec, omarchy-launch-walker -m clipboard"
+            "SUPER CTRL, V, Clipboard, exec, omanix-launch-walker -m clipboard"
             # Close windows
             "SUPER, Q, Close active window, killactive,"
             "CTRL ALT, DELETE, Close all Windows, exec, omarchy-hyprland-window-close-all"
@@ -117,8 +117,8 @@
             "SUPER ALT, 4, Switch to group window 4, changegroupactive, 4"
             "SUPER ALT, 5, Switch to group window 5, changegroupactive, 5"
             # Menus
-            "SUPER, SPACE, Launch apps, exec, omarchy-launch-walker"
-            "SUPER CTRL, E, Emoji picker, exec, omarchy-launch-walker -m symbols"
+            "SUPER, R, Launch apps, exec, omanix-launch-walker"
+            "SUPER CTRL, E, Emoji picker, exec, omanix-launch-walker -m symbols"
             "SUPER ALT, SPACE, Omarchy menu, exec, omarchy-menu"
             "SUPER, ESCAPE, Power menu, exec, omarchy-menu system"
             "SUPER, K, Show key bindings, exec, omanix-menu-keybindings"

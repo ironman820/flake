@@ -8,7 +8,6 @@
           alacritty
           mako
           terminaltexteffects
-          walker
         ];
       };
       programs = {

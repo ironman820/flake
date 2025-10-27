@@ -1,9 +1,12 @@
-{ flakeRoot, ... }:
+{ flakeRoot, inputs, ... }:
 {
   flake.homeModules.hyprland-config =
     { config, pkgs, ... }:
     {
       home = {
+        packages = [
+          inputs.hexecute.packages.${pkgs.system}.default
+        ];
         sessionVariables.NIXOS_OZONE_WL = "1";
       };
       wayland.windowManager.hyprland = {
@@ -118,6 +121,7 @@
             "SUPER ALT, 5, Switch to group window 5, changegroupactive, 5"
             # Menus
             "SUPER, R, Launch apps, exec, omanix-launch-walker"
+            "SUPER, SPACE, Launch apps, exec, hexecute"
             "SUPER CTRL, E, Emoji picker, exec, omanix-launch-walker -m symbols"
             "SUPER ALT, SPACE, Omarchy menu, exec, omarchy-menu"
             "SUPER, ESCAPE, Power menu, exec, omarchy-menu system"

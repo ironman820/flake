@@ -21,6 +21,10 @@
       url = "github:nix-community/disko";
     };
     flake-parts.url = "github:hercules-ci/flake-parts";
+    hexecute = {
+      inputs.nixpkgs.follows = "nixpkgs";
+      url = "github:ThatOtherAndrew/Hexecute";
+    };
     home-manager = {
       inputs.nixpkgs.follows = "nixpkgs";
       url = "github:nix-community/home-manager";

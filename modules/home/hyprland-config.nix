@@ -181,7 +181,7 @@
             ''SUPER SHIFT, A, ChatGPT, exec, omarchy-launch-webapp "https://chatgpt.com"''
             ''SUPER SHIFT ALT, A, Grok, exec, omarchy-launch-webapp "https://grok.com"''
             ''SUPER SHIFT, C, Calendar, exec, omarchy-launch-webapp "https://app.hey.com/calendar/weeks/"''
-            ''SUPER SHIFT, E, Email, exec, omarchy-launch-webapp "https://app.hey.com"''
+            "SUPER SHIFT, E, Email, exec, uwsm-app -- thunderbird"
             ''SUPER SHIFT, Y, YouTube, exec, omarchy-launch-webapp "https://youtube.com/"''
             ''SUPER SHIFT ALT, G, WhatsApp, exec, omarchy-launch-or-focus-webapp WhatsApp "https://web.whatsapp.com/"''
             ''SUPER SHIFT CTRL, G, Google Messages, exec, omarchy-launch-or-focus-webapp "Google Messages" "https://messages.google.com/web/conversations"''

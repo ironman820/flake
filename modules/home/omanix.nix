@@ -3,9 +3,6 @@
     { pkgs, ... }:
     {
       home.packages = with pkgs; [
-        alacritty
-        gum
-        libxkbcommon
         (writeShellScriptBin "omanix-cmd-terminal-cwd" ''
           # Go from current active terminal to its child shell process and run cwd there
           terminal_pid=$(hyprctl activewindow | awk '/pid:/ {print $2}')
@@ -23,8 +20,17 @@
             echo "$HOME"
           fi
         '')
+        (writeShellScriptBin "omanix-hyprland-window-close-all" ''
+          # Close all open windows
+          hyprctl clients -j | \
+            ${pkgs.jq}/bin/jq -r ".[].address" | \
+            xargs -I{} hyprctl dispatch closewindow address:{}
+
+          # Move to first workspace
+          hyprctl dispatch workspace 1
+        '')
         (writeShellScriptBin "omanix-launch-browser" ''
-          default_browser=$(xdg-settings get default-web-browser)
+          default_browser=$(${pkgs.xdg-utils}/bin/xdg-settings get default-web-browser)
           browser_exec=$(sed -n 's/^Exec=\([^ ]*\).*/\1/p' {~/.local,~/.nix-profile,/usr}/share/applications/$default_browser 2>/dev/null | head -1)
 
           if [[ $browser_exec = "" ]]; then
@@ -226,7 +232,7 @@
               ;;
             *Bluetooth*)
               rfkill unblock bluetooth
-              blueberry
+              ${pkgs.blueberry}/bin/blueberry
               ;;
             *Power*) show_setup_power_menu ;;
             *Monitors*) open_in_editor ~/.config/hypr/monitors.conf ;;
@@ -485,7 +491,7 @@
 
           build_keymap_cache() {
             local keymap
-            keymap="$(xkbcli compile-keymap)" || {
+            keymap="$(${pkgs.libxkbcommon}/bin/xkbcli compile-keymap)" || {
               echo "Failed to compile keymap" >&2
               return 1
             }
@@ -553,7 +559,7 @@
           # - Output comma-separated values that the parser can understand
           dynamic_bindings() {
             hyprctl -j binds |
-              jq -r '.[] | {modmask, key, keycode, description, dispatcher, arg} | "\(.modmask),\(.key)@\(.keycode),\(.description),\(.dispatcher),\(.arg)"' |
+              ${pkgs.jq}/bin/jq -r '.[] | {modmask, key, keycode, description, dispatcher, arg} | "\(.modmask),\(.key)@\(.keycode),\(.description),\(.dispatcher),\(.arg)"' |
               sed -r \
                 -e 's/null//' \
                 -e 's,~/.local/share/omarchy/bin/,,' \
@@ -638,7 +644,7 @@
         '')
         (writeShellScriptBin "omanix-show-done" ''
           echo
-          gum spin --spinner "globe" --title "Done! Press any key to close..." -- bash -c 'read -n 1 -s'
+          ${pkgs.gum}/bin/gum spin --spinner "globe" --title "Done! Press any key to close..." -- bash -c 'read -n 1 -s'
         '')
         (writeShellScriptBin "omanix-show-logo" ''
           clear

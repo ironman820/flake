@@ -20,7 +20,6 @@
               fi
             '';
             omarchy-launch-wifi = config.xdg.configFile."hypr/omarchy-launch-wifi".source;
-            omarchy-menu-keybindings = config.xdg.configFile."hypr/omarchy-menu-keybindings".source;
           in
           ''
             [app-name=Spotify]
@@ -39,7 +38,7 @@
             on-button-left=exec sh -c '${omarchy-notification-dismiss} "Setup Wi-Fi"; ${omarchy-launch-wifi}'
 
             [summary~="Learn Keybindings"]
-            on-button-left=exec sh -c '${omarchy-notification-dismiss} "Learn Keybindings"; ${omarchy-menu-keybindings}'
+            on-button-left=exec sh -c '${omarchy-notification-dismiss} "Learn Keybindings"; omanix-menu-keybindings'
           '';
         settings = {
           anchor = "top-right";

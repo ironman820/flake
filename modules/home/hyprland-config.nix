@@ -28,7 +28,7 @@
             "SUPER CTRL, V, Clipboard, exec, omanix-launch-walker -m clipboard"
             # Close windows
             "SUPER, Q, Close active window, killactive,"
-            "CTRL ALT, DELETE, Close all Windows, exec, omarchy-hyprland-window-close-all"
+            "CTRL ALT, DELETE, Close all Windows, exec, omanix-hyprland-window-close-all"
 
             # Control tiling
             "SUPER, J, Toggle split, togglesplit, # dwindle"
@@ -216,7 +216,7 @@
 
             # Switch audio output with Super + Mute
             "SUPER, XF86AudioMute, Switch audio output, exec, omarchy-cmd-audio-switch"
-            ", XF86PowerOff, Power menu, exec, omarchy-menu system"
+            ", XF86PowerOff, Power menu, exec, omanix-menu system"
           ];
           bindmd = [
             # Move/resize windows with mainMod + LMB/RMB and dragging

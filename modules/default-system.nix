@@ -29,36 +29,23 @@
       };
       environment = {
         sessionVariables.NH_FLAKE = "/home/${config.ironman.user.name}/git/flake";
-        systemPackages =
-          (with pkgs; [
-            age
-            appimage-run
-            bat
-            btop
-            delta
-            dig
-            entr
-            eza
-            fzf
-            git-extras
-            lazygit
-            nh
-            nix-output-monitor
-            nvd
-            p7zip
-            ssh-to-age
-            inputs.snowfall-flake.packages.${pkgs.system}.flake
-            sops
-            wget
-          ])
-          ++ (with pkgs.bat-extras; [
-            batdiff
-            batgrep
-            batman
-            batpipe
-            batwatch
-            prettybat
-          ]);
+        systemPackages = with pkgs; [
+          age
+          btop
+          delta
+          dig
+          entr
+          eza
+          fzf
+          git-extras
+          nix-output-monitor
+          nvd
+          p7zip
+          ssh-to-age
+          inputs.snowfall-flake.packages.${pkgs.system}.flake
+          sops
+          wget
+        ];
       };
       fonts.packages =
         with pkgs;
@@ -123,6 +110,21 @@
         ];
       };
       programs = {
+        appimage = {
+          enable = true;
+          binfmt = true;
+        };
+        bat = {
+          enable = true;
+          extraPackages = with pkgs.bat-extras; [
+            batdiff
+            batgrep
+            batman
+            batpipe
+            batwatch
+            prettybat
+          ];
+        };
         command-not-found.enable = false;
         direnv = {
           enable = true;
@@ -132,7 +134,12 @@
           enable = true;
           lfs.enable = true;
         };
+        lazygit.enable = true;
         mtr.enable = true;
+        nh = {
+          enable = true;
+          flake = "/home/${config.ironman.user.name}/git/flake";
+        };
         nix-index.enable = true;
         nix-ld.enable = true;
       };

@@ -10,7 +10,6 @@
       environment.systemPackages =
         with pkgs;
         [
-          local.catppuccin-lazygit
           cifs-utils
           diff-so-fancy
           dig
@@ -22,7 +21,6 @@
           fzf
           gcc
           gh
-          git
           git-filter-repo
           github-cli
           glab
@@ -33,7 +31,6 @@
           inetutils
           jq
           just
-          lazygit
           neofetch
           nodejs
           ntfs3g
@@ -65,6 +62,7 @@
           enable = true;
           package = pkgs.jdk;
         };
+        lazygit.enable = true;
       };
     };
 }

@@ -6,25 +6,27 @@
         audacity
         blender
         local.catppuccin-kitty
-        firefox
         gimp
         google-chrome
         kitty
         libreoffice-fresh
-        obs-studio
         obsidian
         putty
         remmina
         telegram-desktop
-        thunderbird
         udiskie
         vlc
         virt-viewer
         yubioath-flutter
       ];
-      programs.winbox = {
-        enable = true;
-        package = pkgs.winbox4;
+      programs = {
+        firefox.enable = true;
+        obs-studio.enable = true;
+        thunderbird.enable = true;
+        winbox = {
+          enable = true;
+          package = pkgs.winbox4;
+        };
       };
     };
 }

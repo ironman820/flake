@@ -406,9 +406,6 @@
             "noanim, walker"
           ];
           monitor = ",highres,0x0,1";
-          source = [
-            "${config.xdg.configHome}/hypr/autostart.conf"
-          ];
           windowrule = [
             "fullscreen, class:Screensaver"
             # Browser types
@@ -492,9 +489,6 @@
       xdg = {
         configFile = {
           "omarchy/current/background".source = flakeRoot + "/.config/backgrounds/voidbringer.png";
-          "hypr/autostart.conf".text = ''
-            exec-once = uwsm-app -- waybar
-          '';
           "hypr/omarchy-launch-floating-terminal-with-presentation".source =
             pkgs.writeShellScript "omarchy-launch-floating-terminal-with-presentation"
               (

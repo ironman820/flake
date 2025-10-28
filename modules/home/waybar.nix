@@ -272,6 +272,7 @@
             color: #a55555;
           }
         '';
+        systemd.enable = true;
       };
       xdg.configFile."omarchy/current/theme/waybar.css".text = ''
         @define-color foreground #cdd6f4;

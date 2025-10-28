@@ -36,7 +36,7 @@
       };
       printing = {
         enable = true;
-        cups-pdf.enable = true;
+        # cups-pdf.enable = true;
         drivers = with pkgs; [
           gutenprint
           hplip

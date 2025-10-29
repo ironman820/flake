@@ -95,7 +95,7 @@
             tooltip-format-disconnected = "Disconnected";
             interval = 3;
             spacing = 1;
-            on-click = "omarchy-launch-wifi";
+            on-click = "omanix-launch-wifi";
           };
           battery = {
             format = "{capacity}% {icon}";

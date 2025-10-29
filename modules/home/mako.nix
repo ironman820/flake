@@ -19,7 +19,6 @@
                 makoctl dismiss -n $notification_id
               fi
             '';
-            omarchy-launch-wifi = config.xdg.configFile."hypr/omarchy-launch-wifi".source;
           in
           ''
             [app-name=Spotify]
@@ -35,7 +34,7 @@
             default-timeout=0
 
             [summary~="Setup Wi-Fi"]
-            on-button-left=exec sh -c '${omarchy-notification-dismiss} "Setup Wi-Fi"; ${omarchy-launch-wifi}'
+            on-button-left=exec sh -c '${omarchy-notification-dismiss} "Setup Wi-Fi"; omanix-launch-wifi'
 
             [summary~="Learn Keybindings"]
             on-button-left=exec sh -c '${omarchy-notification-dismiss} "Learn Keybindings"; omanix-menu-keybindings'

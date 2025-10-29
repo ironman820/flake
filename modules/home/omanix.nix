@@ -72,6 +72,9 @@
 
           exec walker --width 644 --maxheight 300 --minheight 300 "$@"
         '')
+        (writeShellScriptBin "omanix-launch-wifi" ''
+          exec setsid uwsm-app -- "$TERMINAL" --class=Impala -e ${pkgs.impala}/bin/impala "$@"
+        '')
         (writeShellScriptBin "omanix-menu" ''
           # Set to true when going directly to a submenu, so we can exit directly
           BACK_TO_EXIT=false
@@ -228,7 +231,7 @@
             *Audio*) $TERMINAL --class=Wiremix -e wiremix ;;
             *Wifi*)
               rfkill unblock wifi
-              omarchy-launch-wifi
+              omanix-launch-wifi
               ;;
             *Bluetooth*)
               rfkill unblock bluetooth

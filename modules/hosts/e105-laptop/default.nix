@@ -6,6 +6,7 @@
   flake.nixosModules."hosts/e105-laptop" = {
     imports = with config.flake.nixosModules; [
       base
+      de-hyprland
       config.flake.diskoConfigurations.e105-laptop
       drive-shares-personal
       e105-laptop-hardware

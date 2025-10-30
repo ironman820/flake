@@ -28,5 +28,10 @@
           package = pkgs.winbox4;
         };
       };
+      xdg.portal = {
+        enable = true;
+        config.common.default = "*";
+        xdgOpenUsePortal = true;
+      };
     };
 }

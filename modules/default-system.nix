@@ -168,10 +168,5 @@
         };
       };
       system.stateVersion = "25.05";
-      xdg.portal = {
-        enable = true;
-        config.common.default = "*";
-        xdgOpenUsePortal = true;
-      };
     };
 }

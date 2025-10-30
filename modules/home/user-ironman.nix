@@ -5,6 +5,7 @@
       base
       hyprland
       kitty
+      putty
     ];
   };
 }

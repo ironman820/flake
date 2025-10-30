@@ -2,7 +2,6 @@
 {
   flake.homeModules.base =
     {
-      flakeRoot,
       osConfig,
       ...
     }:
@@ -26,7 +25,6 @@
           sops-nix.homeModules.sops
         ]);
       home = {
-        file."putty/sessions/FS Switch".source = flakeRoot + "/.config/putty/${"FS%20Switch"}";
         homeDirectory = osConfig.users.users.${osConfig.ironman.user.name}.home;
         sessionPath = [
           "$HOME/bin"

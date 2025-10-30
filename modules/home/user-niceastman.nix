@@ -7,6 +7,7 @@
         base
         hyprland
         kitty
+        putty
       ];
       home.packages = with pkgs; [
         qgis

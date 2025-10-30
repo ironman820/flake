@@ -41,9 +41,9 @@ stdenv.mkDerivation rec {
     qt5compat
     qtwayland
   ]);
-  nativeBuildInputs = with pkgs; [
+  nativeBuildInputs = [
     autoPatchelfHook
-    qt6.wrapQtAppsHook
+    inputs.nixpkgs-8cad3db.legacyPackages.${pkgs.system}.qt6.wrapQtAppsHook
   ];
   src = fetchurl {
     url = "https://downloads.bicomsystems.com/desktop/glocom/public/${version}/glocom/gloCOM-${version}.deb";

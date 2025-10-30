@@ -276,6 +276,10 @@
             hostname = "192.168.21.11";
             user = "royell";
           };
+          "llama" = {
+            hostname = "192.168.248.120";
+            user = "ironman";
+          } // deployIdentity;
           "mail" = {
             hostname = "webmail.royell.org";
             user = "royell";

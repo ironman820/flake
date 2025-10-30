@@ -11,7 +11,6 @@
           bash
           btop
           eza
-          flatpak
           git
           just
           podman

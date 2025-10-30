@@ -1,6 +1,7 @@
 {
   autoPatchelfHook,
   fetchurl,
+  inputs,
   pkgs,
   stdenv,
   ...
@@ -9,10 +10,40 @@ stdenv.mkDerivation rec {
   pname = "glocom";
   version = "7.6.0";
   name = "${pname}-${version}";
-  # buildInputs = with pkgs; [
+  # autoPatchelfIgnoreMissingDeps = [
+  #   "libQt5Network.so.5"
+  #   "libQt5Core.so.5"
   # ];
+  buildInputs = (with pkgs; [
+    alsa-lib
+    # gst_all_1.gst-plugins-base
+    # libgbm
+    # libgcc.lib
+    # libpq
+    # libpulseaudio
+    # libxkbcommon
+    mysql80
+    nss
+    pyfa
+    robo3t
+    # xorg.libX11
+    # xorg.libXdamage
+    xorg.libxkbfile
+    # xorg.libXrandr
+    xorg.libxshmfence
+    # xorg.xcbutilimage
+  ])
+  ++ (with inputs.nixpkgs-8cad3db.legacyPackages.${pkgs.system}.qt6; [
+    qtbase
+    qtdeclarative
+    qtquicktimeline
+    qtscxml
+    qt5compat
+    qtwayland
+  ]);
   nativeBuildInputs = with pkgs; [
     autoPatchelfHook
+    qt6.wrapQtAppsHook
   ];
   src = fetchurl {
     url = "https://downloads.bicomsystems.com/desktop/glocom/public/${version}/glocom/gloCOM-${version}.deb";
@@ -22,6 +53,8 @@ stdenv.mkDerivation rec {
 
   preBuild = ''
     addAutoPatchelfSearchPath $out/opt/gloCOM/lib/
+    addAutoPatchelfSearchPath ${pkgs.robo3t}/lib/robo3t/lib/
+    addAutoPatchelfSearchPath ${pkgs.pyfa}/share/pyfa/app/
   '';
 
   unpackPhase = ''

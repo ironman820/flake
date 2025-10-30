@@ -35,6 +35,7 @@
       url = "github:ironman820/neovim/updates";
     };
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
+    nixpkgs-8cad3db.url = "github:nixos/nixpkgs/8cad3db";
     pkgs-by-name.url = "github:drupol/pkgs-by-name-for-flake-parts";
     snowfall-flake = {
       url = "github:snowfallorg/flake";

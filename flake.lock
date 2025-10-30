@@ -323,6 +323,22 @@
         "type": "github"
       }
     },
+    "nixpkgs-8cad3db": {
+      "locked": {
+        "lastModified": 1682890487,
+        "narHash": "sha256-JcEYGIUr2T1D3QAkurclH0Jt4aaykK/hNd4JCshpKqA=",
+        "owner": "nixos",
+        "repo": "nixpkgs",
+        "rev": "8cad3dbe48029cb9def5cdb2409a6c80d3acfe2e",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nixos",
+        "ref": "8cad3db",
+        "repo": "nixpkgs",
+        "type": "github"
+      }
+    },
     "nixpkgs-lib": {
       "locked": {
         "lastModified": 1754788789,
@@ -366,6 +382,7 @@
         "import-tree": "import-tree",
         "neovim": "neovim",
         "nixpkgs": "nixpkgs",
+        "nixpkgs-8cad3db": "nixpkgs-8cad3db",
         "pkgs-by-name": "pkgs-by-name",
         "snowfall-flake": "snowfall-flake",
         "sops-nix": "sops-nix",

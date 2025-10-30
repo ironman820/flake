@@ -4,6 +4,7 @@
     imports = with config.flake.homeModules; [
       base
       hyprland
+      kitty
     ];
   };
 }

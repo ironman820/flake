@@ -15,7 +15,6 @@
           flatpak
           git
           just
-          kitty
           podman
           ssh
           sops
@@ -36,7 +35,6 @@
         sessionVariables = {
           BROWSER = "google-chrome";
           EDITOR = "nvim";
-          TERMINAL = "kitty";
         };
         shellAliases = {
           ".." = "cd ..";

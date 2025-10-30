@@ -6,6 +6,7 @@
       imports = with config.flake.homeModules; [
         base
         hyprland
+        kitty
       ];
       home.packages = with pkgs; [
         qgis

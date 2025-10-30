@@ -416,6 +416,8 @@
             "tag +chromium-based-browser, class:((google-)?[cC]hrom(e|ium)|[bB]rave-browser|Microsoft-edge|Vivaldi-stable|helium)"
             "tag +firefox-based-browser, class:([fF]irefox|zen|librewolf)"
 
+            "float, tag:chromium-based-browser, title:Bitwarden"
+
             # Force chromium-based browsers into a tile to deal with --app bug
             "tile, tag:chromium-based-browser"
 

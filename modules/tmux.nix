@@ -34,7 +34,7 @@
           fzf-tmux-url
         ];
         shortcut = "Space";
-        terminal = "screen-256color";
+        terminal = "tmux-256color";
       };
       environment.etc = {
         "tmux.reset.conf".text = ''

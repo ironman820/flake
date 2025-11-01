@@ -25,7 +25,7 @@
           keyMode = "vi";
           secureSocket = false;
           shortcut = "Space";
-          terminal = "screen-256color";
+          terminal = "tmux-256color";
           enable = true;
           extraConfig = ''
             source-file ~/.config/tmux/tmux.reset.conf

@@ -14,7 +14,7 @@
           diff-so-fancy
           dig
           duf
-          du-dust
+          dust
           eltclsh
           enum4linux
           ffmpeg
@@ -35,7 +35,7 @@
           nodejs
           ntfs3g
           p7zip
-          poppler_utils
+          poppler-utils
           pv
           qrencode
           restic

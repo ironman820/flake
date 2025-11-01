@@ -39,7 +39,7 @@ in
       {
         name = lib.removePrefix prefix name;
         value = inputs.nixpkgs.lib.nixosSystem {
-          inherit lib specialArgs;
+          inherit specialArgs;
           modules =
             module.imports
             ++ (with inputs; [

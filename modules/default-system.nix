@@ -119,7 +119,8 @@
           enable = true;
           extraPackages = with pkgs.bat-extras; [
             batdiff
-            batgrep
+            # package broken in 2025-11-01
+            # batgrep
             batman
             batpipe
             batwatch

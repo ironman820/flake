@@ -30,10 +30,7 @@ in
             disko.nixosModules.disko
             home-manager.nixosModules.home-manager
             {
-              home-manager = {
-                backupFileExtension = "backup";
-                extraSpecialArgs = specialArgs;
-              };
+              home-manager.extraSpecialArgs = specialArgs;
             }
             neovim.nixosModules.default
             sops-nix.nixosModules.sops

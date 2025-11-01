@@ -55,6 +55,7 @@
         ++ builtins.filter lib.attrsets.isDerivation (builtins.attrValues pkgs.nerd-fonts);
       hardware.enableRedistributableFirmware = true;
       home-manager = {
+        backupFileExtension = "backup";
         useGlobalPkgs = false;
         useUserPackages = true;
       };

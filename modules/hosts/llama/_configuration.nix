@@ -49,4 +49,31 @@ in
     "networkmanager"
     "docker"
   ];
+  virtualisation.oci-containers = {
+    backend = "docker";
+    containers = {
+      ollama = {
+        extraOptions = [
+          ''
+            deploy:
+              resources:
+                reservations:
+                  devices:
+                    - driver: cdi
+                      capabilities:
+                        - gpu
+                      device_ids:
+                        - nvidia.com/gpu=all
+          ''
+        ];
+        image = "ollama/ollama";
+        ports = [
+          "11434:11434"
+        ];
+        volumes = [
+          "/opt/appdata/apps/ollama:/root/.ollama"
+        ];
+      };
+    };
+  };
 }

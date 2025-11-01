@@ -1,41 +1,39 @@
 {
   config,
+  flakeRoot,
+  inputs,
   ...
 }:
 {
-  flake.nixosModules."hosts/llama" = _: {
-    imports = with config.flake.nixosModules; [
-      base
-      llama-hardware
-      proxmox
-      virtual-docker
-      x64-linux
-    ];
-    hardware = {
-      graphics = {
-        enable = true;
-        enable32Bit = true;
+  easy-hosts.hosts.llama =
+    let
+      specialArgs = {
+        inherit flakeRoot;
       };
-      nvidia = {
-        modesetting.enable = true;
-        open = false;
-        nvidiaSettings = true;
-        powerManagement.enable = true;
-      };
-      nvidia-container-toolkit.enable = true;
+    in
+    {
+      arch = "x86_64";
+      deployable = true;
+      modules = [
+        ./_configuration.nix
+        {
+          home-manager = {
+            extraSpecialArgs = specialArgs;
+            users.ironman = config.flake.homeConfigurations.ironman-server;
+          };
+        }
+      ]
+      ++ (with inputs; [
+        home-manager.nixosModules.home-manager
+        neovim.nixosModules.default
+        sops-nix.nixosModules.sops
+      ])
+      ++ (with config.flake.nixosModules; [
+        base
+        llama-hardware
+        proxmox
+        virtual-docker
+        x64-linux
+      ]);
     };
-    home-manager.users.ironman = config.flake.homeConfigurations.ironman-server;
-    nix.settings.cores = 4;
-    services = {
-      qemuGuest.enable = true;
-      xserver = {
-        enable = false;
-        videoDrivers = [ "nvidia" ];
-      };
-    };
-    users.users.ironman.extraGroups = [
-      "networkmanager"
-      "docker"
-    ];
-  };
 }

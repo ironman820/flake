@@ -25,6 +25,7 @@
       url = "github:nix-community/disko";
     };
     easy-hosts.url = "github:tgirlcloud/easy-hosts";
+    elephant.url = "github:abenz1267/elephant";
     flake-parts.url = "github:hercules-ci/flake-parts";
     hexecute = {
       inputs.nixpkgs.follows = "nixpkgs";
@@ -57,7 +58,7 @@
       url = "github:folke/tokyonight.nvim";
     };
     walker = {
-      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.elephant.follows = "elephant";
       url = "github:abenz1267/walker";
     };
   };

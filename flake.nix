@@ -1,5 +1,9 @@
 {
   inputs = {
+    arion = {
+      inputs.nixpkgs.follows = "nixpkgs";
+      url = "github:hercules-ci/arion";
+    };
     catppuccin-btop = {
       flake = false;
       url = "github:catppuccin/btop";

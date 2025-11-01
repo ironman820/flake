@@ -1,5 +1,6 @@
 {
   config,
+  inputs,
   ...
 }:
 {
@@ -14,6 +15,9 @@
         };
       }
     ]
+    ++ (with inputs; [
+      arion.nixosModules.arion
+    ])
     ++ (with config.flake.nixosModules; [
       base
       llama-hardware

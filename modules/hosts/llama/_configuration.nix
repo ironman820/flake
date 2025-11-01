@@ -37,6 +37,7 @@ in
       nvidia_x11 = nvidia-pkgs.nvidia_x11;
     };
   };
+  security.sudo.wheelNeedsPassword = false;
   services = {
     qemuGuest.enable = true;
     xserver = {

@@ -20,6 +20,7 @@
       inputs.nixpkgs.follows = "nixpkgs";
       url = "github:nix-community/disko";
     };
+    easy-hosts.url = "github:tgirlcloud/easy-hosts";
     flake-parts.url = "github:hercules-ci/flake-parts";
     home-manager = {
       inputs.nixpkgs.follows = "nixpkgs";

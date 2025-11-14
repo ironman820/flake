@@ -2,7 +2,6 @@
 {
   flake.homeModules.base =
     {
-      flakeRoot,
       osConfig,
       pkgs,
       ...
@@ -10,45 +9,45 @@
     {
       imports =
         (with config.flake.homeModules; [
-          flatpak
+          btop
+          eza
           git
           just
-          kitty
-          podman
           ssh
           sops
           tmux
-          yubikey
         ])
         ++ (with inputs; [
           neovim.homeModules.default
           sops-nix.homeModules.sops
         ]);
       home = {
-        file."putty/sessions/FS Switch".source = flakeRoot + "/.config/putty/${"FS%20Switch"}";
         homeDirectory = osConfig.users.users.${osConfig.ironman.user.name}.home;
         sessionPath = [
           "$HOME/bin"
           "$HOME/.local/bin"
         ];
         sessionVariables = {
-          BROWSER = "google-chrome";
           EDITOR = "nvim";
         };
         shellAliases = {
-          "cat" = "bat";
-          "diff" = "batdiff";
-          "df" = "duf -only local";
-          "du" = "dust -xd1 --skip-total";
-          # "ducks" =
-          #   "${pkgs.coreutils}/bin/du -chs * 2>/dev/null | sort -rh | head -11 && ${pkgs.coreutils}/bin/du -chs .* 2>/dev/null | sort -rh | head -11";
-          "gmount" = "rclone mount google:/ ~/Drive/";
-          "htop" = "btop";
-          "man" = "batman";
-          "nv" = "nvim";
-          "rg" = "batgrep";
-          "top" = "btop";
-          "watch" = "batwatch --command";
+          ".." = "cd ..";
+          "..." = "cd ../..";
+          "...." = "cd ../../..";
+          cat = "bat";
+          d = "docker";
+          diff = "batdiff";
+          df = "duf -only local";
+          du = "dust -xd1 --skip-total";
+          # "ducks" = "${pkgs.coreutils}/bin/du -chs * 2>/dev/null | sort -rh | head -11 && ${pkgs.coreutils}/bin/du -chs .* 2>/dev/null | sort -rh | head -11";
+          gmount = "rclone mount google:/ ~/Drive/";
+          htop = "btop";
+          man = "batman";
+          nv = "nvim";
+          # batgrep broken 2025-11-01
+          # rg = "batgrep";
+          top = "btop";
+          watch = "batwatch --command";
         };
         stateVersion = "25.05";
         username = osConfig.ironman.user.name;
@@ -72,30 +71,20 @@
           enable = true;
           enableCompletion = true;
           enableVteIntegration = true;
+          historyControl = [ "ignoreboth" ];
+          historySize = 32768;
         };
         bat.enable = true;
-        btop = {
-          enable = true;
-          settings = {
-            color_theme = "catppuccin_mocha.theme";
-            vim_keys = true;
-          };
-        };
         dircolors.enable = true;
         direnv = {
           enable = true;
           enableBashIntegration = true;
           nix-direnv.enable = true;
         };
-        eza = {
+        fzf = {
           enable = true;
           enableBashIntegration = true;
-          extraOptions = [
-            "--group-directories-first"
-            "--header"
-          ];
-          git = true;
-          icons = "auto";
+          tmux.enableShellIntegration = true;
         };
         gpg = {
           enable = true;
@@ -158,7 +147,6 @@
             [updates]
             auto_update = true
           '';
-          "btop/themes".source = pkgs.local.catppuccin-btop;
         };
       };
     };

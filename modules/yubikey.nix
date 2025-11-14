@@ -17,7 +17,10 @@
       };
       hardware.gpgSmartcards.enable = true;
       programs = {
-        gnupg.agent.enableSSHSupport = true;
+        gnupg.agent = {
+          enable = true;
+          enableSSHSupport = true;
+        };
         ssh = {
           enableAskPassword = true;
           startAgent = false;

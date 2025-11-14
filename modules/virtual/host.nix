@@ -1,10 +1,7 @@
 {
   flake.nixosModules.virtual-host =
-    { config, pkgs, ... }:
+    { config, ... }:
     {
-      environment.systemPackages = with pkgs; [
-        virt-manager
-      ];
       users.users.${config.ironman.user.name}.extraGroups = [
         "libvirtd"
       ];

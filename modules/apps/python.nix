@@ -30,7 +30,7 @@
           pytest-lazy-fixture
           pytest-raises
           pytest-tornado
-          PyVirtualDisplay
+          pyvirtualdisplay
           qtile
           rich
           rope

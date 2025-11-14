@@ -1,16 +1,15 @@
 {
   flake.nixosModules.tmux =
     {
+      flakeRoot,
       pkgs,
       ...
     }:
     {
+      imports = [
+        "${flakeRoot}/modules/_tmux.nix"
+      ];
       programs.tmux = {
-        enable = true;
-        baseIndex = 1;
-        clock24 = true;
-        customPaneNavigationAndResize = true;
-        escapeTime = 0;
         extraConfigBeforePlugins = ''
           source-file /etc/tmux.reset.conf
 
@@ -24,8 +23,6 @@
           bind-key -T copy-mode-vi y send-keys -X copy-selection-and-cancel
           bind-key -T prefix g display-popup -E -w 95% -h 95% -d '#{pane_current_path}' lazygit
         '';
-        historyLimit = 1000000;
-        keyMode = "vi";
         plugins = with pkgs.tmuxPlugins; [
           catppuccin
           sensible
@@ -33,8 +30,6 @@
           yank
           fzf-tmux-url
         ];
-        shortcut = "Space";
-        terminal = "screen-256color";
       };
       environment.etc = {
         "tmux.reset.conf".text = ''

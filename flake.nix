@@ -1,5 +1,12 @@
 {
   inputs = {
+    arion = {
+      inputs = {
+        flake-parts.follows = "flake-parts";
+        nixpkgs.follows = "nixpkgs";
+      };
+      url = "github:hercules-ci/arion";
+    };
     catppuccin-btop = {
       flake = false;
       url = "github:catppuccin/btop";
@@ -15,6 +22,10 @@
     darkmatter-grub-theme = {
       inputs.nixpkgs.follows = "nixpkgs";
       url = "gitlab:vandalbyte/darkmatter-grub-theme";
+    };
+    deploy-rs = {
+      inputs.nixpkgs.follows = "nixpkgs";
+      url = "github:serokell/deploy-rs";
     };
     disko = {
       inputs.nixpkgs.follows = "nixpkgs";

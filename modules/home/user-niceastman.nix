@@ -7,6 +7,7 @@
         base
         flatpak
         kitty
+        llama-work-sops
         qt
         syncthing
       ];

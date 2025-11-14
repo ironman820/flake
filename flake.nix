@@ -42,6 +42,8 @@
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
     # Nixpkgs for glocom
     nixpkgs-8cad3db.url = "github:nixos/nixpkgs/8cad3db";
+    # openssh v9
+    nixpkgs-openssh.url = "github:nixos/nixpkgs/336eda0";
     pkgs-by-name.url = "github:drupol/pkgs-by-name-for-flake-parts";
     snowfall-flake = {
       url = "github:snowfallorg/flake";

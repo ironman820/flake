@@ -1,8 +1,10 @@
+{ inputs, ... }:
 {
   flake.homeModules.ssh =
     {
       config,
       flakeRoot,
+      pkgs,
       ...
     }:
     let
@@ -33,12 +35,40 @@
           ".ssh/royell_git_servers.pub".source = configFiles + "/royell_git_servers.pub";
           ".ssh/royell_git_work.pub".source = configFiles + "/royell_git_work.pub";
         };
+        packages = with pkgs; [
+          (writeShellScriptBin "mytty" ''
+            if [ $# -eq 0 ]; then
+                 # No arguments provided, use defaults
+                 ${pkgs.screen}/bin/screen /dev/ttyUSB0 9600
+            elif [ $# -eq 1 ]; then
+              if [ "$1" == "-h" ]; then
+                echo "Example usage:"
+                echo "mytty [device] [baudrate]"
+                echo
+                echo "If only one parameter is specified the script assumes it's the baud rate"
+                echo "   and uses the default device: /dev/ttyUSB0"
+                echo
+                echo "Specifying no arguments runs the following default command:"
+                echo "  screen /dev/ttyUSB0 9600"
+                echo
+                exit 0
+              fi
+                 # One argument was provided, assume it's the baud rate and use default device
+                 ${pkgs.screen}/bin/screen /dev/ttyUSB0 "$1"
+            else
+                 # More than one argument was provided, use them
+                 ${pkgs.screen}/bin/screen "$@"
+            fi
+          '')
+          screen
+        ];
         shellAliases = {
           "s" = "kitten ssh";
         };
       };
       programs.ssh = {
         enable = true;
+        package = inputs.nixpkgs-openssh.legacyPackages.${pkgs.stdenv.hostPlatform.system}.openssh;
         enableDefaultConfig = false;
         matchBlocks = {
           "*" = {
@@ -66,6 +96,10 @@
           // deployIdentity;
           "cr1" = {
             hostname = "162.216.110.106";
+            user = "royell";
+          };
+          "cs1.crvl" = {
+            hostname = "100.64.0.34";
             user = "royell";
           };
           "er1" = {
@@ -150,9 +184,14 @@
           }
           // switchSSH;
           "cs1.irvg.mm" = {
+            extraOptions = {
+              "KexAlgorithms" = "+diffie-hellman-group1-sha1";
+              "Ciphers" = "+3des-cbc";
+              "HostKeyAlgorithms" = "+ssh-dss";
+            };
             hostname = "10.10.177.3";
-          }
-          // switchSSH;
+            user = "royell";
+          };
           "cs1.ltfld.mm" = {
             hostname = "172.29.132.2";
           }
@@ -276,6 +315,15 @@
             hostname = "192.168.21.11";
             user = "royell";
           };
+          "llama" = {
+            hostname = "192.168.248.120";
+            user = "ironman";
+          }
+          // deployIdentity;
+          "llama-work" = {
+            hostname = "192.168.21.98";
+            user = "ironman";
+          } // deployIdentity;
           "mail" = {
             hostname = "webmail.royell.org";
             user = "royell";
@@ -290,6 +338,10 @@
             user = "royell";
           }
           // deployIdentity;
+          monday = {
+            hostname = "192.168.253.161";
+            user = "ironman";
+          } // deployIdentity;
           "mysql" = {
             hostname = "mysql.royell.org";
             user = "royell";
@@ -404,6 +456,10 @@
               "HostKeyAlgorithms" = "+ssh-rsa";
             };
           };
+          "rcm-new.desk" = {
+            hostname = "192.168.21.103";
+            user = "ironman";
+          } // deployIdentity;
           "rcm.desk" = {
             hostname = "192.168.21.110";
             user = "root";
@@ -427,7 +483,8 @@
           "rcm3" = {
             hostname = "rcm3.royell.org";
             user = "royell";
-            extraOptions."RemoteForward" = "/run/user/1000/gnupg/S.gpg-agent /run/user/1000/gnupg/S.gpg-agent.extra";
+            extraOptions."RemoteForward" =
+              "/run/user/1000/gnupg/S.gpg-agent /run/user/1000/gnupg/S.gpg-agent.extra";
           };
           "royell-git" = {
             hostname = "git.royell.org";

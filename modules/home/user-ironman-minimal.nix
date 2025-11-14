@@ -1,13 +1,10 @@
 { config, ... }:
 {
-  flake.homeConfigurations.ironman = {
+  flake.homeConfigurations.ironman-minimal = {
     imports = with config.flake.homeModules; [
       base
-      extra
       flatpak
       kitty
-      qt
-      syncthing
     ];
   };
 }

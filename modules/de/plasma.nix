@@ -1,9 +1,16 @@
+{ config, ... }:
 {
   flake.nixosModules.de-plasma =
-    { config, ... }:
-    {
-      services = {
-        desktopManager.plasma6.enable = true;
-      };
+  { pkgs, ... }:
+  {
+    imports = with config.flake.nixosModules; [
+      sddm
+    ];
+    environment.systemPackages = with pkgs.kdePackages; [
+      partitionmanager
+    ];
+    services = {
+      desktopManager.plasma6.enable = true;
     };
+  };
 }

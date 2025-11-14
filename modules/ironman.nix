@@ -4,6 +4,7 @@
       config,
       lib,
       options,
+      pkgs,
       ...
     }:
     with lib;
@@ -38,10 +39,28 @@
           default = [ ];
           description = "AutoFS autoMaster share declarations";
         };
+        syncthing = {
+          cert = mkOption {
+            default = null;
+            type = types.nullOr types.path;
+          };
+          devices = mkOption {
+            default = { };
+            type = types.attrs;
+          };
+          folders = mkOption {
+            default = { };
+            type = types.attrs;
+          };
+          key = mkOption {
+            default = null;
+            type = types.nullOr types.path;
+          };
+        };
       };
       config =
         let
-          inherit (config.ironman.user) name;
+          inherit (config.ironman.user) fullName name;
         in
         {
           ironman.user.email = {
@@ -51,10 +70,26 @@
           services.autofs.autoMaster = strings.concatStringsSep "\n" (
             lists.flatten (mkAliasDefinitions options.ironman.drive-shares).content.contents
           );
-          users.groups.${name} = { };
+          users.groups.${name} = {
+            gid = 1000;
+          };
           users.users.${name} = {
             group = name;
             isNormalUser = true;
+            createHome = true;
+            description = fullName;
+            extraGroups = [
+              "dialout"
+              "users"
+              "wheel"
+            ];
+            home = "/home/${name}";
+            initialPassword = "@ppl3Sauc3";
+            openssh.authorizedKeys.keys = [
+              "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIL3Ue/VoEgGG4nzoW3jpiwlnmWApkUyu/j1VmEwiSdy7"
+            ];
+            shell = pkgs.bash;
+            uid = 1000;
           };
         };
     };

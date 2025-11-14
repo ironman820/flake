@@ -7,7 +7,6 @@
     {
       environment.systemPackages = with pkgs; [
         pavucontrol
-        pipewire
       ];
       security.rtkit.enable = true;
       services = {

@@ -21,7 +21,15 @@
       url = "github:nix-community/disko";
     };
     easy-hosts.url = "github:tgirlcloud/easy-hosts";
+    elephant = {
+      inputs.nixpkgs.follows = "nixpkgs";
+      url = "github:abenz1267/elephant";
+    };
     flake-parts.url = "github:hercules-ci/flake-parts";
+    hexecute = {
+      inputs.nixpkgs.follows = "nixpkgs";
+      url = "github:ThatOtherAndrew/Hexecute";
+    };
     home-manager = {
       inputs.nixpkgs.follows = "nixpkgs";
       url = "github:nix-community/home-manager";
@@ -45,6 +53,13 @@
     tokyonight = {
       flake = false;
       url = "github:folke/tokyonight.nvim";
+    };
+    walker = {
+      inputs = {
+        elephant.follows = "elephant";
+        nixpkgs.follows = "nixpkgs";
+      };
+      url = "github:abenz1267/walker";
     };
   };
   outputs =

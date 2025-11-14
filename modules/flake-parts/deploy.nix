@@ -19,5 +19,14 @@
       remoteBuild = true;
       sshUser = "ironman";
     };
+    rcm-work = {
+      hostname = "rcm-new.desk";
+      profiles.system = {
+        user = "root";
+        path = inputs.deploy-rs.lib.x86_64-linux.activate.nixos self.nixosConfigurations.rcm-work;
+      };
+      remoteBuild = false;
+      sshUser = "ironman";
+    };
   };
 }

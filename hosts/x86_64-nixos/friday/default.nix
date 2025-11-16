@@ -18,7 +18,7 @@
     apps-gui-extra
     base
     boot-grub
-    de-plasma
+    de-xfce
     fonts
     git
     self.diskoConfigurations.friday

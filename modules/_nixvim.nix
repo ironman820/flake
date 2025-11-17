@@ -1,8 +1,5 @@
 { pkgs, ... }:
 {
-  environment.systemPackages = with pkgs; [
-    ripgrep
-  ];
   programs.nixvim = {
     autoCmd = [
       {
@@ -29,8 +26,40 @@
         group = "YankHighlight";
         pattern = "*";
       }
+      {
+        event = "User";
+        group = "CodeCompanionFidget";
+        pattern = "CodeCompanionRequestStarted";
+        desc = "Inform user code companion is thinking";
+        callback.__raw = ''
+          function(e)
+            handles[e.data.id] = progress.handle.create({
+              title = "CodeCompanion",
+              message = "Thinking...",
+              lsp_client = { name = e.data.adapter.formatted_name },
+            })
+          end
+        '';
+      }
+      {
+        event = "User";
+        group = "CodeCompanionFidget";
+        pattern = "CodeCompanionRequestFinished";
+        desc = "Inform user code companion is finished";
+        callback.__raw = ''
+          function(e)
+            local h = handles[e.data.id]
+            if h then
+              h.message = e.data.status == "success" and "Done" or "Failed"
+              h:finish()
+              handles[e.data.id] = nil
+            end
+          end
+        '';
+      }
     ];
     autoGroups = {
+      CodeCompanionFidget = { };
       YankHighlight.clear = true;
     };
     colorscheme = "tokyonight";
@@ -43,7 +72,19 @@
       vim.cmd([[command! Wq wq]])
       vim.cmd([[command! WQ wq]])
       vim.cmd([[command! Q q]])
+      local progress = require("fidget.progress")
+      local handles = {}
     '';
+    extraPackagesAfter = with pkgs; [
+      fd
+      file
+      ghostscript
+      imagemagick
+      mermaid-cli
+      nixfmt
+      ripgrep
+      tectonic
+    ];
     extraPlugins = with pkgs.vimPlugins; [
       tokyonight-nvim
     ];
@@ -423,6 +464,399 @@
         key = ">";
         mode = "v";
       }
+      {
+        action = "<cmd>Oil<CR>";
+        key = "-";
+        mode = "n";
+        options = {
+          noremap = true;
+          desc = "Open parent directory";
+        };
+      }
+      {
+        action = "<cmd>Oil .<CR>";
+        key = "<leader>-";
+        mode = "n";
+        options = {
+          noremap = true;
+          desc = "Open root directory";
+        };
+      }
+      # Bufferline
+      {
+        action = "<Cmd>BufferLineTogglePin<CR>";
+        key = "<leader>bp";
+        mode = "n";
+        options.desc = "Toggle pin";
+      }
+      {
+        action = "<Cmd>BufferLineGroupClose ungrouped<CR>";
+        key = "<leader>bP";
+        mode = "n";
+        options.desc = "Delete non-pinned buffers";
+      }
+      {
+        action = "<Cmd>BufferLineCloseOthers<CR>";
+        key = "<leader>bo";
+        mode = "n";
+        options.desc = "Delete other buffers";
+      }
+      {
+        action = "<Cmd>BufferLineCloseRight<CR>";
+        key = "<leader>br";
+        mode = "n";
+        options.desc = "Delete buffers to the right";
+      }
+      {
+        action = "<Cmd>BufferLineCloseLeft<CR>";
+        key = "<leader>bl";
+        mode = "n";
+        options.desc = "Delete buffers to the left";
+      }
+      {
+        action = "<cmd>BufferLineCyclePrev<cr>";
+        key = "<S-h>";
+        mode = "n";
+        options.desc = "Prev buffer";
+      }
+      {
+        action = "<cmd>BufferLineCycleNext<cr>";
+        key = "<S-l>";
+        mode = "n";
+        options.desc = "Next buffer";
+      }
+      {
+        action = "<cmd>BufferLineCyclePrev<cr>";
+        key = "[b";
+        mode = "n";
+        options.desc = "Prev buffer";
+      }
+      {
+        action = "<cmd>BufferLineCycleNext<cr>";
+        key = "]b";
+        mode = "n";
+        options.desc = "Next buffer";
+      }
+      # Mini-Bufremove
+      {
+        key = "<leader>bd";
+        action.__raw = ''
+          function()
+            local bd = require("mini.bufremove").delete
+            if vim.bo.modified then
+              local choice = vim.fn.confirm(("Save changes to %q?"):format(vim.fn.bufname()), "&Yes\n&No\n&Cancel")
+              if choice == 1 then   -- Yes
+                vim.cmd.write()
+                bd(0)
+              elseif choice == 2 then   -- No
+                bd(0, true)
+              end
+            else
+              bd(0)
+            end
+          end
+        '';
+        mode = "n";
+        options.desc = "Delete Buffer";
+      }
+      {
+        key = "<leader>bD";
+        action.__raw = ''
+          function()
+            require("mini.bufremove").delete(0, true)
+          end
+        '';
+        mode = "n";
+        options.desc = "Delete Buffer (Force)";
+      }
+      # noice
+      {
+        key = "<S-Enter>";
+        action.__raw = ''
+          function()
+            require("noice").redirect(vim.fn.getcmdline())
+          end
+        '';
+        options.desc = "Redirect Cmdline";
+        mode = "c";
+      }
+      {
+        key = "<leader>snl";
+        action.__raw = ''
+            function()
+            require("noice").cmd("last")
+          end
+        '';
+        options.desc = "Noice Last Message";
+        mode = "n";
+      }
+      {
+        key = "<leader>snh";
+        action.__raw = ''
+          function()
+                require("noice").cmd("history")
+              end
+        '';
+        mode = "n";
+        options.desc = "Noice History";
+      }
+      {
+        key = "<leader>sna";
+        action.__raw = ''
+          function()
+                require("noice").cmd("all")
+              end
+        '';
+        mode = "n";
+        options.desc = "Noice All";
+      }
+      {
+        key = "<leader>snd";
+        action.__raw = ''
+          function()
+                require("noice").cmd("dismiss")
+              end
+        '';
+        mode = "n";
+        options.desc = "Dismiss All";
+      }
+      {
+        key = "<c-f>";
+        action.__raw = ''
+          function()
+                if not require("noice.lsp").scroll(4) then
+                  return "<c-f>"
+                end
+              end
+        '';
+        mode = [
+          "i"
+          "n"
+          "s"
+        ];
+        options = {
+          silent = true;
+          expr = true;
+          desc = "Scroll forward";
+        };
+      }
+      {
+        key = "<c-b>";
+        action.__raw = ''
+          function()
+                if not require("noice.lsp").scroll(-4) then
+                  return "<c-b>"
+                end
+              end
+        '';
+        mode = [
+          "i"
+          "n"
+          "s"
+        ];
+        options = {
+          silent = true;
+          expr = true;
+          desc = "Scroll backward";
+        };
+      }
+      # Snacks
+      {
+        key = "<leader>gg";
+        action.__raw = ''
+          function()
+            Snacks.lazygit()
+          end
+        '';
+        options.desc = "Lazygit";
+      }
+      {
+        key = "<leader>n";
+        action.__raw = ''
+          function()
+            if Snacks.config.picker and Snacks.config.picker.enabled then
+              Snacks.picker.notifications()
+            else
+              Snacks.notifier.show_history()
+            end
+          end
+        '';
+        options.desc = "Notification History";
+      }
+      {
+        key = "<leader>ud";
+        action.__raw = ''
+          function() Snacks.dim() end
+        '';
+        options.desc = "[D]im";
+      }
+      {
+        key = "<leader>uD";
+        action.__raw = ''
+          function() Snacks.dim.disable() end
+        '';
+        options.desc = "[D]isable dim";
+      }
+      {
+        key = "<leader>un";
+        action.__raw = ''
+          function() Snacks.notifier.hide() end
+        '';
+        options.desc = "Dismiss All Notifications";
+      }
+      {
+        key = "<leader>z";
+        action.__raw = ''
+          function() Snacks.zen() end
+        '';
+        options.desc = "Toggle Zen Mode";
+      }
+      {
+        key = "<leader>Z";
+        action.__raw = ''
+          function() Snacks.zen.zoom() end
+        '';
+        options.desc = "Toggle Zoom";
+      }
+      {
+        mode = "n";
+        key = "<Leader>;";
+        action.__raw = "require('dropbar.api').pick";
+        options.desc = "Pick symbols in winbar";
+      }
+      {
+        mode = "n";
+        key = "[;";
+        action.__raw = "require('dropbar.api').goto_context_start";
+        options.desc = "Go to start of current context";
+      }
+      {
+        mode = "n";
+        key = "];";
+        action.__raw = "require('dropbar.api').select_next_context";
+        options.desc = "Select next context";
+      }
+      {
+        key = "<leader>cc";
+        action = "<cmd>CloakToggle<cr>";
+        mode = "n";
+        options.desc = "Toggle cloak";
+      }
+      # Code Companion
+      {
+        mode = "n";
+        key = "<leader>ca";
+        action = "<cmd>CodeCompanionChat Toggle<cr>";
+        options.desc = "[A]I Chat";
+      }
+      # Telescope
+      {
+        key = "<leader>sM";
+        action = "<cmd>Telescope notify<CR>";
+        mode = "n";
+        options.desc = "[S]earch [M]essage";
+      }
+      {
+        key = "<leader>sp";
+        action.__raw = "live_grep_git_root";
+        mode = "n";
+        options.desc = "[S]earch git [P]roject root";
+      }
+      {
+        key = "<leader>/";
+        action.__raw = ''
+          function()
+            -- Slightly advanced example of overriding default behavior and theme
+            -- You can pass additional configuration to telescope to change theme, layout, etc.
+            require('telescope.builtin').current_buffer_fuzzy_find(require('telescope.themes').get_dropdown {
+              winblend = 10,
+              previewer = false,
+            })
+          end
+        '';
+        mode = "n";
+        options.desc = "[/] Fuzzily search in current buffer";
+      }
+      {
+        key = "<leader>s/";
+        action.__raw = ''
+          function()
+            require('telescope.builtin').live_grep {
+              grep_open_files = true,
+              prompt_title = 'Live Grep in Open Files',
+            }
+          end
+        '';
+        mode = "n";
+        options.desc = "[S]earch [/] in Open Files";
+      }
+      {
+        key = "<leader>bs";
+        action.__raw = "function() return require('telescope.builtin').buffers() end";
+        mode = "n";
+        options.desc = "[ ] Find existing buffers";
+      }
+      {
+        key = "<leader>s.";
+        action.__raw = "function() return require('telescope.builtin').oldfiles() end";
+        mode = "n";
+        options.desc = "[S]earch Recent Files (\".\" for repeat)";
+      }
+      {
+        key = "<leader>sr";
+        action.__raw = "function() return require('telescope.builtin').resume() end";
+        mode = "n";
+        options.desc = "[S]earch [R]esume";
+      }
+      {
+        key = "<leader>sd";
+        action.__raw = "function() return require('telescope.builtin').diagnostics() end";
+        mode = "n";
+        options.desc = "[S]earch [D]iagnostics";
+      }
+      {
+        key = "<leader>sg";
+        action.__raw = "function() return require('telescope.builtin').live_grep() end";
+        mode = "n";
+        options.desc = "[S]earch by [G]rep";
+      }
+      {
+        key = "<leader>sw";
+        action.__raw = "function() return require('telescope.builtin').grep_string() end";
+        mode = "n";
+        options.desc = "[S]earch current [W]ord";
+      }
+      {
+        key = "<leader>ss";
+        action.__raw = "function() return require('telescope.builtin').builtin() end";
+        mode = "n";
+        options.desc = "[S]earch [S]elect Telescope";
+      }
+      {
+        key = "<leader>sf";
+        action.__raw = "function() return require('telescope.builtin').find_files() end";
+        mode = "n";
+        options.desc = "[S]earch [F]iles";
+      }
+      {
+        key = "<leader>sk";
+        action.__raw = "function() return require('telescope.builtin').keymaps() end";
+        mode = "n";
+        options.desc = "[S]earch [K]eymaps";
+      }
+      {
+        key = "<leader>sh";
+        action.__raw = "function() return require('telescope.builtin').help_tags() end";
+        mode = "n";
+        options.desc = "[S]earch [H]elp";
+      }
+      # Conform Formatter
+      {
+        key = "<leader>FF";
+        action.__raw = "function() return require('conform').format() end";
+        mode = "n";
+        options.desc = "[F]ormat Buffer";
+      }
     ];
     opts = {
       autowrite = true;
@@ -497,7 +931,721 @@
       winminwidth = 5;
     };
     plugins = {
-      snacks.enable = true;
+      blink-cmp = {
+        enable = true;
+        settings = {
+          cmdline = {
+            enabled = true;
+            completion.menu.auto_show = true;
+            sources.__raw = ''
+              function()
+                local type = vim.fn.getcmdtype()
+                -- Search forward and backward
+                if type == '/' or type == '?' then return { 'buffer' } end
+                -- Commands
+                if type == ':' or type == '@' then return { 'cmdline', 'cmp_cmdline' } end
+                return {}
+              end
+            '';
+          };
+          completion = {
+            menu.draw = {
+              treesitter = [ "lsp" ];
+              components = {
+                label = {
+                  text.__raw = ''
+                    function(ctx)
+                      return require("colorful-menu").blink_components_text(ctx)
+                    end
+                  '';
+                  highlight.__raw = ''
+                    function(ctx)
+                      return require("colorful-menu").blink_components_highlight(ctx)
+                    end
+                  '';
+                };
+              };
+            };
+            documentation.auto_show = true;
+          };
+          fuzzy.sorts = [
+            "exact"
+            "score"
+            "sort_text"
+          ];
+          keymap = {
+            preset = "default";
+            "<CR>" = [
+              "select_and_accept"
+              "fallback"
+            ];
+            "<C-k>" = [
+              "select_prev"
+              "fallback_to_mappings"
+            ];
+            "<C-j>" = [
+              "select_next"
+              "fallback_to_mappings"
+            ];
+          };
+          signature.enabled = true;
+          snippets.active.__raw = ''
+            function(filter)
+              local snippet = require "luasnip"
+              local blink = require "blink.cmp"
+              if snippet.in_snippet() and not blink.is_visible() then
+                return true
+              else
+                if not snippet.in_snippet() and vim.fn.mode() == "n" then snippet.unlink_current() end
+                return false
+              end
+            end
+          '';
+          sources = {
+            default = [
+              "lsp"
+              "lazydev"
+              "path"
+              "snippets"
+              "buffer"
+              "omni"
+            ];
+            providers = {
+              path = {
+                score_offset = 50;
+              };
+              lazydev = {
+                name = "LazyDev";
+                module = "lazydev.integrations.blink";
+                score_offset = 100;
+              };
+              lsp = {
+                score_offset = 40;
+              };
+              snippets = {
+                score_offset = 40;
+              };
+              cmp_cmdline = {
+                name = "cmp_cmdline";
+                module = "blink.compat.source";
+                score_offset = -100;
+                opts = {
+                  cmp_name = "cmdline";
+                };
+              };
+            };
+          };
+        };
+      };
+      blink-compat.enable = true;
+      bufferline = {
+        enable = true;
+        settings.options = {
+          close_command.__raw = ''
+            function(n)
+              require("mini.bufremove").delete(n, false)
+            end
+          '';
+          right_mouse_command.__raw = ''
+            function(n)
+              require("mini.bufremove").delete(n, false)
+            end
+          '';
+          diagnostics = "nvim_lsp";
+          always_show_bufferline = true;
+          diagnostics_indicator = ''
+            function(_, _, diag)
+              local icons = {
+                Error = " ",
+                Warn = " ",
+                Hint = " ",
+                Info = " ",
+              }
+              local ret = (diag.error and icons.Error .. diag.error .. " " or "")
+                  .. (diag.warning and icons.Warn .. diag.warning or "")
+              return vim.trim(ret)
+            end
+          '';
+          offsets = [
+            {
+              filetype = "neo-tree";
+              text = "Neo-tree";
+              highlight = "Directory";
+              text_align = "left";
+            }
+          ];
+        };
+      };
+      cloak.enable = true;
+      cmp-cmdline.enable = true;
+      codecompanion = {
+        enable = true;
+        settings = {
+          adapters.http.qwen3.__raw = ''
+            function ()
+              return require("codecompanion.adapters").extend("ollama", {
+                name = "qwen3",
+                env = {
+                  url = "http://192.168.21.98:11434",
+                  api_key = "OLLAMA_API_KEY",
+                },
+                headers = {
+                  ["Content-Type"] = "application/json",
+                  ["Authorization"] = "Bearer ''${api_key}",
+                },
+                parameters = {
+                  sync = true,
+                },
+              })
+            end
+          '';
+          opts = {
+            # log_level = "TRACE";
+            send_code = true;
+            use_default_actions = true;
+            use_default_prompts = true;
+          };
+          strategies = {
+            agent.adapter = "qwen3";
+            chat.adapter = "qwen3";
+            inline.adapter = "qwen3";
+          };
+        };
+      };
+      colorful-menu.enable = true;
+      comment.enable = true;
+      conform-nvim = {
+        enable = true;
+        settings.formatters_by_ft.nix = [ "nixfmt" ];
+      };
+      dropbar.enable = true;
+      fidget.enable = true;
+      gitsigns = {
+        enable = true;
+        luaConfig.post = ''
+          vim.cmd([[hi GitSignsAdd guifg=#04de21]])
+          vim.cmd([[hi GitSignsChange guifg=#83fce6]])
+          vim.cmd([[hi GitSignsDelete guifg=#fa2525]])
+        '';
+        settings = {
+          signs = {
+            add.text = "+";
+            change.text = "~";
+            delete.text = "_";
+            topdelete.text = "‾";
+            changedelete.text = "~";
+          };
+          on_attach = ''
+            function(bufnr)
+              local gs = package.loaded.gitsigns
+
+              local function map(mode, l, r, opts)
+                opts = opts or {}
+                opts.buffer = bufnr
+                vim.keymap.set(mode, l, r, opts)
+              end
+
+              -- Navigation
+              map({ 'n', 'v' }, ']c', function()
+                if vim.wo.diff then
+                  return ']c'
+                end
+                vim.schedule(function()
+                  gs.next_hunk()
+                end)
+                return '<Ignore>'
+              end, { expr = true, desc = 'Jump to next hunk' })
+
+              map({ 'n', 'v' }, '[c', function()
+                if vim.wo.diff then
+                  return '[c'
+                end
+                vim.schedule(function()
+                  gs.prev_hunk()
+                end)
+                return '<Ignore>'
+              end, { expr = true, desc = 'Jump to previous hunk' })
+
+              -- Actions
+              -- visual mode
+              map('v', '<leader>hs', function()
+                gs.stage_hunk { vim.fn.line '.', vim.fn.line 'v' }
+              end, { desc = 'stage git hunk' })
+              map('v', '<leader>hr', function()
+                gs.reset_hunk { vim.fn.line '.', vim.fn.line 'v' }
+              end, { desc = 'reset git hunk' })
+              -- normal mode
+              map('n', '<leader>gs', gs.stage_hunk, { desc = 'git stage hunk' })
+              map('n', '<leader>gr', gs.reset_hunk, { desc = 'git reset hunk' })
+              map('n', '<leader>gS', gs.stage_buffer, { desc = 'git Stage buffer' })
+              map('n', '<leader>gu', gs.undo_stage_hunk, { desc = 'undo stage hunk' })
+              map('n', '<leader>gR', gs.reset_buffer, { desc = 'git Reset buffer' })
+              map('n', '<leader>gp', gs.preview_hunk, { desc = 'preview git hunk' })
+              map('n', '<leader>gb', function()
+                gs.blame_line { full = false }
+              end, { desc = 'git blame line' })
+              map('n', '<leader>gd', gs.diffthis, { desc = 'git diff against index' })
+              map('n', '<leader>gD', function()
+                gs.diffthis '~'
+              end, { desc = 'git diff against last commit' })
+
+              -- Toggles
+              map('n', '<leader>gtb', gs.toggle_current_line_blame, { desc = 'toggle git blame line' })
+              map('n', '<leader>gtd', gs.toggle_deleted, { desc = 'toggle git show deleted' })
+
+              -- Text object
+              map({ 'o', 'x' }, 'ih', ':<C-U>Gitsigns select_hunk<CR>', { desc = 'select git hunk' })
+            end
+          '';
+        };
+      };
+      indent-blankline = {
+        enable = true;
+        settings = {
+          indent = {
+            char = "│";
+            tab_char = "│";
+          };
+          scope = {
+            enabled = true;
+          };
+          exclude.filetypes = [
+            "help"
+            "alpha"
+            "dashboard"
+            "neo-tree"
+            "Trouble"
+            "trouble"
+            "lazy"
+            "mason"
+            "notify"
+            "toggleterm"
+            "lazyterm"
+          ];
+        };
+      };
+      lazydev.enable = true;
+      lint.enable = true;
+      lsp = {
+        enable = true;
+        servers = {
+          nixd.enable = true;
+          pyright.enable = true;
+        };
+      };
+      # lspconfig.enable = true;
+      lualine = {
+        enable = true;
+        luaConfig.pre = ''
+          local icons = {
+              misc = {
+                dots = "󰇘",
+              },
+              dap = {
+                Stopped             = { "󰁕 ", "DiagnosticWarn", "DapStoppedLine" },
+                Breakpoint          = " ",
+                BreakpointCondition = " ",
+                BreakpointRejected  = { " ", "DiagnosticError" },
+                LogPoint            = ".>",
+              },
+              diagnostics = {
+                Error = " ",
+                Warn  = " ",
+                Hint  = " ",
+                Info  = " ",
+              },
+              git = {
+                added    = " ",
+                modified = " ",
+                removed  = " ",
+              },
+              kinds = {
+                Array         = " ",
+                Boolean       = "󰨙 ",
+                Class         = " ",
+                Codeium       = "󰘦 ",
+                Color         = " ",
+                Control       = " ",
+                Collapsed     = " ",
+                Constant      = "󰏿 ",
+                Constructor   = " ",
+                Copilot       = " ",
+                Enum          = " ",
+                EnumMember    = " ",
+                Event         = " ",
+                Field         = " ",
+                File          = " ",
+                Folder        = " ",
+                Function      = "󰊕 ",
+                Interface     = " ",
+                Key           = " ",
+                Keyword       = " ",
+                Method        = "󰊕 ",
+                Module        = " ",
+                Namespace     = "󰦮 ",
+                Null          = " ",
+                Number        = "󰎠 ",
+                Object        = " ",
+                Operator      = " ",
+                Package       = " ",
+                Property      = " ",
+                Reference     = " ",
+                Snippet       = " ",
+                String        = " ",
+                Struct        = "󰆼 ",
+                TabNine       = "󰏚 ",
+                Text          = " ",
+                TypeParameter = " ",
+                Unit          = " ",
+                Value         = " ",
+                Variable      = "󰀫 ",
+              },
+            }
+            local function find_root()
+              -- Use the current buffer's path as the starting point for the git search
+              local current_file = vim.api.nvim_buf_get_name(0)
+              local current_dir
+              local cwd = vim.fn.getcwd()
+              -- If the buffer is not associated with a file, return nil
+              if current_file == "" then
+                current_dir = cwd
+              else
+                -- Extract the directory from the current file's path
+                current_dir = vim.fn.fnamemodify(current_file, ":h")
+              end
+
+              -- Find the Git root directory from the current file's path
+              local git_root = vim.fn.systemlist("git -C " .. vim.fn.escape(current_dir, " ") .. " rev-parse --show-toplevel")[1]
+              if vim.v.shell_error ~= 0 then
+                print("Not a git repository. Searching on current working directory")
+                return cwd
+              end
+              return git_root
+            end
+        '';
+        settings = {
+          options = {
+            icons_enabled = false;
+            theme = "tokyonight-night";
+            component_separators = "|";
+            section_separators = "";
+          };
+          sections = {
+            lualine_a = [ "mode" ];
+            lualine_b = [ "branch" ];
+            lualine_c.__raw = ''
+              {
+                find_root(),
+                {
+                  "diagnostics",
+                  symbols = {
+                    error = icons.diagnostics.Error,
+                    warn = icons.diagnostics.Warn,
+                    info = icons.diagnostics.Info,
+                    hint = icons.diagnostics.Hint,
+                  },
+                },
+                { "filetype", icon_only = true, separator = "", padding = { left = 1, right = 0 } },
+                {
+                  'filename', path = 1, status = true,
+                },
+              }
+            '';
+            lualine_x.__raw = ''
+              {
+                {
+                  "diff",
+                  symbols = {
+                    added = icons.git.added,
+                    modified = icons.git.modified,
+                    removed = icons.git.removed,
+                  },
+                  source = function()
+                    ---@diagnostic disable-next-line
+                    local gitsigns = vim.b.gitsigns_status_dict
+                    if gitsigns then
+                      return {
+                        added = gitsigns.added,
+                        modified = gitsigns.changed,
+                        removed = gitsigns.removed,
+                      }
+                    end
+                  end,
+                },
+              }
+            '';
+            lualine_y.__raw = ''
+              {
+                { "progress", separator = " ", padding = { left = 1, right = 0 } },
+                { "location", padding = { left = 0, right = 1 } },
+              }
+            '';
+            lualine_z.__raw = ''
+              {
+                function()
+                  return " " .. os.date("%R")
+                end,
+              }
+            '';
+          };
+        };
+      };
+      luasnip = {
+        enable = true;
+        fromVscode = [
+          { }
+        ];
+      };
+      mini-bufremove.enable = true;
+      mini-icons.enable = true;
+      noice = {
+        enable = true;
+        settings = {
+          lsp.override = {
+            "vim.lsp.util.convert_input_to_markdown_lines" = true;
+            "vim.lsp.util.stylize_markdown" = true;
+            "cmp.entry.get_documentation" = true;
+          };
+          presets = {
+            bottom_search = true;
+            command_palette = true;
+            long_message_to_split = true;
+            inc_rename = true;
+          };
+          routes = [
+            {
+              filter = {
+                event = "msg_show";
+                any = [
+                  { find = "%d+L, %d+B"; }
+                  { find = "; after #%d+"; }
+                  { find = "; before #%d+"; }
+                ];
+              };
+              view = "mini";
+            }
+          ];
+        };
+      };
+      notify = {
+        enable = true;
+        settings = {
+          max_height = {
+            __raw = ''
+              function()
+                return math.floor(vim.o.lines * 0.75)
+              end
+            '';
+          };
+          max_width = {
+            __raw = ''
+              function()
+                return math.floor(vim.o.columns * 0.75)
+              end
+            '';
+          };
+          on_open = {
+            __raw = ''
+              function(win)
+                vim.api.nvim_win_set_config(win, { focusable = false })
+              end
+            '';
+          };
+          timeout = 3000;
+        };
+      };
+      nvim-surround.enable = true;
+      oil = {
+        enable = true;
+        settings = {
+          columns = [
+            "icon"
+            "permissions"
+            "size"
+          ];
+          default_file_explorer = true;
+          view_options.show_hidden = true;
+          win_options.signcolumn = "yes:2";
+        };
+      };
+      oil-git-status.enable = true;
+      snacks = {
+        enable = true;
+        settings = {
+          bigfile.enabled = true;
+          dim.enabled = true;
+          image.enabled = true;
+          indent.enabled = true;
+          input.enabled = true;
+          lazygit.enabled = true;
+          notifier.enabled = true;
+          scope.enabled = true;
+          scroll.enabled = true;
+          statuscolumn.enabled = false;
+          words.enabled = true;
+          zen.enabled = true;
+        };
+      };
+      telescope = {
+        enable = true;
+        extensions = {
+          fzf-native.enable = true;
+          ui-select.enable = true;
+        };
+        luaConfig = {
+          pre = ''
+            local function find_git_root()
+              -- Use the current buffer's path as the starting point for the git search
+              local current_file = vim.api.nvim_buf_get_name(0)
+              local current_dir
+              local cwd = vim.fn.getcwd()
+              -- If the buffer is not associated with a file, return nil
+              if current_file == "" then
+                current_dir = cwd
+              else
+                -- Extract the directory from the current file's path
+                current_dir = vim.fn.fnamemodify(current_file, ":h")
+              end
+
+              -- Find the Git root directory from the current file's path
+              local git_root = vim.fn.systemlist("git -C " .. vim.fn.escape(current_dir, " ") .. " rev-parse --show-toplevel")[1]
+              if vim.v.shell_error ~= 0 then
+                print("Not a git repository. Searching on current working directory")
+                return cwd
+              end
+              return git_root
+            end
+
+            -- Custom live_grep function to search in git root
+            local function live_grep_git_root()
+              local git_root = find_git_root()
+              if git_root then
+                require('telescope.builtin').live_grep({
+                  search_dirs = { git_root },
+                })
+              end
+            end
+          '';
+          post = ''
+            vim.api.nvim_create_user_command('LiveGrepGitRoot', live_grep_git_root, {})
+          '';
+        };
+        settings = {
+          defaults.mappings.i."<c-enter>" = "to_fuzzy_refine";
+        };
+      };
+      treesitter = {
+        enable = true;
+        settings = {
+          highlight.enable = true;
+          indent.enable = false;
+          incremental_selection = {
+            enable = true;
+            keymaps = {
+              init_selection = "<c-space>";
+              node_incremental = "<c-space>";
+              scope_incremental = "<c-s>";
+              node_decremental = "<M-space>";
+            };
+          };
+        };
+      };
+      treesitter-textobjects = {
+        enable = true;
+        settings = {
+          lookahead = true;
+          keymaps = {
+            aa = "@parameter.outer";
+            ia = "@parameter.inner";
+            af = "@function.outer";
+            "if" = "@function.inner";
+            ac = "@class.outer";
+            ic = "@class.inner";
+          };
+        };
+      };
+      web-devicons.enable = true;
+      which-key = {
+        enable = true;
+        settings.spec = [
+          {
+            __unkeyed = "<leader>b";
+            group = "[b]uffer";
+          }
+          {
+            __unkeyed = "<leader><leader>_";
+            hidden = true;
+          }
+          {
+            __unkeyed = "<leader>c";
+            group = "[c]ode";
+          }
+          {
+            __unkeyed = "<leader>c_";
+            hidden = true;
+          }
+          {
+            __unkeyed = "<leader>d";
+            group = "[d]ocument";
+          }
+          {
+            __unkeyed = "<leader>d_";
+            hidden = true;
+          }
+          {
+            __unkeyed = "<leader>F";
+            group = "[F]ormat";
+          }
+          {
+            __unkeyed = "<leader>g";
+            group = "[g]it";
+          }
+          {
+            __unkeyed = "<leader>g_";
+            hidden = true;
+          }
+          {
+            __unkeyed = "<leader>m";
+            group = "[m]arkdown";
+          }
+          {
+            __unkeyed = "<leader>m_";
+            hidden = true;
+          }
+          {
+            __unkeyed = "<leader>r";
+            group = "[r]ename";
+          }
+          {
+            __unkeyed = "<leader>r_";
+            hidden = true;
+          }
+          {
+            __unkeyed = "<leader>s";
+            group = "[s]earch";
+          }
+          {
+            __unkeyed = "<leader>s_";
+            hidden = true;
+          }
+          {
+            __unkeyed = "<leader>t";
+            group = "[t]oggles";
+          }
+          {
+            __unkeyed = "<leader>t_";
+            hidden = true;
+          }
+          {
+            __unkeyed = "<leader>w";
+            group = "[w]orkspace";
+          }
+          {
+            __unkeyed = "<leader>w_";
+            hidden = true;
+          }
+        ];
+      };
     };
     viAlias = true;
     vimAlias = true;

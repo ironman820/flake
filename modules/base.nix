@@ -9,7 +9,6 @@
     }:
     {
       imports = with config.flake.nixosModules; [
-        apps-python
         ironman
         nix
       ];
@@ -66,6 +65,7 @@
           p7zip
           poppler-utils
           pv
+          python3
           qrencode
           rclone
           ripgrep

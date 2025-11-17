@@ -48,7 +48,7 @@
     import-tree.url = "github:vic/import-tree";
     neovim = {
       inputs.nixpkgs.follows = "nixpkgs";
-      url = "github:ironman820/neovim/updates";
+      url = "github:ironman820/neovim";
     };
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
     # Nixpkgs for glocom

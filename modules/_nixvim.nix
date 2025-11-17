@@ -423,6 +423,24 @@
         key = ">";
         mode = "v";
       }
+      {
+        action = "<cmd>Oil<CR>";
+        key = "-";
+        mode = "n";
+        options = {
+          noremap = true;
+          desc = "Open parent directory";
+        };
+      }
+      {
+        action = "<cmd>Oil .<CR>";
+        key = "<leader>-";
+        mode = "n";
+        options = {
+          noremap = true;
+          desc = "Open root directory";
+        };
+      }
     ];
     opts = {
       autowrite = true;
@@ -524,6 +542,20 @@
           timeout = 3000;
         };
       };
+      oil = {
+        enable = true;
+        settings = {
+          columns = [
+            "icon"
+            "permissions"
+            "size"
+          ];
+          default_file_explorer = true;
+          view_options.show_hidden = true;
+          win_options.signcolumn = "yes:2";
+        };
+      };
+      oil-git-status.enable = true;
       snacks.enable = true;
     };
     viAlias = true;

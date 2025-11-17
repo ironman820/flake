@@ -19,6 +19,7 @@
         ])
         ++ (with inputs; [
           neovim.homeModules.default
+          nixvim.homeModules.nixvim
           sops-nix.homeModules.sops
         ]);
       home = {

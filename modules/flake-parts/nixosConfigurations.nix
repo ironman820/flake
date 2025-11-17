@@ -16,6 +16,7 @@
           };
         }
         neovim.nixosModules.default
+        nixvim.nixosModules.nixvim
         sops-nix.nixosModules.sops
       ];
       specialArgs = {

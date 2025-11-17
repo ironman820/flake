@@ -11,6 +11,7 @@
       imports = with config.flake.nixosModules; [
         ironman
         nix
+        nixvim
       ];
       boot = {
         kernel.sysctl = {
@@ -112,7 +113,6 @@
       };
       location.provider = "geoclue2";
       networking.useDHCP = lib.mkDefault true;
-      nixCats.enable = true;
       programs = {
         appimage = {
           enable = true;

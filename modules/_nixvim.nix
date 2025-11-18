@@ -619,6 +619,64 @@
           desc = "Scroll backward";
         };
       }
+      # Snacks
+      {
+        key = "<leader>gg";
+        action.__raw = ''
+          function()
+            Snacks.lazygit()
+          end
+        '';
+        options.desc = "Lazygit";
+      }
+      {
+        key = "<leader>n";
+        action.__raw = ''
+          function()
+            if Snacks.config.picker and Snacks.config.picker.enabled then
+              Snacks.picker.notifications()
+            else
+              Snacks.notifier.show_history()
+            end
+          end
+        '';
+        options.desc = "Notification History";
+      }
+      {
+        key = "<leader>ud";
+        action.__raw = ''
+          function() Snacks.dim() end
+        '';
+        options.desc = "[D]im";
+      }
+      {
+        key = "<leader>uD";
+        action.__raw = ''
+          function() Snacks.dim.disable() end
+        '';
+        options.desc = "[D]isable dim";
+      }
+      {
+        key = "<leader>un";
+        action.__raw = ''
+          function() Snacks.notifier.hide() end
+        '';
+        options.desc = "Dismiss All Notifications";
+      }
+      {
+        key = "<leader>z";
+        action.__raw = ''
+          function() Snacks.zen() end
+        '';
+        options.desc = "Toggle Zen Mode";
+      }
+      {
+        key = "<leader>Z";
+        action.__raw = ''
+          function() Snacks.zen.zoom() end
+        '';
+        options.desc = "Toggle Zoom";
+      }
     ];
     opts = {
       autowrite = true;
@@ -970,7 +1028,23 @@
         };
       };
       oil-git-status.enable = true;
-      snacks.enable = true;
+      snacks = {
+        enable = true;
+        settings = {
+          bigfile.enabled = true;
+          dim.enabled = true;
+          image.enabled = true;
+          indent.enabled = true;
+          input.enabled = true;
+          lazygit.enabled = true;
+          notifier.enabled = true;
+          scope.enabled = true;
+          scroll.enabled = true;
+          statuscolumn.enabled = false;
+          words.enabled = true;
+          zen.enabled = true;
+        };
+      };
       web-devicons.enable = true;
     };
     viAlias = true;

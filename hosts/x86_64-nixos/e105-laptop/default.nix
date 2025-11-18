@@ -37,6 +37,7 @@
     (modulesPath + "/installer/scan/not-detected.nix")
   ]);
   environment.systemPackages = with pkgs; [
+    deskflow
     distrobox
     docker-compose
     freerdp
@@ -97,7 +98,12 @@
     };
     network-profiles.work = true;
   };
-  networking.hostName = "e105-laptop";
+  networking = {
+    firewall.allowedTCPPorts = [
+      24800
+    ];
+    hostName = "e105-laptop";
+  };
   nix.settings.cores = 4;
   services.system76-scheduler.settings.cfsProfiles.enable = true;
   sops.secrets =

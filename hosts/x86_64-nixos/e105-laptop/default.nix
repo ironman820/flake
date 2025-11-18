@@ -57,7 +57,9 @@
         "/home/${config.ironman.user.name}/Downloads" = {
           id = "zuqju-kwzbp";
           devices = [
+            "friday"
             "nas"
+            "work-desktop"
           ];
           label = "Downloads";
           versioning = {
@@ -68,7 +70,9 @@
         "/home/${config.ironman.user.name}/Documents" = {
           id = "kuriw-survq";
           devices = [
+            "friday"
             "nas"
+            "work-desktop"
           ];
           label = "Work Documents";
           versioning = {
@@ -79,7 +83,9 @@
         "/home/${config.ironman.user.name}/Pictures" = {
           id = "okbn5-ywkrq";
           devices = [
+            "friday"
             "nas"
+            "work-desktop"
           ];
           label = "Work Pictures";
           versioning = {
@@ -87,6 +93,9 @@
             params.keep = "10";
           };
         };
+        "/home/${config.ironman.user.name}/Wallpapers".devices = [
+          "friday"
+        ];
       };
     };
     user = {

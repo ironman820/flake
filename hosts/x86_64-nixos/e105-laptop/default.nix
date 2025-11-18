@@ -37,6 +37,7 @@
     (modulesPath + "/installer/scan/not-detected.nix")
   ]);
   environment.systemPackages = with pkgs; [
+    deskflow
     distrobox
     docker-compose
     freerdp
@@ -56,7 +57,9 @@
         "/home/${config.ironman.user.name}/Downloads" = {
           id = "zuqju-kwzbp";
           devices = [
+            "friday"
             "nas"
+            "work-desktop"
           ];
           label = "Downloads";
           versioning = {
@@ -67,7 +70,9 @@
         "/home/${config.ironman.user.name}/Documents" = {
           id = "kuriw-survq";
           devices = [
+            "friday"
             "nas"
+            "work-desktop"
           ];
           label = "Work Documents";
           versioning = {
@@ -78,7 +83,9 @@
         "/home/${config.ironman.user.name}/Pictures" = {
           id = "okbn5-ywkrq";
           devices = [
+            "friday"
             "nas"
+            "work-desktop"
           ];
           label = "Work Pictures";
           versioning = {
@@ -86,6 +93,9 @@
             params.keep = "10";
           };
         };
+        "/home/${config.ironman.user.name}/Wallpapers".devices = [
+          "friday"
+        ];
       };
     };
     user = {
@@ -97,7 +107,12 @@
     };
     network-profiles.work = true;
   };
-  networking.hostName = "e105-laptop";
+  networking = {
+    firewall.allowedTCPPorts = [
+      24800
+    ];
+    hostName = "e105-laptop";
+  };
   nix.settings.cores = 4;
   services.system76-scheduler.settings.cfsProfiles.enable = true;
   sops.secrets =

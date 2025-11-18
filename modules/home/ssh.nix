@@ -21,6 +21,7 @@
         extraOptions = {
           "KexAlgorithms" = "+diffie-hellman-group1-sha1";
           "Ciphers" = "+3des-cbc";
+          "HostKeyAlgorithms" = "+ssh-dss,ssh-rsa";
         };
       };
     in
@@ -102,6 +103,10 @@
             hostname = "100.64.0.34";
             user = "royell";
           };
+          "cs1.crvl.brkm" = {
+            hostname = "10.10.8.2";
+          }
+          // switchSSH;
           "er1" = {
             hostname = "162.216.110.104";
             user = "royell";
@@ -326,7 +331,8 @@
           "llama-work" = {
             hostname = "192.168.21.98";
             user = "ironman";
-          } // deployIdentity;
+          }
+          // deployIdentity;
           "mail" = {
             hostname = "webmail.royell.org";
             user = "royell";
@@ -344,7 +350,8 @@
           monday = {
             hostname = "192.168.253.161";
             user = "ironman";
-          } // deployIdentity;
+          }
+          // deployIdentity;
           "mysql" = {
             hostname = "mysql.royell.org";
             user = "royell";
@@ -462,7 +469,8 @@
           "rcm-new.desk" = {
             hostname = "192.168.21.103";
             user = "ironman";
-          } // deployIdentity;
+          }
+          // deployIdentity;
           "rcm.desk" = {
             hostname = "192.168.21.110";
             user = "root";

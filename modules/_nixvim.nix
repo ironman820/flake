@@ -528,6 +528,97 @@
         mode = "n";
         options.desc = "Delete Buffer (Force)";
       }
+      # noice
+      {
+        key = "<S-Enter>";
+        action.__raw = ''
+          function()
+            require("noice").redirect(vim.fn.getcmdline())
+          end
+        '';
+        options.desc = "Redirect Cmdline";
+        mode = "c";
+      }
+      {
+        key = "<leader>snl";
+        action.__raw = ''
+            function()
+            require("noice").cmd("last")
+          end
+        '';
+        options.desc = "Noice Last Message";
+        mode = "n";
+      }
+      {
+        key = "<leader>snh";
+        action.__raw = ''
+          function()
+                require("noice").cmd("history")
+              end
+        '';
+        mode = "n";
+        options.desc = "Noice History";
+      }
+      {
+        key = "<leader>sna";
+        action.__raw = ''
+          function()
+                require("noice").cmd("all")
+              end
+        '';
+        mode = "n";
+        options.desc = "Noice All";
+      }
+      {
+        key = "<leader>snd";
+        action.__raw = ''
+          function()
+                require("noice").cmd("dismiss")
+              end
+        '';
+        mode = "n";
+        options.desc = "Dismiss All";
+      }
+      {
+        key = "<c-f>";
+        action.__raw = ''
+          function()
+                if not require("noice.lsp").scroll(4) then
+                  return "<c-f>"
+                end
+              end
+        '';
+        mode = [
+          "i"
+          "n"
+          "s"
+        ];
+        options = {
+          silent = true;
+          expr = true;
+          desc = "Scroll forward";
+        };
+      }
+      {
+        key = "<c-b>";
+        action.__raw = ''
+          function()
+                if not require("noice.lsp").scroll(-4) then
+                  return "<c-b>"
+                end
+              end
+        '';
+        mode = [
+          "i"
+          "n"
+          "s"
+        ];
+        options = {
+          silent = true;
+          expr = true;
+          desc = "Scroll backward";
+        };
+      }
     ];
     opts = {
       autowrite = true;
@@ -784,6 +875,35 @@
         ];
       };
       mini-bufremove.enable = true;
+      noice = {
+        enable = true;
+        settings = {
+          lsp.override = {
+            "vim.lsp.util.convert_input_to_markdown_lines" = true;
+            "vim.lsp.util.stylize_markdown" = true;
+            "cmp.entry.get_documentation" = true;
+          };
+          presets = {
+            bottom_search = true;
+            command_palette = true;
+            long_message_to_split = true;
+            inc_rename = true;
+          };
+          routes = [
+            {
+              filter = {
+                event = "msg_show";
+                any = [
+                  { find = "%d+L, %d+B"; }
+                  { find = "; after #%d+"; }
+                  { find = "; before #%d+"; }
+                ];
+              };
+              view = "mini";
+            }
+          ];
+        };
+      };
       notify = {
         enable = true;
         settings = {

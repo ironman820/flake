@@ -204,7 +204,10 @@
             hostname = "172.29.129.2";
           }
           // switchSSH;
-          "cs1.wav.190" = {
+          "cs1.wvry.190" = {
+            extraOptions = {
+              "HostKeyAlgorithms" = "+ssh-dss";
+            };
             hostname = "100.64.0.6";
           }
           // switchSSH;

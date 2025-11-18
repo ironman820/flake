@@ -441,6 +441,93 @@
           desc = "Open root directory";
         };
       }
+      # Bufferline
+      {
+        action = "<Cmd>BufferLineTogglePin<CR>";
+        key = "<leader>bp";
+        mode = "n";
+        options.desc = "Toggle pin";
+      }
+      {
+        action = "<Cmd>BufferLineGroupClose ungrouped<CR>";
+        key = "<leader>bP";
+        mode = "n";
+        options.desc = "Delete non-pinned buffers";
+      }
+      {
+        action = "<Cmd>BufferLineCloseOthers<CR>";
+        key = "<leader>bo";
+        mode = "n";
+        options.desc = "Delete other buffers";
+      }
+      {
+        action = "<Cmd>BufferLineCloseRight<CR>";
+        key = "<leader>br";
+        mode = "n";
+        options.desc = "Delete buffers to the right";
+      }
+      {
+        action = "<Cmd>BufferLineCloseLeft<CR>";
+        key = "<leader>bl";
+        mode = "n";
+        options.desc = "Delete buffers to the left";
+      }
+      {
+        action = "<cmd>BufferLineCyclePrev<cr>";
+        key = "<S-h>";
+        mode = "n";
+        options.desc = "Prev buffer";
+      }
+      {
+        action = "<cmd>BufferLineCycleNext<cr>";
+        key = "<S-l>";
+        mode = "n";
+        options.desc = "Next buffer";
+      }
+      {
+        action = "<cmd>BufferLineCyclePrev<cr>";
+        key = "[b";
+        mode = "n";
+        options.desc = "Prev buffer";
+      }
+      {
+        action = "<cmd>BufferLineCycleNext<cr>";
+        key = "]b";
+        mode = "n";
+        options.desc = "Next buffer";
+      }
+      # Mini-Bufremove
+      {
+        key = "<leader>bd";
+        action.__raw = ''
+          function()
+            local bd = require("mini.bufremove").delete
+            if vim.bo.modified then
+              local choice = vim.fn.confirm(("Save changes to %q?"):format(vim.fn.bufname()), "&Yes\n&No\n&Cancel")
+              if choice == 1 then   -- Yes
+                vim.cmd.write()
+                bd(0)
+              elseif choice == 2 then   -- No
+                bd(0, true)
+              end
+            else
+              bd(0)
+            end
+          end
+        '';
+        mode = "n";
+        options.desc = "Delete Buffer";
+      }
+      {
+        key = "<leader>bD";
+        action.__raw = ''
+          function()
+            require("mini.bufremove").delete(0, true)
+          end
+        '';
+        mode = "n";
+        options.desc = "Delete Buffer (Force)";
+      }
     ];
     opts = {
       autowrite = true;
@@ -515,6 +602,45 @@
       winminwidth = 5;
     };
     plugins = {
+      bufferline = {
+        enable = true;
+        settings.options = {
+          close_command.__raw = ''
+            function(n)
+              require("mini.bufremove").delete(n, false)
+            end
+          '';
+          right_mouse_command.__raw = ''
+            function(n)
+              require("mini.bufremove").delete(n, false)
+            end
+          '';
+          diagnostics = "nvim_lsp";
+          always_show_bufferline = true;
+          diagnostics_indicator = ''
+            function(_, _, diag)
+              local icons = {
+                Error = " ",
+                Warn = " ",
+                Hint = " ",
+                Info = " ",
+              }
+              local ret = (diag.error and icons.Error .. diag.error .. " " or "")
+                  .. (diag.warning and icons.Warn .. diag.warning or "")
+              return vim.trim(ret)
+            end
+          '';
+          offsets = [
+            {
+              filetype = "neo-tree";
+              text = "Neo-tree";
+              highlight = "Directory";
+              text_align = "left";
+            }
+          ];
+        };
+      };
+      mini-bufremove.enable = true;
       notify = {
         enable = true;
         settings = {
@@ -557,6 +683,7 @@
       };
       oil-git-status.enable = true;
       snacks.enable = true;
+      web-devicons.enable = true;
     };
     viAlias = true;
     vimAlias = true;

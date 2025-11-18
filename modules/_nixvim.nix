@@ -742,6 +742,40 @@
         };
       };
       cmp-cmdline.enable = true;
+      codecompanion = {
+        enable = true;
+        settings = {
+          adapters.http.qwen3.__raw = ''
+            function ()
+              return require("codecompanion.adapters").extend("ollama", {
+                name = "qwen3",
+                env = {
+                  url = "http://192.168.21.98:8080",
+                  api_key = "LLAMA_API_KEY",
+                },
+                headers = {
+                  ["Content-Type"] = "application/json",
+                  ["Authorization"] = "Bearer ''${api_key}",
+                },
+                parameters = {
+                  sync = true,
+                },
+              })
+            end
+          '';
+          opts = {
+            log_level = "DEBUG";
+            send_code = true;
+            use_default_actions = true;
+            use_default_prompts = true;
+          };
+          strategies = {
+            agent.adapter = "qwen3";
+            chat.adapter = "qwen3";
+            inline.adapter = "qwen3";
+          };
+        };
+      };
       colorful-menu.enable = true;
       luasnip = {
         enable = true;

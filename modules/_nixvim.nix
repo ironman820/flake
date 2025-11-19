@@ -1,8 +1,5 @@
 { pkgs, ... }:
 {
-  environment.systemPackages = with pkgs; [
-    ripgrep
-  ];
   programs.nixvim = {
     autoCmd = [
       {
@@ -44,6 +41,15 @@
       vim.cmd([[command! WQ wq]])
       vim.cmd([[command! Q q]])
     '';
+    extraPackagesAfter = with pkgs; [
+      fd
+      file
+      ghostscript
+      imagemagick
+      mermaid-cli
+      ripgrep
+      tectonic
+    ];
     extraPlugins = with pkgs.vimPlugins; [
       tokyonight-nvim
     ];

@@ -46,10 +46,6 @@
       url = "github:nix-community/home-manager";
     };
     import-tree.url = "github:vic/import-tree";
-    neovim = {
-      inputs.nixpkgs.follows = "nixpkgs";
-      url = "github:ironman820/neovim";
-    };
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
     # Nixpkgs for glocom
     nixpkgs-8cad3db.url = "github:nixos/nixpkgs/8cad3db";

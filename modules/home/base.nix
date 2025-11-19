@@ -13,12 +13,12 @@
           eza
           git
           just
+          nixvim
           ssh
           sops
           tmux
         ])
         ++ (with inputs; [
-          neovim.homeModules.default
           nixvim.homeModules.nixvim
           sops-nix.homeModules.sops
         ]);
@@ -53,7 +53,6 @@
         stateVersion = "25.05";
         username = osConfig.ironman.user.name;
       };
-      nixCats.enable = true;
       nixpkgs = {
         config.allowUnfree = true;
         overlays = [

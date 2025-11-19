@@ -951,6 +951,7 @@
         };
       };
       colorful-menu.enable = true;
+      comment.enable = true;
       dropbar.enable = true;
       indent-blankline = {
         enable = true;

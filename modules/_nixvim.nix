@@ -1041,6 +1041,7 @@
           timeout = 3000;
         };
       };
+      nvim-surround.enable = true;
       oil = {
         enable = true;
         settings = {

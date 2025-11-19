@@ -405,42 +405,6 @@
         "type": "github"
       }
     },
-    "neovim": {
-      "inputs": {
-        "nixCats": "nixCats",
-        "nixpkgs": [
-          "nixpkgs"
-        ]
-      },
-      "locked": {
-        "lastModified": 1763051474,
-        "narHash": "sha256-qDym1z4SGa4L7BYXVuQZao1JRI9jpu9nOJFYvg1N6Tw=",
-        "owner": "ironman820",
-        "repo": "neovim",
-        "rev": "0e1f8d54819be638e5ce1b464f066eff5309ec1c",
-        "type": "github"
-      },
-      "original": {
-        "owner": "ironman820",
-        "repo": "neovim",
-        "type": "github"
-      }
-    },
-    "nixCats": {
-      "locked": {
-        "lastModified": 1762227818,
-        "narHash": "sha256-GSnU4XJucZojGVBGY7djqsT37P9YViCMTVw58tsqrOs=",
-        "owner": "BirdeeHub",
-        "repo": "nixCats-nvim",
-        "rev": "fa7991a4fa7d7227486910ce6724215b88eb8296",
-        "type": "github"
-      },
-      "original": {
-        "owner": "BirdeeHub",
-        "repo": "nixCats-nvim",
-        "type": "github"
-      }
-    },
     "nixpkgs": {
       "locked": {
         "lastModified": 1763283776,
@@ -614,7 +578,6 @@
         "hexecute": "hexecute",
         "home-manager": "home-manager",
         "import-tree": "import-tree",
-        "neovim": "neovim",
         "nixpkgs": "nixpkgs",
         "nixpkgs-8cad3db": "nixpkgs-8cad3db",
         "nixpkgs-9041993": "nixpkgs-9041993",

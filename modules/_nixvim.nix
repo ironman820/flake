@@ -1346,6 +1346,87 @@
         };
       };
       web-devicons.enable = true;
+      which-key = {
+        enable = true;
+        settings.spec = [
+          {
+            __unkeyed = "<leader>b";
+            group = "[b]uffer";
+          }
+          {
+            __unkeyed = "<leader><leader>_";
+            hidden = true;
+          }
+          {
+            __unkeyed = "<leader>c";
+            group = "[c]ode";
+          }
+          {
+            __unkeyed = "<leader>c_";
+            hidden = true;
+          }
+          {
+            __unkeyed = "<leader>d";
+            group = "[d]ocument";
+          }
+          {
+            __unkeyed = "<leader>d_";
+            hidden = true;
+          }
+          {
+            __unkeyed = "<leader>F";
+            group = "[F]ormat";
+          }
+          {
+            __unkeyed = "<leader>g";
+            group = "[g]it";
+          }
+          {
+            __unkeyed = "<leader>g_";
+            hidden = true;
+          }
+          {
+            __unkeyed = "<leader>m";
+            group = "[m]arkdown";
+          }
+          {
+            __unkeyed = "<leader>m_";
+            hidden = true;
+          }
+          {
+            __unkeyed = "<leader>r";
+            group = "[r]ename";
+          }
+          {
+            __unkeyed = "<leader>r_";
+            hidden = true;
+          }
+          {
+            __unkeyed = "<leader>s";
+            group = "[s]earch";
+          }
+          {
+            __unkeyed = "<leader>s_";
+            hidden = true;
+          }
+          {
+            __unkeyed = "<leader>t";
+            group = "[t]oggles";
+          }
+          {
+            __unkeyed = "<leader>t_";
+            hidden = true;
+          }
+          {
+            __unkeyed = "<leader>w";
+            group = "[w]orkspace";
+          }
+          {
+            __unkeyed = "<leader>w_";
+            hidden = true;
+          }
+        ];
+      };
     };
     viAlias = true;
     vimAlias = true;

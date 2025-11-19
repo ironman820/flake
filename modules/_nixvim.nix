@@ -695,6 +695,12 @@
         action.__raw = "require('dropbar.api').select_next_context";
         options.desc = "Select next context";
       }
+      {
+        key = "<leader>cc";
+        action = "<cmd>CloakToggle<cr>";
+        mode = "n";
+        options.desc = "Toggle cloak";
+      }
     ];
     opts = {
       autowrite = true;
@@ -908,6 +914,7 @@
           ];
         };
       };
+      cloak.enable = true;
       cmp-cmdline.enable = true;
       codecompanion = {
         enable = true;

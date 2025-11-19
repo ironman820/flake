@@ -47,6 +47,7 @@
       ghostscript
       imagemagick
       mermaid-cli
+      nixfmt
       ripgrep
       tectonic
     ];
@@ -714,6 +715,114 @@
         action = "<cmd>CodeCompanionChat<cr>";
         options.desc = "[A]I Chat";
       }
+      # Telescope
+      {
+        key = "<leader>sM";
+        action = "<cmd>Telescope notify<CR>";
+        mode = "n";
+        options.desc = "[S]earch [M]essage";
+      }
+      {
+        key = "<leader>sp";
+        action.__raw = "live_grep_git_root";
+        mode = "n";
+        options.desc = "[S]earch git [P]roject root";
+      }
+      {
+        key = "<leader>/";
+        action.__raw = ''
+          function()
+            -- Slightly advanced example of overriding default behavior and theme
+            -- You can pass additional configuration to telescope to change theme, layout, etc.
+            require('telescope.builtin').current_buffer_fuzzy_find(require('telescope.themes').get_dropdown {
+              winblend = 10,
+              previewer = false,
+            })
+          end
+        '';
+        mode = "n";
+        options.desc = "[/] Fuzzily search in current buffer";
+      }
+      {
+        key = "<leader>s/";
+        action.__raw = ''
+          function()
+            require('telescope.builtin').live_grep {
+              grep_open_files = true,
+              prompt_title = 'Live Grep in Open Files',
+            }
+          end
+        '';
+        mode = "n";
+        options.desc = "[S]earch [/] in Open Files";
+      }
+      {
+        key = "<leader>bs";
+        action.__raw = "function() return require('telescope.builtin').buffers() end";
+        mode = "n";
+        options.desc = "[ ] Find existing buffers";
+      }
+      {
+        key = "<leader>s.";
+        action.__raw = "function() return require('telescope.builtin').oldfiles() end";
+        mode = "n";
+        options.desc = "[S]earch Recent Files (\".\" for repeat)";
+      }
+      {
+        key = "<leader>sr";
+        action.__raw = "function() return require('telescope.builtin').resume() end";
+        mode = "n";
+        options.desc = "[S]earch [R]esume";
+      }
+      {
+        key = "<leader>sd";
+        action.__raw = "function() return require('telescope.builtin').diagnostics() end";
+        mode = "n";
+        options.desc = "[S]earch [D]iagnostics";
+      }
+      {
+        key = "<leader>sg";
+        action.__raw = "function() return require('telescope.builtin').live_grep() end";
+        mode = "n";
+        options.desc = "[S]earch by [G]rep";
+      }
+      {
+        key = "<leader>sw";
+        action.__raw = "function() return require('telescope.builtin').grep_string() end";
+        mode = "n";
+        options.desc = "[S]earch current [W]ord";
+      }
+      {
+        key = "<leader>ss";
+        action.__raw = "function() return require('telescope.builtin').builtin() end";
+        mode = "n";
+        options.desc = "[S]earch [S]elect Telescope";
+      }
+      {
+        key = "<leader>sf";
+        action.__raw = "function() return require('telescope.builtin').find_files() end";
+        mode = "n";
+        options.desc = "[S]earch [F]iles";
+      }
+      {
+        key = "<leader>sk";
+        action.__raw = "function() return require('telescope.builtin').keymaps() end";
+        mode = "n";
+        options.desc = "[S]earch [K]eymaps";
+      }
+      {
+        key = "<leader>sh";
+        action.__raw = "function() return require('telescope.builtin').help_tags() end";
+        mode = "n";
+        options.desc = "[S]earch [H]elp";
+      }
+      # Conform Formatter
+      {
+        key = "<leader>FF";
+        action.__raw = "function() return require('conform').format() end";
+        mode = "n";
+        options.desc = "[F]ormat Buffer";
+      }
     ];
     opts = {
       autowrite = true;
@@ -971,7 +1080,10 @@
       };
       colorful-menu.enable = true;
       comment.enable = true;
-      conform-nvim.enable = true;
+      conform-nvim = {
+        enable = true;
+        settings.formatters_by_ft.nix = [ "nixfmt" ];
+      };
       dropbar.enable = true;
       fidget.enable = true;
       gitsigns = {
@@ -1331,6 +1443,54 @@
           statuscolumn.enabled = false;
           words.enabled = true;
           zen.enabled = true;
+        };
+      };
+      telescope = {
+        enable = true;
+        extensions = {
+          fzf-native.enable = true;
+          ui-select.enable = true;
+        };
+        luaConfig = {
+          pre = ''
+            local function find_git_root()
+              -- Use the current buffer's path as the starting point for the git search
+              local current_file = vim.api.nvim_buf_get_name(0)
+              local current_dir
+              local cwd = vim.fn.getcwd()
+              -- If the buffer is not associated with a file, return nil
+              if current_file == "" then
+                current_dir = cwd
+              else
+                -- Extract the directory from the current file's path
+                current_dir = vim.fn.fnamemodify(current_file, ":h")
+              end
+
+              -- Find the Git root directory from the current file's path
+              local git_root = vim.fn.systemlist("git -C " .. vim.fn.escape(current_dir, " ") .. " rev-parse --show-toplevel")[1]
+              if vim.v.shell_error ~= 0 then
+                print("Not a git repository. Searching on current working directory")
+                return cwd
+              end
+              return git_root
+            end
+
+            -- Custom live_grep function to search in git root
+            local function live_grep_git_root()
+              local git_root = find_git_root()
+              if git_root then
+                require('telescope.builtin').live_grep({
+                  search_dirs = { git_root },
+                })
+              end
+            end
+          '';
+          post = ''
+            vim.api.nvim_create_user_command('LiveGrepGitRoot', live_grep_git_root, {})
+          '';
+        };
+        settings = {
+          defaults.mappings.i."<c-enter>" = "to_fuzzy_refine";
         };
       };
       treesitter = {

@@ -861,6 +861,7 @@
           sources = {
             default = [
               "lsp"
+              "lazydev"
               "path"
               "snippets"
               "buffer"
@@ -869,6 +870,11 @@
             providers = {
               path = {
                 score_offset = 50;
+              };
+              lazydev = {
+                name = "LazyDev";
+                module = "lazydev.integrations.blink";
+                score_offset = 100;
               };
               lsp = {
                 score_offset = 40;
@@ -965,6 +971,7 @@
       };
       colorful-menu.enable = true;
       comment.enable = true;
+      conform-nvim.enable = true;
       dropbar.enable = true;
       fidget.enable = true;
       gitsigns = {
@@ -1071,6 +1078,9 @@
           ];
         };
       };
+      lazydev.enable = true;
+      lint.enable = true;
+      lspconfig.enable = true;
       lualine = {
         enable = true;
         luaConfig.pre = ''

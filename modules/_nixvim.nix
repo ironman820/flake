@@ -707,6 +707,13 @@
         mode = "n";
         options.desc = "Toggle cloak";
       }
+      # Code Companion
+      {
+        mode = "n";
+        key = "<leader>ca";
+        action = "<cmd>CodeCompanionChat<cr>";
+        options.desc = "[A]I Chat";
+      }
     ];
     opts = {
       autowrite = true;
@@ -1227,6 +1234,7 @@
         ];
       };
       mini-bufremove.enable = true;
+      mini-icons.enable = true;
       noice = {
         enable = true;
         settings = {

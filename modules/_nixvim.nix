@@ -26,8 +26,40 @@
         group = "YankHighlight";
         pattern = "*";
       }
+      {
+        event = "User";
+        group = "CodeCompanionFidget";
+        pattern = "CodeCompanionRequestStarted";
+        desc = "Inform user code companion is thinking";
+        callback.__raw = ''
+          function(e)
+            handles[e.data.id] = progress.handle.create({
+              title = "CodeCompanion",
+              message = "Thinking...",
+              lsp_client = { name = e.data.adapter.formatted_name },
+            })
+          end
+        '';
+      }
+      {
+        event = "User";
+        group = "CodeCompanionFidget";
+        pattern = "CodeCompanionRequestFinished";
+        desc = "Inform user code companion is finished";
+        callback.__raw = ''
+          function(e)
+            local h = handles[e.data.id]
+            if h then
+              h.message = e.data.status == "success" and "Done" or "Failed"
+              h:finish()
+              handles[e.data.id] = nil
+            end
+          end
+        '';
+      }
     ];
     autoGroups = {
+      CodeCompanionFidget = { };
       YankHighlight.clear = true;
     };
     colorscheme = "tokyonight";
@@ -40,6 +72,8 @@
       vim.cmd([[command! Wq wq]])
       vim.cmd([[command! WQ wq]])
       vim.cmd([[command! Q q]])
+      local progress = require("fidget.progress")
+      local handles = {}
     '';
     extraPackagesAfter = with pkgs; [
       fd
@@ -708,6 +742,13 @@
         mode = "n";
         options.desc = "Toggle cloak";
       }
+      # Code Companion
+      {
+        mode = "n";
+        key = "<leader>ca";
+        action = "<cmd>CodeCompanionChat Toggle<cr>";
+        options.desc = "[A]I Chat";
+      }
       # Telescope
       {
         key = "<leader>sM";
@@ -1045,6 +1086,40 @@
       };
       cloak.enable = true;
       cmp-cmdline.enable = true;
+      codecompanion = {
+        enable = true;
+        settings = {
+          adapters.http.qwen3.__raw = ''
+            function ()
+              return require("codecompanion.adapters").extend("ollama", {
+                name = "qwen3",
+                env = {
+                  url = "http://192.168.21.98:8080",
+                  api_key = "LLAMA_API_KEY",
+                },
+                headers = {
+                  ["Content-Type"] = "application/json",
+                  ["Authorization"] = "Bearer ''${api_key}",
+                },
+                parameters = {
+                  sync = true,
+                },
+              })
+            end
+          '';
+          opts = {
+            log_level = "TRACE";
+            send_code = true;
+            use_default_actions = true;
+            use_default_prompts = true;
+          };
+          strategies = {
+            agent.adapter = "qwen3";
+            chat.adapter = "qwen3";
+            inline.adapter = "qwen3";
+          };
+        };
+      };
       colorful-menu.enable = true;
       comment.enable = true;
       conform-nvim = {

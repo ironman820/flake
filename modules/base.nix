@@ -35,6 +35,7 @@
           age
           btop
           cifs-utils
+          conda
           delta
           deploy-rs
           diff-so-fancy

@@ -12,6 +12,15 @@
         local.chicago95
         xfce.xfce4-whiskermenu-plugin
       ];
+      programs.thunar = {
+        enable = true;
+        plugins = with pkgs.xfce; [
+          thunar-volman
+          thunar-vcs-plugin
+          thunar-archive-plugin
+          thunar-media-tags-plugin
+        ];
+      };
       services = {
         displayManager.defaultSession = "xfce";
         xserver = {

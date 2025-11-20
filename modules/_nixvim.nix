@@ -962,6 +962,7 @@
           '';
           sources = {
             default = [
+              "minuet"
               "lsp"
               "lazydev"
               "path"
@@ -980,6 +981,13 @@
               };
               lsp = {
                 score_offset = 40;
+              };
+              minuet = {
+                name = "minuet";
+                module = "minuet.blink";
+                async = true;
+                timeout_ms = 3000;
+                score_offset = 50;
               };
               snippets = {
                 score_offset = 40;
@@ -1343,6 +1351,36 @@
               view = "mini";
             }
           ];
+        };
+      };
+      minuet = {
+        enable = true;
+        settings = {
+          provider = "openai_fim_compatible";
+          n_completions = 1;
+          context_window = 512;
+          provider_options.openai_fim_compatible = {
+            api_key = "LLAMA_API_KEY";
+            name = "Llama.cpp";
+            end_point = "http://192.168.21.98:8080/v1/completions";
+            model = "PLACEHOLDER";
+            optional = {
+              max_tokens = 56;
+              top_p = 0.9;
+            };
+            template = {
+              prompt.__raw = ''
+                function(context_before_cursor, context_after_cursor, _)
+                    return '<|fim_prefix|>'
+                        .. context_before_cursor
+                        .. '<|fim_suffix|>'
+                        .. context_after_cursor
+                        .. '<|fim_middle|>'
+                end
+              '';
+              suffix = false;
+            };
+          };
         };
       };
       notify = {

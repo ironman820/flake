@@ -1,5 +1,6 @@
 {
   config,
+  flakeRoot,
   inputs,
   modulesPath,
   pkgs,
@@ -45,6 +46,8 @@
   ironman = {
     network-profiles.work = true;
     syncthing = {
+      cert = config.sops.secrets.syncthing-friday-cert.path;
+      key = config.sops.secrets.syncthing-friday-key.path;
       devices = {
         work = {
           id = "BBFLUDI-YSDBEJF-TALS6VU-ETJ2PHU-WNXBHUG-JXPCEU4-NO2IQNE-YRWAUQX";
@@ -67,6 +70,8 @@
           id = "zuqju-kwzbp";
           devices = [
             "nas"
+            "work"
+            "work-desktop"
           ];
           label = "Downloads";
           versioning = {
@@ -115,6 +120,8 @@
           id = "kuriw-survq";
           devices = [
             "nas"
+            "work"
+            "work-desktop"
           ];
           label = "Work Documents";
           versioning = {
@@ -126,6 +133,8 @@
           id = "okbn5-ywkrq";
           devices = [
             "nas"
+            "work"
+            "work-desktop"
           ];
           label = "Work Pictures";
           versioning = {
@@ -133,10 +142,38 @@
             params.keep = "10";
           };
         };
+        "/home/${config.ironman.user.name}/Wallpapers".devices = [
+          "work"
+        ];
       };
     };
   };
   networking.hostName = "friday";
   nix.settings.cores = 4;
   services.tlp.settings.RUNTIME_PM_DENYLIST = "03:00.0";
+  sops.secrets =
+    let
+      group = config.ironman.user.name;
+      mode = "0440";
+      owner = config.ironman.user.name;
+      sopsFile = "${flakeRoot}/.secrets/syncthing.yaml";
+    in
+    {
+      syncthing-friday-cert = {
+        inherit
+          group
+          mode
+          owner
+          sopsFile
+          ;
+      };
+      syncthing-friday-key = {
+        inherit
+          group
+          mode
+          owner
+          sopsFile
+          ;
+      };
+    };
 }

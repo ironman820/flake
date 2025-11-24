@@ -49,28 +49,27 @@
   nix.settings.cores = 8;
   security.sudo.wheelNeedsPassword = false;
   services = {
-    llama-cpp = {
+    ollama = {
       enable = true;
-      extraFlags = [
-        "--no-mmap"
-        "-ngl"
-        "999"
-        "-fa"
-        "1"
-        "-c"
-        "0"
-      ];
+      acceleration = "rocm";
+      environmentVariables = {
+        OLLAMA_CONTEXT_LENGTH = "32000";
+        OLLAMA_KEEP_ALIVE = "-1";
+        OLLAMA_FLASH_ATTENTION = "1";
+      };
       host = "0.0.0.0";
-      model = "/models/Qwen3-Coder-30B-A3B-Instruct-GGUF/BF16/Qwen3-Coder-30B-A3B-Instruct-BF16-00001-of-00002.gguf";
+      loadModels = [
+        "qwen3-coder:30b"
+      ];
       openFirewall = true;
-      package = pkgs.llama-cpp-rocm;
+      package = pkgs.ollama-rocm;
     };
   };
   sops.secrets.llama_work_env = {
     sopsFile = "${flakeRoot}/.secrets/llama.yaml";
     mode = "0440";
   };
-  systemd.services.llama-cpp.serviceConfig = {
+  systemd.services.ollama.serviceConfig = {
     EnvironmentFile = [ config.sops.secrets.llama_work_env.path ];
   };
   users.users.ironman.extraGroups = [

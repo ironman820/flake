@@ -1094,8 +1094,8 @@
               return require("codecompanion.adapters").extend("ollama", {
                 name = "qwen3",
                 env = {
-                  url = "http://192.168.21.98:8080",
-                  api_key = "LLAMA_API_KEY",
+                  url = "http://192.168.21.98:11434",
+                  api_key = "OLLAMA_API_KEY",
                 },
                 headers = {
                   ["Content-Type"] = "application/json",
@@ -1108,7 +1108,7 @@
             end
           '';
           opts = {
-            log_level = "TRACE";
+            # log_level = "TRACE";
             send_code = true;
             use_default_actions = true;
             use_default_prompts = true;
@@ -1435,10 +1435,10 @@
           n_completions = 1;
           context_window = 512;
           provider_options.openai_fim_compatible = {
-            api_key = "LLAMA_API_KEY";
-            name = "Llama.cpp";
-            end_point = "http://192.168.21.98:8080/v1/completions";
-            model = "PLACEHOLDER";
+            api_key = "OLLAMA_API_KEY";
+            name = "Ollama";
+            end_point = "http://192.168.21.98:11434/v1/completions";
+            model = "qwen3-coder:30b";
             optional = {
               max_tokens = 56;
               top_p = 0.9;

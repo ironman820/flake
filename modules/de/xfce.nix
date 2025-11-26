@@ -10,6 +10,8 @@
       };
       environment.systemPackages = with pkgs; [
         local.chicago95
+        unzip
+        xarchiver
         xfce.xfce4-whiskermenu-plugin
       ];
       programs.thunar = {

@@ -12,7 +12,17 @@
     in
     {
       environment = {
-        systemPackages = with phpPkgs; [
+        systemPackages =
+        let
+          pythonPackages = pkgs.python3.withPackages (ps: with ps; [
+            numpy
+            pandas
+            pyodbc
+            python-dotenv
+            requests
+            sqlalchemy
+          ]); in
+        with phpPkgs; [
           (php74.buildEnv {
             extensions =
               {
@@ -21,10 +31,17 @@
               }:
               enabled ++ (with all; [ sqlsrv ]);
           })
+          pyright
+          pythonPackages
+          unixODBC
+          (unixODBCDrivers.msodbcsql17.override { openssl = phpPkgs.openssl_1_1; })
         ];
         unixODBCDrivers = with phpPkgs.unixODBCDrivers; [
           (msodbcsql17.override { openssl = phpPkgs.openssl_1_1; })
         ];
+        variables = {
+          LD_LIBRARY_PATH = "/run/opengl-driver/lib:${phpPkgs.unixODBC}/lib:${phpPkgs.unixODBCDrivers.msodbcsql17}/lib";
+        };
       };
       networking.firewall.allowedTCPPorts = [ 443 ];
       services = {

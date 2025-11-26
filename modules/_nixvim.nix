@@ -1003,7 +1003,6 @@
           '';
           sources = {
             default = [
-              "minuet"
               "lsp"
               "lazydev"
               "path"
@@ -1022,13 +1021,6 @@
               };
               lsp = {
                 score_offset = 40;
-              };
-              minuet = {
-                name = "minuet";
-                module = "minuet.blink";
-                async = true;
-                timeout_ms = 3000;
-                score_offset = 50;
               };
               snippets = {
                 score_offset = 40;
@@ -1234,7 +1226,14 @@
       };
       lazydev.enable = true;
       lint.enable = true;
-      lspconfig.enable = true;
+      lsp = {
+        enable = true;
+        servers = {
+          nixd.enable = true;
+          pyright.enable = true;
+        };
+      };
+      # lspconfig.enable = true;
       lualine = {
         enable = true;
         luaConfig.pre = ''
@@ -1426,36 +1425,6 @@
               view = "mini";
             }
           ];
-        };
-      };
-      minuet = {
-        enable = true;
-        settings = {
-          provider = "openai_fim_compatible";
-          n_completions = 1;
-          context_window = 512;
-          provider_options.openai_fim_compatible = {
-            api_key = "OLLAMA_API_KEY";
-            name = "Ollama";
-            end_point = "http://192.168.21.98:11434/v1/completions";
-            model = "qwen3-coder:30b";
-            optional = {
-              max_tokens = 56;
-              top_p = 0.9;
-            };
-            template = {
-              prompt.__raw = ''
-                function(context_before_cursor, context_after_cursor, _)
-                    return '<|fim_prefix|>'
-                        .. context_before_cursor
-                        .. '<|fim_suffix|>'
-                        .. context_after_cursor
-                        .. '<|fim_middle|>'
-                end
-              '';
-              suffix = false;
-            };
-          };
         };
       };
       notify = {

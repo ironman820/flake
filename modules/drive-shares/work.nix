@@ -6,8 +6,8 @@
     in
     {
       ironman.drive-shares = [
-          "/mnt/fileserver ${config.sops.secrets.fileserver.path} --timeout 60 --browse"
-          "/mnt/royell-ftp ${config.sops.secrets.royell_ftp.path} --timeout 60 --browse"
+          "/mnt/fileserver file:${config.sops.secrets.fileserver.path} --browse"
+          # "/mnt/royell-ftp file:${config.sops.secrets.royell_ftp.path} --browse"
         ];
       sops.secrets = {
         fileserver = { inherit sopsFile; };

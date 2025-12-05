@@ -5,7 +5,10 @@
     ];
     programs.fuse.enable = true;
     services = {
-      autofs.enable = true;
+      autofs = {
+        enable = true;
+        timeout = 60;
+      };
       gvfs.enable = true;
     };
   };

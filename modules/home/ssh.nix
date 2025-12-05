@@ -504,6 +504,11 @@
             hostname = "smx.royell.org";
             user = "royell";
           };
+          "storage.home" = {
+            hostname = "192.168.248.100";
+            user = "ironman";
+          }
+          // deployIdentity;
           "tasks2" = {
             hostname = "192.168.248.40";
             user = "ironman";

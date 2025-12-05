@@ -1230,6 +1230,7 @@
         enable = true;
         servers = {
           nixd.enable = true;
+          psalm.enable = true;
           pyright.enable = true;
         };
       };

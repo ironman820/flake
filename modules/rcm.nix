@@ -31,6 +31,7 @@
               }:
               enabled ++ (with all; [ sqlsrv ]);
           })
+          php74Packages.psalm
           pyright
           pythonPackages
           unixODBC

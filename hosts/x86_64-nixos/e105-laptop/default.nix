@@ -24,6 +24,7 @@
     git
     self.diskoConfigurations.e105-laptop
     drive-shares
+    drive-shares-work
     drive-shares-personal
     intel-video
     laptop

@@ -36,7 +36,10 @@
       inputs.nixpkgs.follows = "nixpkgs";
       url = "github:abenz1267/elephant";
     };
-    flake-parts.url = "github:hercules-ci/flake-parts";
+    flake-parts = {
+      inputs.nixpkgs-lib.follows = "nixpkgs-lib";
+      url = "github:hercules-ci/flake-parts";
+    };
     hexecute = {
       inputs.nixpkgs.follows = "nixpkgs";
       url = "github:ThatOtherAndrew/Hexecute";
@@ -49,6 +52,7 @@
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
     # Nixpkgs for glocom
     nixpkgs-8cad3db.url = "github:nixos/nixpkgs/8cad3db";
+    nixpkgs-lib.url = "github:nix-community/nixpkgs.lib";
     # openssh v9
     nixpkgs-openssh.url = "github:nixos/nixpkgs/336eda0";
     # PHP 7.2.29

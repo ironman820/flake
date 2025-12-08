@@ -51,7 +51,6 @@
   services = {
     ollama = {
       enable = true;
-      acceleration = "rocm";
       environmentVariables = {
         OLLAMA_CONTEXT_LENGTH = "32000";
         OLLAMA_KEEP_ALIVE = "-1";

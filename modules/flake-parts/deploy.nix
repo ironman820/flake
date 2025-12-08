@@ -30,7 +30,7 @@
       sshUser = "ironman";
     };
     rcm-work = {
-      hostname = "rcm-new.desk";
+      hostname = "rcm.desk";
       profiles.system = {
         user = "root";
         path = inputs.deploy-rs.lib.x86_64-linux.activate.nixos self.nixosConfigurations.rcm-work;

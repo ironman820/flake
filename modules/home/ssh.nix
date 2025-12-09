@@ -466,14 +466,9 @@
               "HostKeyAlgorithms" = "+ssh-rsa";
             };
           };
-          "rcm-new.desk" = {
+          "rcm.desk" = {
             hostname = "192.168.21.103";
             user = "ironman";
-          }
-          // deployIdentity;
-          "rcm.desk" = {
-            hostname = "192.168.21.110";
-            user = "root";
           }
           // deployIdentity;
           "rcm2" = {

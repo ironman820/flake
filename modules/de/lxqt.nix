@@ -3,9 +3,12 @@
     { pkgs, ... }:
     {
       environment.systemPackages = with pkgs; [
+        ayu-theme-gtk
+        kdePackages.qtstyleplugin-kvantum
         unzip
         xarchiver
       ];
+      security.pam.services.xscreensaver.enable = true;
       services = {
         displayManager.defaultSession = "lxqt";
         xserver = {

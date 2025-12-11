@@ -15,8 +15,7 @@
   ])
   ++ (with self.nixosModules; [
     base
-    boot-systemd
-    cloud-init
+    boot-grub-clean
     git
     tmux
     virtual-docker
@@ -32,7 +31,26 @@
       site = "royell.org";
     };
   };
-  nix.settings.cores = 4;
+  networking = {
+    interfaces = {
+      ens18.ipv4.addresses = [
+        {
+          address = "172.16.0.80";
+          prefixLength = 24;
+        }
+      ];
+    };
+    defaultGateway = {
+      address = "172.16.0.1";
+      interface = "ens18";
+    };
+    nameservers = [
+      "172.16.0.3"
+      "172.16.0.4"
+    ];
+    useDHCP = false;
+  };
+  nix.settings.cores = 3;
   security.sudo.wheelNeedsPassword = false;
   services = {
     qemuGuest.enable = true;

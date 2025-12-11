@@ -4,8 +4,9 @@
     {
       environment.systemPackages = with pkgs; [
         ayu-theme-gtk
-        kdePackages.qtstyleplugin-kvantum
+        xfce.mousepad
         networkmanagerapplet
+        kdePackages.qtstyleplugin-kvantum
         unzip
         xarchiver
       ];

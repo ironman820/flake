@@ -11,12 +11,11 @@
   ]
   ++ (with inputs; [
     arion.nixosModules.arion
-    darkmatter-grub-theme.nixosModule
     disko.nixosModules.disko
   ])
   ++ (with self.nixosModules; [
     base
-    boot-grub
+    boot-systemd
     cloud-init
     git
     tmux

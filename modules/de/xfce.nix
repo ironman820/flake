@@ -9,6 +9,7 @@
         ];
       };
       environment.systemPackages = with pkgs; [
+        blueman
         local.chicago95
         unzip
         xarchiver
@@ -24,6 +25,7 @@
         ];
       };
       services = {
+        blueman.enable = true;
         displayManager.defaultSession = "xfce";
         xserver = {
           enable = true;

@@ -19,7 +19,7 @@
     apps-gui-extra
     base
     boot-grub
-    de-xfce
+    de-lxqt
     fonts
     git
     self.diskoConfigurations.friday

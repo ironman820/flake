@@ -6,6 +6,7 @@
       extra
       flatpak
       kitty
+      llama-work-sops
       qt
       syncthing
     ];

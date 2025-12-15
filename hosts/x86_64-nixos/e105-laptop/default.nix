@@ -19,7 +19,7 @@
     apps-gui-extra
     base
     boot-grub
-    de-lxqt
+    de-xfce
     fonts
     git
     self.diskoConfigurations.e105-laptop

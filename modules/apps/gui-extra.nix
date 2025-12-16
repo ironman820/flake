@@ -5,7 +5,7 @@
     environment.systemPackages = with pkgs; [
         audacity
         blender
-        gimp
+        gimp-with-plugins
         libreoffice-fresh
         telegram-desktop
         virt-viewer

@@ -2,28 +2,60 @@
   flake.nixosModules.de-xfce =
     { pkgs, ... }:
     {
-      boot.plymouth = {
-        theme = "Chicago95";
-        themePackages = [
-          pkgs.local.chicago95
-        ];
+      environment.systemPackages =
+        (with pkgs; [
+          blueman
+          gnome-disk-utility
+          file-roller
+          font-manager
+          libqalculate
+          orca
+          pavucontrol
+          qalculate-gtk
+          unzip
+          wmctrl
+          xarchiver
+          xclip
+          xcolor
+          xdo
+          xdotool
+          xorg.xev
+          xsel
+          xtitle
+          xwinmosaic
+        ])
+        ++ (with pkgs.xfce; [
+          catfish
+          gigolo
+          orage
+          xfce4-appfinder
+          xfce4-clipman-plugin
+          xfce4-cpugraph-plugin
+          xfce4-dict
+          xfce4-fsguard-plugin
+          xfce4-genmon-plugin
+          xfce4-netload-plugin
+          xfce4-panel
+          xfce4-pulseaudio-plugin
+          xfce4-systemload-plugin
+          xfce4-weather-plugin
+          xfce4-whiskermenu-plugin
+          xfce4-xkb-plugin
+          xfdashboard
+        ]);
+      programs = {
+        dconf.enable = true;
+        thunar = {
+          enable = true;
+          plugins = with pkgs.xfce; [
+            thunar-volman
+            thunar-vcs-plugin
+            thunar-archive-plugin
+            thunar-media-tags-plugin
+          ];
+        };
       };
-      environment.systemPackages = with pkgs; [
-        blueman
-        local.chicago95
-        unzip
-        xarchiver
-        xfce.xfce4-whiskermenu-plugin
-      ];
-      programs.thunar = {
-        enable = true;
-        plugins = with pkgs.xfce; [
-          thunar-volman
-          thunar-vcs-plugin
-          thunar-archive-plugin
-          thunar-media-tags-plugin
-        ];
-      };
+      security.pam.services.gdm.enableGnomeKeyring = true;
       services = {
         blueman.enable = true;
         displayManager.defaultSession = "xfce";
@@ -32,17 +64,6 @@
           desktopManager.xfce.enable = true;
           displayManager.lightdm = {
             enable = true;
-            background = "#008080";
-            greeters.gtk = {
-              cursorTheme = {
-                name = "Chicago95 Animated Hourglass";
-                package = pkgs.local.chicago95;
-              };
-              iconTheme = {
-                name = "Chicago95";
-                package = pkgs.local.chicago95;
-              };
-            };
           };
         };
       };

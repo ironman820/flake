@@ -24,6 +24,22 @@
         "type": "github"
       }
     },
+    "bonafides-themes": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1765886030,
+        "narHash": "sha256-voZT2Odk/LZXp93CdI4rJO4nop7pdOe/ROTaSh9abrI=",
+        "owner": "l4ki",
+        "repo": "bonafides-plasma-themes",
+        "rev": "485030a54c8228aa8ec38ba06e02d719cc3b1f89",
+        "type": "github"
+      },
+      "original": {
+        "owner": "l4ki",
+        "repo": "bonafides-plasma-themes",
+        "type": "github"
+      }
+    },
     "catppuccin-btop": {
       "flake": false,
       "locked": {
@@ -498,6 +514,7 @@
     "root": {
       "inputs": {
         "arion": "arion",
+        "bonafides-themes": "bonafides-themes",
         "catppuccin-btop": "catppuccin-btop",
         "catppuccin-kitty": "catppuccin-kitty",
         "catppuccin-lazygit": "catppuccin-lazygit",

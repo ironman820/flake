@@ -40,40 +40,12 @@
         lvs.root = {
           size = "100%FREE";
           content = {
-            type = "btrfs";
-            extraArgs = [ "-f" ];
-            subvolumes =
-              let
-                mountOpts = [ "compress=zstd" ];
-              in
-              {
-                "/root" = {
-                  mountpoint = "/";
-                  mountOptions = mountOpts;
-                };
-                "/nix" = {
-                  mountpoint = "/nix";
-                  mountOptions = mountOpts ++ [
-                    "noatime"
-                  ];
-                };
-                "/home" = {
-                  mountpoint = "/home";
-                  mountOptions = mountOpts;
-                };
-                "/home/niceastman" = {
-                  mountpoint = "/home/niceastman";
-                  mountOptions = mountOpts;
-                };
-                "/home/root" = {
-                  mountpoint = "/root";
-                  mountOptions = mountOpts;
-                };
-                "/docker" = {
-                  mountpoint = "/home/niceastman/docker";
-                  mountOptions = [ "nodatacow" ];
-                };
-              };
+            type = "filesystem";
+            format = "ext4";
+            mountpoint = "/";
+            mountOptions = [
+              "defaults"
+            ];
           };
         };
       };

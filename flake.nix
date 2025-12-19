@@ -7,6 +7,10 @@
       };
       url = "github:hercules-ci/arion";
     };
+    bonafides-themes = {
+      flake = false;
+      url = "github:l4ki/bonafides-plasma-themes";
+    };
     catppuccin-btop = {
       flake = false;
       url = "github:catppuccin/btop";

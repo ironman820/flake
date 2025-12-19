@@ -5,6 +5,7 @@
       environment.systemPackages =
         (with pkgs; [
           blueman
+          local.bonafides-gtk-themes
           gnome-disk-utility
           file-roller
           font-manager

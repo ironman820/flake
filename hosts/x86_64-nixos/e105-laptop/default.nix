@@ -29,6 +29,7 @@
     intel-video
     laptop
     power
+    syncthing
     tmux
     virtual-host
     virtual-docker

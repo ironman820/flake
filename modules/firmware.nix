@@ -10,6 +10,6 @@
         inputs'.stable.legacyPackages.firmware-manager
         gnome-firmware
       ];
-      services.fwupd.enable = true;
+      # services.fwupd.enable = true;
     };
 }

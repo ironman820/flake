@@ -9,6 +9,7 @@
         obsidian
         remmina
         udiskie
+        vivaldi
         vlc
       ];
       programs = {

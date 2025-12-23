@@ -58,7 +58,8 @@
     nixpkgs-8cad3db.url = "github:nixos/nixpkgs/8cad3db";
     nixpkgs-lib.url = "github:nix-community/nixpkgs.lib";
     # openssh v9
-    nixpkgs-openssh.url = "github:nixos/nixpkgs/336eda0";
+    # nixpkgs-openssh.url = "github:nixos/nixpkgs/336eda0";
+    nixpkgs-openssh.url = "github:nixos/nixpkgs/0858160";
     # PHP 7.2.29
     nixpkgs-php.url = "github:nixos/nixpkgs/53951c0";
     nixpkgs-9041993.url = "github:nixos/nixpkgs/9041993";

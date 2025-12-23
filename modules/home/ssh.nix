@@ -292,6 +292,7 @@
             user = "royell";
           };
           "git.royell.org" = {
+            user = "git";
             hostname = "git.royell.org";
             identitiesOnly = true;
             identityFile = "${sshPath}/royell_git";
@@ -496,9 +497,6 @@
             user = "royell";
             extraOptions."RemoteForward" =
               "/run/user/1000/gnupg/S.gpg-agent /run/user/1000/gnupg/S.gpg-agent.extra";
-          };
-          "royell-git" = {
-            hostname = "git.royell.org";
           };
           "smx" = {
             hostname = "smx.royell.org";

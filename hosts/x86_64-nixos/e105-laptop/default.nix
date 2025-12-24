@@ -17,6 +17,7 @@
   ])
   ++ (with self.nixosModules; [
     apps-gui-extra
+    apps-python
     base
     boot-grub
     de-xfce

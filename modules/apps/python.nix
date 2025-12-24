@@ -18,12 +18,13 @@
           jedi
           jedi-language-server
           jsonrpc-base
-          lsprotocol
           mypy
+          pdfplumber
           pip
           pre-commit-hooks
           psutil
           pygobject3
+          pymupdf
           pynvim
           pytest
           pytest-expect

@@ -19,14 +19,17 @@ let
       krb5
       libgbm
       libGL
+      libpq
       libpulseaudio
       libx11
+      libxcb-cursor
       libxfixes
       libxkbcommon
       libxrandr
       mysql80
       nspr
       nss
+      unixODBC
     ])
     ++ (with inputs.stable.legacyPackages.${pkgs.stdenv.hostPlatform.system}.qt6; [
       qt5compat

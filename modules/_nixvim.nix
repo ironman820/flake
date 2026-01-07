@@ -1334,20 +1334,6 @@
           };
         };
       };
-      treesitter-textobjects = {
-        enable = true;
-        settings = {
-          lookahead = true;
-          keymaps = {
-            aa = "@parameter.outer";
-            ia = "@parameter.inner";
-            af = "@function.outer";
-            "if" = "@function.inner";
-            ac = "@class.outer";
-            ic = "@class.inner";
-          };
-        };
-      };
       web-devicons.enable = true;
       which-key = {
         enable = true;

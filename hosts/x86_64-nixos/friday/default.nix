@@ -49,8 +49,9 @@
       cert = config.sops.secrets.syncthing-friday-cert.path;
       key = config.sops.secrets.syncthing-friday-key.path;
       devices = {
+        phone.id = "YEXTAE5-7ZTCY7M-ZXBBE7Z-LO3GXUV-XIHCFDJ-SBDPV22-VJEOUDJ-QO7GGQG";
         work = {
-          id = "BBFLUDI-YSDBEJF-TALS6VU-ETJ2PHU-WNXBHUG-JXPCEU4-NO2IQNE-YRWAUQX";
+          id = "RPVYMOE-RC2NDFN-C5TRBZ2-ATRNVNE-VWONQD3-DVAGPJ5-OV5RWTK-KKKBSAI";
           name = "Work Laptop";
         };
       };

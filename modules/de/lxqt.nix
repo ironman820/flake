@@ -4,14 +4,17 @@
     {
       environment.systemPackages = with pkgs; [
         ayu-theme-gtk
-        kdePackages.qtstyleplugin-kvantum
+        blueman
+        xfce.mousepad
         networkmanagerapplet
+        kdePackages.qtstyleplugin-kvantum
         unzip
         xarchiver
       ];
       programs.nm-applet.enable = true;
       security.pam.services.xscreensaver.enable = true;
       services = {
+        blueman.enable = true;
         displayManager.defaultSession = "lxqt";
         xserver = {
           enable = true;

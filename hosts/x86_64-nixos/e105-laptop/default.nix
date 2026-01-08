@@ -17,9 +17,10 @@
   ])
   ++ (with self.nixosModules; [
     apps-gui-extra
+    apps-python
     base
     boot-grub
-    de-lxqt
+    de-xfce
     fonts
     git
     self.diskoConfigurations.e105-laptop
@@ -29,6 +30,7 @@
     intel-video
     laptop
     power
+    syncthing
     tmux
     virtual-host
     virtual-docker
@@ -41,6 +43,7 @@
     deskflow
     distrobox
     docker-compose
+    googleearth-pro
     freerdp
   ];
   home-manager.users.niceastman = self.homeConfigurations.niceastman;

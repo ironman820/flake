@@ -33,7 +33,12 @@
         };
       };
       nixpkgs = {
-        config.allowUnfree = true;
+        config = {
+          allowUnfree = true;
+          permittedInsecurePackages = [
+            "googleearth-pro-7.3.6.10201"
+          ];
+        };
         overlays = [
           inputs.self.overlays.default
         ];

@@ -76,6 +76,7 @@
           local.switchssh
           tealdeer
           trashy
+          unrar
           unzip
           wget
           wireguard-tools

@@ -115,17 +115,22 @@
             hostname = "162.216.110.8";
             user = "royell";
           };
-          "icewarp" = {
-            hostname = "208.80.144.81";
-            user = "royell";
-          }
-          // deployIdentity;
           "meet" = {
             hostname = "meet.royell.org";
             user = "royell";
           }
           // deployIdentity;
           "pay" = {
+            user = "royell";
+          }
+          // deployIdentity;
+          "pdns" = {
+            hostname = "208.80.144.81";
+            user = "royell";
+          }
+          // deployIdentity;
+          "pdns2" = {
+            hostname = "208.80.144.82";
             user = "royell";
           }
           // deployIdentity;
@@ -292,6 +297,7 @@
             user = "royell";
           };
           "git.royell.org" = {
+            user = "git";
             hostname = "git.royell.org";
             identitiesOnly = true;
             identityFile = "${sshPath}/royell_git";
@@ -496,9 +502,6 @@
             user = "royell";
             extraOptions."RemoteForward" =
               "/run/user/1000/gnupg/S.gpg-agent /run/user/1000/gnupg/S.gpg-agent.extra";
-          };
-          "royell-git" = {
-            hostname = "git.royell.org";
           };
           "smx" = {
             hostname = "smx.royell.org";

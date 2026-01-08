@@ -115,6 +115,11 @@
             hostname = "162.216.110.8";
             user = "royell";
           };
+          "icewarp" = {
+            hostname = "208.80.144.81";
+            user = "royell";
+          }
+          // deployIdentity;
           "meet" = {
             hostname = "meet.royell.org";
             user = "royell";

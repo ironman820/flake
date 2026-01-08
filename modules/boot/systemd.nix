@@ -1,10 +1,8 @@
 {
-  flake.nixosModules.boot-systemd = _: {
-    boot = {
-      loader = {
-        grub.enable = false;
-        systemd-boot.enable = true;
-      };
+  flake.nixosModules.boot-systemd = {
+    boot.loader = {
+      grub.enable = false;
+      systemd-boot.enable = true;
     };
   };
 }

@@ -344,6 +344,11 @@
             user = "ironman";
           }
           // deployIdentity;
+          "lidarr" = {
+            hostname = "192.168.248.113";
+            user = "ironman";
+          }
+          // deployIdentity;
           "mail" = {
             hostname = "webmail.royell.org";
             user = "royell";

@@ -29,7 +29,8 @@
     drive-shares-personal
     intel-video
     laptop
-    power
+    # TODO: Troubleshooting crashes disable power management
+    # power
     syncthing
     tmux
     virtual-host
@@ -158,4 +159,6 @@
           ;
       };
     };
+  # TODO: Troubleshoot crashes. disable ZRAM
+  zramSwap.enable = false;
 }

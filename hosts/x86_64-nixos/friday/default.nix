@@ -151,15 +151,15 @@
             params.keep = "10";
           };
         };
-      };
-      "/home/${config.ironman.user.name}/Wallpapers" = {
-        id = "gtwyq-tfzfb";
-        devices = [
-          "nas"
-          "work"
-          "work-desktop"
-        ];
-        label = "Wallpapers";
+        "/home/${config.ironman.user.name}/Wallpapers" = {
+          id = "gtwyq-tfzfb";
+          devices = [
+            "nas"
+            "work"
+            "work-desktop"
+          ];
+          label = "Wallpapers";
+        };
       };
     };
   };

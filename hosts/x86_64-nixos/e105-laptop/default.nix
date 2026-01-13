@@ -84,6 +84,14 @@
             params.keep = "10";
           };
         };
+        "/home/${config.ironman.user.name}/Notes" = {
+          id = "q6twd-r4s4f";
+          devices = [
+            "friday"
+            "nas"
+          ];
+          label = "Notes";
+        };
         "/home/${config.ironman.user.name}/Pictures" = {
           id = "okbn5-ywkrq";
           devices = [
@@ -97,9 +105,15 @@
             params.keep = "10";
           };
         };
-        "/home/${config.ironman.user.name}/Wallpapers".devices = [
-          "friday"
-        ];
+        "/home/${config.ironman.user.name}/Wallpapers" = {
+          id = "gtwyq-tfzfb";
+          devices = [
+            "friday"
+            "nas"
+            "work-desktop"
+          ];
+          label = "Wallpapers";
+        };
       };
     };
     user = {

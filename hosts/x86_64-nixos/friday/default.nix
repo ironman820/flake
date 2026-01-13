@@ -106,6 +106,14 @@
             };
           };
         };
+        "/home/${config.ironman.user.name}/Notes" = {
+          id = "q6twd-r4s4f";
+          devices = [
+            "nas"
+            "work"
+          ];
+          label = "Notes";
+        };
         "/home/${config.ironman.user.name}/Pictures" = {
           id = "sxb6h-chv5s";
           devices = [
@@ -143,9 +151,15 @@
             params.keep = "10";
           };
         };
-        "/home/${config.ironman.user.name}/Wallpapers".devices = [
+      };
+      "/home/${config.ironman.user.name}/Wallpapers" = {
+        id = "gtwyq-tfzfb";
+        devices = [
+          "nas"
           "work"
+          "work-desktop"
         ];
+        label = "Wallpapers";
       };
     };
   };

@@ -530,7 +530,7 @@
           "traefik.home" = {
             hostname = "192.168.252.102";
             port = 2222;
-            user = "root";
+            user = "ironman";
           }
           // deployIdentity;
           "virtual1" = {

@@ -54,8 +54,20 @@
           id = "RPVYMOE-RC2NDFN-C5TRBZ2-ATRNVNE-VWONQD3-DVAGPJ5-OV5RWTK-KKKBSAI";
           name = "Work Laptop";
         };
+        steamdeck = {
+          id = "MH5QWUV-EYRW4KY-FEBPNMY-Q52YRGD-ZS3Y5IC-XSOMENJ-FOLT6BF-2PG2DAY";
+          name = "SteamDeck";
+        };
       };
       folders = {
+        "/home/${config.ironman.user.name}/Deck Sync" = {
+          id = "oz0sn-2p90q";
+          devices = [
+            "nas"
+            "steamdeck"
+          ];
+          label = "Deck Sync";
+        };
         "/home/${config.ironman.user.name}/Documents" = {
           id = "wcn42-ot2xw";
           devices = [

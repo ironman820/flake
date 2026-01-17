@@ -26,7 +26,7 @@
     drive-shares
     drive-shares-personal
     laptop
-    power
+    # power
     tmux
     virtual-host
     virtual-docker

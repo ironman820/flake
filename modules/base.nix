@@ -34,6 +34,7 @@
         [
           age
           btop
+          caligula
           cifs-utils
           conda
           delta

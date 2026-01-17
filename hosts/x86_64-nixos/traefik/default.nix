@@ -118,6 +118,13 @@
               service = "dns";
               tls = { };
             };
+            fflows = {
+                entryPoints = "https";
+                middlewares = "secured";
+                rule = "Host(`fflows.home.niceastman.com`)";
+                service = "fflows";
+                tls = {};
+              };
             git = {
               entryPoints = "https";
               middlewares = "default-headers";
@@ -299,6 +306,15 @@
               servers = [
                 {
                   url = "http://192.168.248.2:5380";
+                }
+              ];
+              serversTransport = "insecure";
+            };
+            fflows.loadBalancer = {
+              passHostHeader = true;
+              servers = [
+                {
+                  url = "http://192.168.248.117:19200";
                 }
               ];
               serversTransport = "insecure";

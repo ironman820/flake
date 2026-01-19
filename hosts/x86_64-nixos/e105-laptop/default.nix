@@ -20,7 +20,7 @@
     apps-python
     base
     boot-grub
-    de-xfce
+    de-plasma
     fonts
     git
     self.diskoConfigurations.e105-laptop

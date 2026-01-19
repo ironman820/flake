@@ -4,6 +4,7 @@
     {
       environment.systemPackages = with pkgs; [
         local.catppuccin-kitty
+        feishin
         google-chrome
         kitty
         obsidian

@@ -37,6 +37,7 @@
           allowUnfree = true;
           permittedInsecurePackages = [
             "googleearth-pro-7.3.6.10201"
+            "openssl-1.1.1w"
           ];
         };
         overlays = [

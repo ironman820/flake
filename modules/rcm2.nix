@@ -58,6 +58,26 @@
                   checkInputs = [ ];
                   nativeBuildInputs = [ ];
                   propagatedBuildInputs = [
+                    maturin
+                  ];
+                };
+                maturin = buildPythonPackage rec {
+                  pname = "maturin";
+                  version = "1.11.5";
+                  src = fetchurl {
+                    url = "https://files.pythonhosted.org/packages/a4/84/bfed8cc10e2d8b6656cf0f0ca6609218e6fcb45a62929f5094e1063570f7/maturin-1.11.5.tar.gz";
+                    sha256 = "0a8cld2r1cyaq54w6m9h6kq06cpnrd1ag0zy35d5kf8gci3wyybm";
+                  };
+                  format = "setuptools";
+                  doCheck = false;
+                  buildInputs = [ ];
+                  checkInputs = [ ];
+                  nativeBuildInputs = [
+                    pkgs.rustPlatform.cargoSetupHook
+                  ];
+                  propagatedBuildInputs = [
+                    p3p.setuptools-rust
+                    p3p.tomli
                   ];
                 };
               in

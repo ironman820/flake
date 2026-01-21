@@ -14,6 +14,7 @@
   ++ (with inputs; [
     darkmatter-grub-theme.nixosModule
     disko.nixosModules.disko
+    nixos-hardware.nixosModules.system76
   ])
   ++ (with self.nixosModules; [
     apps-gui-extra

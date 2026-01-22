@@ -487,6 +487,11 @@
             user = "ironman";
           }
           // deployIdentity;
+          "rcm.home" = {
+            hostname = "192.168.248.121";
+            user = "ironman";
+          }
+          // deployIdentity;
           "rcm2" = {
             hostname = "rcm2.royell.org";
             user = "royell";

@@ -122,12 +122,12 @@
               tls = { };
             };
             fflows = {
-                entryPoints = "https";
-                middlewares = "secured";
-                rule = "Host(`fflows.home.niceastman.com`)";
-                service = "fflows";
-                tls = {};
-              };
+              entryPoints = "https";
+              middlewares = "secured";
+              rule = "Host(`fflows.home.niceastman.com`)";
+              service = "fflows";
+              tls = { };
+            };
             git = {
               entryPoints = "https";
               middlewares = "default-headers";
@@ -217,6 +217,13 @@
               middlewares = "authentik";
               rule = "Host(`radarr.home.niceastman.com`)";
               service = "radarr";
+              tls = { };
+            };
+            rcm = {
+              entryPoints = "https";
+              middlewares = "secured";
+              rule = "Host(`rcm.home.niceastman.com`)";
+              service = "rcm";
               tls = { };
             };
             rcm2 = {
@@ -462,6 +469,15 @@
               servers = [
                 {
                   url = "https://192.168.254.5:28888";
+                }
+              ];
+              serversTransport = "insecure";
+            };
+            rcm.loadBalancer = {
+              passHostHeader = true;
+              servers = [
+                {
+                  url = "https://192.168.248.121";
                 }
               ];
               serversTransport = "insecure";

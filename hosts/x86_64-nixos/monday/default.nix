@@ -30,5 +30,6 @@
     network-profiles.work = true;
   };
   networking.hostName = "monday";
+  services.openssh.settings.PermitRootLogin = "no";
   zramSwap.enable = false;
 }

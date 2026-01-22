@@ -29,9 +29,12 @@
   nix.settings.cores = 1;
   security.sudo.wheelNeedsPassword = false;
   services = {
-    openssh.ports = [
-      2222
-    ];
+    openssh = {
+      ports = [
+        2222
+      ];
+      settings.PermitRootLogin = "no";
+    };
     qemuGuest.enable = true;
     traefik = {
       enable = true;

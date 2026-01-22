@@ -57,6 +57,7 @@ in
   };
   security.sudo.wheelNeedsPassword = false;
   services = {
+    openssh.settings.PermitRootLogin = "no";
     qemuGuest.enable = true;
     xserver = {
       enable = false;

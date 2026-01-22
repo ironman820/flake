@@ -63,6 +63,7 @@
       openFirewall = true;
       package = pkgs.ollama-rocm;
     };
+    openssh.settings.PermitRootLogin = "no";
   };
   sops.secrets.llama_work_env = {
     sopsFile = "${flakeRoot}/.secrets/llama.yaml";

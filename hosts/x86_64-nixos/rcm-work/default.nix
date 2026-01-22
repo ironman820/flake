@@ -21,6 +21,7 @@
   nix.settings.cores = 1;
   security.sudo.wheelNeedsPassword = false;
   services = {
+    openssh.settings.PermitRootLogin = "no";
     qemuGuest.enable = true;
   };
   users.users.ironman.extraGroups = [

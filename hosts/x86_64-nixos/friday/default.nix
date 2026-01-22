@@ -14,6 +14,7 @@
   ++ (with inputs; [
     darkmatter-grub-theme.nixosModule
     disko.nixosModules.disko
+    nixos-hardware.nixosModules.lenovo-thinkpad-e14-amd
   ])
   ++ (with self.nixosModules; [
     apps-gui-extra

@@ -79,6 +79,17 @@
                     p3p.setuptools-rust
                     p3p.tomli
                   ];
+                  unpackPhase = ''
+                    # mkdir -p $out
+                    # tar xzf $src -C $out
+                    # mv $out/maturin-1.11.5/* $out/
+                    # mv $out/maturin-1.11.5/.* $out/
+                    # rmdir $out/maturin-1.11.5
+                    tar xzf $src
+                    mv maturin-1.11.5/* ./
+                    mv maturin-1.11.5/.* ./
+                    rmdir maturin-1.11.5
+                  '';
                 };
               in
               pkgs.python3.withPackages (

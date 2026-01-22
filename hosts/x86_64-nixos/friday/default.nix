@@ -177,7 +177,8 @@
   };
   networking.hostName = "friday";
   nix.settings.cores = 4;
-  services.tlp.settings.RUNTIME_PM_DENYLIST = "03:00.0";
+  services.openssh.settings.PermitRootLogin = "no";
+  # services.tlp.settings.RUNTIME_PM_DENYLIST = "03:00.0";
   sops.secrets =
     let
       group = config.ironman.user.name;

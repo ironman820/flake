@@ -27,6 +27,7 @@
       openFirewall = true;
       user = config.ironman.user.name;
     };
+    openssh.settings.PermitRootLogin = "no";
     qemuGuest.enable = true;
   };
   users.users.ironman.extraGroups = [

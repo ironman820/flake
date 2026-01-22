@@ -91,6 +91,7 @@
           devices = [
             "friday"
             "nas"
+            "phone"
           ];
           label = "Notes";
         };
@@ -134,7 +135,10 @@
     hostName = "e105-laptop";
   };
   nix.settings.cores = 4;
-  services.system76-scheduler.settings.cfsProfiles.enable = true;
+  services = {
+    openssh.settings.PermitRootLogin = "no";
+    system76-scheduler.settings.cfsProfiles.enable = true;
+  };
   sops.secrets =
     let
       group = config.ironman.user.name;

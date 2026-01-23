@@ -534,7 +534,7 @@
           // deployIdentity;
           "traefik.desk" = {
             hostname = "192.168.20.3";
-            user = "root";
+            user = "ironman";
           }
           // deployIdentity;
           "traefik.home" = {

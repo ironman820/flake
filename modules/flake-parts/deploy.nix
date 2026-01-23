@@ -74,5 +74,14 @@
       remoteBuild = true;
       sshUser = "ironman";
     };
+    traefik-work = {
+      hostname = "traefik.desk";
+      profiles.system = {
+        user = "root";
+        path = inputs.deploy-rs.lib.x86_64-linux.activate.nixos self.nixosConfigurations.traefik-work;
+      };
+      remoteBuild = true;
+      sshUser = "ironman";
+    };
   };
 }

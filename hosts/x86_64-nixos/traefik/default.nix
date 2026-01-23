@@ -254,13 +254,6 @@
               service = "resilio";
               tls = { };
             };
-            tdarr = {
-              entryPoints = "https";
-              middlewares = "secured";
-              rule = "Host(`tdarr.home.niceastman.com`)";
-              service = "tdarr";
-              tls = { };
-            };
             torrent = {
               entryPoints = "https";
               middlewares = "secured";
@@ -505,15 +498,6 @@
               servers = [
                 {
                   url = "http://192.168.248.110:8989";
-                }
-              ];
-              serversTransport = "insecure";
-            };
-            tdarr.loadBalancer = {
-              passHostHeader = true;
-              servers = [
-                {
-                  url = "http://192.168.248.42:8265";
                 }
               ];
               serversTransport = "insecure";

@@ -292,6 +292,11 @@
             user = "ironman";
           }
           // deployIdentity;
+          "ftp" = {
+            hostname = "208.80.144.71";
+            user = "royell";
+          }
+          // deployIdentity;
           "cs1.mf.gir" = {
             hostname = "10.10.240.3";
             user = "royell";

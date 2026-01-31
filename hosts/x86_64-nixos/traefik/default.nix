@@ -114,6 +114,13 @@
               service = "authentik";
               tls = { };
             };
+            calibre = {
+              entryPoints = "https";
+              middlewares = "default-headers";
+              rule = "Host(`mybooks.niceastman.com`)";
+              service = "calibre";
+              tls = { };
+            };
             dns = {
               entryPoints = "https";
               middlewares = "secured";
@@ -300,6 +307,15 @@
               servers = [
                 {
                   url = "https://192.168.248.38:9443";
+                }
+              ];
+              serversTransport = "insecure";
+            };
+            calibre.loadBalancer = {
+              passHostHeader = true;
+              servers = [
+                {
+                  url = "http://192.168.248.101:8083";
                 }
               ];
               serversTransport = "insecure";

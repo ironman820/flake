@@ -1,6 +1,15 @@
 { inputs, self, ... }:
 {
   flake.deploy.nodes = {
+    calibre = {
+      hostname = "calibre";
+      profiles.system = {
+        user = "root";
+        path = inputs.deploy-rs.lib.x86_64-linux.activate.nixos self.nixosConfigurations.calibre;
+      };
+      remoteBuild = true;
+      sshUser = "ironman";
+    };
     llama = {
       hostname = "llama";
       profiles.system = {

@@ -50,6 +50,7 @@
       cert = config.sops.secrets.syncthing-friday-cert.path;
       key = config.sops.secrets.syncthing-friday-key.path;
       devices = {
+        calibre.id = "J3LVEJP-XUTHFQ2-2W5U22G-JLDNUL2-S3GC4GW-VVQOY7Q-N6SFPJT-REN45AO";
         work = {
           id = "RPVYMOE-RC2NDFN-C5TRBZ2-ATRNVNE-VWONQD3-DVAGPJ5-OV5RWTK-KKKBSAI";
           name = "Work Laptop";
@@ -95,6 +96,7 @@
         "/home/${config.ironman.user.name}/Calibre Library" = {
           id = "eirgv-qg2rc";
           devices = [
+            "calibre"
             "nas"
           ];
           label = "Calibre Library";

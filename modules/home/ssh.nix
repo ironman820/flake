@@ -95,6 +95,11 @@
             user = "royell";
           }
           // deployIdentity;
+          "calibre" = {
+            hostname = "192.168.248.101";
+            user = "ironman";
+          }
+          // deployIdentity;
           "cr1" = {
             hostname = "162.216.110.106";
             user = "royell";

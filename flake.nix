@@ -23,6 +23,10 @@
       flake = false;
       url = "github:catppuccin/lazygit";
     };
+    # Cran for rcm2 djc-core-html package
+    crane = {
+      url = "github:ipetkov/crane";
+    };
     darkmatter-grub-theme = {
       inputs.nixpkgs.follows = "nixpkgs";
       url = "gitlab:vandalbyte/darkmatter-grub-theme";
@@ -72,6 +76,11 @@
       url = "github:nix-community/nixvim";
     };
     pkgs-by-name.url = "github:drupol/pkgs-by-name-for-flake-parts";
+    # Rust Overlays for rcm2 djc-core-html package
+    rust-overlay = {
+      inputs.nixpkgs.follows = "nixpkgs";
+      url = "github:oxalica/rust-overlay";
+    };
     snowfall-flake = {
       url = "github:snowfallorg/flake";
       inputs.nixpkgs.follows = "nixpkgs";

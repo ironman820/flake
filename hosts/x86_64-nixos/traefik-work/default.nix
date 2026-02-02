@@ -194,7 +194,7 @@
               passHostHeader = true;
               servers = [
                 {
-                  url = "http://192.168.21.104:8000";
+                  url = "http://192.168.21.107:8000";
                 }
               ];
               serversTransport = "insecure";

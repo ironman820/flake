@@ -6,7 +6,7 @@
     url = "https://github.com/NixOS/nixpkgs/";
     ref = "refs/heads/nixpkgs-unstable";
     rev = "0c159930e7534aa803d5cf03b27d5c86ad6050b7";
-  }) {inherit (pkgs) system;};
+  }) {inherit (pkgs.stdenv.hostPlatform) system;};
   name = "idracclient";
   pname = "idracclient";
   idracclient = buildPythonApplication {

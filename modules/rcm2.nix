@@ -1,7 +1,13 @@
-{ flakeRoot, ... }:
+{ flakeRoot, inputs, ... }:
 {
   flake.nixosModules.rcm2 =
     { pkgs, config, ... }:
+    let
+      phpPkgs = import inputs.nixpkgs-php {
+        inherit (pkgs.stdenv.hostPlatform) system;
+        config.allowUnfree = true;
+      };
+    in
     {
       environment = {
         systemPackages =
@@ -25,8 +31,24 @@
                   nativeBuildInputs = [ ];
                   propagatedBuildInputs = [
                     p3p.django
-                    djc-core-html-parser
+                    pkgs.local.djc-core-html-parser
                     p3p.typing-extensions
+                  ];
+                };
+                django-cotton = buildPythonPackage rec {
+                  pname = "django-cotton";
+                  version = "2.6.1";
+                  src = fetchurl {
+                    url = "https://files.pythonhosted.org/packages/3d/d2/dea85f1931de0b2da4746f6ad669c7da1f5c8569bee144fe6620c8d98d61/django_cotton-2.6.1-py3-none-any.whl";
+                    sha256 = "026bf5ai2dvbrilvcq7jwnwb2ihp4vmmf1givak373f06q1xlpbp";
+                  };
+                  format = "wheel";
+                  doCheck = false;
+                  buildInputs = [ ];
+                  checkInputs = [ ];
+                  nativeBuildInputs = [ ];
+                  propagatedBuildInputs = [
+                    p3p.django
                   ];
                 };
                 django-template-partials = buildPythonPackage rec {
@@ -45,108 +67,100 @@
                     p3p.django
                   ];
                 };
-                djc-core-html-parser = buildPythonPackage rec {
-                  pname = "djc-core-html-parser";
-                  version = "1.0.3";
+                jinjax = buildPythonPackage rec {
+                  pname = "jinjax";
+                  version = "0.37";
                   src = fetchurl {
-                    url = "https://files.pythonhosted.org/packages/e0/49/d44e902ae54815ba7c54f1437c19fd5897ba361a07653935154a30d5a6d1/djc_core_html_parser-1.0.3.tar.gz";
-                    sha256 = "0pvi9mk2xi4cfzans5jmjcn3aaia2m69mxmnhafp6afh81j5ap3k";
+                    url = "https://files.pythonhosted.org/packages/d1/fa/666249b379427b9c98b9ee8eda47ae490ccae175940f8df5b7ca668ffc65/jinjax-0.37-py3-none-any.whl";
+                    sha256 = "07giqpnl383vks0kpwizh5xl56r334d877515rc4qzv1br4plnn4";
                   };
-                  format = "pyproject";
+                  format = "wheel";
                   doCheck = false;
                   buildInputs = [ ];
                   checkInputs = [ ];
                   nativeBuildInputs = [ ];
-                  propagatedBuildInputs = [
-                    maturin
+                  propagatedBuildInputs = with p3p; [
+                    jinja2
+                    markupsafe
+                    whitenoise
                   ];
-                };
-                maturin = buildPythonPackage rec {
-                  pname = "maturin";
-                  version = "1.11.5";
-                  src = fetchurl {
-                    url = "https://files.pythonhosted.org/packages/a4/84/bfed8cc10e2d8b6656cf0f0ca6609218e6fcb45a62929f5094e1063570f7/maturin-1.11.5.tar.gz";
-                    sha256 = "0a8cld2r1cyaq54w6m9h6kq06cpnrd1ag0zy35d5kf8gci3wyybm";
-                  };
-                  format = "setuptools";
-                  doCheck = false;
-                  buildInputs = [ ];
-                  checkInputs = [ ];
-                  nativeBuildInputs = [
-                    pkgs.rustPlatform.cargoSetupHook
-                  ];
-                  propagatedBuildInputs = [
-                    p3p.setuptools-rust
-                    p3p.tomli
-                  ];
-                  unpackPhase = ''
-                    # mkdir -p $out
-                    # tar xzf $src -C $out
-                    # mv $out/maturin-1.11.5/* $out/
-                    # mv $out/maturin-1.11.5/.* $out/
-                    # rmdir $out/maturin-1.11.5
-                    tar xzf $src
-                    mv maturin-1.11.5/* ./
-                    mv maturin-1.11.5/.* ./
-                    rmdir maturin-1.11.5
-                  '';
                 };
               in
               pkgs.python3.withPackages (
                 ps: with ps; [
+                  attrs
+                  autobahn
+                  automat
+                  beautifulsoup4
+                  cffi
                   channels
                   channels-redis
+                  constantly
+                  coverage
+                  cryptography
                   daphne
                   django
+                  django-appconf
+                  django-compressor
                   django-components
+                  django-cotton
+                  django-debug-toolbar
                   django-extensions
+                  django-hijack
                   django-htmx
+                  django-phonenumber-field
                   django-template-partials
+                  django-widget-tweaks
+                  factory-boy
+                  faker
+                  hyperlink
+                  idna
+                  incremental
+                  jinja2
+                  jinjax
+                  markupsafe
+                  msgpack
                   numpy
                   pandas
+                  phonenumberslite
                   pillow
+                  psycopg2
+                  pyasn1
+                  pyasn1-modules
+                  pycparser
                   pyodbc
+                  pyopenssl
                   python-dotenv
+                  rcssmin
                   redis
                   requests
+                  rjsmin
+                  service-identity
+                  soupsieve
                   sqlalchemy
+                  twisted
+                  txaio
+                  zope-interface
                 ]
               );
           in
           with pkgs;
           [
+            conda
+            nodePackages.nodejs
             pyright
             pythonPackages
             unixODBC
-            (unixODBCDrivers.msodbcsql17.override { openssl = pkgs.openssl_1_1; })
+            (unixODBCDrivers.msodbcsql17.override { openssl = phpPkgs.openssl_1_1; })
           ];
         unixODBCDrivers = with pkgs.unixODBCDrivers; [
-          (msodbcsql17.override { openssl = pkgs.openssl_1_1; })
+          (msodbcsql17.override { openssl = phpPkgs.openssl_1_1; })
         ];
         variables = {
           LD_LIBRARY_PATH = "/run/opengl-driver/lib:${pkgs.unixODBC}/lib:${pkgs.unixODBCDrivers.msodbcsql17}/lib";
         };
       };
-      networking.firewall.allowedTCPPorts = [ 443 ];
-      services = {
-        # nginx = {
-        #   enable = true;
-        # };
-      };
-      # sops.secrets = {
-      #   rcm_cert = {
-      #     format = "binary";
-      #     mode = "0400";
-      #     owner = config.users.users.nginx.name;
-      #     sopsFile = "${flakeRoot}/.secrets/rcm-cert.pem";
-      #   };
-      #   rcm_key = {
-      #     format = "binary";
-      #     mode = "0400";
-      #     owner = config.users.users.nginx.name;
-      #     sopsFile = "${flakeRoot}/.secrets/rcm-key.pem";
-      #   };
-      # };
+      networking.firewall.allowedTCPPorts = [ 8000 ];
       users.users.${config.ironman.user.name}.extraGroups = [
         config.services.nginx.group
       ];

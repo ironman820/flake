@@ -7,6 +7,7 @@
         inherit system;
         config.allowUnfree = true;
         overlays = [
+          inputs.rust-overlay.overlays.default
           inputs.self.overlays.default
         ];
       };

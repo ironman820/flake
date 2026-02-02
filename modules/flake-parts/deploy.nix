@@ -47,32 +47,41 @@
       remoteBuild = false;
       sshUser = "ironman";
     };
-    rcm-work = {
-      hostname = "rcm.desk";
-      profiles.system = {
-        user = "root";
-        path = inputs.deploy-rs.lib.x86_64-linux.activate.nixos self.nixosConfigurations.rcm-work;
-      };
-      remoteBuild = false;
-      sshUser = "ironman";
-    };
     rcm-home = {
       hostname = "rcm.home";
       profiles.system = {
         user = "root";
         path = inputs.deploy-rs.lib.x86_64-linux.activate.nixos self.nixosConfigurations.rcm-home;
       };
-      remoteBuild = false;
+      remoteBuild = true;
+      sshUser = "ironman";
+    };
+    rcm-work = {
+      hostname = "rcm.desk";
+      profiles.system = {
+        user = "root";
+        path = inputs.deploy-rs.lib.x86_64-linux.activate.nixos self.nixosConfigurations.rcm-work;
+      };
+      remoteBuild = true;
       sshUser = "ironman";
     };
     rcm2-home = {
-      hostname = "rcm2-new.home";
+      hostname = "rcm2.home";
       profiles.system = {
         user = "root";
         path = inputs.deploy-rs.lib.x86_64-linux.activate.nixos self.nixosConfigurations.rcm2-home;
       };
-      remoteBuild = false;
-      sshUser = "root";
+      remoteBuild = true;
+      sshUser = "ironman";
+    };
+    rcm2-work = {
+      hostname = "rcm2.desk";
+      profiles.system = {
+        user = "root";
+        path = inputs.deploy-rs.lib.x86_64-linux.activate.nixos self.nixosConfigurations.rcm2-work;
+      };
+      remoteBuild = true;
+      sshUser = "ironman";
     };
     traefik = {
       hostname = "traefik.home";

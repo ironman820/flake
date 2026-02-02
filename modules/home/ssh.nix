@@ -508,18 +508,13 @@
           }
           // deployIdentity;
           "rcm2.desk" = {
-            hostname = "192.168.21.104";
+            hostname = "192.168.21.107";
             user = "ironman";
           }
           // deployIdentity;
           "rcm2.home" = {
-            hostname = "192.168.248.119";
-            user = "ironman";
-          }
-          // deployIdentity;
-          "rcm2-new.home" = {
             hostname = "192.168.248.118";
-            user = "root";
+            user = "ironman";
           }
           // deployIdentity;
           "rcm3" = {

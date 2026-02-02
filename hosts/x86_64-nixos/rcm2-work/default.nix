@@ -41,6 +41,18 @@
     #   sslCertificateKey = config.sops.secrets.rcm_key.path;
     # };
     openssh.settings.PermitRootLogin = "no";
+    postgresql = {
+      enable = true;
+      ensureDatabases = [
+        "rcm"
+      ];
+      ensureUsers = [
+        {
+          ensureDBOwnership = true;
+          name = "rcm";
+        }
+      ];
+    };
     qemuGuest.enable = true;
   };
   users.users.ironman.extraGroups = [

@@ -76,6 +76,13 @@
       url = "github:nix-community/nixvim";
     };
     pkgs-by-name.url = "github:drupol/pkgs-by-name-for-flake-parts";
+    plasma-manager = {
+      inputs = {
+        nixpkgs.follows = "nixpkgs";
+        home-manager.follows = "home-manager";
+      };
+      url = "github:nix-community/plasma-manager";
+    };
     # Rust Overlays for rcm2 djc-core-html package
     rust-overlay = {
       inputs.nixpkgs.follows = "nixpkgs";

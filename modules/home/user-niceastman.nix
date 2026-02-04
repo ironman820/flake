@@ -1,4 +1,4 @@
-{ config, ... }:
+{ config, inputs, ... }:
 {
   flake.homeConfigurations.niceastman =
     { pkgs, ... }:
@@ -8,6 +8,8 @@
         flatpak
         kitty
         llama-work-sops
+        plasma
+        inputs.plasma-manager.homeModules.plasma-manager
         qt
         syncthing
       ];

@@ -51,6 +51,7 @@
       key = config.sops.secrets.syncthing-friday-key.path;
       devices = {
         calibre.id = "J3LVEJP-XUTHFQ2-2W5U22G-JLDNUL2-S3GC4GW-VVQOY7Q-N6SFPJT-REN45AO";
+        wednesday.id = "ICGQ6GR-GFFLBJB-N4AF3AP-IOSLCHN-337F5UX-RW2A35G-UZ3Q2N4-SVWXTQY";
         work = {
           id = "RPVYMOE-RC2NDFN-C5TRBZ2-ATRNVNE-VWONQD3-DVAGPJ5-OV5RWTK-KKKBSAI";
           name = "Work Laptop";
@@ -84,6 +85,7 @@
           id = "zuqju-kwzbp";
           devices = [
             "nas"
+            "wednesday"
             "work"
             "work-desktop"
           ];
@@ -125,6 +127,7 @@
           devices = [
             "nas"
             "phone"
+            "wednesday"
             "work"
           ];
           label = "Notes";
@@ -144,6 +147,7 @@
           id = "kuriw-survq";
           devices = [
             "nas"
+            "wednesday"
             "work"
             "work-desktop"
           ];
@@ -157,6 +161,7 @@
           id = "okbn5-ywkrq";
           devices = [
             "nas"
+            "wednesday"
             "work"
             "work-desktop"
           ];
@@ -170,6 +175,7 @@
           id = "gtwyq-tfzfb";
           devices = [
             "nas"
+            "wednesday"
             "work"
             "work-desktop"
           ];

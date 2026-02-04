@@ -14,7 +14,7 @@
   ++ (with inputs; [
     darkmatter-grub-theme.nixosModule
     disko.nixosModules.disko
-    nixos-hardware.nixosModules.system76
+    nixos-hardware.nixosModules.framework-amd-ai-300-series
   ])
   ++ (with self.nixosModules; [
     apps-gui-extra
@@ -24,7 +24,7 @@
     de-plasma
     fonts
     git
-    self.diskoConfigurations.e105-laptop
+    self.diskoConfigurations.wednesday
     drive-shares
     drive-shares-work
     drive-shares-personal
@@ -51,14 +51,17 @@
   home-manager.users.niceastman = self.homeConfigurations.niceastman;
   ironman = {
     syncthing = {
-      cert = config.sops.secrets.syncthing-work-cert.path;
-      key = config.sops.secrets.syncthing-work-key.path;
+      # cert = config.sops.secrets.syncthing-work-cert.path;
+      # key = config.sops.secrets.syncthing-work-key.path;
       devices = {
+        e105-laptop = {
+          id = "RPVYMOE-RC2NDFN-C5TRBZ2-ATRNVNE-VWONQD3-DVAGPJ5-OV5RWTK-KKKBSAI";
+          name = "e105-laptop";
+        };
         friday = {
           id = "C2T72DJ-35SQ4DJ-OTQFZUH-R54J3FK-7K2M46K-RAN5SFU-4Y4ZNIL-FZ64AQQ";
           name = "Friday";
         };
-        wednesday.id = "ICGQ6GR-GFFLBJB-N4AF3AP-IOSLCHN-337F5UX-RW2A35G-UZ3Q2N4-SVWXTQY";
       };
       folders = {
         "/home/${config.ironman.user.name}/Downloads" = {
@@ -66,7 +69,7 @@
           devices = [
             "friday"
             "nas"
-            "wednesday"
+            "e105-laptop"
             "work-desktop"
           ];
           label = "Downloads";
@@ -80,7 +83,7 @@
           devices = [
             "friday"
             "nas"
-            "wednesday"
+            "e105-laptop"
             "work-desktop"
           ];
           label = "Work Documents";
@@ -94,8 +97,8 @@
           devices = [
             "friday"
             "nas"
+            "e105-laptop"
             "phone"
-            "wednesday"
           ];
           label = "Notes";
         };
@@ -104,7 +107,7 @@
           devices = [
             "friday"
             "nas"
-            "wednesday"
+            "e105-laptop"
             "work-desktop"
           ];
           label = "Work Pictures";
@@ -118,7 +121,7 @@
           devices = [
             "friday"
             "nas"
-            "wednesday"
+            "e105-laptop"
             "work-desktop"
           ];
           label = "Wallpapers";
@@ -138,38 +141,37 @@
     firewall.allowedTCPPorts = [
       24800
     ];
-    hostName = "e105-laptop";
+    hostName = "wednesday";
   };
   nix.settings.cores = 4;
   services = {
     openssh.settings.PermitRootLogin = "no";
     system76-scheduler.settings.cfsProfiles.enable = true;
   };
-  sops.secrets =
-    let
-      group = config.ironman.user.name;
-      mode = "0440";
-      owner = config.ironman.user.name;
-      sopsFile = "${flakeRoot}/.secrets/syncthing.yaml";
-    in
-    {
-      syncthing-work-cert = {
-        inherit
-          group
-          mode
-          owner
-          sopsFile
-          ;
-      };
-      syncthing-work-key = {
-        inherit
-          group
-          mode
-          owner
-          sopsFile
-          ;
-      };
-    };
-  # TODO: Troubleshoot crashes. disable ZRAM
-  zramSwap.enable = false;
+  # sops.secrets =
+  #   let
+  #     group = config.ironman.user.name;
+  #     mode = "0440";
+  #     owner = config.ironman.user.name;
+  #     sopsFile = "${flakeRoot}/.secrets/syncthing.yaml";
+  #   in
+  #   {
+  #     syncthing-work-cert = {
+  #       inherit
+  #         group
+  #         mode
+  #         owner
+  #         sopsFile
+  #         ;
+  #     };
+  #     syncthing-work-key = {
+  #       inherit
+  #         group
+  #         mode
+  #         owner
+  #         sopsFile
+  #         ;
+  #     };
+  #   };
+  zramSwap.enable = true;
 }

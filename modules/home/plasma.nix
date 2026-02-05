@@ -50,7 +50,6 @@
               dimAdminMode.enable = true;
               fallApart.enable = true;
               minimization.animation = "magiclamp";
-              slideBack.enable = true;
               snapHelper.enable = true;
               wobblyWindows.enable = true;
             };

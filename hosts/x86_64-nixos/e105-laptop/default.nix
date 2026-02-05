@@ -61,6 +61,14 @@
         wednesday.id = "ICGQ6GR-GFFLBJB-N4AF3AP-IOSLCHN-337F5UX-RW2A35G-UZ3Q2N4-SVWXTQY";
       };
       folders = {
+        "/home/${config.ironman.user.name}/.thunderbird" = {
+          id = "upryn-vzhy9";
+          devices = [
+            "nas"
+            "wednesday"
+          ];
+          label = "Thunderbird";
+        };
         "/home/${config.ironman.user.name}/Downloads" = {
           id = "zuqju-kwzbp";
           devices = [

@@ -64,6 +64,15 @@
         };
       };
       folders = {
+        "/home/${config.ironman.user.name}/.thunderbird" = {
+          id = "upryn-vzhy9";
+          devices = [
+            "nas"
+            "e105-laptop"
+          ];
+          label = "Thunderbird";
+          type = "sendonly";
+        };
         "/home/${config.ironman.user.name}/Downloads" = {
           id = "zuqju-kwzbp";
           devices = [

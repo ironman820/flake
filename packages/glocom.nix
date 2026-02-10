@@ -23,9 +23,14 @@ let
       libpulseaudio
       libx11
       libxcb-cursor
+      libXcomposite
+      libXdamage
       libxfixes
       libxkbcommon
+      libxkbfile
       libxrandr
+      libxshmfence
+      libXtst
       mysql80
       nspr
       nss
@@ -38,13 +43,6 @@ let
       qtquicktimeline
       qtscxml
       qtwayland
-    ])
-    ++ (with pkgs.xorg; [
-      libXcomposite
-      libXdamage
-      libxkbfile
-      libxshmfence
-      libXtst
     ]);
   libPath = pkgs.lib.makeLibraryPath installPackages;
 in

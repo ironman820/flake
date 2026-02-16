@@ -5,12 +5,15 @@
       environment.systemPackages = with pkgs; [
         local.catppuccin-kitty
         feishin
+        freecad
         google-chrome
         kitty
         obsidian
+        orca-slicer
         remmina
         udiskie
         vlc
+        zotero
       ];
       programs = {
         firefox.enable = true;

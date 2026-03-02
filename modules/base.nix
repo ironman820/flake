@@ -49,6 +49,7 @@
           eza
           ffmpeg
           inputs'.snowfall-flake.packages.flake
+          fping
           fzf
           gcc
           glab
@@ -59,7 +60,7 @@
           inetutils
           jq
           just
-          neofetch
+          fastfetch
           nix-output-monitor
           nixos-anywhere
           nodejs

@@ -104,6 +104,10 @@
             hostname = "162.216.110.106";
             user = "royell";
           };
+          "cs1.aub.fb" = {
+            hostname = "10.25.0.2";
+            user = "royell";
+          } // switchSSH;
           "cs1.crvl" = {
             hostname = "100.64.0.34";
             user = "royell";

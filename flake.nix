@@ -75,6 +75,9 @@
       };
       url = "github:nix-community/nixvim";
     };
+    orca-slicer = {
+      url = "github:ironman820/snorca-slicer-nixos-flake";
+    };
     pkgs-by-name.url = "github:drupol/pkgs-by-name-for-flake-parts";
     plasma-manager = {
       inputs = {

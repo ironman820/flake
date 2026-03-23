@@ -25,6 +25,7 @@
           };
           gui.theme = "black";
           options = {
+            listenAddresses = [ "tcp" ];
             minHomeDiskFree = {
               unit = "%";
               value = 1;

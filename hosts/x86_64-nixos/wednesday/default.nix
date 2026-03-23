@@ -64,6 +64,14 @@
         };
       };
       folders = {
+        "/home/${config.ironman.user.name}/.config/Snapmaker_Orca" = {
+          id = "cqxwd-vkkfo";
+          devices = [
+            "friday"
+            "nas"
+          ];
+          label = "Snapmaker_Orca";
+        };
         "/home/${config.ironman.user.name}/.thunderbird" = {
           id = "upryn-vzhy9";
           devices = [

@@ -22,5 +22,8 @@
         wireshark
         zoom-us
       ];
+      services.flatpak.packages = [
+        "com.anydesk.Anydesk"
+      ];
     };
 }

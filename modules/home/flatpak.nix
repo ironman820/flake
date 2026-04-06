@@ -1,11 +1,16 @@
 {
   flake.homeModules.flatpak = _: {
-    ironman.just = {
-      apps = [
-        "flatpak --user remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo"
-        "flatpak install -uy com.usebottles.bottles"
-        "flatpak install -uy com.github.tchx84.Flatseal"
+    services.flatpak = {
+      enable = true;
+      packages = [
+        "com.usebottles.bottles"
+        "com.github.tchx84.Flatseal"
       ];
+      uninstallUnmanaged = true;
+      update.auto = {
+        enable = true;
+        onCalendar = "weekly";
+      };
     };
   };
 }

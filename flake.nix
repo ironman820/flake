@@ -57,6 +57,7 @@
       url = "github:nix-community/home-manager";
     };
     import-tree.url = "github:vic/import-tree";
+    nix-flatpak.url = "github:gmodena/nix-flatpak/?ref=latest";
     nixos-hardware.url = "github:NixOS/nixos-hardware/master";
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
     # Nixpkgs for glocom

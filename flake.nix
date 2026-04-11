@@ -68,6 +68,7 @@
     nixpkgs-openssh.url = "github:nixos/nixpkgs/0858160";
     # PHP 7.2.29
     nixpkgs-php.url = "github:nixos/nixpkgs/53951c0";
+    nixpkgs-stable.url = "github:nixos/nixpkgs/nixos-25.11";
     nixpkgs-9041993.url = "github:nixos/nixpkgs/9041993";
     nixvim = {
       inputs = {
@@ -77,6 +78,7 @@
       url = "github:nix-community/nixvim";
     };
     orca-slicer = {
+      inputs.nixpkgs.follows = "nixpkgs-stable";
       url = "github:ironman820/snorca-slicer-nixos-flake";
     };
     pkgs-by-name.url = "github:drupol/pkgs-by-name-for-flake-parts";

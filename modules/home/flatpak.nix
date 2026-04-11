@@ -7,10 +7,7 @@
         "com.github.tchx84.Flatseal"
       ];
       uninstallUnmanaged = true;
-      update.auto = {
-        enable = true;
-        onCalendar = "weekly";
-      };
+      update.onActivation = true;
     };
   };
 }

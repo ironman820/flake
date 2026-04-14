@@ -79,7 +79,7 @@
     };
     orca-slicer = {
       inputs.nixpkgs.follows = "nixpkgs-stable";
-      url = "github:ironman820/snorca-slicer-nixos-flake";
+      url = "github:ironman820/orca-slicer-nixos-flake";
     };
     pkgs-by-name.url = "github:drupol/pkgs-by-name-for-flake-parts";
     plasma-manager = {

@@ -64,13 +64,13 @@
         };
       };
       folders = {
-        "/home/${config.ironman.user.name}/.config/Snapmaker_Orca" = {
-          id = "cqxwd-vkkfo";
+        "/home/${config.ironman.user.name}/.config/OrcaSlicer" = {
+          id = "eubqq-hp2qx";
           devices = [
-            "friday"
             "nas"
+            "friday"
           ];
-          label = "Snapmaker_Orca";
+          label = "OrcaSlicer";
         };
         "/home/${config.ironman.user.name}/.thunderbird" = {
           id = "upryn-vzhy9";

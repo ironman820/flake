@@ -57,18 +57,18 @@
           name = "Work Laptop";
         };
         steamdeck = {
-          id = "MH5QWUV-EYRW4KY-FEBPNMY-Q52YRGD-ZS3Y5IC-XSOMENJ-FOLT6BF-2PG2DAY";
+          id = "NHY6BAU-WXMQZC2-CZP7P7Z-N5VZQIS-WI5P5L5-R2K2VOL-QYJG4NX-FNH5OA7";
           name = "SteamDeck";
         };
       };
       folders = {
-        "/home/${config.ironman.user.name}/.config/Snapmaker_Orca" = {
-          id = "cqxwd-vkkfo";
+        "/home/${config.ironman.user.name}/.config/OrcaSlicer" = {
+          id = "eubqq-hp2qx";
           devices = [
             "nas"
             "wednesday"
           ];
-          label = "Snapmaker_Orca";
+          label = "OrcaSlicer";
         };
         "/home/${config.ironman.user.name}/Deck Sync" = {
           id = "oz0sn-2p90q";

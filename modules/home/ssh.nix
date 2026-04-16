@@ -130,6 +130,12 @@
           }
           // deployIdentity;
           "pay" = {
+            hostname = "pay.royell.net";
+            user = "royell";
+          }
+          // deployIdentity;
+          "pay2" = {
+            hostname = "pay2.royell.net";
             user = "royell";
           }
           // deployIdentity;

@@ -119,7 +119,6 @@
           id = "wsrp4-mckub";
           devices = [
             "nas"
-            "phone"
           ];
           label = "Money";
           versioning = {

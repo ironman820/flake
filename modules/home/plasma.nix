@@ -13,7 +13,13 @@
         };
         plasma = {
           enable = true;
-          configFile.kwinrc.Xwayland.Scale = 1;
+          configFile = {
+            baloofilerc.General = {
+              "exclude folders[$e]" = "$HOME/git/nixpkgs/";
+              "only basic indexing" = true;
+            };
+            kwinrc.Xwayland.Scale = 1;
+          };
           fonts = {
             fixedWidth = {
               family = "Inconsolata Nerd Font Mono";

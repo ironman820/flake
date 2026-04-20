@@ -144,6 +144,16 @@
             user = "royell";
           }
           // deployIdentity;
+          "pdns.desk" = {
+            hostname = "192.168.20.2";
+            user = "ironman";
+          }
+          // deployIdentity;
+          "pdns.home" = {
+            hostname = "192.168.252.2";
+            user = "ironman";
+          }
+          // deployIdentity;
           "pdns2" = {
             hostname = "208.80.144.82";
             user = "royell";
@@ -284,11 +294,6 @@
             hostname = "dns2.royell.org";
             user = "root";
           };
-          "dns.desk" = {
-            hostname = "192.168.20.2";
-            user = "ironman";
-          }
-          // deployIdentity;
           "docker" = {
             hostname = "docker.royell.org";
             user = "royell";
@@ -447,11 +452,6 @@
             hostname = "100.64.0.61";
             user = "royell";
           };
-          "pdns.desk" = {
-            hostname = "192.168.20.2";
-            user = "ironman";
-          }
-          // deployIdentity;
           "printers.home" = {
             hostname = "192.168.254.10";
             user = "root";

@@ -47,6 +47,24 @@
       remoteBuild = false;
       sshUser = "ironman";
     };
+    pdns-home = {
+      hostname = "pdns.home";
+      profiles.system = {
+        user = "root";
+        path = inputs.deploy-rs.lib.x86_64-linux.activate.nixos self.nixosConfigurations.pdns-home;
+      };
+      remoteBuild = true;
+      sshUser = "ironman";
+    };
+    pdns-work = {
+      hostname = "pdns.desk";
+      profiles.system = {
+        user = "root";
+        path = inputs.deploy-rs.lib.x86_64-linux.activate.nixos self.nixosConfigurations.pdns-work;
+      };
+      remoteBuild = true;
+      sshUser = "ironman";
+    };
     rcm-home = {
       hostname = "rcm.home";
       profiles.system = {

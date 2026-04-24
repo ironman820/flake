@@ -167,7 +167,7 @@
               passHostHeader = true;
               servers = [
                 {
-                  url = "http://192.168.21.111:8025";
+                  url = "http://192.168.20.111:8025";
                 }
               ];
               serversTransport = "insecure";
@@ -176,7 +176,7 @@
               passHostHeader = true;
               servers = [
                 {
-                  url = "https://192.168.21.50:8006";
+                  url = "https://192.168.20.10:8006";
                 }
               ];
               serverstransport = "insecure";
@@ -185,7 +185,7 @@
               passHostHeader = true;
               servers = [
                 {
-                  url = "https://192.168.21.103";
+                  url = "https://192.168.20.103";
                 }
               ];
               serversTransport = "insecure";
@@ -194,7 +194,7 @@
               passHostHeader = true;
               servers = [
                 {
-                  url = "http://192.168.21.107:8000";
+                  url = "http://192.168.20.107:8000";
                 }
               ];
               serversTransport = "insecure";

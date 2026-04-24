@@ -306,7 +306,7 @@
               passHostHeader = true;
               servers = [
                 {
-                  url = "https://192.168.248.38:9443";
+                  url = "https://192.168.248.114:9443";
                 }
               ];
               serversTransport = "insecure";
@@ -387,7 +387,7 @@
               passHostHeader = true;
               servers = [
                 {
-                  url = "https://192.168.254.5:5001";
+                  url = "https://192.168.248.13:5001";
                 }
               ];
               serversTransport = "insecure";
@@ -401,15 +401,6 @@
               ];
               serversTransport = "insecure";
             };
-            omv.loadBalancer = {
-              passHostHeader = true;
-              servers = [
-                {
-                  url = "http://192.168.248.5";
-                }
-              ];
-              serversTransport = "insecure";
-            };
             prowlarr.loadBalancer = {
               passHostHeader = true;
               servers = [
@@ -419,20 +410,11 @@
               ];
               serversTransport = "insecure";
             };
-            proxmox.loadBalancer = {
-              passhostheader = true;
-              servers = [
-                {
-                  url = "https://192.168.248.3:8006";
-                }
-              ];
-              serverstransport = "insecure";
-            };
             pve.loadBalancer = {
               passhostheader = true;
               servers = [
                 {
-                  url = "https://192.168.250.50:8006";
+                  url = "https://192.168.248.11:8006";
                 }
               ];
               serverstransport = "insecure";
@@ -441,7 +423,7 @@
               passhostheader = true;
               servers = [
                 {
-                  url = "https://192.168.250.51:8006";
+                  url = "https://192.168.248.12:8006";
                 }
               ];
               serverstransport = "insecure";
@@ -450,7 +432,7 @@
               passHostHeader = true;
               servers = [
                 {
-                  url = "http://192.168.248.16:8080";
+                  url = "http://192.168.248.104:8080";
                 }
               ];
               serversTransport = "insecure";
@@ -459,7 +441,7 @@
               passHostHeader = true;
               servers = [
                 {
-                  url = "http://192.168.248.16:8081";
+                  url = "http://192.168.248.104:8081";
                 }
               ];
               serversTransport = "insecure";
@@ -469,15 +451,6 @@
               servers = [
                 {
                   url = "http://192.168.248.107:7878";
-                }
-              ];
-              serversTransport = "insecure";
-            };
-            resilio.loadBalancer = {
-              passHostHeader = true;
-              servers = [
-                {
-                  url = "https://192.168.254.5:28888";
                 }
               ];
               serversTransport = "insecure";

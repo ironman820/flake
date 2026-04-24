@@ -150,7 +150,7 @@
           }
           // deployIdentity;
           "pdns.home" = {
-            hostname = "192.168.252.2";
+            hostname = "192.168.248.2";
             user = "ironman";
           }
           // deployIdentity;
@@ -303,7 +303,7 @@
             user = "royell";
           };
           "docker.desk" = {
-            hostname = "192.168.20.11";
+            hostname = "192.168.20.100";
             user = "ironman";
           }
           // deployIdentity;
@@ -470,12 +470,12 @@
           }
           // deployIdentity;
           "pve.home" = {
-            hostname = "192.168.250.50";
+            hostname = "192.168.248.11";
             user = "root";
           }
           // deployIdentity;
           "pve2.home" = {
-            hostname = "192.168.250.51";
+            hostname = "192.168.248.12";
             user = "root";
           }
           // deployIdentity;
@@ -503,7 +503,7 @@
             };
           };
           "rcm.desk" = {
-            hostname = "192.168.21.103";
+            hostname = "192.168.20.103";
             user = "ironman";
           }
           // deployIdentity;
@@ -518,7 +518,7 @@
           }
           // deployIdentity;
           "rcm2.desk" = {
-            hostname = "192.168.21.107";
+            hostname = "192.168.20.107";
             user = "ironman";
           }
           // deployIdentity;
@@ -548,12 +548,12 @@
           }
           // deployIdentity;
           "traefik.desk" = {
-            hostname = "192.168.20.3";
+            hostname = "192.168.20.11";
             user = "ironman";
           }
           // deployIdentity;
           "traefik.home" = {
-            hostname = "192.168.252.102";
+            hostname = "192.168.248.10";
             port = 2222;
             user = "ironman";
           }

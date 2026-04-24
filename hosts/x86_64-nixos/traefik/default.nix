@@ -42,7 +42,7 @@
         http = {
           middlewares = {
             authentik.forwardAuth = {
-              address = "http://192.168.248.38:9000/outpost.goauthentik.io/auth/traefik";
+              address = "http://192.168.248.114:9000/outpost.goauthentik.io/auth/traefik";
               trustForwardHeader = true;
               authResponseHeaders = [
                 "X-authentik-username"
@@ -184,25 +184,11 @@
               service = "notifiarr";
               tls = { };
             };
-            omv = {
-              entryPoints = "https";
-              middlewares = "secured";
-              rule = "Host(`omv.home.niceastman.com`)";
-              service = "omv";
-              tls = { };
-            };
             prowlarr = {
               entryPoints = "https";
               middlewares = "secured";
               rule = "Host(`prowlarr.home.niceastman.com`)";
               service = "prowlarr";
-              tls = { };
-            };
-            proxmox = {
-              entryPoints = "https";
-              middlewares = "proxmox";
-              rule = "Host(`pve-old.home.niceastman.com`)";
-              service = "proxmox";
               tls = { };
             };
             pve = {
@@ -258,7 +244,7 @@
               entryPoints = "https";
               middlewares = "secured";
               rule = "Host(`sync.home.niceastman.com`)";
-              service = "resilio";
+              service = "syncthing";
               tls = { };
             };
             torrent = {
@@ -487,6 +473,15 @@
               servers = [
                 {
                   url = "http://192.168.248.110:8989";
+                }
+              ];
+              serversTransport = "insecure";
+            };
+            syncthing.loadBalancer = {
+              passHostHeader = true;
+              servers = [
+                {
+                  url = "http://192.168.248.13:8384";
                 }
               ];
               serversTransport = "insecure";

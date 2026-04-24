@@ -7,11 +7,13 @@
 {
   imports = [
     ./hardware.nix
+    inputs.disko.nixosModules.disko
+    self.diskoConfigurations.server
   ]
   ++ (with self.nixosModules; [
     base
+    boot-grub-clean
     git
-    proxmox
     tmux
     x64-linux
   ]);
@@ -19,16 +21,29 @@
     users.ironman = self.homeConfigurations.ironman-server;
   };
   networking = {
-    firewall.enable = false;
-    hostName = "pdns.home";
+    interfaces = {
+      ens18 = {
+        ipv4.addresses = [
+          {
+            address = "192.168.248.2";
+            prefixLength = 23;
+          }
+        ];
+      };
+    };
+    defaultGateway = {
+      address = "192.168.248.1";
+      interface = "ens18";
+    };
+    nameservers = [
+      "208.80.144.50"
+      "208.80.144.51"
+    ];
+    useDHCP = false;
   };
   nix.settings.cores = 1;
   security.sudo.wheelNeedsPassword = false;
   services = {
-    mysql = {
-      enable = true;
-      package = pkgs.mariadb;
-    };
     qemuGuest.enable = true;
     technitium-dns-server = {
       enable = true;

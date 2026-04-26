@@ -70,13 +70,7 @@
     nixpkgs-php.url = "github:nixos/nixpkgs/53951c0";
     nixpkgs-stable.url = "github:nixos/nixpkgs/nixos-25.11";
     nixpkgs-9041993.url = "github:nixos/nixpkgs/9041993";
-    nixvim = {
-      inputs = {
-        flake-parts.follows = "flake-parts";
-        nixpkgs.follows = "nixpkgs";
-      };
-      url = "github:nix-community/nixvim";
-    };
+    nixvim.url = "github:nix-community/nixvim";
     pkgs-by-name.url = "github:drupol/pkgs-by-name-for-flake-parts";
     plasma-manager = {
       inputs = {

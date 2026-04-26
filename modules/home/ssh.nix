@@ -107,7 +107,8 @@
           "cs1.aub.fb" = {
             hostname = "10.25.0.2";
             user = "royell";
-          } // switchSSH;
+          }
+          // switchSSH;
           "cs1.crvl" = {
             hostname = "100.64.0.34";
             user = "royell";
@@ -452,6 +453,11 @@
             hostname = "100.64.0.61";
             user = "royell";
           };
+          "peanut" = {
+            hostname = "192.168.248.200";
+            user = "root";
+          }
+          // deployIdentity;
           "printers.home" = {
             hostname = "192.168.254.10";
             user = "root";

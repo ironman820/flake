@@ -7,7 +7,6 @@
         inherit system;
         config.allowUnfree = true;
         overlays = [
-          inputs.orca-slicer.overlays.default
           inputs.rust-overlay.overlays.default
           inputs.self.overlays.default
         ];

@@ -9,7 +9,6 @@
         google-chrome
         kitty
         obsidian
-        orca-slicer
         remmina
         udiskie
         vlc

@@ -62,7 +62,7 @@
         };
       };
       folders = {
-        "/home/${config.ironman.user.name}/.config/OrcaSlicer" = {
+        "/home/${config.ironman.user.name}/.var/app/com.orcaslicer.OrcaSlicer/config/OrcaSlicer" = {
           id = "eubqq-hp2qx";
           devices = [
             "nas"

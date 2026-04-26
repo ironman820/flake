@@ -1,4 +1,4 @@
-{ config, inputs, ... }:
+{ config, flakeRoot, inputs, ... }:
 {
   flake.homeModules.base =
     {
@@ -139,6 +139,10 @@
           enable = true;
           tray = "never";
         };
+      };
+      sops.secrets.nix_conf = {
+        sopsFile = "${flakeRoot}/.secrets/nix.yaml";
+        path = "/home/${osConfig.ironman.user.name}/.config/nix/nix.conf";
       };
       xdg = {
         enable = true;

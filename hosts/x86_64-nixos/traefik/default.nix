@@ -41,25 +41,6 @@
       dynamicConfigOptions = {
         http = {
           middlewares = {
-            authentik.forwardAuth = {
-              address = "http://192.168.248.114:9000/outpost.goauthentik.io/auth/traefik";
-              trustForwardHeader = true;
-              authResponseHeaders = [
-                "X-authentik-username"
-                "X-authentik-groups"
-                "X-authentik-entitlements"
-                "X-authentik-email"
-                "X-authentik-name"
-                "X-authentik-uid"
-                "X-authentik-jwt"
-                "X-authentik-meta-jwks"
-                "X-authentik-meta-outpost"
-                "X-authentik-meta-provider"
-                "X-authentik-meta-app"
-                "X-authentik-meta-version"
-                "authorization"
-              ];
-            };
             guac-prefix.addprefix.prefix = "/guacamole";
             guacamole.chain.middlewares = [
               "guac-prefix"
@@ -107,13 +88,6 @@
             sslheader.headers.customRequestHeaders.X-Forwarded-Proto = "https";
           };
           routers = {
-            authentik = {
-              entryPoints = "https";
-              middlewares = "default-headers";
-              rule = "Host(`auth.niceastman.com`)";
-              service = "authentik";
-              tls = { };
-            };
             calibre = {
               entryPoints = "https";
               middlewares = "default-headers";
@@ -126,27 +100,6 @@
               middlewares = "secured";
               rule = "Host(`pdns.home.niceastman.com`)";
               service = "dns";
-              tls = { };
-            };
-            fflows = {
-              entryPoints = "https";
-              middlewares = "secured";
-              rule = "Host(`fflows.home.niceastman.com`)";
-              service = "fflows";
-              tls = { };
-            };
-            git = {
-              entryPoints = "https";
-              middlewares = "default-headers";
-              rule = "Host(`git.niceastman.com`)";
-              service = "git";
-              tls = { };
-            };
-            guacamole = {
-              entryPoints = "https";
-              middlewares = "guacamole";
-              rule = "Host(`rdp.home.niceastman.com`)";
-              service = "guacamole";
               tls = { };
             };
             huntarr = {
@@ -177,13 +130,6 @@
               service = "nas";
               tls = { };
             };
-            notifiarr = {
-              entryPoints = "https";
-              middlewares = "notifiarr";
-              rule = "Host(`notifiarr.home.niceastman.com`)";
-              service = "notifiarr";
-              tls = { };
-            };
             prowlarr = {
               entryPoints = "https";
               middlewares = "secured";
@@ -207,7 +153,7 @@
             };
             radarr = {
               entryPoints = "https";
-              middlewares = "authentik";
+              middlewares = "secured";
               rule = "Host(`radarr.home.niceastman.com`)";
               service = "radarr";
               tls = { };
@@ -228,14 +174,14 @@
             };
             sonarr = {
               entryPoints = "https";
-              middlewares = "authentik";
+              middlewares = "secured";
               rule = "Host(`sonarr.home.niceastman.com`)";
               service = "sonarr";
               tls = { };
             };
             sonarr2 = {
               entryPoints = "https";
-              middlewares = "authentik";
+              middlewares = "secured";
               rule = "Host(`sonarr2.home.niceastman.com`)";
               service = "sonarr2";
               tls = { };
@@ -279,6 +225,13 @@
                 ];
               };
             };
+            ups = {
+              entryPoints = "https";
+              middlewares = "secured";
+              rule = "Host(`ups.home.niceastman.com`)";
+              service = "peanut";
+              tls = { };
+            };
             vaultwarden = {
               entryPoints = "https";
               middlewares = "default-headers";
@@ -288,15 +241,6 @@
             };
           };
           services = {
-            authentik.loadBalancer = {
-              passHostHeader = true;
-              servers = [
-                {
-                  url = "https://192.168.248.114:9443";
-                }
-              ];
-              serversTransport = "insecure";
-            };
             calibre.loadBalancer = {
               passHostHeader = true;
               servers = [
@@ -311,33 +255,6 @@
               servers = [
                 {
                   url = "http://192.168.248.2:5380";
-                }
-              ];
-              serversTransport = "insecure";
-            };
-            fflows.loadBalancer = {
-              passHostHeader = true;
-              servers = [
-                {
-                  url = "http://192.168.248.117:19200";
-                }
-              ];
-              serversTransport = "insecure";
-            };
-            git.loadBalancer = {
-              passHostHeader = true;
-              servers = [
-                {
-                  url = "http://192.168.248.13:3000";
-                }
-              ];
-              serversTransport = "insecure";
-            };
-            guacamole.loadBalancer = {
-              passHostHeader = true;
-              servers = [
-                {
-                  url = "http://192.168.248.35:8080";
                 }
               ];
               serversTransport = "insecure";
@@ -378,14 +295,13 @@
               ];
               serversTransport = "insecure";
             };
-            notifiarr.loadBalancer = {
+            peanut.loadBalancer = {
               passHostHeader = true;
               servers = [
                 {
-                  url = "http://192.168.248.108:5454";
+                  url = "http://192.168.248.200:8080";
                 }
               ];
-              serversTransport = "insecure";
             };
             prowlarr.loadBalancer = {
               passHostHeader = true;
@@ -466,7 +382,6 @@
                   url = "http://192.168.248.109:8989";
                 }
               ];
-              serversTransport = "insecure";
             };
             sonarr2.loadBalancer = {
               passHostHeader = true;
@@ -475,7 +390,6 @@
                   url = "http://192.168.248.110:8989";
                 }
               ];
-              serversTransport = "insecure";
             };
             syncthing.loadBalancer = {
               passHostHeader = true;

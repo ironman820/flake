@@ -185,11 +185,6 @@
             user = "niceastman";
           }
           // deployIdentity;
-          "auth.home" = {
-            hostname = "192.168.248.114";
-            user = "root";
-          }
-          // deployIdentity;
           "backup" = {
             hostname = "208.80.144.49";
             user = "root";

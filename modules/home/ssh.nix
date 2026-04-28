@@ -495,6 +495,11 @@
             user = "ironman";
           }
           // deployIdentity;
+          "radarr" = {
+            hostname = "192.168.248.107";
+            user = "root";
+          }
+          // deployIdentity;
           "radius" = {
             hostname = "radius.royell.org";
             user = "root";

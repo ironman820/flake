@@ -20,6 +20,7 @@
           xcolor
           xdo
           xdotool
+          xev
           xfce4-clipman-plugin
           xfce4-cpugraph-plugin
           xfce4-fsguard-plugin
@@ -31,7 +32,6 @@
           xfce4-weather-plugin
           xfce4-whiskermenu-plugin
           xfce4-xkb-plugin
-          xorg.xev
           xsel
           xtitle
           xwinmosaic

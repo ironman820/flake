@@ -147,7 +147,7 @@
           with pkgs;
           [
             conda
-            nodePackages.nodejs
+            nodejs
             pyright
             pythonPackages
             unixODBC

@@ -74,6 +74,15 @@
       remoteBuild = true;
       sshUser = "ironman";
     };
+    radius-work = {
+      hostname = "radius.desk";
+      profiles.system = {
+        user = "root";
+        path = inputs.deploy-rs.lib.x86_64-linux.activate.nixos self.nixosConfigurations.radius-work;
+      };
+      remoteBuild = true;
+      sshUser = "ironman";
+    };
     rcm-home = {
       hostname = "rcm.home";
       profiles.system = {

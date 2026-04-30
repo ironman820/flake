@@ -508,6 +508,11 @@
               "HostKeyAlgorithms" = "+ssh-rsa";
             };
           };
+          "radius.desk" = {
+            hostname = "192.168.20.109";
+            user = "ironman";
+          }
+          // deployIdentity;
           "rcm.desk" = {
             hostname = "192.168.20.103";
             user = "ironman";

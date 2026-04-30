@@ -115,6 +115,13 @@
               service = "mailhog";
               tls = { };
             };
+            netbox = {
+              entryPoints = "https";
+              middlewares = "secured";
+              rule = "Host(`netbox.desk.niceastman.com`)";
+              service = "netbox";
+              tls = { };
+            };
             pve = {
               entryPoints = "https";
               middlewares = "proxmox";
@@ -168,6 +175,15 @@
               servers = [
                 {
                   url = "http://192.168.20.111:8025";
+                }
+              ];
+              serversTransport = "insecure";
+            };
+            netbox.loadBalancer = {
+              passHostHeader = true;
+              servers = [
+                {
+                  url = "https://192.168.20.108";
                 }
               ];
               serversTransport = "insecure";

@@ -47,6 +47,15 @@
       remoteBuild = false;
       sshUser = "ironman";
     };
+    netbox-work = {
+      hostname = "netbox.desk";
+      profiles.system = {
+        user = "root";
+        path = inputs.deploy-rs.lib.x86_64-linux.activate.nixos self.nixosConfigurations.netbox-work;
+      };
+      remoteBuild = true;
+      sshUser = "ironman";
+    };
     pdns-home = {
       hostname = "pdns.home";
       profiles.system = {

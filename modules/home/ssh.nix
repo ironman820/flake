@@ -384,11 +384,6 @@
             user = "royell";
           }
           // deployIdentity;
-          monday = {
-            hostname = "192.168.253.161";
-            user = "ironman";
-          }
-          // deployIdentity;
           "mysql" = {
             hostname = "mysql.royell.org";
             user = "royell";
@@ -405,6 +400,11 @@
             hostname = "netbox.royell.org";
             user = "root";
           };
+          "netbox.desk" = {
+            hostname = "192.168.20.108";
+            user = "ironman";
+          }
+          // deployIdentity;
           "netmon" = {
             hostname = "netmon.royell.org";
             user = "root";

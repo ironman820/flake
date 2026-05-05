@@ -1,4 +1,9 @@
-{ inputs, flakeRoot, withSystem, ... }:
+{
+  inputs,
+  flakeRoot,
+  withSystem,
+  ...
+}:
 {
   perSystem =
     { system, ... }:
@@ -18,6 +23,7 @@
     withSystem prev.stdenv.hostPlatform.system (
       { config, ... }:
       {
+        inherit (inputs.nixpkgs-stable.legacyPackages.${prev.stdenv.hostPlatform.system}) wireshark;
         local = config.packages;
       }
     );

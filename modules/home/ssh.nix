@@ -130,6 +130,11 @@
             user = "royell";
           }
           // deployIdentity;
+          "ntp" = {
+            hostname = "ntp.royell.org";
+            user = "royell";
+          }
+          // deployIdentity;
           "pay" = {
             hostname = "pay.royell.net";
             user = "royell";

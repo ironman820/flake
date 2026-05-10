@@ -21,6 +21,23 @@
     users.ironman = self.homeConfigurations.ironman-server;
   };
   networking = {
+    firewall = {
+      allowedTCPPorts = [
+        22
+        53
+        80
+        443
+        538
+        853
+        5380
+        53443
+      ];
+      allowedUDPPorts = [
+        53
+        538
+        853
+      ];
+    };
     interfaces = {
       ens18 = {
         ipv4.addresses = [
@@ -44,11 +61,17 @@
   nix.settings.cores = 1;
   security.sudo.wheelNeedsPassword = false;
   services = {
-    qemuGuest.enable = true;
-    technitium-dns-server = {
+    chrony = {
       enable = true;
-      openFirewall = true;
+      extraConfig = ''
+        allow
+      '';
+      servers = [
+        "208.91.182.74"
+      ];
     };
+    qemuGuest.enable = true;
+    technitium-dns-server.enable = true;
     xserver.enable = false;
   };
   users.users.ironman.extraGroups = [

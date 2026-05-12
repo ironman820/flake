@@ -10,6 +10,15 @@
       remoteBuild = true;
       sshUser = "ironman";
     };
+    files = {
+      hostname = "files.home";
+      profiles.system = {
+        user = "root";
+        path = inputs.deploy-rs.lib.x86_64-linux.activate.nixos self.nixosConfigurations.zipline;
+      };
+      remoteBuild = true;
+      sshUser = "ironman";
+    };
     llama = {
       hostname = "llama";
       profiles.system = {

@@ -26,7 +26,6 @@
     3128
     8080
   ];
-  nix.settings.cores = 1;
   security.sudo.wheelNeedsPassword = false;
   services = {
     openssh = {
@@ -111,6 +110,13 @@
               middlewares = "secured";
               rule = "Host(`pdns.home.niceastman.com`)";
               service = "dns";
+              tls = { };
+            };
+            files = {
+              entryPoints = "https";
+              middlewares = "default-headers";
+              rule = "Host(`myshare.niceastman.com`)";
+              service = "zipline";
               tls = { };
             };
             huntarr = {
@@ -416,6 +422,15 @@
               servers = [
                 {
                   url = "http://192.168.248.108:8000";
+                }
+              ];
+              serversTransport = "insecure";
+            };
+            zipline.loadBalancer = {
+              passHostHeader = true;
+              servers = [
+                {
+                  url = "http://192.168.248.103:3000";
                 }
               ];
               serversTransport = "insecure";

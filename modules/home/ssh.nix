@@ -308,8 +308,8 @@
             user = "ironman";
           }
           // deployIdentity;
-          "friday" = {
-            hostname = "192.168.254.215";
+          "files.home" = {
+            hostname = "192.168.248.103";
             user = "ironman";
           }
           // deployIdentity;

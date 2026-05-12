@@ -42,7 +42,6 @@
     ];
     useDHCP = false;
   };
-  nix.settings.cores = 1;
   security.sudo.wheelNeedsPassword = false;
   services = {
     qemuGuest.enable = true;

@@ -432,6 +432,16 @@
             user = "ironman";
           }
           // deployIdentity;
+          "pass" = {
+            hostname = "192.168.248.108";
+            user = "ironman";
+          }
+          // deployIdentity;
+          "pass.old" = {
+            hostname = "192.168.248.103";
+            user = "root";
+          }
+          // deployIdentity;
           "pass.royell" = {
             hostname = "208.80.144.66";
             user = "royell";

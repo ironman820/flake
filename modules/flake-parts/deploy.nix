@@ -56,6 +56,15 @@
       remoteBuild = true;
       sshUser = "ironman";
     };
+    pass = {
+      hostname = "pass";
+      profiles.system = {
+        user = "root";
+        path = inputs.deploy-rs.lib.x86_64-linux.activate.nixos self.nixosConfigurations.vaultwarden;
+      };
+      remoteBuild = true;
+      sshUser = "ironman";
+    };
     pdns-home = {
       hostname = "pdns.home";
       profiles.system = {
@@ -125,7 +134,7 @@
         user = "root";
         path = inputs.deploy-rs.lib.x86_64-linux.activate.nixos self.nixosConfigurations.traefik;
       };
-      remoteBuild = true;
+      remoteBuild = false;
       sshUser = "ironman";
     };
     traefik-work = {

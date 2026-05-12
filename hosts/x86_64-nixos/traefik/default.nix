@@ -86,6 +86,17 @@
               "webauthheader"
             ];
             sslheader.headers.customRequestHeaders.X-Forwarded-Proto = "https";
+            vaultwarden.headers = {
+              # browserXssFilter = false;
+              # contentTypeNosniff = true;
+              # customFrameOptionsValue = "SAMEORIGIN";
+              # forceSTSHeader = true;
+              # frameDeny = true;
+              # stsIncludeSubdomains = true;
+              # stsPreload = true;
+              # stsSeconds = 15552000;
+              customRequestHeaders.X-Forwarded-Proto = "https";
+            };
           };
           routers = {
             calibre = {
@@ -234,7 +245,7 @@
             };
             vaultwarden = {
               entryPoints = "https";
-              middlewares = "default-headers";
+              middlewares = "vaultwarden";
               rule = "Host(`pass.niceastman.com`)";
               service = "vaultwarden";
               tls = { };
@@ -404,7 +415,7 @@
               passHostHeader = true;
               servers = [
                 {
-                  url = "http://192.168.248.103:8000";
+                  url = "http://192.168.248.108:8000";
                 }
               ];
               serversTransport = "insecure";

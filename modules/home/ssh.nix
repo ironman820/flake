@@ -18,11 +18,9 @@
       };
       switchSSH = {
         user = "royell";
-        extraOptions = {
-          "KexAlgorithms" = "+diffie-hellman-group1-sha1";
-          "Ciphers" = "+3des-cbc";
-          "HostKeyAlgorithms" = "+ssh-dss,ssh-rsa";
-        };
+        KexAlgorithms = [ "+diffie-hellman-group1-sha1" ];
+        Ciphers = "+3des-cbc";
+        HostKeyAlgorithms = "+ssh-dss,ssh-rsa";
       };
     in
     {
@@ -71,7 +69,7 @@
         enable = true;
         package = inputs.nixpkgs-openssh.legacyPackages.${pkgs.stdenv.hostPlatform.system}.openssh;
         enableDefaultConfig = false;
-        matchBlocks = {
+        settings = {
           "*" = {
             compression = true;
             forwardAgent = true;
@@ -91,7 +89,7 @@
           // deployIdentity;
           "billmax2" = {
             hostname = "billing2.royell.org";
-            # HostKeyAlgorithms +ssh-rsa
+            HostKeyAlgorithms = "+ssh-rsa";
             user = "royell";
           }
           // deployIdentity;
@@ -117,6 +115,14 @@
             hostname = "10.10.8.2";
           }
           // switchSSH;
+          "dns1" = {
+            hostname = "dns1.royell.org";
+            user = "root";
+          };
+          "dns2" = {
+            hostname = "dns2.royell.org";
+            user = "root";
+          };
           "er1" = {
             hostname = "162.216.110.104";
             user = "royell";
@@ -225,14 +231,10 @@
           }
           // switchSSH;
           "cs1.irvg.mm" = {
-            extraOptions = {
-              "KexAlgorithms" = "+diffie-hellman-group1-sha1";
-              "Ciphers" = "+3des-cbc";
-              "HostKeyAlgorithms" = "+ssh-dss";
-            };
             hostname = "10.10.177.3";
             user = "royell";
-          };
+          }
+          // switchSSH;
           "cs1.ltfld.mm" = {
             hostname = "172.29.132.2";
           }
@@ -246,9 +248,7 @@
           }
           // switchSSH;
           "cs1.wvry.190" = {
-            extraOptions = {
-              "HostKeyAlgorithms" = "+ssh-dss";
-            };
+            HostKeyAlgorithms = "+ssh-dss";
             hostname = "100.64.0.6";
           }
           // switchSSH;
@@ -278,7 +278,7 @@
           // switchSSH;
           "dhcp" = {
             hostname = "208.91.182.74";
-            extraOptions."HostKeyAlgorithms" = "+ssh-rsa";
+            HostKeyAlgorithms = "+ssh-rsa";
             port = 8222;
             user = "root";
           };
@@ -287,14 +287,12 @@
             user = "root";
           }
           // deployIdentity;
-          "dns1" = {
+          "dns" = {
             hostname = "dns1.royell.org";
-            user = "root";
-          };
-          "dns2" = {
-            hostname = "dns2.royell.org";
-            user = "root";
-          };
+            port = 2222;
+            user = "royell";
+          }
+          // deployIdentity;
           "docker" = {
             hostname = "docker.royell.org";
             user = "royell";
@@ -437,11 +435,6 @@
             user = "ironman";
           }
           // deployIdentity;
-          "pass.old" = {
-            hostname = "192.168.248.103";
-            user = "root";
-          }
-          // deployIdentity;
           "pass.royell" = {
             hostname = "208.80.144.66";
             user = "royell";
@@ -518,10 +511,8 @@
           "radius" = {
             hostname = "radius.royell.org";
             user = "root";
-            extraOptions = {
-              "KexAlgorithms" = "+diffie-hellman-group-exchange-sha1";
-              "HostKeyAlgorithms" = "+ssh-rsa";
-            };
+            KexAlgorithms = [ "+diffie-hellman-group-exchange-sha1" ];
+            HostKeyAlgorithms = "+ssh-rsa";
           };
           "radius.desk" = {
             hostname = "192.168.20.109";
@@ -556,9 +547,12 @@
           "rcm3" = {
             hostname = "rcm3.royell.org";
             user = "royell";
-            extraOptions."RemoteForward" =
-              "/run/user/1000/gnupg/S.gpg-agent /run/user/1000/gnupg/S.gpg-agent.extra";
           };
+          "share" = {
+            hostname = "share.royell.org";
+            user = "royell";
+          }
+          // deployIdentity;
           "smx" = {
             hostname = "smx.royell.org";
             user = "royell";

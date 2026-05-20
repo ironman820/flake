@@ -7,7 +7,6 @@
         user = "root";
         path = inputs.deploy-rs.lib.x86_64-linux.activate.nixos self.nixosConfigurations.calibre;
       };
-      remoteBuild = true;
       sshUser = "ironman";
     };
     files = {
@@ -16,7 +15,6 @@
         user = "root";
         path = inputs.deploy-rs.lib.x86_64-linux.activate.nixos self.nixosConfigurations.zipline;
       };
-      remoteBuild = true;
       sshUser = "ironman";
     };
     llama = {
@@ -25,7 +23,6 @@
         user = "root";
         path = inputs.deploy-rs.lib.x86_64-linux.activate.nixos self.nixosConfigurations.llama;
       };
-      remoteBuild = true;
       sshUser = "ironman";
     };
     llama-work = {
@@ -34,7 +31,6 @@
         user = "root";
         path = inputs.deploy-rs.lib.x86_64-linux.activate.nixos self.nixosConfigurations.llama-work;
       };
-      remoteBuild = true;
       sshUser = "ironman";
     };
     lidarr = {
@@ -43,7 +39,6 @@
         user = "root";
         path = inputs.deploy-rs.lib.x86_64-linux.activate.nixos self.nixosConfigurations.lidarr;
       };
-      remoteBuild = true;
       sshUser = "ironman";
     };
     monday = {
@@ -53,7 +48,6 @@
         user = "root";
         path = inputs.deploy-rs.lib.x86_64-linux.activate.nixos self.nixosConfigurations.monday;
       };
-      remoteBuild = false;
       sshUser = "ironman";
     };
     netbox-work = {
@@ -62,7 +56,6 @@
         user = "root";
         path = inputs.deploy-rs.lib.x86_64-linux.activate.nixos self.nixosConfigurations.netbox-work;
       };
-      remoteBuild = true;
       sshUser = "ironman";
     };
     pass = {
@@ -71,7 +64,6 @@
         user = "root";
         path = inputs.deploy-rs.lib.x86_64-linux.activate.nixos self.nixosConfigurations.vaultwarden;
       };
-      remoteBuild = true;
       sshUser = "ironman";
     };
     pdns-home = {
@@ -80,7 +72,6 @@
         user = "root";
         path = inputs.deploy-rs.lib.x86_64-linux.activate.nixos self.nixosConfigurations.pdns-home;
       };
-      remoteBuild = false;
       sshUser = "ironman";
     };
     pdns-work = {
@@ -89,7 +80,6 @@
         user = "root";
         path = inputs.deploy-rs.lib.x86_64-linux.activate.nixos self.nixosConfigurations.pdns-work;
       };
-      remoteBuild = true;
       sshUser = "ironman";
     };
     radius-work = {
@@ -98,7 +88,6 @@
         user = "root";
         path = inputs.deploy-rs.lib.x86_64-linux.activate.nixos self.nixosConfigurations.radius-work;
       };
-      remoteBuild = true;
       sshUser = "ironman";
     };
     rcm-home = {
@@ -107,7 +96,6 @@
         user = "root";
         path = inputs.deploy-rs.lib.x86_64-linux.activate.nixos self.nixosConfigurations.rcm-home;
       };
-      remoteBuild = true;
       sshUser = "ironman";
     };
     rcm-work = {
@@ -116,7 +104,6 @@
         user = "root";
         path = inputs.deploy-rs.lib.x86_64-linux.activate.nixos self.nixosConfigurations.rcm-work;
       };
-      remoteBuild = true;
       sshUser = "ironman";
     };
     rcm2-home = {
@@ -125,7 +112,6 @@
         user = "root";
         path = inputs.deploy-rs.lib.x86_64-linux.activate.nixos self.nixosConfigurations.rcm2-home;
       };
-      remoteBuild = true;
       sshUser = "ironman";
     };
     rcm2-work = {
@@ -134,7 +120,6 @@
         user = "root";
         path = inputs.deploy-rs.lib.x86_64-linux.activate.nixos self.nixosConfigurations.rcm2-work;
       };
-      remoteBuild = true;
       sshUser = "ironman";
     };
     traefik = {
@@ -143,7 +128,6 @@
         user = "root";
         path = inputs.deploy-rs.lib.x86_64-linux.activate.nixos self.nixosConfigurations.traefik;
       };
-      remoteBuild = false;
       sshUser = "ironman";
     };
     traefik-work = {
@@ -152,7 +136,6 @@
         user = "root";
         path = inputs.deploy-rs.lib.x86_64-linux.activate.nixos self.nixosConfigurations.traefik-work;
       };
-      remoteBuild = true;
       sshUser = "ironman";
     };
   };

@@ -56,8 +56,8 @@
       url = "github:ThatOtherAndrew/Hexecute";
     };
     home-manager = {
-      inputs.nixpkgs.follows = "nixpkgs";
       url = "github:nix-community/home-manager";
+      inputs.nixpkgs.follows = "nixpkgs";
     };
     import-tree.url = "github:vic/import-tree";
     nix-flatpak.url = "github:gmodena/nix-flatpak/?ref=latest";

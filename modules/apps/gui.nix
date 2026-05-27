@@ -1,8 +1,9 @@
 {
   flake.nixosModules.apps-gui =
-    { pkgs, ... }:
+    { inputs, pkgs, ... }:
     {
       environment.systemPackages = with pkgs; [
+        boxbuddy
         local.catppuccin-kitty
         feishin
         freecad
@@ -13,8 +14,14 @@
         udiskie
         vlc
         zotero
+        # Zen Browser - defaults
+        inputs.zen-browser.packages.${pkgs.stdenv.hostPlatform.system}.default
       ];
       programs = {
+        appimage = {
+          enable = true;
+          binfmt = true;
+        };
         firefox.enable = true;
       };
       xdg.portal = {

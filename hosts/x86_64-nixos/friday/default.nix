@@ -18,6 +18,7 @@
   ])
   ++ (with self.nixosModules; [
     apps-gui-extra
+    arduino
     base
     boot-grub
     de-plasma

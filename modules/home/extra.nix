@@ -5,5 +5,10 @@
       podman
       yubikey
     ];
+    programs.zed-editor.enable = true;
+    services.udiskie = {
+      enable = true;
+      tray = "never";
+    };
   };
 }

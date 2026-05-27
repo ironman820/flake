@@ -135,10 +135,6 @@
           defaultCacheTtl = 10800;
           maxCacheTtl = 21600;
         };
-        udiskie = {
-          enable = true;
-          tray = "never";
-        };
       };
       sops.secrets.nix_conf = {
         sopsFile = "${flakeRoot}/.secrets/nix.yaml";

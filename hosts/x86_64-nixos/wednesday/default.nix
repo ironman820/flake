@@ -19,6 +19,7 @@
   ++ (with self.nixosModules; [
     apps-gui-extra
     apps-python
+    arduino
     base
     boot-grub
     de-plasma
@@ -42,6 +43,7 @@
     (modulesPath + "/installer/scan/not-detected.nix")
   ]);
   environment.systemPackages = with pkgs; [
+    boxbuddy
     deskflow
     distrobox
     docker-compose

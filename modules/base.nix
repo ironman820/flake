@@ -38,7 +38,6 @@
           cifs-utils
           conda
           delta
-          deploy-rs
           diff-so-fancy
           dig
           duf
@@ -118,10 +117,6 @@
       location.provider = "geoclue2";
       networking.useDHCP = lib.mkDefault true;
       programs = {
-        appimage = {
-          enable = true;
-          binfmt = true;
-        };
         bat = {
           enable = true;
           extraPackages = with pkgs.bat-extras; [

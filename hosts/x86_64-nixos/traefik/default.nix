@@ -369,7 +369,7 @@
               passHostHeader = true;
               servers = [
                 {
-                  url = "http://192.168.248.107:7878";
+                  url = "http://192.168.248.123:7878";
                 }
               ];
               serversTransport = "insecure";

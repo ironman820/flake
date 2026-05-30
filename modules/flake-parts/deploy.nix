@@ -82,6 +82,14 @@
       };
       sshUser = "ironman";
     };
+    radarr = {
+      hostname = "radarr";
+      profiles.system = {
+        user = "root";
+        path = inputs.deploy-rs.lib.x86_64-linux.activate.nixos self.nixosConfigurations.radarr;
+      };
+      sshUser = "ironman";
+    };
     radius-work = {
       hostname = "radius.desk";
       profiles.system = {

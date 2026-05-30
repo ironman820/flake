@@ -504,8 +504,8 @@
           }
           // deployIdentity;
           "radarr" = {
-            hostname = "192.168.248.107";
-            user = "root";
+            hostname = "192.168.248.123";
+            user = "ironman";
           }
           // deployIdentity;
           "radius" = {

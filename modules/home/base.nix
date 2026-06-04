@@ -1,4 +1,9 @@
-{ config, flakeRoot, inputs, ... }:
+{
+  config,
+  flakeRoot,
+  inputs,
+  ...
+}:
 {
   flake.homeModules.base =
     {
@@ -84,6 +89,7 @@
         fzf = {
           enable = true;
           enableBashIntegration = true;
+          historyWidget.command = "";
           tmux.enableShellIntegration = true;
         };
         gpg = {

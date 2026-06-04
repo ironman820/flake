@@ -1,6 +1,5 @@
 {
   config,
-  flakeRoot,
   inputs,
   modulesPath,
   pkgs,
@@ -53,8 +52,6 @@
   home-manager.users.niceastman = self.homeConfigurations.niceastman;
   ironman = {
     syncthing = {
-      # cert = config.sops.secrets.syncthing-work-cert.path;
-      # key = config.sops.secrets.syncthing-work-key.path;
       devices = {
         e105-laptop = {
           id = "RPVYMOE-RC2NDFN-C5TRBZ2-ATRNVNE-VWONQD3-DVAGPJ5-OV5RWTK-KKKBSAI";
@@ -167,30 +164,4 @@
     openssh.settings.PermitRootLogin = "no";
     system76-scheduler.settings.cfsProfiles.enable = true;
   };
-  # sops.secrets =
-  #   let
-  #     group = config.ironman.user.name;
-  #     mode = "0440";
-  #     owner = config.ironman.user.name;
-  #     sopsFile = "${flakeRoot}/.secrets/syncthing.yaml";
-  #   in
-  #   {
-  #     syncthing-work-cert = {
-  #       inherit
-  #         group
-  #         mode
-  #         owner
-  #         sopsFile
-  #         ;
-  #     };
-  #     syncthing-work-key = {
-  #       inherit
-  #         group
-  #         mode
-  #         owner
-  #         sopsFile
-  #         ;
-  #     };
-  #   };
-  zramSwap.enable = true;
 }

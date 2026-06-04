@@ -61,7 +61,10 @@
     };
     import-tree.url = "github:vic/import-tree";
     nix-flatpak.url = "github:gmodena/nix-flatpak/?ref=latest";
-    nixos-hardware.url = "github:NixOS/nixos-hardware/master";
+    nixos-hardware = {
+      inputs.nixpkgs.follows = "nixpkgs";
+      url = "github:NixOS/nixos-hardware/master";
+    };
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
     # Nixpkgs for glocom
     nixpkgs-8cad3db.url = "github:nixos/nixpkgs/8cad3db";

@@ -14,12 +14,12 @@
         "${flakeRoot}/modules/_tmux.nix"
       ];
       programs = {
-        bash.initExtra = ''
-          if [ $DISPLAY ]; then
-            [[ $- != *i* ]] && return
-            [ -z "''${TMUX}" ] && { tmux new-session -A -s ${osConfig.ironman.user.name} && exit; }
-          fi
-        '';
+        # bash.initExtra = ''
+        #   if [ $DISPLAY ]; then
+        #     [[ $- != *i* ]] && return
+        #     [ -z "''${TMUX}" ] && { tmux new-session -A -s ${osConfig.ironman.user.name} && exit; }
+        #   fi
+        # '';
         tmux = {
           secureSocket = false;
           extraConfig = ''

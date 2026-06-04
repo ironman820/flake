@@ -18,7 +18,10 @@
               "exclude folders[$e]" = "$HOME/git/nixpkgs/";
               "only basic indexing" = true;
             };
-            kwinrc.Xwayland.Scale = 1;
+            kwinrc = {
+              Effect-overview.BorderActivate = 9;
+              Xwayland.Scale = 1;
+            };
           };
           fonts = {
             fixedWidth = {

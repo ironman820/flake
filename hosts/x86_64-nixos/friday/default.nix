@@ -221,4 +221,5 @@
           ;
       };
     };
+  users.groups.ironman.gid = pkgs.lib.mkForce 986;
 }

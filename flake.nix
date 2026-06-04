@@ -71,7 +71,7 @@
     nixpkgs-openssh.url = "github:nixos/nixpkgs/0858160";
     # PHP 7.2.29
     nixpkgs-php.url = "github:nixos/nixpkgs/53951c0";
-    nixpkgs-stable.url = "github:nixos/nixpkgs/nixos-25.11";
+    nixpkgs-stable.url = "github:nixos/nixpkgs/nixos-26.05";
     nixpkgs-9041993.url = "github:nixos/nixpkgs/9041993";
     nixvim.url = "github:nix-community/nixvim";
     pkgs-by-name.url = "github:drupol/pkgs-by-name-for-flake-parts";

@@ -1,7 +1,11 @@
 { flakeRoot, inputs, ... }:
 {
   flake.nixosModules.rcm =
-    { pkgs, config, ... }:
+    {
+      pkgs,
+      config,
+      ...
+    }:
     let
       inherit (config.services.nginx) user;
       inherit (pkgs.stdenv.hostPlatform) system;
@@ -11,39 +15,49 @@
       };
     in
     {
-      environment = {
-        systemPackages =
+      environment =
         let
-          pythonPackages = pkgs.python3.withPackages (ps: with ps; [
-            numpy
-            pandas
-            pyodbc
-            python-dotenv
-            requests
-            sqlalchemy
-          ]); in
-        with phpPkgs; [
-          (php74.buildEnv {
-            extensions =
-              {
-                all,
-                enabled,
-              }:
-              enabled ++ (with all; [ sqlsrv ]);
-          })
-          php74Packages.psalm
-          pyright
-          pythonPackages
-          unixODBC
-          (unixODBCDrivers.msodbcsql17.override { openssl = phpPkgs.openssl_1_1; })
-        ];
-        unixODBCDrivers = with phpPkgs.unixODBCDrivers; [
-          (msodbcsql17.override { openssl = phpPkgs.openssl_1_1; })
-        ];
-        variables = {
-          LD_LIBRARY_PATH = "/run/opengl-driver/lib:${phpPkgs.unixODBC}/lib:${phpPkgs.unixODBCDrivers.msodbcsql17}/lib";
+          version-utils = import "${flakeRoot}/lib/version-utils.nix" { };
+          inherit (version-utils) getVersionMajorMinor;
+          pythonPackages = pkgs.python3.withPackages (
+            ps: with ps; [
+              ipykernel
+              numpy
+              pandas
+              pyodbc
+              python-dotenv
+              requests
+              sqlalchemy
+            ]
+          );
+        in
+        {
+          systemPackages =
+            (with phpPkgs; [
+              (php74.buildEnv {
+                extensions =
+                  {
+                    all,
+                    enabled,
+                  }:
+                  enabled ++ (with all; [ sqlsrv ]);
+              })
+              php74Packages.psalm
+              unixODBC
+              (unixODBCDrivers.msodbcsql17.override { openssl = phpPkgs.openssl_1_1; })
+            ])
+            ++ (with pkgs; [
+              basedpyright
+              pythonPackages
+            ]);
+          unixODBCDrivers = with phpPkgs.unixODBCDrivers; [
+            (msodbcsql17.override { openssl = phpPkgs.openssl_1_1; })
+          ];
+          variables = {
+            LD_LIBRARY_PATH = "/run/opengl-driver/lib:${phpPkgs.unixODBC}/lib:${phpPkgs.unixODBCDrivers.msodbcsql17}/lib";
+            PYTHONPATH = "${pythonPackages}/lib/python${getVersionMajorMinor pkgs.python3.version}/site-packages";
+          };
         };
-      };
       networking.firewall.allowedTCPPorts = [ 443 ];
       services = {
         nginx = {

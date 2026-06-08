@@ -29,64 +29,62 @@
         font = "Lat2-Terminus16";
         useXkbConfig = true; # use xkbOptions in tty.
       };
-      environment.systemPackages =
-        with pkgs;
-        [
-          age
-          btop
-          caligula
-          cifs-utils
-          conda
-          delta
-          diff-so-fancy
-          dig
-          duf
-          dust
-          eltclsh
-          entr
-          enum4linux
-          eza
-          ffmpeg
-          inputs'.snowfall-flake.packages.flake
-          fping
-          fzf
-          gcc
-          glab
-          glibc
-          gnumake
-          hplip
-          local.idracclient
-          inetutils
-          jq
-          just
-          fastfetch
-          nix-output-monitor
-          nixos-anywhere
-          nodejs
-          ntfs3g
-          nvd
-          p7zip
-          poppler-utils
-          pv
-          python3
-          qrencode
-          rclone
-          ripgrep
-          ssh-to-age
-          sops
-          local.switchssh
-          tealdeer
-          trashy
-          unrar
-          unzip
-          wget
-          wireguard-tools
-          yq
-          zip
-        ];
+      environment.systemPackages = with pkgs; [
+        age
+        basedpyright
+        btop
+        caligula
+        cifs-utils
+        conda
+        delta
+        diff-so-fancy
+        dig
+        duf
+        dust
+        eltclsh
+        entr
+        enum4linux
+        eza
+        ffmpeg
+        inputs'.snowfall-flake.packages.flake
+        fping
+        fzf
+        gcc
+        glab
+        glibc
+        gnumake
+        hplip
+        local.idracclient
+        inetutils
+        jq
+        just
+        fastfetch
+        nix-output-monitor
+        nixos-anywhere
+        nodejs
+        ntfs3g
+        nvd
+        p7zip
+        poppler-utils
+        pv
+        python3
+        qrencode
+        rclone
+        ripgrep
+        ssh-to-age
+        sops
+        local.switchssh
+        tealdeer
+        trashy
+        unrar
+        unzip
+        wget
+        wireguard-tools
+        yq
+        zip
+      ];
       fonts.packages =
-        (with pkgs;
-        [
+        (with pkgs; [
           meslo-lgs-nf
         ])
         ++ (with pkgs.nerd-fonts; [

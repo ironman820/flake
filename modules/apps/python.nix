@@ -45,7 +45,7 @@
       environment.systemPackages = with pkgs; [
         imagemagick
         pre-commit
-        pyright
+        basedpyright
         (python3.withPackages myPythonPackages)
       ];
     };

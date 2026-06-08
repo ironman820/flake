@@ -1,8 +1,5 @@
 {
-  flake.nixosModules.drive-shares = {pkgs, ...}: {
-    environment.systemPackages = with pkgs; [
-      curlftpfs
-    ];
+  flake.nixosModules.drive-shares = {
     programs.fuse.enable = true;
     services = {
       autofs = {

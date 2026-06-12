@@ -108,6 +108,13 @@
               service = "dns";
               tls = { };
             };
+            llama = {
+              entryPoints = "https";
+              middlewares = "secured";
+              rule = "Host(`llama.desk.niceastman.com`)";
+              service = "llama";
+              tls = { };
+            };
             mail = {
               entryPoints = "https";
               middlewares = "secured";
@@ -169,6 +176,14 @@
                 }
               ];
               serversTransport = "insecure";
+            };
+            llama.loadBalancer = {
+              passHostHeader = true;
+              servers = [
+                {
+                  url = "http://192.168.21.199:8080";
+                }
+              ];
             };
             mailhog.loadBalancer = {
               passHostHeader = true;

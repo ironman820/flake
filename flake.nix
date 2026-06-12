@@ -75,8 +75,14 @@
     # PHP 7.2.29
     nixpkgs-php.url = "github:nixos/nixpkgs/53951c0";
     nixpkgs-stable.url = "github:nixos/nixpkgs/nixos-26.05";
+    # nVidia 575.64
     nixpkgs-9041993.url = "github:nixos/nixpkgs/9041993";
-    nixvim.url = "github:nix-community/nixvim";
+    # nVidia 580.95.05
+    nixpkgs-3652b3e.url = "github:nixos/nixpkgs/3652b3e";
+    nixvim = {
+      url = "github:nix-community/nixvim";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     pkgs-by-name.url = "github:drupol/pkgs-by-name-for-flake-parts";
     plasma-manager = {
       inputs = {

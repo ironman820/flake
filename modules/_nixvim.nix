@@ -1012,7 +1012,7 @@
               return require("codecompanion.adapters").extend("ollama", {
                 name = "qwen3",
                 env = {
-                  url = "http://192.168.21.98:11434",
+                  url = "http://192.168.21.199:8080",
                   api_key = "OLLAMA_API_KEY",
                 },
                 headers = {
@@ -1169,18 +1169,18 @@
       mini = {
         enable = true;
         modules = {
-          ai = {};
-          align = {};
-          bufremove = {};
-          comment = {};
-          cursorword = {};
-          diff = {};
-          git = {};
-          icons = {};
-          pairs = {};
-          statusline = {};
-          surround = {};
-          tabline = {};
+          ai = { };
+          align = { };
+          bufremove = { };
+          comment = { };
+          cursorword = { };
+          diff = { };
+          git = { };
+          icons = { };
+          pairs = { };
+          statusline = { };
+          surround = { };
+          tabline = { };
         };
       };
       noice = {

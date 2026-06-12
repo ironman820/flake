@@ -9,33 +9,27 @@
 {
   imports = [
     ./hardware.nix
-  ]
-  ++ (with inputs; [
-    darkmatter-grub-theme.nixosModule
-    disko.nixosModules.disko
-  ])
-  ++ (with self.nixosModules; [
-    base
-    boot-grub
+    inputs.darkmatter-grub-theme.nixosModule
+    inputs.disko.nixosModules.disko
+    self.nixosModules.base
+    self.nixosModules.boot-grub
+    self.nixosModules.virtual-docker
+    self.nixosModules.git
+    self.nixosModules.tmux
+    self.nixosModules.x64-linux
     self.diskoConfigurations.llama-work
-    git
-    tmux
-    x64-linux
-  ]);
+  ];
   boot = {
-    extraModulePackages = [
-      (pkgs.callPackage ./r8127.nix {
-        inherit (builtins) fetchurl;
-        kernel = pkgs.linux;
-        kernelModuleMakeFlags = pkgs.linux.modules.commonMakeFlags;
-      })
-    ];
     kernelParams = [
       "amd_iommu=off"
-      "amdgpu.gttsize=131072"
-      "ttm.pages_limit=33554432"
+      "amdgpu.gttsize=126976"
+      "ttm.pages_limit=32505856"
     ];
   };
+  environment.systemPackages = with pkgs.rocmPackages; [
+    rocm-smi
+    rocminfo
+  ];
   hardware = {
     amdgpu.initrd.enable = true;
     graphics = {
@@ -46,25 +40,12 @@
   home-manager = {
     users.ironman = self.homeConfigurations.ironman-server;
   };
+  networking.firewall.allowedTCPPorts = [
+    8080
+  ];
   nix.settings.cores = 8;
   security.sudo.wheelNeedsPassword = false;
-  services = {
-    ollama = {
-      enable = true;
-      environmentVariables = {
-        OLLAMA_CONTEXT_LENGTH = "32000";
-        OLLAMA_KEEP_ALIVE = "-1";
-        OLLAMA_FLASH_ATTENTION = "1";
-      };
-      host = "0.0.0.0";
-      loadModels = [
-        "qwen3-coder:30b"
-      ];
-      openFirewall = true;
-      package = pkgs.ollama-rocm;
-    };
-    openssh.settings.PermitRootLogin = "no";
-  };
+  services.openssh.settings.PermitRootLogin = "no";
   sops.secrets.llama_work_env = {
     sopsFile = "${flakeRoot}/.secrets/llama.yaml";
     mode = "0440";
@@ -73,6 +54,54 @@
     EnvironmentFile = [ config.sops.secrets.llama_work_env.path ];
   };
   users.users.ironman.extraGroups = [
+    "docker"
     "networkmanager"
+    "render"
+    "video"
   ];
+  virtualisation.oci-containers = {
+    backend = "docker";
+    containers.llama = {
+      autoRemoveOnStop = false;
+      autoStart = true;
+      image = "docker.io/kyuz0/amd-strix-halo-toolboxes:rocm-6.4.4";
+      hostname = "llama";
+      devices = [
+        "/dev/dri:/dev/dri"
+        "/dev/kfd:/dev/kfd"
+      ];
+      environment = {
+        LLAMA_ARG_MODEL = "/models/Qwen3.6-35B-A3B-UD-Q4_K_XL.gguf";
+        LLAMA_ARG_CTX_SIZE = "65536";
+        LLAMA_ARG_N_GPU_LAYERS = "999";
+        LLAMA_ARG_FLASH_ATTN = "on";
+        LLAMA_ARG_MMAP = "disabled";
+        LLAMA_ARG_HOST = "0.0.0.0";
+      };
+      environmentFiles = [
+        config.sops.secrets.llama_work_env.path
+      ];
+      cmd = [
+        # "tail"
+        # "-f"
+        # "/dev/null"
+        "/bin/bash"
+        "-c"
+        "llama-server"
+      ];
+      extraOptions = [
+        "--group-add"
+        "render"
+        "--group-add"
+        "video"
+        "--security-opt"
+        "seccomp=unconfined"
+        "--ipc=host"
+        "--network=host"
+      ];
+      volumes = [
+        "/home/ironman/models:/models"
+      ];
+    };
+  };
 }

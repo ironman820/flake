@@ -50,8 +50,7 @@
           htop = "btop";
           man = "batman";
           nv = "nvim";
-          # batgrep broken 2025-11-01
-          # rg = "batgrep";
+          rg = "batgrep";
           top = "btop";
           watch = "batwatch --command";
         };

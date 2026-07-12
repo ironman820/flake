@@ -303,7 +303,6 @@
                 pasteCommits = "v";
                 tagCommit = "T";
                 checkoutCommit = "<space>";
-                # resetCherryPick = "<c-R>";
                 copyCommitMessageToClipboard = "<c-y>";
                 openLogMenu = "<c-l>";
                 viewBisectOptions = "b";

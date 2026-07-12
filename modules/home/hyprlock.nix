@@ -38,9 +38,6 @@
             shadow_passes = 0;
             fade_on_empty = false;
           };
-          # auth = {
-          #   "fingerprint:enabled" = true;
-          # };
         };
       };
       xdg.configFile."omarchy/current/theme/hyprlock.conf".text = ''

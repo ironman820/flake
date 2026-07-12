@@ -6,7 +6,7 @@
         boxbuddy
         local.catppuccin-kitty
         feishin
-        freecad
+        # freecad
         google-chrome
         kitty
         obsidian

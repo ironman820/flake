@@ -75,7 +75,6 @@ in
     };
     nvidia-container-toolkit = {
       enable = true;
-      # package = nvidia-pkgs.nvidia-container-toolkit;
     };
   };
 

@@ -28,7 +28,6 @@
     drive-shares
     drive-shares-personal
     laptop
-    # power
     tmux
     virtual-host
     virtual-docker
@@ -53,10 +52,6 @@
       devices = {
         calibre.id = "J3LVEJP-XUTHFQ2-2W5U22G-JLDNUL2-S3GC4GW-VVQOY7Q-N6SFPJT-REN45AO";
         wednesday.id = "ICGQ6GR-GFFLBJB-N4AF3AP-IOSLCHN-337F5UX-RW2A35G-UZ3Q2N4-SVWXTQY";
-        # work = {
-        #   id = "RPVYMOE-RC2NDFN-C5TRBZ2-ATRNVNE-VWONQD3-DVAGPJ5-OV5RWTK-KKKBSAI";
-        #   name = "Work Laptop";
-        # };
         steamdeck = {
           id = "NHY6BAU-WXMQZC2-CZP7P7Z-N5VZQIS-WI5P5L5-R2K2VOL-QYJG4NX-FNH5OA7";
           name = "SteamDeck";
@@ -95,7 +90,6 @@
           devices = [
             "nas"
             "wednesday"
-            # "work"
             "work-desktop"
           ];
           label = "Downloads";
@@ -136,7 +130,6 @@
             "nas"
             "phone"
             "wednesday"
-            # "work"
           ];
           label = "Notes";
         };
@@ -156,7 +149,6 @@
           devices = [
             "nas"
             "wednesday"
-            # "work"
             "work-desktop"
           ];
           label = "Work Documents";
@@ -170,7 +162,6 @@
           devices = [
             "nas"
             "wednesday"
-            # "work"
             "work-desktop"
           ];
           label = "Work Pictures";
@@ -184,7 +175,6 @@
           devices = [
             "nas"
             "wednesday"
-            # "work"
             "work-desktop"
           ];
           label = "Wallpapers";
@@ -194,8 +184,11 @@
   };
   networking.hostName = "friday";
   nix.settings.cores = 4;
+  programs.steam = {
+    enable = true;
+    protontricks.enable = true;
+  };
   services.openssh.settings.PermitRootLogin = "no";
-  # services.tlp.settings.RUNTIME_PM_DENYLIST = "03:00.0";
   sops.secrets =
     let
       group = config.ironman.user.name;

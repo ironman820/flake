@@ -10,8 +10,6 @@
         users.users.${config.ironman.user.name}.extraGroups = [ "adbusers" ];
         environment.systemPackages = with pkgs; [
           android-studio
-          # TODO: Re-enable after importing custom package
-          # open-android-backup
         ];
         programs.adb.enable = true;
         services.udev.packages = [

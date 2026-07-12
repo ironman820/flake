@@ -35,7 +35,7 @@ let
   project_name = "djc_core_html_parser";
   project_version = "1.0.3";
   python_version = pkgs.python3;
-  wheel_tail = "cp313-cp313-linux_x86_64";
+  wheel_tail = "cp314-cp314-linux_x86_64";
 in
 buildPythonPackage rec {
   name = project_name;

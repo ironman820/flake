@@ -8,9 +8,8 @@
     }:
     let
       inherit (config.services.nginx) user;
-      inherit (pkgs.stdenv.hostPlatform) system;
       phpPkgs = import inputs.nixpkgs-php {
-        inherit system;
+        inherit (pkgs.stdenv.hostPlatform) system;
         config.allowUnfree = true;
       };
     in

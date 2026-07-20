@@ -48,7 +48,9 @@ in
   services = {
     netbox = {
       enable = true;
-      apiTokenPeppersFile = config.sops.secrets.netbox-peppers.path;
+      apiTokenPepperFiles = {
+        "1" = config.sops.secrets.netbox-peppers.path;
+      };
       package = pkgs-unstable.netbox;
       secretKeyFile = config.sops.secrets.netbox-key.path;
     };

@@ -211,8 +211,8 @@
                 ];
                 nextMatch = "n";
                 prevMatch = "N";
-                optionMenu = "<disabled>";
-                optionMenu-alt1 = "?";
+                optionMenu = "?";
+                optionMenu-alt1 = "<disabled>";
                 select = "<space>";
                 goInto = "<enter>";
                 openRecentRepos = "<c-r>";

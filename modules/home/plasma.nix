@@ -18,6 +18,10 @@
               "exclude folders[$e]" = "$HOME/git/nixpkgs/";
               "only basic indexing" = true;
             };
+            kdeglobals.General = {
+              TerminalApplication = "roxterm";
+              TerminalService = "roxterm.desktop";
+            };
             kwinrc = {
               Effect-overview.BorderActivate = 9;
               Xwayland.Scale = 1;

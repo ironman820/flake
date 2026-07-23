@@ -11,6 +11,7 @@
         kitty
         obsidian
         remmina
+        roxterm
         udiskie
         vlc
         zotero

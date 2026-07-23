@@ -17,6 +17,15 @@
       };
       sshUser = "ironman";
     };
+    gns3-work = {
+      hostname = "gns3-work";
+      profiles.system = {
+        user = "root";
+        path = inputs.deploy-rs.lib.x86_64-linux.activate.nixos self.nixosConfigurations.gns3-work;
+      };
+      remoteBuild = true;
+      sshUser = "ironman";
+    };
     llama = {
       hostname = "llama";
       profiles.system = {

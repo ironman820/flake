@@ -15,6 +15,7 @@
       ];
       environment.systemPackages = with pkgs; [
         deploy-rs
+        gns3-gui
         # protonplus
       ];
       hardware.bluetooth.enable = true;

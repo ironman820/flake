@@ -1,0 +1,206 @@
+[backdrop]
+enabled = true
+
+[bar.default]
+end = [
+    "media",
+    "audio_visualizer",
+    "tray",
+    "notifications",
+    "clipboard",
+    "network",
+    "bluetooth",
+    "volume",
+    "brightness",
+    "battery",
+    "control-center",
+    "session"
+]
+start = [ "launcher", "workspaces" ]
+
+[control_center]
+hidden_tabs = [ "weather" ]
+
+    [[control_center.shortcuts]]
+    type = "wifi"
+
+    [[control_center.shortcuts]]
+    type = "bluetooth"
+
+    [[control_center.shortcuts]]
+    type = "caffeine"
+
+    [[control_center.shortcuts]]
+    type = "notification"
+
+    [[control_center.shortcuts]]
+    type = "power_profile"
+
+[desktop_widgets]
+schema_version = 2
+widget_order = []
+
+    [desktop_widgets.grid]
+    cell_size = 16
+    major_interval = 4
+    visible = true
+
+    [desktop_widgets.widget.desktop-widget-0000000000000001]
+    box_height = 0.0
+    box_width = 0.0
+    cx = 1404.0
+    cy = 875.0
+    output = "eDP-1"
+    rotation = 0.0
+    type = "clock"
+
+    [desktop_widgets.widget.desktop-widget-0000000000000002]
+    box_height = 0.0
+    box_width = 0.0
+    cx = 1404.0
+    cy = 750.0
+    output = "eDP-1"
+    rotation = 0.0
+    type = "sysmon"
+
+        [desktop_widgets.widget.desktop-widget-0000000000000002.settings]
+        stat = "cpu_usage"
+        stat2 = "ram_pct"
+
+    [desktop_widgets.widget.desktop-widget-0000000000000004]
+    box_height = 0.0
+    box_width = 0.0
+    cx = 1126.0
+    cy = 768.0
+    output = "eDP-1"
+    rotation = 0.0
+    type = "fancy_audio_visualizer"
+
+        [desktop_widgets.widget.desktop-widget-0000000000000004.settings]
+        background = true
+        background_opacity = 0.5
+
+[lockscreen_widgets]
+enabled = true
+schema_version = 2
+widget_order = [ "lockscreen-login-box@eDP-1", "lockscreen-widget-0000000000000001", "lockscreen-widget-0000000000000002" ]
+
+    [lockscreen_widgets.grid]
+    cell_size = 16
+    major_interval = 4
+    visible = true
+
+    [lockscreen_widgets.widget."lockscreen-login-box@eDP-1"]
+    box_height = 196.0
+    box_width = 810.0
+    cx = 768.0
+    cy = 778.0
+    output = "eDP-1"
+    rotation = 0.0
+    type = "login_box"
+
+        [lockscreen_widgets.widget."lockscreen-login-box@eDP-1".settings]
+        background_color = "surface_variant"
+        background_opacity = 0.88
+        background_radius = 12.0
+        center_password_text = false
+        input_opacity = 1.0
+        input_radius = 6.0
+        layout = "regular"
+        show_caps_lock = true
+        show_keyboard_layout = true
+        show_login_button = true
+        show_media = true
+        show_session_buttons = true
+        show_unlock_hint = true
+        show_weather = true
+
+    [lockscreen_widgets.widget.lockscreen-widget-0000000000000001]
+    box_height = 0.0
+    box_width = 0.0
+    cx = 768.0
+    cy = 347.5
+    output = "eDP-1"
+    rotation = 0.0
+    type = "clock"
+
+        [lockscreen_widgets.widget.lockscreen-widget-0000000000000001.settings]
+        center_text = true
+        format = "{:%H:%M\\n%D}"
+
+    [lockscreen_widgets.widget.lockscreen-widget-0000000000000002]
+    box_height = 0.0
+    box_width = 0.0
+    cx = 768.0
+    cy = 528.0
+    output = "eDP-1"
+    rotation = 0.0
+    type = "media_player"
+
+[shell]
+app_icon_colorize = true
+corner_radius_scale = 1.5000000223517418
+font_family = "DejaVu Sans"
+polkit_agent = true
+settings_window_translucent = true
+telemetry_enabled = true
+
+    [shell.panel]
+    transparency_mode = "soft"
+
+    [shell.screen_corners]
+    enabled = true
+
+    [shell.screenshot]
+    confirm_region = true
+    directory = "/home/ironman/Pictures/Screenshots"
+    remember_last_region = true
+
+    [shell.shadow]
+    direction = "down_right"
+
+[theme]
+builtin = "Tokyo-Night"
+wallpaper_scheme = "faithful"
+
+    [theme.templates]
+    builtin_ids = [ "btop", "gtk3", "gtk4", "ghostty", "niri", "qt", "starship" ]
+    community_ids = [
+        "feishin",
+        "zen-browser",
+        "telegram",
+        "blender",
+        "gimp",
+        "libreoffice",
+        "obsidian",
+        "steam",
+        "fastfetch",
+        "bat",
+        "lazygit"
+    ]
+
+[wallpaper]
+directory = "/home/ironman/Wallpapers"
+
+    [wallpaper.automation]
+    enabled = true
+    interval_seconds = 300
+
+    [wallpaper.default]
+    path = "/home/ironman/Wallpapers/wallhaven-n6q586.jpg"
+
+    [wallpaper.last]
+    path = "/home/ironman/Wallpapers/wallhaven-n6q586.jpg"
+
+    [wallpaper.monitors.eDP-1]
+    path = "/home/ironman/Wallpapers/wallhaven-n6q586.jpg"
+
+[weather]
+enabled = false
+
+[widget.media]
+album_art_only = true
+
+[widget.workspaces]
+hide_when_empty = false
+label_source = "name"

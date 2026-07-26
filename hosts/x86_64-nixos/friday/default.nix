@@ -12,25 +12,20 @@
     ./hardware.nix
   ]
   ++ (with inputs; [
-    darkmatter-grub-theme.nixosModule
-    disko.nixosModules.disko
     nixos-hardware.nixosModules.lenovo-thinkpad-e14-amd
   ])
   ++ (with self.nixosModules; [
-    apps-gui-extra
+    extraGuiApps
+    python
     arduino
-    base
-    boot-grub
-    de-plasma
+    grub
     fonts
-    git
     self.diskoConfigurations.friday
     drive-shares
-    drive-shares-personal
     laptop
-    tmux
-    virtual-host
-    virtual-docker
+    niri
+    virtualHost
+    docker
     winbox
     x64-linux
     yubikey
@@ -46,6 +41,8 @@
   home-manager.users.ironman = self.homeConfigurations.ironman;
   ironman = {
     network-profiles.work = true;
+    personal_laptop = true;
+    shares.personal = true;
     syncthing = {
       cert = config.sops.secrets.syncthing-friday-cert.path;
       key = config.sops.secrets.syncthing-friday-key.path;
@@ -183,9 +180,10 @@
     };
   };
   networking.hostName = "friday";
-  nix.settings.cores = 4;
+  nix.settings.cores = 5;
   programs.steam = {
     enable = true;
+    package = inputs.millennium.packages.${pkgs.stdenv.hostPlatform.system}.millennium-steam;
     protontricks.enable = true;
   };
   services.openssh.settings.PermitRootLogin = "no";
@@ -214,5 +212,18 @@
           ;
       };
     };
+  topology.self = {
+    deviceType = "nixos";
+    hardware.info = "Lenovo Thinkpad E14";
+    icon = "devices.laptop";
+    interfaces.wlp192s0 = {
+      network = "home";
+      physicalConnections = [
+        (config.lib.topology.mkConnection "ap" "wifi2")
+      ];
+      renderer.hidePhysicalConnections = true;
+    };
+    name = "Friday";
+  };
   users.groups.ironman.gid = pkgs.lib.mkForce 986;
 }

@@ -34,6 +34,7 @@
           ".ssh/royell_git_servers.pub".source = configFiles + "/royell_git_servers.pub";
           ".ssh/royell_git_work.pub".source = configFiles + "/royell_git_work.pub";
         };
+
         packages = with pkgs; [
           (writeShellScriptBin "mytty" ''
             if [ $# -eq 0 ]; then
@@ -62,7 +63,7 @@
           screen
         ];
         shellAliases = {
-          "s" = "kitten ssh";
+          "ssh" = "TERM=xterm-256color ssh";
         };
       };
       programs.ssh = {
@@ -174,6 +175,11 @@
           "preseem" = {
             hostname = "208.80.144.36";
             user = "root";
+          }
+          // deployIdentity;
+          "sonarqube" = {
+            hostname = "192.168.248.107";
+            user = "ironman";
           }
           // deployIdentity;
           "10.10.50.10" = {
@@ -415,8 +421,9 @@
           // deployIdentity;
           "netmon" = {
             hostname = "netmon.royell.org";
-            user = "root";
-          };
+            user = "fastnetmon";
+          }
+          // deployIdentity;
           "nokia" = {
             hostname = "nokia.royell.org";
             user = "royell";
@@ -471,16 +478,8 @@
             user = "root";
           };
           "pve.desk" = {
-            hostname = "192.168.20.253";
-            user = "root";
-          };
-          "pve2.desk" = {
-            hostname = "192.168.21.2";
-            user = "root";
-          };
-          "pve-old.home" = {
-            hostname = "192.168.248.3";
-            user = "root";
+            hostname = "192.168.20.10";
+            user = "ironman";
           }
           // deployIdentity;
           "pve.home" = {
@@ -488,9 +487,9 @@
             user = "root";
           }
           // deployIdentity;
-          "pve2.home" = {
+          "pve2" = {
             hostname = "192.168.248.12";
-            user = "root";
+            user = "ironman";
           }
           // deployIdentity;
           "pxe.desk" = {
@@ -525,7 +524,7 @@
           }
           // deployIdentity;
           "rcm.desk" = {
-            hostname = "192.168.20.103";
+            hostname = "192.168.20.101";
             user = "ironman";
           }
           // deployIdentity;

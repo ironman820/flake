@@ -30,10 +30,7 @@ in
     ./hardware.nix
   ]
   ++ (with self.nixosModules; [
-    base
-    git
     proxmox
-    tmux
     x64-linux
   ]);
   home-manager = {

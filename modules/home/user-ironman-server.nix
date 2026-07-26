@@ -1,14 +1,12 @@
-{ config, ... }:
+{ self, ... }:
 {
-  flake.homeConfigurations.ironman-server = {
-    imports = with config.flake.homeModules; [
+  flake.homeConfigurations.ironman-server = { osConfig, ... }: {
+    imports = with self.homeModules; [
       base
-      # llama-work-sops
       python
     ];
-    programs.zed-editor = {
-      enable = true;
-      installRemoteServer = true;
+    home.shellAliases = {
+      ts = "tmux new-session -A -s ${osConfig.ironman.user.name} && exit";
     };
   };
 }

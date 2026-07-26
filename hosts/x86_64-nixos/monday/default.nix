@@ -1,5 +1,5 @@
 {
-  inputs,
+  config,
   self,
   ...
 }:
@@ -7,29 +7,30 @@
   imports = [
     ./hardware.nix
   ]
-  ++ (with inputs; [
-    darkmatter-grub-theme.nixosModule
-    disko.nixosModules.disko
-  ])
   ++ (with self.nixosModules; [
-    base
-    boot-grub
-    de-xfce
-    git
-    self.diskoConfigurations.monday
+    grub
+    xfce
     laptop
-    tmux
     winbox
   ]);
-  boot = {
-    loader.grub.darkmatter-theme.enable = false;
-    plymouth.enable = false;
-  };
+  boot.plymouth.enable = false;
   home-manager.users.ironman = self.homeConfigurations.ironman-minimal;
   ironman = {
     network-profiles.work = true;
   };
   networking.hostName = "monday";
   services.openssh.settings.PermitRootLogin = "no";
+  topology.self = {
+    hardware.info = "Dell Netbook";
+    icon = "devices.laptop";
+    interfaces.wlp1s0 = {
+      network = "home";
+      physicalConnections = [
+        (config.lib.topology.mkConnection "ap" "wifi2")
+      ];
+      renderer.hidePhysicalConnections = true;
+    };
+    name = "Monday";
+  };
   zramSwap.enable = false;
 }

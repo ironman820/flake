@@ -77,19 +77,27 @@
       };
       sshUser = "ironman";
     };
-    pdns-home = {
-      hostname = "pdns.home";
-      profiles.system = {
-        user = "root";
-        path = inputs.deploy-rs.lib.x86_64-linux.activate.nixos self.nixosConfigurations.pdns-home;
-      };
-      sshUser = "ironman";
-    };
     pdns-work = {
       hostname = "pdns.desk";
       profiles.system = {
         user = "root";
         path = inputs.deploy-rs.lib.x86_64-linux.activate.nixos self.nixosConfigurations.pdns-work;
+      };
+      sshUser = "ironman";
+    };
+    pve-work = {
+      hostname = "pve.desk";
+      profiles.system = {
+        user = "root";
+        path = inputs.deploy-rs.lib.x86_64-linux.activate.nixos self.nixosConfigurations.pve-work;
+      };
+      sshUser = "ironman";
+    };
+    pve2 = {
+      hostname = "pve2";
+      profiles.system = {
+        user = "root";
+        path = inputs.deploy-rs.lib.x86_64-linux.activate.nixos self.nixosConfigurations.pve2;
       };
       sshUser = "ironman";
     };
@@ -138,6 +146,14 @@
       profiles.system = {
         user = "root";
         path = inputs.deploy-rs.lib.x86_64-linux.activate.nixos self.nixosConfigurations.rcm2-work;
+      };
+      sshUser = "ironman";
+    };
+    sonarqube = {
+      hostname = "sonarqube";
+      profiles.system = {
+        user = "root";
+        path = inputs.deploy-rs.lib.x86_64-linux.activate.nixos self.nixosConfigurations.sonarqube;
       };
       sshUser = "ironman";
     };

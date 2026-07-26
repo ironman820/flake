@@ -31,11 +31,8 @@ in
     ./hardware.nix
   ]
   ++ (with self.nixosModules; [
-    base
-    git
     proxmox
-    tmux
-    virtual-docker
+    docker
     x64-linux
   ]);
 

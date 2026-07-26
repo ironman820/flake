@@ -1,11 +1,10 @@
-{ config, inputs, ... }:
+{ self, ... }:
 {
   flake.homeConfigurations.ironman-minimal = {
-    imports = with config.flake.homeModules; [
+    imports = with self.homeModules; [
       base
       flatpak
       kitty
-      inputs.nix-flatpak.homeManagerModules.nix-flatpak
     ];
   };
 }

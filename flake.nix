@@ -29,10 +29,6 @@
     crane = {
       url = "github:ipetkov/crane";
     };
-    darkmatter-grub-theme = {
-      inputs.nixpkgs.follows = "nixpkgs";
-      url = "gitlab:vandalbyte/darkmatter-grub-theme";
-    };
     deploy-rs = {
       inputs.nixpkgs.follows = "nixpkgs";
       url = "github:serokell/deploy-rs";
@@ -59,6 +55,25 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     import-tree.url = "github:vic/import-tree";
+    kineticwe = {
+      inputs.nixpkgs.follows = "nixpkgs";
+      url = "gitlab:theblackdon/kineticwe";
+    };
+    microvm = {
+      inputs.nixpkgs.follows = "nixpkgs";
+      url = "github:microvm-nix/microvm.nix";
+    };
+    millennium = {
+      url = "github:SteamClientHomebrew/Millennium?dir=packages/nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+    niri = {
+      url = "github:epireyn/niri-flake";
+      inputs = {
+        nixpkgs.follows = "nixpkgs";
+        nixpkgs-stable.follows = "nixpkgs-stable";
+      };
+    };
     nix-flatpak.url = "github:gmodena/nix-flatpak/?ref=latest";
     nixos-hardware = {
       inputs.nixpkgs.follows = "nixpkgs";
@@ -77,8 +92,24 @@
     nixpkgs-9041993.url = "github:nixos/nixpkgs/9041993";
     # nVidia 580.95.05
     nixpkgs-3652b3e.url = "github:nixos/nixpkgs/3652b3e";
+    nix-topology = {
+      url = "github:oddlama/nix-topology";
+      inputs = {
+        flake-parts.follows = "flake-parts";
+        nixpkgs.follows = "nixpkgs";
+      };
+    };
     nixvim = {
       url = "github:nix-community/nixvim";
+      inputs = {
+        flake-parts.follows = "flake-parts";
+        nixpkgs.follows = "nixpkgs";
+      };
+    };
+    # Keep Noctalia using it's own nixpkgs. This allows cache usage.
+    noctalia.url = "github:noctalia-dev/noctalia/cachix";
+    noctalia-greeter = {
+      url = "github:noctalia-dev/noctalia-greeter";
       inputs.nixpkgs.follows = "nixpkgs";
     };
     pkgs-by-name.url = "github:drupol/pkgs-by-name-for-flake-parts";
@@ -114,22 +145,38 @@
       };
       url = "github:abenz1267/walker";
     };
+    wrapper-modules = {
+      inputs.nixpkgs.follows = "nixpkgs";
+      url = "github:birdeehub/nix-wrapper-modules";
+    };
     zen-browser = {
       url = "github:youwen5/zen-browser-flake";
       inputs.nixpkgs.follows = "nixpkgs";
     };
   };
+  nixConfig = {
+    extra-substituters = [ "https://noctalia.cachix.org" ];
+    extra-trusted-public-keys = [ "noctalia.cachix.org-1:pCOR47nnMEo5thcxNDtzWpOxNFQsBRglJzxWPp3dkU4=" ];
+  };
   outputs =
     inputs:
     inputs.flake-parts.lib.mkFlake { inherit inputs; } (
-      top@{ self, ... }:
+      { self, ... }:
       {
         _module.args = {
           inherit inputs;
           flakeRoot = self.outPath;
         };
-        imports = [
-          (inputs.import-tree ./modules)
+        imports = with inputs; [
+          disko.flakeModules.default
+          easy-hosts.flakeModule
+          home-manager.flakeModules.home-manager
+          (import-tree ./modules)
+          nix-topology.flakeModule
+          pkgs-by-name.flakeModule
+        ];
+        systems = [
+          "x86_64-linux"
         ];
       }
     );

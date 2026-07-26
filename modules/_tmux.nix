@@ -1,4 +1,4 @@
-_: {
+{
   programs.tmux = {
     enable = true;
     baseIndex = 1;
@@ -7,7 +7,6 @@ _: {
     escapeTime = 0;
     historyLimit = 1000000;
     keyMode = "vi";
-    shortcut = "Space";
     terminal = "tmux-256color";
   };
 }

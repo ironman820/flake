@@ -1,7 +1,7 @@
-{
+{ flakeRoot, ... }: {
   flake.homeModules.tmux =
     {
-      flakeRoot,
+      osConfig,
       pkgs,
       ...
     }:
@@ -10,12 +10,17 @@
         "${flakeRoot}/modules/_tmux.nix"
       ];
       programs = {
-        # bash.initExtra = ''
-        #   if [ $DISPLAY ]; then
-        #     [[ $- != *i* ]] && return
-        #     [ -z "''${TMUX}" ] && { tmux new-session -A -s ${osConfig.ironman.user.name} && exit; }
-        #   fi
-        # '';
+        bash.initExtra = ''
+          if [ $DISPLAY ]; then
+            [[ $- != *i* ]] && return
+            [ -z "''${TMUX}" ] && { tmux new-session -A -s ${osConfig.ironman.user.name} && exit; }
+          fi
+        '';
+        sesh = {
+            enable = true;
+            enableTmuxIntegration = true;
+            tmuxKey = "o";
+          };
         tmux = {
           secureSocket = false;
           extraConfig = ''
@@ -36,13 +41,13 @@
           plugins = with pkgs.tmuxPlugins; [
             catppuccin
             sensible
-            {
-              plugin = tmux-sessionx;
-              extraConfig = ''
-                set -g @sessionx-bind 'o'
-                set -g @sessionx-zoxide-mode 'on'
-              '';
-            }
+            # {
+            #   plugin = tmux-sessionx;
+            #   extraConfig = ''
+            #     set -g @sessionx-bind 'o'
+            #     set -g @sessionx-zoxide-mode 'on'
+            #   '';
+            # }
             yank
             {
               plugin = fzf-tmux-url;

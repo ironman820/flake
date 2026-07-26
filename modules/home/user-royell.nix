@@ -1,9 +1,8 @@
-{ config, ... }:
+{ self, ... }:
 {
   flake.homeConfigurations.royell =
-    _:
     {
-      imports = with config.flake.homeModules; [
+      imports = with self.homeModules; [
         base
       ];
     };

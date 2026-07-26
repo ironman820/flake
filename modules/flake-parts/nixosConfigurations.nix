@@ -1,6 +1,7 @@
 {
   flakeRoot,
   inputs,
+  self,
   ...
 }:
 {
@@ -15,8 +16,7 @@
             inherit flakeRoot;
           };
         }
-        nixvim.nixosModules.nixvim
-        sops-nix.nixosModules.sops
+        self.nixosModules.base
       ];
       specialArgs = {
         inherit flakeRoot;

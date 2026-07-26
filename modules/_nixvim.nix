@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ config, pkgs, ... }:
 {
   programs.nixvim = {
     autoCmd = [
@@ -26,6 +26,18 @@
         group = "YankHighlight";
         pattern = "*";
       }
+      {
+          event = "User";
+          pattern = "OilActionsPost";
+          desc = "LSP-rename from snacks on file name change";
+          callback.__raw = ''
+            function(e)
+              if e.data.actions[1].type == "move" then
+                Snacks.rename.on_rename_file(e.data.actions[1].src_url, e.data.actions[1].dest_url)
+              end
+            end
+          '';
+        }
       {
         event = "User";
         group = "CodeCompanionFidget";
@@ -74,6 +86,12 @@
       vim.cmd([[command! Q q]])
       local progress = require("fidget.progress")
       local handles = {}
+    '';
+    extraConfigVim = ''
+      highlight Normal guibg=none
+      highlight NonText guibg=none
+      highlight Normal ctermbg=none
+      highlight NonText ctermbg=none
     '';
     extraPackagesAfter = with pkgs; [
       fd
@@ -193,26 +211,6 @@
       }
       {
         action = {
-          __raw = "vim.diagnostic.goto_prev";
-        };
-        key = "[d";
-        mode = "n";
-        options = {
-          desc = "Go to previous diagnostic message";
-        };
-      }
-      {
-        action = {
-          __raw = "vim.diagnostic.goto_next";
-        };
-        key = "]d";
-        mode = "n";
-        options = {
-          desc = "Go to next diagnostic message";
-        };
-      }
-      {
-        action = {
           __raw = "vim.diagnostic.open_float";
         };
         key = "<leader>e";
@@ -222,9 +220,7 @@
         };
       }
       {
-        action = {
-          __raw = "vim.diagnostic.setloclist";
-        };
+        action = "<cmd>Trouble qflist toggle<cr>";
         key = "<leader>q";
         mode = "n";
         options = {
@@ -895,115 +891,67 @@
     };
     plugins = {
       aerial.enable = true;
-      blink-cmp = {
+      cmp = {
         enable = true;
-        settings = {
-          cmdline = {
-            enabled = true;
-            completion.menu.auto_show = true;
-            sources.__raw = ''
-              function()
-                local type = vim.fn.getcmdtype()
-                -- Search forward and backward
-                if type == '/' or type == '?' then return { 'buffer' } end
-                -- Commands
-                if type == ':' or type == '@' then return { 'cmdline', 'cmp_cmdline' } end
-                return {}
-              end
-            '';
-          };
-          completion = {
-            menu.draw = {
-              treesitter = [ "lsp" ];
-              components = {
-                label = {
-                  text.__raw = ''
-                    function(ctx)
-                      return require("colorful-menu").blink_components_text(ctx)
-                    end
-                  '';
-                  highlight.__raw = ''
-                    function(ctx)
-                      return require("colorful-menu").blink_components_highlight(ctx)
-                    end
-                  '';
-                };
-              };
-            };
-            documentation.auto_show = true;
-          };
-          fuzzy.sorts = [
-            "exact"
-            "score"
-            "sort_text"
-          ];
-          keymap = {
-            preset = "default";
-            "<CR>" = [
-              "select_and_accept"
-              "fallback"
-            ];
-            "<C-k>" = [
-              "select_prev"
-              "fallback_to_mappings"
-            ];
-            "<C-j>" = [
-              "select_next"
-              "fallback_to_mappings"
+        cmdline = {
+          "/" = {
+            mapping.__raw = "cmp.mapping.preset.cmdline()";
+            sources = [
+              {
+                name = "buffer";
+              }
             ];
           };
-          signature.enabled = true;
-          snippets.active.__raw = ''
-            function(filter)
-              local snippet = require "luasnip"
-              local blink = require "blink.cmp"
-              if snippet.in_snippet() and not blink.is_visible() then
-                return true
-              else
-                if not snippet.in_snippet() and vim.fn.mode() == "n" then snippet.unlink_current() end
-                return false
-              end
-            end
-          '';
-          sources = {
-            default = [
-              "lsp"
-              "lazydev"
-              "path"
-              "snippets"
-              "buffer"
-              "omni"
+          "?" = {
+            mapping.__raw = "cmp.mapping.preset.cmdline()";
+            sources = [
+              {
+                name = "buffer";
+              }
             ];
-            providers = {
-              path = {
-                score_offset = 50;
-              };
-              lazydev = {
-                name = "LazyDev";
-                module = "lazydev.integrations.blink";
-                score_offset = 100;
-              };
-              lsp = {
-                score_offset = 40;
-              };
-              snippets = {
-                score_offset = 40;
-              };
-              cmp_cmdline = {
-                name = "cmp_cmdline";
-                module = "blink.compat.source";
-                score_offset = -100;
-                opts = {
-                  cmp_name = "cmdline";
-                };
-              };
-            };
+          };
+          ":" = {
+            mapping.__raw = "cmp.mapping.preset.cmdline()";
+            sources = [
+              {
+                name = "cmdline";
+              }
+            ];
+          };
+          "@" = {
+            mapping.__raw = "cmp.mapping.preset.cmdline()";
+            sources = [
+              {
+                name = "cmdline";
+              }
+            ];
           };
         };
+        settings = {
+          mapping = {
+              "<CR>" = "cmp.mapping.confirm({ select = true })";
+              "<C-e>" = "cmp.mapping.close()";
+              "<C-k>" = "cmp.mapping(cmp.mapping.select_prev_item(), {'i', 's'})";
+              "<C-j>" = "cmp.mapping(cmp.mapping.select_next_item(), {'i', 's'})";
+            };
+          sources = [
+            {
+              name = "nvim_lsp";
+            }
+            {
+              name = "path";
+            }
+            {
+              name = "buffer";
+            }
+          ];
+        };
       };
-      blink-compat.enable = true;
-      cloak.enable = true;
+      cmp-buffer.enable = true;
       cmp-cmdline.enable = true;
+      cmp-nvim-lsp.enable = true;
+      cmp-omni.enable = true;
+      cmp-path.enable = true;
       codecompanion = {
         enable = true;
         settings = {
@@ -1041,7 +989,10 @@
       colorful-menu.enable = true;
       conform-nvim = {
         enable = true;
-        settings.formatters_by_ft.nix = [ "nixfmt" ];
+        settings.formatters_by_ft = {
+          nix = [ "nixfmt" ];
+          php = [ "pretty-php" ];
+        };
       };
       dropbar.enable = true;
       fidget.enable = true;
@@ -1122,31 +1073,6 @@
               map({ 'o', 'x' }, 'ih', ':<C-U>Gitsigns select_hunk<CR>', { desc = 'select git hunk' })
             end
           '';
-        };
-      };
-      indent-blankline = {
-        enable = true;
-        settings = {
-          indent = {
-            char = "│";
-            tab_char = "│";
-          };
-          scope = {
-            enabled = true;
-          };
-          exclude.filetypes = [
-            "help"
-            "alpha"
-            "dashboard"
-            "neo-tree"
-            "Trouble"
-            "trouble"
-            "lazy"
-            "mason"
-            "notify"
-            "toggleterm"
-            "lazyterm"
-          ];
         };
       };
       lazydev.enable = true;
@@ -1320,18 +1246,44 @@
       };
       treesitter = {
         enable = true;
+        grammarPackages = with config.programs.nixvim.plugins.treesitter.package.builtGrammars; [
+          arduino
+          awk
+          bash
+          caddy
+          css
+          csv
+          editorconfig
+          git_rebase
+          gitcommit
+          gitignore
+          html
+          htmldjango
+          javascript
+          jinja
+          jinja_inline
+          json
+          just
+          markdown
+          nix
+          php
+          phpdoc
+          python
+          regex
+          sql
+          ssh_config
+          toml
+          xml
+          yaml
+        ];
+        highlight.enable = true;
+        indent.enable = true;
+      };
+      trouble = {
+        enable = true;
         settings = {
-          highlight.enable = true;
-          indent.enable = false;
-          incremental_selection = {
-            enable = true;
-            keymaps = {
-              init_selection = "<c-space>";
-              node_incremental = "<c-space>";
-              scope_incremental = "<c-s>";
-              node_decremental = "<M-space>";
-            };
-          };
+          auto_refresh = true;
+          focus = true;
         };
       };
       web-devicons.enable = true;

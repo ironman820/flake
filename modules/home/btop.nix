@@ -1,9 +1,9 @@
 {
-  flake.homeModules.btop = {
+  flake.homeModules.btop = { lib, ... }: {
     programs.btop = {
       enable = true;
       settings = {
-        color_theme = "tokyo-night";
+        color_theme = lib.mkDefault "tokyo-night";
         theme_background = false;
         truecolor = true;
         force_tty = false;

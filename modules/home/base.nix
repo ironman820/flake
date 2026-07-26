@@ -1,7 +1,7 @@
 {
-  config,
   flakeRoot,
   inputs,
+  self,
   ...
 }:
 {
@@ -13,10 +13,11 @@
     }:
     {
       imports =
-        (with config.flake.homeModules; [
+        (with self.homeModules; [
           btop
           eza
           git
+          ironman
           just
           nixvim
           ssh
@@ -24,7 +25,10 @@
           tmux
         ])
         ++ (with inputs; [
+          nix-flatpak.homeManagerModules.nix-flatpak
           nixvim.homeModules.nixvim
+          noctalia.homeModules.default
+          plasma-manager.homeModules.plasma-manager
           sops-nix.homeModules.sops
         ]);
       home = {
@@ -60,6 +64,7 @@
       nixpkgs = {
         config.allowUnfree = true;
         overlays = [
+          inputs.kineticwe.overlays.default
           inputs.self.overlays.default
         ];
       };
@@ -114,12 +119,6 @@
             no-symkey-cache = true;
             use-agent = true;
             throw-keyids = true;
-          };
-        };
-        lf = {
-          enable = true;
-          keybindings = {
-            DD = "%trash $f";
           };
         };
         home-manager.enable = true;

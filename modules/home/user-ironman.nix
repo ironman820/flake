@@ -1,20 +1,26 @@
-{ config, inputs, ... }:
+{ self, ... }:
 {
   flake.homeConfigurations.ironman = {
-    imports =
-      (with config.flake.homeModules; [
+    imports = (
+      with self.homeModules;
+      [
         base
         extra
         flatpak
-        kitty
-        llama-work-sops
-        plasma
+        niri
+        python
         qt
         syncthing
-      ])
-      ++ (with inputs; [
-        nix-flatpak.homeManagerModules.nix-flatpak
-        plasma-manager.homeModules.plasma-manager
-      ]);
+      ]
+    );
+    programs = {
+      niri.settings.switch-events.lid-close.action.spawn = [
+        "noctalia"
+        "msg"
+        "session"
+        "lock-and-suspend"
+      ];
+      tmux.shortcut = "Space";
+    };
   };
 }

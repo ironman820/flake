@@ -9,10 +9,7 @@
     ./hardware.nix
   ]
   ++ (with self.nixosModules; [
-    base
-    git
     proxmox
-    tmux
     x64-linux
   ]);
   home-manager = {
@@ -177,6 +174,13 @@
               middlewares = "secured";
               rule = "Host(`rcm2.home.niceastman.com`)";
               service = "rcm2";
+              tls = { };
+            };
+            sonarqube = {
+              entryPoints = "https";
+              middlewares = "secured";
+              rule = "Host(`sonarqube.home.niceastman.com`)";
+              service = "sonarqube";
               tls = { };
             };
             sonarr = {
@@ -381,6 +385,14 @@
                 }
               ];
               serversTransport = "insecure";
+            };
+            sonarqube.loadBalancer = {
+              passHostHeader = true;
+              servers = [
+                {
+                  url = "http://192.168.248.107:9000";
+                }
+              ];
             };
             sonarr.loadBalancer = {
               passHostHeader = true;

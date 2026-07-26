@@ -2,8 +2,8 @@
 {
   flake.nixosModules.rcm =
     {
-      pkgs,
       config,
+      pkgs,
       ...
     }:
     let
@@ -26,7 +26,8 @@
                   }:
                   enabled ++ (with all; [ sqlsrv ]);
               })
-              php74Packages.psalm
+              pkgs.phpactor
+              pkgs.pretty-php
               unixODBC
               (unixODBCDrivers.msodbcsql17.override { openssl = phpPkgs.openssl_1_1; })
             ];
@@ -47,7 +48,7 @@
             listen = [
               {
                 addr = "0.0.0.0";
-                port = 443;
+                port = 41443;
                 ssl = true;
               }
             ];

@@ -1,58 +1,57 @@
-{ config, ... }:
+{ inputs, self, ... }:
 {
   flake.nixosModules.base =
     {
-      inputs',
       lib,
       pkgs,
       ...
     }:
     {
-      imports = with config.flake.nixosModules; [
+      imports = (with inputs; [
+        disko.nixosModules.disko
+        niri.nixosModules.niri
+        nix-topology.nixosModules.default
+        nixvim.nixosModules.nixvim
+        noctalia.nixosModules.default
+        noctalia-greeter.nixosModules.default
+        sops-nix.nixosModules.sops
+      ]) ++ (with self.nixosModules; [
+        git
         ironman
         nix
         nixvim
-      ];
+        tmux
+      ]);
       boot = {
-        kernel.sysctl = {
-          "vm.swappiness" = 10;
-        };
         kernelParams = [
           "quiet"
         ];
         loader = {
           efi.canTouchEfiVariables = true;
-          timeout = 2;
         };
       };
       console = {
-        font = "Lat2-Terminus16";
+        font = ./files/EnvyCodeRNerdFontMono-Regular.psf;
         useXkbConfig = true; # use xkbOptions in tty.
       };
       environment.systemPackages = with pkgs; [
         age
         btop
-        caligula
         cifs-utils
         delta
         diff-so-fancy
         dig
         duf
         dust
-        eltclsh
         entr
         enum4linux
         eza
-        ffmpeg
-        inputs'.snowfall-flake.packages.flake
+        inputs.snowfall-flake.packages.${pkgs.stdenv.hostPlatform.system}.flake
         fping
         fzf
         gcc
-        glab
         glibc
         gnumake
-        hplip
-        local.idracclient
         inetutils
         jq
         just
@@ -63,20 +62,18 @@
         ntfs3g
         nvd
         p7zip
-        poppler-utils
+        pciutils
         pv
         qrencode
         rclone
         ripgrep
         ssh-to-age
         sops
-        local.switchssh
+        self.packages.${pkgs.stdenv.hostPlatform.system}.switchssh
         tealdeer
-        trashy
         unrar
         unzip
         wget
-        wireguard-tools
         yq
         zip
       ];
@@ -85,6 +82,7 @@
           meslo-lgs-nf
         ])
         ++ (with pkgs.nerd-fonts; [
+          envy-code-r
           fira-code
           fira-mono
           inconsolata
@@ -108,6 +106,7 @@
           LC_TELEPHONE = "en_US.UTF-8";
           LC_TIME = "en_US.UTF-8";
         };
+        inputMethod.type = "ibus";
       };
       location.provider = "geoclue2";
       networking.useDHCP = lib.mkDefault true;
@@ -123,7 +122,7 @@
             prettybat
           ];
         };
-        command-not-found.enable = false;
+        # command-not-found.enable = false;
         direnv = {
           enable = true;
           nix-direnv.enable = true;
@@ -141,9 +140,9 @@
       services.openssh.enable = true;
       sops = {
         age = {
-          generateKey = false;
+          generateKey = true;
           keyFile = "/etc/nixos/keys.txt";
-          sshKeyPaths = [ ];
+          sshKeyPaths = [ "/etc/ssh/ssh_host_ed25519_key" ];
         };
         gnupg.sshKeyPaths = [ ];
       };
@@ -152,6 +151,7 @@
       };
       time.timeZone = "America/Chicago";
       users.users.root = {
+        initialHashedPassword = lib.mkForce null;
         initialPassword = "@ppl3Sauc3";
         openssh.authorizedKeys.keys = [
           "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIL3Ue/VoEgGG4nzoW3jpiwlnmWApkUyu/j1VmEwiSdy7"

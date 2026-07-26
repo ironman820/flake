@@ -1,21 +1,21 @@
-{
-  boot = {
-    initrd = {
-      availableKernelModules = [
-        "nvme"
-        "xhci_pci"
-        "ahci"
-        "usbhid"
-        "usb_storage"
-      ];
+{ ... }: {
+    boot = {
+      initrd = {
+        availableKernelModules = [
+          "nvme"
+          "xhci_pci"
+          "ahci"
+          "usbhid"
+          "usb_storage"
+        ];
+      };
+      kernelModules = [ "kvm-amd" ];
     };
-    kernelModules = [ "kvm-amd" ];
-  };
 
-  fileSystems."/" = {
-    device = "/dev/mapper/pve-vm--101--disk--0";
-    fsType = "ext4";
-  };
+    fileSystems."/" = {
+      device = "/dev/mapper/pve-vm--101--disk--0";
+      fsType = "ext4";
+    };
 
-  swapDevices = [ ];
+    swapDevices = [ ];
 }

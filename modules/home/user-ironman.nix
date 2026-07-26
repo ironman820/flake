@@ -6,11 +6,12 @@
         base
         extra
         flatpak
-        kitty
-        llama-work-sops
-        plasma
+        # kitty
+        # llama-work-sops
+        # plasma
         qt
         syncthing
+        xfce
       ])
       ++ (with inputs; [
         nix-flatpak.homeManagerModules.nix-flatpak

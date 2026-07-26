@@ -2,19 +2,23 @@
   flake.nixosModules.de-xfce =
     { pkgs, ... }:
     {
-      environment.systemPackages =
+      environment = {
+        systemPackages =
         (with pkgs; [
           blueman
+          catfish
           local.bonafides-gtk-themes
-          gnome-disk-utility
           file-roller
           font-manager
+          gigolo
+          gnome-disk-utility
           libqalculate
           orca
           pavucontrol
           qalculate-gtk
           unzip
           wmctrl
+          orage
           xarchiver
           xclip
           xcolor
@@ -32,25 +36,27 @@
           xfce4-weather-plugin
           xfce4-whiskermenu-plugin
           xfce4-xkb-plugin
-          xsel
-          xtitle
-          xwinmosaic
-          catfish
-          gigolo
-          orage
           xfce4-appfinder
           xfce4-dict
           xfdashboard
+          xsel
+          xtitle
+          xwinmosaic
         ]);
+        xfce.excludePackages = with pkgs; [
+          xfce4-terminal
+        ];
+      };
+      nixpkgs.config.pulseaudio = true;
       programs = {
         dconf.enable = true;
         thunar = {
           enable = true;
           plugins = with pkgs; [
-            thunar-volman
-            thunar-vcs-plugin
             thunar-archive-plugin
             thunar-media-tags-plugin
+            thunar-vcs-plugin
+            thunar-volman
           ];
         };
       };
@@ -58,12 +64,20 @@
       services = {
         blueman.enable = true;
         displayManager.defaultSession = "xfce";
+        gnome.gnome-keyring.enable = true;
         xserver = {
           enable = true;
-          desktopManager.xfce.enable = true;
+          desktopManager = {
+            xfce = {
+              enable = true;
+              enableScreensaver = false;
+            };
+            xterm.enable = false;
+          };
           displayManager.lightdm = {
             enable = true;
           };
+          excludePackages = [ pkgs.xterm ];
         };
       };
       xdg.portal.extraPortals = [

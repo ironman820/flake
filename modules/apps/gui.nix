@@ -4,11 +4,11 @@
     {
       environment.systemPackages = with pkgs; [
         boxbuddy
-        local.catppuccin-kitty
+        # local.catppuccin-kitty
         feishin
         # freecad
         google-chrome
-        kitty
+        # kitty
         obsidian
         remmina
         roxterm

@@ -7,12 +7,11 @@
       ...
     }:
     let
-      inherit (config.services.nginx) user;
-      inherit (pkgs.stdenv.hostPlatform) system;
       phpPkgs = import inputs.nixpkgs-php {
-        inherit system;
+        inherit (pkgs.stdenv.hostPlatform) system;
         config.allowUnfree = true;
       };
+      user = config.ironman.user.name;
     in
     {
       environment =
@@ -61,6 +60,7 @@
       networking.firewall.allowedTCPPorts = [ 443 ];
       services = {
         nginx = {
+          inherit user;
           enable = true;
           virtualHosts."rcm.desk.niceastman.com" = {
             default = true;
@@ -117,23 +117,26 @@
               "pm.max_requests" = 500;
             };
           };
+          phpOptions = ''
+            date.timezone = "America/Chicago"
+          '';
         };
       };
       sops.secrets = {
         rcm_cert = {
           format = "binary";
           mode = "0400";
-          owner = config.users.users.nginx.name;
+          owner = user;
           sopsFile = "${flakeRoot}/.secrets/rcm-cert.pem";
         };
         rcm_key = {
           format = "binary";
           mode = "0400";
-          owner = config.users.users.nginx.name;
+          owner = user;
           sopsFile = "${flakeRoot}/.secrets/rcm-key.pem";
         };
       };
-      users.users.${config.ironman.user.name}.extraGroups = [
+      users.users.${user}.extraGroups = [
         config.services.nginx.group
       ];
     };

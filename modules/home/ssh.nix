@@ -330,6 +330,11 @@
             identitiesOnly = true;
             identityFile = "${sshPath}/github";
           };
+          "gns3-work" = {
+            hostname = "192.168.21.199";
+            user = "ironman";
+          }
+          // deployIdentity;
           "google" = {
             hostname = "google.royell.co";
             user = "royell";

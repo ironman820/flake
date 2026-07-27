@@ -15,17 +15,14 @@
       ];
       environment.systemPackages = with pkgs; [
         deploy-rs
-        protonplus
+        gns3-gui
+        # protonplus
       ];
       hardware.bluetooth.enable = true;
       programs = {
         gnupg.agent = {
           enableSSHSupport = mkDefault false;
           enable = true;
-        };
-        steam = {
-          enable = true;
-          protontricks.enable = true;
         };
         system-config-printer.enable = true;
       };

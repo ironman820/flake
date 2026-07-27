@@ -211,8 +211,8 @@
                 ];
                 nextMatch = "n";
                 prevMatch = "N";
-                optionMenu = "<disabled>";
-                optionMenu-alt1 = "?";
+                optionMenu = "?";
+                optionMenu-alt1 = "<disabled>";
                 select = "<space>";
                 goInto = "<enter>";
                 openRecentRepos = "<c-r>";
@@ -303,7 +303,6 @@
                 pasteCommits = "v";
                 tagCommit = "T";
                 checkoutCommit = "<space>";
-                # resetCherryPick = "<c-R>";
                 copyCommitMessageToClipboard = "<c-y>";
                 openLogMenu = "<c-l>";
                 viewBisectOptions = "b";

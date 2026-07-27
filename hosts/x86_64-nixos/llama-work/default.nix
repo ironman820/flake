@@ -82,9 +82,6 @@
         config.sops.secrets.llama_work_env.path
       ];
       cmd = [
-        # "tail"
-        # "-f"
-        # "/dev/null"
         "/bin/bash"
         "-c"
         "llama-server"

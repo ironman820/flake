@@ -1156,7 +1156,6 @@
         servers = {
           nixd.enable = true;
           phpactor.enable = true;
-          # psalm.enable = true;
           pyright.enable = true;
         };
       };

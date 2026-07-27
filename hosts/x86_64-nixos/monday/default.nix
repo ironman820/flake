@@ -21,10 +21,10 @@
     tmux
     winbox
   ]);
-  # boot = {
-  #   loader.grub.darkmatter-theme.enable = false;
-  #   plymouth.enable = false;
-  # };
+  boot = {
+    loader.grub.darkmatter-theme.enable = false;
+    plymouth.enable = false;
+  };
   home-manager.users.ironman = self.homeConfigurations.ironman-minimal;
   ironman = {
     network-profiles.work = true;

@@ -85,17 +85,7 @@
               "webauthheader"
             ];
             sslheader.headers.customRequestHeaders.X-Forwarded-Proto = "https";
-            vaultwarden.headers = {
-              # browserXssFilter = false;
-              # contentTypeNosniff = true;
-              # customFrameOptionsValue = "SAMEORIGIN";
-              # forceSTSHeader = true;
-              # frameDeny = true;
-              # stsIncludeSubdomains = true;
-              # stsPreload = true;
-              # stsSeconds = 15552000;
-              customRequestHeaders.X-Forwarded-Proto = "https";
-            };
+            vaultwarden.headers.customRequestHeaders.X-Forwarded-Proto = "https";
           };
           routers = {
             calibre = {

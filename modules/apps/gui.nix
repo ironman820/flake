@@ -6,11 +6,12 @@
         boxbuddy
         local.catppuccin-kitty
         feishin
-        freecad
+        # freecad
         google-chrome
         kitty
         obsidian
         remmina
+        roxterm
         udiskie
         vlc
         zotero

@@ -30,8 +30,6 @@
     drive-shares-personal
     intel-video
     laptop
-    # TODO: Troubleshooting crashes disable power management
-    # power
     syncthing
     tmux
     virtual-host
@@ -53,10 +51,6 @@
   ironman = {
     syncthing = {
       devices = {
-        # e105-laptop = {
-        #   id = "RPVYMOE-RC2NDFN-C5TRBZ2-ATRNVNE-VWONQD3-DVAGPJ5-OV5RWTK-KKKBSAI";
-        #   name = "e105-laptop";
-        # };
         friday = {
           id = "C2T72DJ-35SQ4DJ-OTQFZUH-R54J3FK-7K2M46K-RAN5SFU-4Y4ZNIL-FZ64AQQ";
           name = "Friday";
@@ -75,7 +69,6 @@
           id = "upryn-vzhy9";
           devices = [
             "nas"
-            # "e105-laptop"
           ];
           label = "Thunderbird";
           type = "sendonly";
@@ -85,7 +78,6 @@
           devices = [
             "friday"
             "nas"
-            # "e105-laptop"
             "work-desktop"
           ];
           label = "Downloads";
@@ -99,7 +91,6 @@
           devices = [
             "friday"
             "nas"
-            # "e105-laptop"
             "work-desktop"
           ];
           label = "Work Documents";
@@ -113,7 +104,6 @@
           devices = [
             "friday"
             "nas"
-            # "e105-laptop"
             "phone"
           ];
           label = "Notes";
@@ -123,7 +113,6 @@
           devices = [
             "friday"
             "nas"
-            # "e105-laptop"
             "work-desktop"
           ];
           label = "Work Pictures";
@@ -137,7 +126,6 @@
           devices = [
             "friday"
             "nas"
-            # "e105-laptop"
             "work-desktop"
           ];
           label = "Wallpapers";
@@ -162,6 +150,5 @@
   nix.settings.cores = 4;
   services = {
     openssh.settings.PermitRootLogin = "no";
-    system76-scheduler.settings.cfsProfiles.enable = true;
   };
 }

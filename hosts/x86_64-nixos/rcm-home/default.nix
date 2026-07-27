@@ -11,6 +11,7 @@
     base
     git
     proxmox
+    apps-python
     rcm
     tmux
     x64-linux

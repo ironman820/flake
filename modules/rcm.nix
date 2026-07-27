@@ -15,24 +15,9 @@
     in
     {
       environment =
-        let
-          version-utils = import "${flakeRoot}/lib/version-utils.nix" { };
-          inherit (version-utils) getVersionMajorMinor;
-          pythonPackages = pkgs.python3.withPackages (
-            ps: with ps; [
-              ipykernel
-              numpy
-              pandas
-              pyodbc
-              python-dotenv
-              requests
-              sqlalchemy
-            ]
-          );
-        in
         {
           systemPackages =
-            (with phpPkgs; [
+            with phpPkgs; [
               (php74.buildEnv {
                 extensions =
                   {
@@ -44,17 +29,12 @@
               php74Packages.psalm
               unixODBC
               (unixODBCDrivers.msodbcsql17.override { openssl = phpPkgs.openssl_1_1; })
-            ])
-            ++ (with pkgs; [
-              basedpyright
-              pythonPackages
-            ]);
+            ];
           unixODBCDrivers = with phpPkgs.unixODBCDrivers; [
             (msodbcsql17.override { openssl = phpPkgs.openssl_1_1; })
           ];
           variables = {
             LD_LIBRARY_PATH = "/run/opengl-driver/lib:${phpPkgs.unixODBC}/lib:${phpPkgs.unixODBCDrivers.msodbcsql17}/lib";
-            PYTHONPATH = "${pythonPackages}/lib/python${getVersionMajorMinor pkgs.python3.version}/site-packages";
           };
         };
       networking.firewall.allowedTCPPorts = [ 443 ];

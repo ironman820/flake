@@ -3,7 +3,8 @@
   flake.homeConfigurations.ironman-server = {
     imports = with config.flake.homeModules; [
       base
-      llama-work-sops
+      # llama-work-sops
+      python
     ];
     programs.zed-editor = {
       enable = true;

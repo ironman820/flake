@@ -8,9 +8,9 @@
           base
           extra
           flatpak
-          kitty
           llama-work-sops
           plasma
+          python
           qt
           syncthing
         ])

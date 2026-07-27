@@ -31,11 +31,9 @@
       };
       environment.systemPackages = with pkgs; [
         age
-        basedpyright
         btop
         caligula
         cifs-utils
-        conda
         delta
         diff-so-fancy
         dig
@@ -67,7 +65,6 @@
         p7zip
         poppler-utils
         pv
-        python3
         qrencode
         rclone
         ripgrep

@@ -19,7 +19,8 @@
           plasma-manager.homeModules.plasma-manager
         ]);
       home.packages = with pkgs; [
-        qgis
+        inputs.nixpkgs-stable.legacyPackages.${pkgs.stdenv.hostPlatform.system}.qgis
+        # qgis
         wireshark
         zoom-us
       ];

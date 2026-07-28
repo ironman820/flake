@@ -18,10 +18,11 @@
   ])
   ++ (with self.nixosModules; [
     apps-gui-extra
+    apps-python
     arduino
     base
     boot-grub
-    de-xfce
+    de-cosmic
     fonts
     git
     self.diskoConfigurations.friday

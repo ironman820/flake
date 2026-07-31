@@ -21,7 +21,7 @@
     arduino
     base
     boot-grub
-    de-plasma
+    de-cosmic
     fonts
     git
     self.diskoConfigurations.wednesday

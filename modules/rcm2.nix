@@ -18,7 +18,7 @@
               inherit (pkgs) fetchurl;
               inherit (pkgs.python3Packages) buildPythonPackage;
               p3p = pkgs.python3Packages;
-              django-components = buildPythonPackage rec {
+              django-components = buildPythonPackage {
                 pname = "django-components";
                 version = "0.144.0";
                 src = fetchurl {
@@ -36,7 +36,7 @@
                   p3p.typing-extensions
                 ];
               };
-              django-cotton = buildPythonPackage rec {
+              django-cotton = buildPythonPackage {
                 pname = "django-cotton";
                 version = "2.6.1";
                 src = fetchurl {
@@ -52,7 +52,7 @@
                   p3p.django
                 ];
               };
-              django-template-partials = buildPythonPackage rec {
+              django-template-partials = buildPythonPackage {
                 pname = "django-template-partials";
                 version = "25.3";
                 src = fetchurl {
@@ -68,7 +68,7 @@
                   p3p.django
                 ];
               };
-              jinjax = buildPythonPackage rec {
+              jinjax = buildPythonPackage {
                 pname = "jinjax";
                 version = "0.37";
                 src = fetchurl {

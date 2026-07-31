@@ -122,7 +122,7 @@
   outputs =
     inputs:
     inputs.flake-parts.lib.mkFlake { inherit inputs; } (
-      top@{ self, ... }:
+      { self, ... }:
       {
         _module.args = {
           inherit inputs;

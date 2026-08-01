@@ -176,6 +176,11 @@
             user = "root";
           }
           // deployIdentity;
+          "sonarqube" = {
+            hostname = "192.168.248.107";
+            user = "ironman";
+          }
+          // deployIdentity;
           "10.10.50.10" = {
             user = "root";
             port = 923;

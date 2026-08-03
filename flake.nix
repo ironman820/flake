@@ -59,6 +59,10 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     import-tree.url = "github:vic/import-tree";
+    kineticwe = {
+      inputs.nixpkgs.follows = "nixpkgs";
+      url = "gitlab:theblackdon/kineticwe";
+    };
     nix-flatpak.url = "github:gmodena/nix-flatpak/?ref=latest";
     nixos-hardware = {
       inputs.nixpkgs.follows = "nixpkgs";

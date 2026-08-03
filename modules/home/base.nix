@@ -60,6 +60,7 @@
       nixpkgs = {
         config.allowUnfree = true;
         overlays = [
+          inputs.kineticwe.overlays.default
           inputs.self.overlays.default
         ];
       };

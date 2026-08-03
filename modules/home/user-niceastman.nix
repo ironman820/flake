@@ -8,12 +8,15 @@
           base
           extra
           flatpak
+          plasma
           python
           qt
           syncthing
         ])
         ++ (with inputs; [
+          kineticwe.homeModules.default
           nix-flatpak.homeManagerModules.nix-flatpak
+          plasma-manager.homeModules.plasma-manager
         ]);
       home.packages = with pkgs; [
         inputs.nixpkgs-stable.legacyPackages.${pkgs.stdenv.hostPlatform.system}.qgis

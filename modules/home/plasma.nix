@@ -3,6 +3,7 @@
     { osConfig, ... }:
     {
       programs = {
+        kineticwe.enable = true;
         okular = {
           enable = true;
           general = {

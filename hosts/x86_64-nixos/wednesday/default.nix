@@ -13,6 +13,7 @@
   ++ (with inputs; [
     darkmatter-grub-theme.nixosModule
     disko.nixosModules.disko
+    kineticwe.nixosModules.default
     nixos-hardware.nixosModules.framework-amd-ai-300-series
   ])
   ++ (with self.nixosModules; [
@@ -21,7 +22,7 @@
     arduino
     base
     boot-grub
-    de-cosmic
+    de-plasma
     fonts
     git
     self.diskoConfigurations.wednesday

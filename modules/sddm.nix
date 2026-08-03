@@ -14,7 +14,7 @@
         displayManager.sddm = {
           enable = true;
           enableHidpi = true;
-          theme = "sddm-astronaut-theme";
+          # theme = "sddm-astronaut-theme";
           wayland.enable = true;
         };
       };

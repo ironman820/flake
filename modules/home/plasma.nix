@@ -3,7 +3,7 @@
     { osConfig, ... }:
     {
       programs = {
-        kineticwe.enable = true;
+        # kineticwe.enable = true;
         okular = {
           enable = true;
           general = {
@@ -143,7 +143,6 @@
             "org.chromium.Chromium"."789D4A8DD37264E4A9D1003B7815A8F1-MediaPlayPause" = [ ];
             "org.chromium.Chromium"."808F2B98A91BFA0FC4164AF05BB516AC-MediaStop" = [ ];
             "org.chromium.Chromium".D88FD5032C22FF295F83A92DC60FE751-MediaNextTrack = [ ];
-            "services/kitty.desktop"._launch = "Ctrl+Alt+T";
             "services/org.kde.konsole.desktop"._launch = [ ];
           };
           workspace = {

@@ -1,25 +1,21 @@
-{ config, inputs, ... }:
+{ self, ... }:
 {
   flake.homeConfigurations.niceastman =
-    { pkgs, ... }:
+    { inputs', pkgs, ... }:
     {
       imports =
-        (with config.flake.homeModules; [
+        (with self.homeModules; [
           base
           extra
           flatpak
+          kitty
           plasma
           python
           qt
           syncthing
-        ])
-        ++ (with inputs; [
-          kineticwe.homeModules.default
-          nix-flatpak.homeManagerModules.nix-flatpak
-          plasma-manager.homeModules.plasma-manager
         ]);
       home.packages = with pkgs; [
-        inputs.nixpkgs-stable.legacyPackages.${pkgs.stdenv.hostPlatform.system}.qgis
+        inputs'.nixpkgs-stable.legacyPackages.qgis
         # qgis
         wireshark
         zoom-us

@@ -1,17 +1,14 @@
-{ config, inputs, ... }:
+{ self, ... }:
 {
   flake.homeConfigurations.ironman = {
     imports =
-      (with config.flake.homeModules; [
+      (with self.homeModules; [
         base
         extra
         flatpak
         python
         qt
         syncthing
-      ])
-      ++ (with inputs; [
-        nix-flatpak.homeManagerModules.nix-flatpak
       ]);
   };
 }

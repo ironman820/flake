@@ -1,8 +1,7 @@
-{
+{ flakeRoot, ... }: {
   flake.nixosModules.network-profiles =
     {
       config,
-      flakeRoot,
       lib,
       ...
     }:

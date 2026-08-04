@@ -1,8 +1,7 @@
-{
+{ self, inputs, ... }: {
   flake.nixosModules.nix =
     {
       config,
-      inputs,
       lib,
       pkgs,
       ...
@@ -50,7 +49,7 @@
         };
         overlays = [
           inputs.rust-overlay.overlays.default
-          inputs.self.overlays.default
+          self.overlays.default
         ];
       };
       programs = {

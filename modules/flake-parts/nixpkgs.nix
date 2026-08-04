@@ -1,6 +1,7 @@
 {
   inputs,
   flakeRoot,
+  self,
   withSystem,
   ...
 }:
@@ -11,9 +12,10 @@
       _module.args.pkgs = import inputs.nixpkgs {
         inherit system;
         config.allowUnfree = true;
-        overlays = [
-          inputs.rust-overlay.overlays.default
-          inputs.self.overlays.default
+        overlays = with inputs; [
+          nix-topology.overlays.default
+          rust-overlay.overlays.default
+          self.overlays.default
         ];
       };
       pkgsDirectory = flakeRoot + "/packages";

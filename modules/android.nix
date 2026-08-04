@@ -6,15 +6,13 @@
       ...
     }:
     {
-      config = {
-        users.users.${config.ironman.user.name}.extraGroups = [ "adbusers" ];
-        environment.systemPackages = with pkgs; [
-          android-studio
-        ];
-        programs.adb.enable = true;
-        services.udev.packages = [
-          pkgs.android-udev-rules
-        ];
-      };
+      users.users.${config.ironman.user.name}.extraGroups = [ "adbusers" ];
+      environment.systemPackages = with pkgs; [
+        android-studio
+      ];
+      programs.adb.enable = true;
+      services.udev.packages = [
+        pkgs.android-udev-rules
+      ];
     };
 }

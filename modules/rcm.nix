@@ -2,8 +2,8 @@
 {
   flake.nixosModules.rcm =
     {
-      pkgs,
       config,
+      pkgs,
       ...
     }:
     let
@@ -27,6 +27,7 @@
                   enabled ++ (with all; [ sqlsrv ]);
               })
               php74Packages.psalm
+              pkgs.phpactor
               unixODBC
               (unixODBCDrivers.msodbcsql17.override { openssl = phpPkgs.openssl_1_1; })
             ];

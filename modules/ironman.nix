@@ -39,6 +39,7 @@
           default = [ ];
           description = "AutoFS autoMaster share declarations";
         };
+        plasma = mkEnableOption "plasma";
         syncthing = {
           cert = mkOption {
             default = null;

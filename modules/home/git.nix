@@ -3,7 +3,7 @@
     {
       config,
       osConfig,
-      pkgs,
+      self',
       ...
     }:
     let
@@ -330,7 +330,7 @@
         };
       };
       xdg.configFile = {
-        "lazygit/themes".source = pkgs.local.tokyonight-lazygit;
+        "lazygit/themes".source = self'.packages.tokyonight-lazygit;
       };
     };
 }

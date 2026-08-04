@@ -29,10 +29,6 @@
     crane = {
       url = "github:ipetkov/crane";
     };
-    darkmatter-grub-theme = {
-      inputs.nixpkgs.follows = "nixpkgs";
-      url = "gitlab:vandalbyte/darkmatter-grub-theme";
-    };
     deploy-rs = {
       inputs.nixpkgs.follows = "nixpkgs";
       url = "github:serokell/deploy-rs";
@@ -81,9 +77,19 @@
     nixpkgs-9041993.url = "github:nixos/nixpkgs/9041993";
     # nVidia 580.95.05
     nixpkgs-3652b3e.url = "github:nixos/nixpkgs/3652b3e";
+    nix-topology = {
+      url = "github:oddlama/nix-topology";
+      inputs = {
+        flake-parts.follows = "flake-parts";
+        nixpkgs.follows = "nixpkgs";
+      };
+    };
     nixvim = {
       url = "github:nix-community/nixvim";
-      inputs.nixpkgs.follows = "nixpkgs";
+      inputs = {
+        flake-parts.follows = "flake-parts";
+        nixpkgs.follows = "nixpkgs";
+      };
     };
     pkgs-by-name.url = "github:drupol/pkgs-by-name-for-flake-parts";
     plasma-manager = {
@@ -118,6 +124,10 @@
       };
       url = "github:abenz1267/walker";
     };
+    wrapper-modules = {
+      inputs.nixpkgs.follows = "nixpkgs";
+      url = "github:birdeehub/nix-wrapper-modules";
+    };
     zen-browser = {
       url = "github:youwen5/zen-browser-flake";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -132,8 +142,16 @@
           inherit inputs;
           flakeRoot = self.outPath;
         };
-        imports = [
-          (inputs.import-tree ./modules)
+        imports = with inputs; [
+          disko.flakeModules.default
+          easy-hosts.flakeModule
+          home-manager.flakeModules.home-manager
+          (import-tree ./modules)
+          nix-topology.flakeModule
+          pkgs-by-name.flakeModule
+        ];
+        systems = [
+          "x86_64-linux"
         ];
       }
     );

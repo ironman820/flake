@@ -1,22 +1,28 @@
 { config, ... }:
 {
   flake.nixosModules.laptop =
-    { lib, pkgs, ... }:
+    { lib, pkgs, self', ... }:
     let
       inherit (lib) mkDefault;
     in
     {
       imports = with config.flake.nixosModules; [
-        apps-gui
+        guiApps
         firmware
         networking
         network-profiles
         sound
       ];
       environment.systemPackages = with pkgs; [
+        caligula
         deploy-rs
+        ffmpeg
         gns3-gui
+        hplip
+        self'.packages.idracclient
+        poppler-utils
         # protonplus
+        wireguard-tools
       ];
       hardware.bluetooth.enable = true;
       programs = {

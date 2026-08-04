@@ -1,11 +1,13 @@
 {
   flakeRoot,
   inputs,
+  self,
   ...
 }:
 {
   easy-hosts = {
     autoConstruct = true;
+    onlySystem = "x86_64-nixos";
     path = ../../hosts;
     shared = {
       modules = with inputs; [
@@ -15,8 +17,7 @@
             inherit flakeRoot;
           };
         }
-        nixvim.nixosModules.nixvim
-        sops-nix.nixosModules.sops
+        self.nixosModules.base
       ];
       specialArgs = {
         inherit flakeRoot;

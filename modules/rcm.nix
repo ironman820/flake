@@ -1,16 +1,13 @@
-{ flakeRoot, inputs, ... }:
+{ flakeRoot, ... }:
 {
   flake.nixosModules.rcm =
     {
-      pkgs,
       config,
+      inputs',
       ...
     }:
     let
-      phpPkgs = import inputs.nixpkgs-php {
-        inherit (pkgs.stdenv.hostPlatform) system;
-        config.allowUnfree = true;
-      };
+      phpPkgs = inputs'.nixpkgs-php.legacyPackages;
       user = config.ironman.user.name;
     in
     {

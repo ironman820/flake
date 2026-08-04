@@ -1,7 +1,7 @@
 {
-  config,
   flakeRoot,
   inputs,
+  self,
   ...
 }:
 {
@@ -13,7 +13,7 @@
     }:
     {
       imports =
-        (with config.flake.homeModules; [
+        (with self.homeModules; [
           btop
           eza
           git
@@ -24,7 +24,9 @@
           tmux
         ])
         ++ (with inputs; [
+          nix-flatpak.homeManagerModules.nix-flatpak
           nixvim.homeModules.nixvim
+          plasma-manager.homeModules.plasma-manager
           sops-nix.homeModules.sops
         ]);
       home = {

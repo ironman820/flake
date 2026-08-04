@@ -1,7 +1,7 @@
 { flakeRoot, inputs, ... }:
 {
   flake.nixosModules.rcm2 =
-    { pkgs, config, ... }:
+    { pkgs, config, self', ... }:
     let
       phpPkgs = import inputs.nixpkgs-php {
         inherit (pkgs.stdenv.hostPlatform) system;
@@ -32,7 +32,7 @@
                 nativeBuildInputs = [ ];
                 propagatedBuildInputs = [
                   p3p.django
-                  pkgs.local.djc-core-html-parser
+                  self'.packages.djc-core-html-parser
                   p3p.typing-extensions
                 ];
               };

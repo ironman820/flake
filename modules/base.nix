@@ -1,58 +1,66 @@
-{ config, ... }:
+{ inputs, self, ... }:
 {
   flake.nixosModules.base =
     {
       inputs',
       lib,
       pkgs,
+      self',
       ...
     }:
     {
-      imports = with config.flake.nixosModules; [
+      imports = (with inputs; [
+        disko.nixosModules.disko
+        nix-topology.nixosModules.default
+        nixvim.nixosModules.nixvim
+        sops-nix.nixosModules.sops
+        {
+          home-manager.extraSpecialArgs = {
+            inherit inputs' self';
+          };
+        }
+      ]) ++ (with self.nixosModules; [
         ironman
         nix
         nixvim
-      ];
+      ]);
       boot = {
-        kernel.sysctl = {
-          "vm.swappiness" = 10;
-        };
+        # kernel.sysctl = {
+        #   "vm.swappiness" = 10;
+        # };
         kernelParams = [
           "quiet"
         ];
         loader = {
           efi.canTouchEfiVariables = true;
-          timeout = 2;
+          # timeout = 2;
         };
       };
       console = {
-        font = "Lat2-Terminus16";
+        font = "EnvyCodeR Nerd Font Mono";
+        packages = [
+          pkgs.nerd-fonts.envy-code-r
+        ];
         useXkbConfig = true; # use xkbOptions in tty.
       };
       environment.systemPackages = with pkgs; [
         age
         btop
-        caligula
         cifs-utils
         delta
         diff-so-fancy
         dig
         duf
         dust
-        eltclsh
         entr
         enum4linux
         eza
-        ffmpeg
         inputs'.snowfall-flake.packages.flake
         fping
         fzf
         gcc
-        glab
         glibc
         gnumake
-        hplip
-        local.idracclient
         inetutils
         jq
         just
@@ -63,20 +71,17 @@
         ntfs3g
         nvd
         p7zip
-        poppler-utils
         pv
         qrencode
         rclone
         ripgrep
         ssh-to-age
         sops
-        local.switchssh
+        self'.packages.switchssh
         tealdeer
-        trashy
         unrar
         unzip
         wget
-        wireguard-tools
         yq
         zip
       ];
@@ -85,6 +90,7 @@
           meslo-lgs-nf
         ])
         ++ (with pkgs.nerd-fonts; [
+          envy-code-r
           fira-code
           fira-mono
           inconsolata
@@ -123,7 +129,7 @@
             prettybat
           ];
         };
-        command-not-found.enable = false;
+        # command-not-found.enable = false;
         direnv = {
           enable = true;
           nix-direnv.enable = true;

@@ -1,7 +1,6 @@
-{
+{ flakeRoot, ...}: {
   flake.nixosModules.tmux =
     {
-      flakeRoot,
       pkgs,
       ...
     }:

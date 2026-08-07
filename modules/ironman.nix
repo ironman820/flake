@@ -39,6 +39,7 @@
           default = [ ];
           description = "AutoFS autoMaster share declarations";
         };
+        personal_laptop = mkEnableOption "personal laptop";
         plasma = mkEnableOption "plasma";
         syncthing = {
           cert = mkOption {
@@ -57,6 +58,12 @@
             default = null;
             type = types.nullOr types.path;
           };
+        };
+        work_laptop = mkEnableOption "work laptop";
+        zed_device = mkOption {
+          type = types.str;
+          default = "";
+          description = "Device ID to set in the ZED_DEVICE_ID environment variable";
         };
       };
       config =

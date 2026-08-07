@@ -4,13 +4,12 @@
       python
       arduino
       grub
-      plasma
       fonts
       git
       drive-shares
-      intel-video
       laptop
       inputs.nixos-hardware.nixosModules.framework-amd-ai-300-series
+      niri
       syncthing
       tmux
       virtualHost
@@ -27,6 +26,11 @@
       docker-compose
       googleearth-pro
       freerdp
+    ];
+    hardware.graphics.extraPackages = with pkgs; [
+      vulkan-loader
+      vulkan-validation-layers
+      vulkan-extension-layer
     ];
     home-manager.users.niceastman = self.homeConfigurations.niceastman;
     ironman = {
@@ -126,6 +130,8 @@
         };
       };
       network-profiles.work = true;
+      work_laptop = true;
+      zed_device = "0x1114";
     };
     networking = {
       firewall.allowedTCPPorts = [
@@ -136,6 +142,6 @@
     nix.settings.cores = 4;
     services = {
       openssh.settings.PermitRootLogin = "no";
-      system76-scheduler.settings.cfsProfiles.enable = true;
+      # system76-scheduler.settings.cfsProfiles.enable = true;
     };
 }

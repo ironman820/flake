@@ -62,7 +62,7 @@
           screen
         ];
         shellAliases = {
-          "s" = "kitten ssh";
+          "ssh" = "TERM=xterm-256color ssh";
         };
       };
       programs.ssh = {

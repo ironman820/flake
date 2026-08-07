@@ -1,20 +1,26 @@
 {
   flake.nixosModules.sddm =
     { pkgs, ... }:
+    let
+      sddm-theme = (pkgs.sddm-astronaut.override {
+          embeddedTheme = "hyprland_kath";
+        });
+    in
     {
       environment = {
-        systemPackages = [
-          pkgs.kdePackages.qtmultimedia
-          (pkgs.sddm-astronaut.override {
-            embeddedTheme = "cyberpunk";
-          })
+        systemPackages = with pkgs.kdePackages; [
+          qtmultimedia
+          sddm-theme
         ];
       };
       services = {
         displayManager.sddm = {
           enable = true;
           enableHidpi = true;
-          # theme = "sddm-astronaut-theme";
+          extraPackages = [
+            sddm-theme
+          ];
+          theme = "sddm-astronaut-theme";
           wayland.enable = true;
         };
       };

@@ -2,6 +2,7 @@
   config,
   flakeRoot,
   inputs,
+  inputs',
   modulesPath,
   pkgs,
   self,
@@ -19,12 +20,12 @@
     python
     arduino
     grub
-    cosmic
     fonts
     git
     self.diskoConfigurations.friday
     drive-shares
     laptop
+    niri
     tmux
     virtualHost
     docker
@@ -43,6 +44,7 @@
   home-manager.users.ironman = self.homeConfigurations.ironman;
   ironman = {
     network-profiles.work = true;
+    personal_laptop = true;
     shares.personal = true;
     syncthing = {
       cert = config.sops.secrets.syncthing-friday-cert.path;
@@ -179,11 +181,13 @@
         };
       };
     };
+    zed_device = "0x15e7";
   };
   networking.hostName = "friday";
-  nix.settings.cores = 4;
+  nix.settings.cores = 5;
   programs.steam = {
     enable = true;
+    package = inputs'.millennium.packages.millennium-steam;
     protontricks.enable = true;
   };
   services.openssh.settings.PermitRootLogin = "no";

@@ -1,24 +1,30 @@
+{ flakeRoot, ... }:
 {
   flake.homeModules.git =
     {
       config,
       osConfig,
+      lib,
+      pkgs,
       self',
       ...
     }:
     let
+      inherit (config.programs) noctalia;
+      inherit (lib) mkIf;
       configFolder = "${config.xdg.configHome}/lazygit";
       os = osConfig.ironman.user;
     in
     {
       home = {
-        sessionVariables = {
-          LG_CONFIG_FILE = "${configFolder}/config.yml,${configFolder}/themes/tokyonight_night.yml";
-        };
+        sessionVariables.GH_TOKEN = "''$(${pkgs.coreutils}/bin/cat ${config.sops.secrets.github_token.path})";
         shellAliases = {
           lg = "lazygit";
         };
       };
+      ironman.lazygit_config_files = mkIf (! noctalia.enable) [
+        "${configFolder}/themes/tokyonight/tokyonight_night.yml"
+      ];
       programs = {
         diff-so-fancy = {
           enable = true;
@@ -128,10 +134,10 @@
               portraitMode = "auto";
             };
             git = {
-              pagers = [
+              diffRenderers = [
                 {
                   colorArg = "always";
-                  pager = "diff-so-fancy";
+                  command = "diff-so-fancy";
                 }
               ];
               commit.signOff = false;
@@ -330,7 +336,8 @@
         };
       };
       xdg.configFile = {
-        "lazygit/themes".source = self'.packages.tokyonight-lazygit;
+        "lazygit/themes/tokyonight".source = self'.packages.tokyonight-lazygit;
       };
+      sops.secrets.github_token.sopsFile = "${flakeRoot}/.secrets/git.yaml";
     };
 }

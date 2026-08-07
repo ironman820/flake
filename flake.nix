@@ -59,6 +59,17 @@
       inputs.nixpkgs.follows = "nixpkgs";
       url = "gitlab:theblackdon/kineticwe";
     };
+    millennium = {
+      url = "github:SteamClientHomebrew/Millennium?dir=packages/nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+    niri = {
+      url = "github:epireyn/niri-flake";
+      inputs = {
+        nixpkgs.follows = "nixpkgs";
+        nixpkgs-stable.follows = "nixpkgs-stable";
+      };
+    };
     nix-flatpak.url = "github:gmodena/nix-flatpak/?ref=latest";
     nixos-hardware = {
       inputs.nixpkgs.follows = "nixpkgs";
@@ -90,6 +101,12 @@
         flake-parts.follows = "flake-parts";
         nixpkgs.follows = "nixpkgs";
       };
+    };
+    # Keep Noctalia using it's own nixpkgs. This allows cache usage.
+    noctalia.url = "github:noctalia-dev/noctalia/cachix";
+    noctalia-greeter = {
+      url = "github:noctalia-dev/noctalia-greeter";
+      inputs.nixpkgs.follows = "nixpkgs";
     };
     pkgs-by-name.url = "github:drupol/pkgs-by-name-for-flake-parts";
     plasma-manager = {
@@ -132,6 +149,10 @@
       url = "github:youwen5/zen-browser-flake";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+  };
+  nixConfig = {
+    extra-substituters = [ "https://noctalia.cachix.org" ];
+    extra-trusted-public-keys = [ "noctalia.cachix.org-1:pCOR47nnMEo5thcxNDtzWpOxNFQsBRglJzxWPp3dkU4=" ];
   };
   outputs =
     inputs:

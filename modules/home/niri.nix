@@ -1,0 +1,168 @@
+{ self, ... }: {
+  flake.homeModules.niri = { inputs', lib, pkgs, ... }: {
+    imports = with self.homeModules; [
+      noctalia
+    ];
+    programs.niri = {
+      settings = {
+        binds = {
+          "Mod+1".action.focus-workspace = "";
+          "Mod+2".action.focus-workspace = "";
+          "Mod+3".action.focus-workspace = 3;
+          "Mod+4".action.focus-workspace = 4;
+          "Mod+5".action.focus-workspace = 5;
+          "Mod+6".action.focus-workspace = 6;
+          "Mod+7".action.focus-workspace = 7;
+          "Mod+8".action.focus-workspace = 8;
+          "Mod+9".action.focus-workspace = 9;
+          "Mod+H".action.focus-column-left = [ ];
+          "Mod+J".action.focus-workspace-down = [ ];
+          "Mod+K".action.focus-workspace-up = [ ];
+          "Mod+L".action.focus-column-right = [ ];
+          "Mod+Q".action.close-window = [ ];
+          "Mod+W".action.spawn-sh = lib.getExe inputs'.zen-browser.packages.default;
+          "Mod+Y".action.switch-preset-column-width = [ ];
+          "Mod+Z".action.spawn-sh = lib.getExe pkgs.zed-editor;
+          "Mod+Return".action.spawn-sh = lib.getExe pkgs.roxterm;
+          "Mod+Shift+1".action.move-column-to-workspace = "";
+          "Mod+Shift+2".action.move-column-to-workspace = "";
+          "Mod+Shift+3".action.move-column-to-workspace = 3;
+          "Mod+Shift+4".action.move-column-to-workspace = 4;
+          "Mod+Shift+5".action.move-column-to-workspace = 5;
+          "Mod+Shift+6".action.move-column-to-workspace = 6;
+          "Mod+Shift+7".action.move-column-to-workspace = 7;
+          "Mod+Shift+8".action.move-column-to-workspace = 8;
+          "Mod+Shift+9".action.move-column-to-workspace = 9;
+          "Mod+Shift+H".action.move-column-left = [ ];
+          "Mod+Shift+J".action.move-column-to-workspace-down = [ ];
+          "Mod+Shift+K".action.move-column-to-workspace-up = [ ];
+          "Mod+Shift+L".action.move-column-right = [ ];
+          "Mod+Shift+Q".action.quit = [ ];
+          "Mod+Shift+Y".action.switch-preset-column-width-back = [ ];
+          "Mod+Shift+Slash".action.show-hotkey-overlay = [ ];
+          # Core Noctalia binds
+          "Mod+Space".action.spawn-sh = "noctalia msg panel-toggle launcher";
+          "Mod+S".action.spawn-sh = "noctalia msg panel-toggle control-center";
+          "Mod+Comma".action.spawn-sh = "noctalia msg settings-toggle";
+          "Mod+Tab".action.spawn-sh = "noctalia msg window-switcher";
+
+          # Audio & Brightness
+          "XF86AudioRaiseVolume".action.spawn-sh = "noctalia msg volume-up";
+          "XF86AudioLowerVolume".action.spawn-sh = "noctalia msg volume-down";
+          "XF86AudioMute".action.spawn-sh = "noctalia msg volume-mute";
+          "XF86MonBrightnessUp".action.spawn-sh = "noctalia msg brightness-up";
+          "XF86MonBrightnessDown".action.spawn-sh = "noctalia msg brightness-down";
+        };
+        debug = {
+          honor-xdg-activation-with-invalid-serial = [ ];
+        };
+        hotkey-overlay = {
+          hide-not-bound = true;
+          skip-at-startup = true;
+        };
+        input.keyboard.xkb.layout = "us";
+        layer-rules = [
+          {
+            matches = [
+              {
+                namespace = "^noctalia-backdrop";
+              }
+            ];
+            place-within-backdrop = true;
+          }
+        ];
+        layout = {
+          default-column-width.proportion = 0.5;
+          preset-column-widths = [
+            { proportion = 1. / 2.; }
+            { proportion = 1.; }
+            { proportion = 1. / 4.; }
+          ];
+        };
+        spawn-at-startup = [
+          { argv = [ "noctalia" ]; }
+        ];
+        switch-events = {
+          lid-close.action.spawn = [
+            "noctalia"
+            "msg"
+            "session"
+            "lock-and-suspend"
+          ];
+        };
+        window-rules = [
+          {
+            clip-to-geometry = true;
+            geometry-corner-radius = {
+              bottom-left = 20.;
+              bottom-right = 20.;
+              top-left = 20.;
+              top-right = 20.;
+            };
+          }
+          {
+            matches = [
+              {
+                app-id = "dev.noctalia.Noctalia";
+              }
+            ];
+            open-floating = true;
+            default-column-width.fixed = 1080;
+            default-window-height.fixed = 920;
+          }
+          {
+            matches = [
+              {
+                app-id = "roxterm";
+              }
+            ];
+            open-focused = true;
+            open-on-workspace = "";
+          }
+          {
+              matches = [
+                {
+                  app-id = "steam";
+                }
+                {
+                  title = "^notificationtoasts_\d+_desktop$";
+                }
+              ];
+              baba-is-float = true;
+              default-floating-position = {
+                x = 10;
+                y = 10;
+                relative-to = "bottom-right";
+              };
+          }
+          {
+            matches = [
+              {
+                app-id = "dev.zed.Zed";
+              }
+            ];
+            default-column-width.proportion = 1.;
+            default-window-height.proportion = 1.;
+            open-focused = true;
+            open-on-workspace = "";
+          }
+          {
+            matches = [
+              {
+                app-id = "zen";
+              }
+            ];
+            default-column-width.proportion = 1.;
+            default-window-height.proportion = 1.;
+            open-focused = true;
+            open-on-workspace = "";
+          }
+        ];
+        workspaces = {
+          "" = {};
+          "" = {};
+        };
+      };
+    };
+  };
+}

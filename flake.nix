@@ -59,6 +59,13 @@
       inputs.nixpkgs.follows = "nixpkgs";
       url = "gitlab:theblackdon/kineticwe";
     };
+    niri = {
+      url = "github:sodiboo/niri-flake";
+      inputs = {
+        nixpkgs.follows = "nixpkgs";
+        nixpkgs-stable.follows = "nixpkgs-stable";
+      };
+    };
     nix-flatpak.url = "github:gmodena/nix-flatpak/?ref=latest";
     nixos-hardware = {
       inputs.nixpkgs.follows = "nixpkgs";
@@ -91,6 +98,7 @@
         nixpkgs.follows = "nixpkgs";
       };
     };
+    noctalia.url = "github:noctalia-dev/noctalia/cachix";
     pkgs-by-name.url = "github:drupol/pkgs-by-name-for-flake-parts";
     plasma-manager = {
       inputs = {
@@ -132,6 +140,10 @@
       url = "github:youwen5/zen-browser-flake";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+  };
+  nixConfig = {
+    extra-substituters = [ "https://noctalia.cachix.org" ];
+    extra-trusted-public-keys = [ "noctalia.cachix.org-1:pCOR47nnMEo5thcxNDtzWpOxNFQsBRglJzxWPp3dkU4=" ];
   };
   outputs =
     inputs:

@@ -19,12 +19,12 @@
     python
     arduino
     grub
-    cosmic
     fonts
     git
     self.diskoConfigurations.friday
     drive-shares
     laptop
+    niri
     tmux
     virtualHost
     docker

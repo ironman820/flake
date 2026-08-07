@@ -26,6 +26,7 @@
         ++ (with inputs; [
           nix-flatpak.homeManagerModules.nix-flatpak
           nixvim.homeModules.nixvim
+          noctalia.homeModules.default
           plasma-manager.homeModules.plasma-manager
           sops-nix.homeModules.sops
         ]);
@@ -117,12 +118,6 @@
             no-symkey-cache = true;
             use-agent = true;
             throw-keyids = true;
-          };
-        };
-        lf = {
-          enable = true;
-          keybindings = {
-            DD = "%trash $f";
           };
         };
         home-manager.enable = true;

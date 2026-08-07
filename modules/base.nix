@@ -11,8 +11,10 @@
     {
       imports = (with inputs; [
         disko.nixosModules.disko
+        niri.nixosModules.niri
         nix-topology.nixosModules.default
         nixvim.nixosModules.nixvim
+        noctalia.nixosModules.default
         sops-nix.nixosModules.sops
         {
           home-manager.extraSpecialArgs = {
@@ -114,6 +116,7 @@
           LC_TELEPHONE = "en_US.UTF-8";
           LC_TIME = "en_US.UTF-8";
         };
+        inputMethod.type = "ibus";
       };
       location.provider = "geoclue2";
       networking.useDHCP = lib.mkDefault true;

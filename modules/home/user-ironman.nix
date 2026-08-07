@@ -6,6 +6,7 @@
         base
         extra
         flatpak
+        niri
         python
         qt
         syncthing

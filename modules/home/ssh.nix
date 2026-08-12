@@ -420,8 +420,9 @@
           // deployIdentity;
           "netmon" = {
             hostname = "netmon.royell.org";
-            user = "root";
-          };
+            user = "fastnetmon";
+          }
+          // deployIdentity;
           "nokia" = {
             hostname = "nokia.royell.org";
             user = "royell";

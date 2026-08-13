@@ -10,9 +10,7 @@
   ++ (with self.nixosModules; [
     grub
     xfce
-    git
     laptop
-    tmux
     winbox
   ]);
   boot.plymouth.enable = false;

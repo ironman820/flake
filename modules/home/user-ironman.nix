@@ -11,11 +11,14 @@
         qt
         syncthing
       ]);
-    programs.niri.settings.switch-events.lid-close.action.spawn = [
+    programs = {
+      niri.settings.switch-events.lid-close.action.spawn = [
         "noctalia"
         "msg"
         "session"
         "lock-and-suspend"
       ];
+      tmux.shortcut = "Space";
+    };
   };
 }

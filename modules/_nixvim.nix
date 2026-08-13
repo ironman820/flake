@@ -75,6 +75,12 @@
       local progress = require("fidget.progress")
       local handles = {}
     '';
+    extraConfigVim = ''
+      highlight Normal guibg=none
+      highlight NonText guibg=none
+      highlight Normal ctermbg=none
+      highlight NonText ctermbg=none
+    '';
     extraPackagesAfter = with pkgs; [
       fd
       file

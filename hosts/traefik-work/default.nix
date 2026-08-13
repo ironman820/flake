@@ -11,7 +11,6 @@
   ++ (with self.nixosModules; [
     git
     proxmox
-    tmux
     x64-linux
   ]);
   home-manager = {

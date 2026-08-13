@@ -7,9 +7,7 @@
 {
     imports = with self.nixosModules; [
       ./hardware.nix
-      git
       proxmox
-      tmux
       x64-linux
     ];
     home-manager = {

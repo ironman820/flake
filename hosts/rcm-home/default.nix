@@ -10,11 +10,9 @@
     ./hardware.nix
   ]
   ++ (with self.nixosModules; [
-    git
     proxmox
     python
     rcm
-    tmux
     x64-linux
   ]);
   environment.systemPackages = with pkgs; [

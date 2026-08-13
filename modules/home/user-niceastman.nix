@@ -1,10 +1,7 @@
 { self, ... }:
 {
   flake.homeConfigurations.niceastman =
-    { inputs', lib, pkgs, ... }:
-    let
-      inherit (lib) mkIf;
-    in
+    { inputs', pkgs, ... }:
     {
       imports =
         (with self.homeModules; [
@@ -36,6 +33,7 @@
         wireshark
         zoom-us
       ];
+      programs.tmux.shortcut = "Space";
       services.flatpak.packages = [
         "com.anydesk.Anydesk"
       ];

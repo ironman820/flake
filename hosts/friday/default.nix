@@ -21,12 +21,10 @@
     arduino
     grub
     fonts
-    git
     self.diskoConfigurations.friday
     drive-shares
     laptop
     niri
-    tmux
     virtualHost
     docker
     winbox

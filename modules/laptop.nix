@@ -1,4 +1,4 @@
-{ config, ... }:
+{ self, ... }:
 {
   flake.nixosModules.laptop =
     { lib, pkgs, self', ... }:
@@ -6,7 +6,7 @@
       inherit (lib) mkDefault;
     in
     {
-      imports = with config.flake.nixosModules; [
+      imports = with self.nixosModules; [
         guiApps
         firmware
         networking

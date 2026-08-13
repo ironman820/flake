@@ -1,7 +1,7 @@
-{ config, inputs, ... }:
+{ self, inputs, ... }:
 {
   flake.homeModules.hyprland = {
-    imports = with config.flake.homeModules; [
+    imports = with self.homeModules; [
       alacritty
       hypridle
       hyprland-config

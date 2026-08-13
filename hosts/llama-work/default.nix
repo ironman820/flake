@@ -11,8 +11,6 @@
   ] ++ (with self.nixosModules; [
     grub
     docker
-    git
-    tmux
     x64-linux
   ]);
   boot = {

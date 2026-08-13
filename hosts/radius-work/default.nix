@@ -10,9 +10,7 @@
     ./hardware.nix
   ]
   ++ (with self.nixosModules; [
-    git
     proxmox
-    tmux
     x64-linux
   ]);
   environment = {

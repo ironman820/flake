@@ -8,9 +8,7 @@
     ./hardware.nix
     grub
     docker
-    git
     gns3
-    tmux
     x64-linux
   ];
   hardware = {

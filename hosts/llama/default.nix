@@ -31,9 +31,7 @@ in
     ./hardware.nix
   ]
   ++ (with self.nixosModules; [
-    git
     proxmox
-    tmux
     docker
     x64-linux
   ]);

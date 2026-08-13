@@ -12,8 +12,6 @@
   ]
   ++ (with self.nixosModules; [
     grub
-    git
-    tmux
     x64-linux
   ]);
   boot.plymouth.enable = false;

@@ -1,11 +1,9 @@
 { config, flakeRoot, pkgs, self, ... }: {
     imports = with self.nixosModules; [
-      git
       proxmox
       python
       rcm
       ./hardware.nix
-      tmux
       x64-linux
     ];
     environment.systemPackages = with pkgs; [

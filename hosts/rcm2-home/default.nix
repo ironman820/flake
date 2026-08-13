@@ -8,10 +8,8 @@
     ./hardware.nix
   ]
   ++ (with self.nixosModules; [
-    git
     proxmox
     rcm2
-    tmux
     x64-linux
   ]);
   home-manager = {

@@ -23,9 +23,11 @@
           };
         }
       ]) ++ (with self.nixosModules; [
+        git
         ironman
         nix
         nixvim
+        tmux
       ]);
       boot = {
         # kernel.sysctl = {

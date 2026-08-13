@@ -5,13 +5,11 @@
       arduino
       grub
       fonts
-      git
       drive-shares
       laptop
       inputs.nixos-hardware.nixosModules.framework-amd-ai-300-series
       niri
       syncthing
-      tmux
       virtualHost
       docker
       ./hardware.nix

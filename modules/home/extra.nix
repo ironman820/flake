@@ -66,8 +66,9 @@
         vim_mode = true;
         base_keymap = "VSCode";
         icon_theme = "JetBrains Icons Dark";
-        ui_font_size = 16;
-        buffer_font_size = 15;
+        ui_font_size = 10;
+        buffer_font_size = 9;
+        terminal.font_size = 9;
         theme = lib.mkDefault "Tokyo Night";
       };
     };

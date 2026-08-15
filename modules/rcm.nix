@@ -27,6 +27,7 @@
                   enabled ++ (with all; [ sqlsrv ]);
               })
               pkgs.phpactor
+              pkgs.pretty-php
               unixODBC
               (unixODBCDrivers.msodbcsql17.override { openssl = phpPkgs.openssl_1_1; })
             ];

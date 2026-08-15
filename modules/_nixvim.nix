@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ config, pkgs, ... }:
 {
   programs.nixvim = {
     autoCmd = [
@@ -26,6 +26,18 @@
         group = "YankHighlight";
         pattern = "*";
       }
+      {
+          event = "User";
+          pattern = "OilActionsPost";
+          desc = "LSP-rename from snacks on file name change";
+          callback.__raw = ''
+            function(e)
+              if e.data.actions[1].type == "move" then
+                Snacks.rename.on_rename_file(e.data.actions[1].src_url, e.data.actions[1].dest_url)
+              end
+            end
+          '';
+        }
       {
         event = "User";
         group = "CodeCompanionFidget";
@@ -918,6 +930,7 @@
         settings = {
           mapping = {
               "<CR>" = "cmp.mapping.confirm({ select = true })";
+              "<C-e>" = "cmp.mapping.close()";
               "<C-k>" = "cmp.mapping(cmp.mapping.select_prev_item(), {'i', 's'})";
               "<C-j>" = "cmp.mapping(cmp.mapping.select_next_item(), {'i', 's'})";
             };
@@ -976,7 +989,10 @@
       colorful-menu.enable = true;
       conform-nvim = {
         enable = true;
-        settings.formatters_by_ft.nix = [ "nixfmt" ];
+        settings.formatters_by_ft = {
+          nix = [ "nixfmt" ];
+          php = [ "pretty-php" ];
+        };
       };
       dropbar.enable = true;
       fidget.enable = true;
@@ -1057,31 +1073,6 @@
               map({ 'o', 'x' }, 'ih', ':<C-U>Gitsigns select_hunk<CR>', { desc = 'select git hunk' })
             end
           '';
-        };
-      };
-      indent-blankline = {
-        enable = true;
-        settings = {
-          indent = {
-            char = "│";
-            tab_char = "│";
-          };
-          scope = {
-            enabled = true;
-          };
-          exclude.filetypes = [
-            "help"
-            "alpha"
-            "dashboard"
-            "neo-tree"
-            "Trouble"
-            "trouble"
-            "lazy"
-            "mason"
-            "notify"
-            "toggleterm"
-            "lazyterm"
-          ];
         };
       };
       lazydev.enable = true;
@@ -1255,19 +1246,38 @@
       };
       treesitter = {
         enable = true;
-        settings = {
-          highlight.enable = true;
-          indent.enable = false;
-          incremental_selection = {
-            enable = true;
-            keymaps = {
-              init_selection = "<c-space>";
-              node_incremental = "<c-space>";
-              scope_incremental = "<c-s>";
-              node_decremental = "<M-space>";
-            };
-          };
-        };
+        grammarPackages = with config.programs.nixvim.plugins.treesitter.package.builtGrammars; [
+          arduino
+          awk
+          bash
+          caddy
+          css
+          csv
+          editorconfig
+          git_rebase
+          gitcommit
+          gitignore
+          html
+          htmldjango
+          javascript
+          jinja
+          jinja_inline
+          json
+          just
+          markdown
+          nix
+          php
+          phpdoc
+          python
+          regex
+          sql
+          ssh_config
+          toml
+          xml
+          yaml
+        ];
+        highlight.enable = true;
+        indent.enable = true;
       };
       trouble = {
         enable = true;

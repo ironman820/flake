@@ -4,7 +4,6 @@
       enable = true;
       settings = {
         appearance = {
-          hide_logo = true;
           password_style = "random";
           scheme = "Tokyo-Night";
           theme_mode = "dark";

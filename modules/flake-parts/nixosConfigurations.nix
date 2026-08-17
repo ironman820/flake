@@ -7,7 +7,6 @@
 {
   easy-hosts = {
     autoConstruct = true;
-    onlySystem = "x86_64-nixos";
     path = ../../hosts;
     shared = {
       modules = with inputs; [

@@ -12,8 +12,11 @@
       nwg-look
       xwayland-satellite
     ];
-    programs.niri = {
-      enable = true;
+    programs = {
+      niri = {
+        enable = true;
+      };
+      nm-applet.enable = true;
     };
     services = {
       logind.settings.Login = {

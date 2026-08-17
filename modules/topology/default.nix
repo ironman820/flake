@@ -1,0 +1,119 @@
+{
+  self,
+  ...
+}:
+{
+  perSystem =
+    {
+      lib,
+      ...
+    }:
+    {
+      topology.modules = [
+        (
+          { config, ... }:
+          {
+            icons.devices.mikrotik.file = ./mikrotik-white.svg;
+            nixosConfigurations = self.nixosConfigurations;
+            networks = {
+              home = {
+                name = "Home Network";
+                cidrv4 = "192.168.248.0/23";
+              };
+              work = {
+                name = "Work Network";
+                cidrv4 = "92.168.20.0/23";
+              };
+            };
+            nodes = with config.lib.topology; {
+              ap = mkDevice "AP" {
+                icon = "devices.mikrotik";
+                info = "MikroTik wAP ax";
+                interfaceGroups = [
+                  [
+                    "ether1"
+                    "ether2"
+                    "wifi1"
+                    "wifi2"
+                  ]
+                ];
+                interfaces.ether1 = {
+                  addresses = [
+                    "192.168.248.4"
+                  ];
+                  network = "home";
+                  sharesNetworkWith = [
+                    (lib.const true)
+                  ];
+                };
+              };
+              internet = mkInternet {
+                connections = mkConnection "router" "ether1";
+              };
+              router = mkRouter "Router" {
+                connections.sfp-sfpplus1 = mkConnection "switch" "sfp+1";
+                icon = "devices.mikrotik";
+                info = "MikroTik RB5009UG+S+";
+                interfaceGroups = [
+                  [
+                    "ether2"
+                    "ether3"
+                    "ether4"
+                    "ether5"
+                    "ether6"
+                    "ether7"
+                    "ether8"
+                    "sfp-sfpplus1"
+                  ]
+                  [ "ether1" ]
+                ];
+                interfaces.sfp-sfpplus1 = {
+                  addresses = [ "192.168.248.1" ];
+                  network = "home";
+                  type = "fiber-duplex";
+                };
+              };
+              switch = mkSwitch "Switch" {
+                connections.ether1 = mkConnection "ap" "ether1";
+                icon = "devices.mikrotik";
+                info = "MikroTik CSS318-16G-2S+";
+                interfaceGroups = [
+                  [
+                    "ether1"
+                    "ether2"
+                    "ether3"
+                    "ether4"
+                    "ether5"
+                    "ether6"
+                    "ether7"
+                    "ether8"
+                    "ether9"
+                    "ether10"
+                    "ether11"
+                    "ether12"
+                    "ether13"
+                    "ether14"
+                    "ether15"
+                    "ether16"
+                    "sfp+1"
+                    "sfp+2"
+                  ]
+                ];
+                interfaces = {
+                  "sfp+1" = {
+                    addresses = [
+                      "192.168.248.3"
+                    ];
+                    network = "home";
+                    sharesNetworkWith = [ (lib.const true) ];
+                    type = "fiber-duplex";
+                  };
+                  "sfp+2".type = "fiber-duplex";
+                };
+              };
+            };
+          }
+        )
+      ];
+    };
+}

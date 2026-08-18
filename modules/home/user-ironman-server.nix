@@ -8,11 +8,5 @@
     home.shellAliases = {
       ts = "tmux new-session -A -s ${osConfig.ironman.user.name} && exit";
     };
-    programs = {
-      zed-editor = {
-        enable = true;
-        installRemoteServer = true;
-      };
-    };
   };
 }

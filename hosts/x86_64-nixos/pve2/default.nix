@@ -6,6 +6,7 @@
 {
   imports = [
     ./hardware.nix
+    inputs.microvm.nixosModules.host
   ]
   ++ (with self.nixosModules; [
     systemdboot

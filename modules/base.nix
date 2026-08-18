@@ -1,4 +1,4 @@
-{ flakeRoot, inputs, self, ... }:
+{ inputs, self, ... }:
 {
   flake.nixosModules.base =
     {
@@ -11,7 +11,6 @@
     {
       imports = (with inputs; [
         disko.nixosModules.disko
-        microvm.nixosModules.host
         niri.nixosModules.niri
         nix-topology.nixosModules.default
         nixvim.nixosModules.nixvim

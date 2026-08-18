@@ -59,6 +59,10 @@
       inputs.nixpkgs.follows = "nixpkgs";
       url = "gitlab:theblackdon/kineticwe";
     };
+    microvm = {
+      inputs.nixpkgs.follows = "nixpkgs";
+      url = "github:microvm-nix/microvm.nix";
+    };
     millennium = {
       url = "github:SteamClientHomebrew/Millennium?dir=packages/nix";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -116,6 +120,7 @@
       };
       url = "github:nix-community/plasma-manager";
     };
+    preservation.url = "github:nix-community/preservation";
     # Rust Overlays for rcm2 djc-core-html package
     rust-overlay = {
       inputs.nixpkgs.follows = "nixpkgs";

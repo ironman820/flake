@@ -496,7 +496,7 @@
           // deployIdentity;
           "pve2.home" = {
             hostname = "192.168.248.12";
-            user = "root";
+            user = "ironman";
           }
           // deployIdentity;
           "pxe.desk" = {

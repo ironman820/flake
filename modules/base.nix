@@ -11,11 +11,13 @@
     {
       imports = (with inputs; [
         disko.nixosModules.disko
+        microvm.nixosModules.host
         niri.nixosModules.niri
         nix-topology.nixosModules.default
         nixvim.nixosModules.nixvim
         noctalia.nixosModules.default
         noctalia-greeter.nixosModules.default
+        preservation.nixosModules.default
         sops-nix.nixosModules.sops
         {
           home-manager.extraSpecialArgs = {

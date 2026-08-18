@@ -1,4 +1,4 @@
-{ inputs, self, ... }:
+{ flakeRoot, inputs, self, ... }:
 {
   flake.nixosModules.base =
     {
@@ -43,10 +43,7 @@
         };
       };
       console = {
-        font = "EnvyCodeR Nerd Font Mono";
-        packages = [
-          pkgs.nerd-fonts.envy-code-r
-        ];
+        font = ./files/EnvyCodeRNerdFontMono-Regular.psf;
         useXkbConfig = true; # use xkbOptions in tty.
       };
       environment.systemPackages = with pkgs; [

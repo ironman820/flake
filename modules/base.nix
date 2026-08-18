@@ -17,7 +17,6 @@
         nixvim.nixosModules.nixvim
         noctalia.nixosModules.default
         noctalia-greeter.nixosModules.default
-        preservation.nixosModules.default
         sops-nix.nixosModules.sops
         {
           home-manager.extraSpecialArgs = {

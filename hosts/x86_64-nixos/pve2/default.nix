@@ -1,4 +1,5 @@
 {
+  inputs,
   self,
   ...
 }:
@@ -9,8 +10,11 @@
   ++ (with self.nixosModules; [
     systemdboot
     x64-linux
+  ])
+  ++ (with inputs.nixos-hardware.nixosModules; [
+    common-cpu-intel
+    common-pc-ssd
   ]);
-  boot.tmp.cleanOnBoot = true;
   home-manager = {
     users.ironman = self.homeConfigurations.ironman-server;
   };
@@ -20,29 +24,6 @@
     useNetworkd = true;
   };
   nix.settings.cores = 1;
-  preservation = {
-    enable = true;
-    preserveAt."/persist" = {
-      directories = [
-        "/tmp"
-        "/var/lib/systemd/timers"
-        "/var/lib/nixos"
-        "/var/log"
-      ];
-      files = [
-        {
-          file = "/etc/machine-id";
-          inInitrd = true;
-        }
-        "/etc/nixos/keys.txt"
-      ];
-      users.ironman = {
-        files = [
-          ".config/sops/age/keys.txt"
-        ];
-      };
-    };
-  };
   security.sudo.wheelNeedsPassword = false;
   services = {
     # openssh.settings.PermitRootLogin = "no";
@@ -55,7 +36,10 @@
     };
     networks = {
       "10-lan" = {
-        matchConfig.Name = ["enp1s0" "vm-*"];
+        matchConfig.Name = [
+          "enp1s0"
+          "vm-*"
+        ];
         networkConfig.Bridge = "br0";
       };
       "10-lan-bridge" = {

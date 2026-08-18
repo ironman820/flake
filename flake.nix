@@ -120,7 +120,6 @@
       };
       url = "github:nix-community/plasma-manager";
     };
-    preservation.url = "github:nix-community/preservation";
     # Rust Overlays for rcm2 djc-core-html package
     rust-overlay = {
       inputs.nixpkgs.follows = "nixpkgs";

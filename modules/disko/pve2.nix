@@ -1,13 +1,6 @@
 {
   flake.diskoConfigurations.pve2 = {
     disko.devices = {
-      nodev."/" = {
-        fsType = "tmpfs";
-        mountOptions = [
-          "size=25%"
-          "mode=755"
-        ];
-      };
       disk.main = {
         device = "/dev/sda";
         type = "disk";
@@ -59,21 +52,14 @@
                   "compress=zstd"
                 ];
               in {
-                # "/root" = {
-                #   mountpoint = "/";
-                #   mountOptions = mountOpts;
-                # };
+                "/root" = {
+                  mountpoint = "/";
+                  mountOptions = mountOpts;
+                };
                 "/nix" = {
                   mountpoint = "/nix";
                   mountOptions = mountOpts ++ [
                     "subvol=nix"
-                    "noatime"
-                  ];
-                };
-                "/persist" = {
-                  mountpoint = "/persist";
-                  mountOptions = mountOpts ++ [
-                    "subvol=persist"
                     "noatime"
                   ];
                 };

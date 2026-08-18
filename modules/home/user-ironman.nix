@@ -1,8 +1,9 @@
 { self, ... }:
 {
   flake.homeConfigurations.ironman = {
-    imports =
-      (with self.homeModules; [
+    imports = (
+      with self.homeModules;
+      [
         base
         extra
         flatpak
@@ -10,7 +11,8 @@
         python
         qt
         syncthing
-      ]);
+      ]
+    );
     programs = {
       niri.settings.switch-events.lid-close.action.spawn = [
         "noctalia"

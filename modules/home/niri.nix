@@ -37,9 +37,12 @@
             "Mod+Q".action.close-window = [ ];
             "Mod+R".action.spawn-sh = "noctalia msg panel-toggle launcher";
             "Mod+U".action.switch-preset-window-height = [ ];
-            "Mod+W".action.spawn-sh = lib.getExe inputs.zen-browser.packages.${pkgs.stdenv.hostPlatform.system}.default;
+            "Mod+W".action.spawn-sh =
+              lib.getExe
+                inputs.zen-browser.packages.${pkgs.stdenv.hostPlatform.system}.default;
             "Mod+Y".action.switch-preset-column-width = [ ];
             "Mod+Ctrl+L".action.spawn-sh = "noctalia msg session lock";
+            "Mod+Ctrl+P".action.power-off-monitors = [ ];
             "Mod+Return".action.spawn-sh = lib.getExe pkgs.ghostty;
             "Mod+Shift+1".action.move-column-to-workspace = 1;
             "Mod+Shift+2".action.move-column-to-workspace = 2;

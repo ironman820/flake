@@ -25,7 +25,6 @@
               ];
               mem = 2 * 1024;
               vcpu = 2;
-              vsock.cid = 3;
               volumes = [
                 {
                   image = "root.ext4";
@@ -33,6 +32,7 @@
                   size = 5 * 1024;
                 }
               ];
+              vsock.cid = 3;
             };
             nix = {
               optimise.automatic = lib.mkForce false;
@@ -41,7 +41,10 @@
                 cores = 1;
               };
             };
-            networking.firewall.enable = false;
+            networking = {
+              firewall.enable = false;
+              hostName = "pdns";
+            };
             security.sudo.wheelNeedsPassword = false;
             services = {
               chrony = {
@@ -53,6 +56,7 @@
                   "208.91.182.74"
                 ];
               };
+              openssh.settings.PermitRootLogin = "no";
               qemuGuest.enable = true;
               technitium-dns-server.enable = true;
               xserver.enable = false;

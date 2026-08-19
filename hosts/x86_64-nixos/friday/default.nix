@@ -221,7 +221,7 @@
       physicalConnections = [
         (config.lib.topology.mkConnection "ap" "wifi2")
       ];
-      # renderer.hidePhysicalConnections = true;
+      renderer.hidePhysicalConnections = true;
     };
     name = "Friday";
   };

@@ -125,13 +125,6 @@
         }
       ];
       writableStoreOverlay = "/nix/.rw-store";
-      volumes = [
-        {
-          image = "root.ext4";
-          mountPoint = "/";
-          size = 5 * 1024;
-        }
-      ];
     };
     programs = {
       bat = {

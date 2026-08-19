@@ -1,6 +1,5 @@
 {
   config,
-  flakeRoot,
   inputs,
   lib,
   self,
@@ -14,7 +13,7 @@
       microvm.nixosModules.host
     ]
     ++ (with self.nixosModules; [
-      # pdns-home
+      pdns-work
       systemdboot
       x64-linux
     ])
@@ -27,7 +26,7 @@
   };
   microvm = {
     autostart = [
-      # "pdns-home"
+      "pdns-work"
     ];
     host.enable = true;
   };
@@ -45,7 +44,7 @@
   };
   security.sudo.wheelNeedsPassword = false;
   services = {
-    # openssh.settings.PermitRootLogin = "no";
+    openssh.settings.PermitRootLogin = "no";
   };
   systemd.network = {
     enable = true;
@@ -78,35 +77,35 @@
     };
   };
   topology = {
-    # nodes.pdns-home = {
-    #   name = "pdns.home";
-    #   deviceType = "nixos";
-    #   guestType = "microvm";
-    #   interfaces.vm-pdns = {
-    #     addresses = [
-    #       "192.168.248.2"
-    #     ];
-    #     network = "home";
-    #     physicalConnections = [
-    #       (config.lib.topology.mkConnection "pve2" "br0")
-    #     ];
-    #     virtual = true;
-    #   };
-    #   parent = "pve2";
-    #   services = {
-    #     dns = {
-    #       details.technitium.text = "Technitium DNS Server";
-    #       icon = "services.technitium";
-    #       info = "https://pdns.home.niceastman.com/";
-    #       name = "Home DNS Server";
-    #     };
-    #     ntp = {
-    #       details.ntp.text = "NTP server";
-    #       icon = "services.ntpd-rs";
-    #       name = "Home NTP Server";
-    #     };
-    #   };
-    # };
+    nodes.pdns-home = {
+      name = "pdns.work";
+      deviceType = "nixos";
+      guestType = "microvm";
+      interfaces.vm-pdns = {
+        addresses = [
+          "192.168.20.2"
+        ];
+        network = "work";
+        physicalConnections = [
+          (config.lib.topology.mkConnection "pve-work" "br0")
+        ];
+        virtual = true;
+      };
+      parent = "pve-work";
+      services = {
+        dns = {
+          details.technitium.text = "Technitium DNS Server";
+          icon = "services.technitium";
+          info = "https://pdns.desk.niceastman.com/";
+          name = "Work DNS Server";
+        };
+        ntp = {
+          details.ntp.text = "NTP server";
+          icon = "services.ntpd-rs";
+          name = "Home NTP Server";
+        };
+      };
+    };
     self = {
       hardware = {
         info = "Dell Mini";

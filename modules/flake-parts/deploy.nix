@@ -91,7 +91,7 @@
         user = "root";
         path = inputs.deploy-rs.lib.x86_64-linux.activate.nixos self.nixosConfigurations.pve-work;
       };
-      sshUser = "root";
+      sshUser = "ironman";
     };
     pve2 = {
       hostname = "pve2";

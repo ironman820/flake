@@ -1,9 +1,9 @@
-{
+{ self, ... }: {
   flake.nixosModules.kitty =
-    { pkgs, self', ... }:
+    { pkgs, ... }:
     {
       environment.systemPackages = with pkgs; [
-        self'.packages.catppuccin-kitty
+        self.packages.${pkgs.stdenv.hostPlatform.system}.catppuccin-kitty
         kitty
       ];
     };

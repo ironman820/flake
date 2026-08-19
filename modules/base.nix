@@ -2,10 +2,8 @@
 {
   flake.nixosModules.base =
     {
-      inputs',
       lib,
       pkgs,
-      self',
       ...
     }:
     {
@@ -17,11 +15,6 @@
         noctalia.nixosModules.default
         noctalia-greeter.nixosModules.default
         sops-nix.nixosModules.sops
-        {
-          home-manager.extraSpecialArgs = {
-            inherit inputs' self';
-          };
-        }
       ]) ++ (with self.nixosModules; [
         git
         ironman
@@ -57,7 +50,7 @@
         entr
         enum4linux
         eza
-        inputs'.snowfall-flake.packages.flake
+        inputs.snowfall-flake.packages.${pkgs.stdenv.hostPlatform.system}.flake
         fping
         fzf
         gcc
@@ -80,7 +73,7 @@
         ripgrep
         ssh-to-age
         sops
-        self'.packages.switchssh
+        self.packages.${pkgs.stdenv.hostPlatform.system}.switchssh
         tealdeer
         unrar
         unzip

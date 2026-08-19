@@ -1,13 +1,12 @@
-{
+{ inputs, ... }: {
   flake.nixosModules.firmware =
     {
-      inputs',
       pkgs,
       ...
     }:
     {
       environment.systemPackages = with pkgs; [
-        inputs'.stable.legacyPackages.firmware-manager
+        inputs.stable.legacyPackages.${pkgs.stdenv.hostPlatform.system}.firmware-manager
         gnome-firmware
       ];
       services.fwupd.enable = true;

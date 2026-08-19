@@ -1,6 +1,6 @@
-_: {
+{ inputs, ... }: {
   flake.nixosModules.guiApps =
-    { inputs', pkgs, ... }:
+    { pkgs, ... }:
     {
       environment.systemPackages = with pkgs; [
         boxbuddy
@@ -14,7 +14,7 @@ _: {
         vlc
         zotero
         # Zen Browser - defaults
-        inputs'.zen-browser.packages.default
+        inputs.zen-browser.packages.${pkgs.stdenv.hostPlatform.system}.default
       ];
       programs = {
         appimage = {

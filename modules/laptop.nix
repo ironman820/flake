@@ -1,7 +1,7 @@
 { self, ... }:
 {
   flake.nixosModules.laptop =
-    { lib, pkgs, self', ... }:
+    { lib, pkgs, ... }:
     let
       inherit (lib) mkDefault;
     in
@@ -19,7 +19,7 @@
         ffmpeg
         gns3-gui
         hplip
-        self'.packages.idracclient
+        self.packages.${pkgs.stdenv.hostPlatform.system}.idracclient
         poppler-utils
         # protonplus
         wireguard-tools

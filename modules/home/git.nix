@@ -1,4 +1,4 @@
-{ flakeRoot, ... }:
+{ flakeRoot, self, ... }:
 {
   flake.homeModules.git =
     {
@@ -6,7 +6,6 @@
       osConfig,
       lib,
       pkgs,
-      self',
       ...
     }:
     let
@@ -336,7 +335,7 @@
         };
       };
       xdg.configFile = {
-        "lazygit/themes/tokyonight".source = self'.packages.tokyonight-lazygit;
+        "lazygit/themes/tokyonight".source = self.packages.${pkgs.stdenv.hostPlatform.system}.tokyonight-lazygit;
       };
       sops.secrets.github_token.sopsFile = "${flakeRoot}/.secrets/git.yaml";
     };

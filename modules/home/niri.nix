@@ -1,8 +1,7 @@
-{ self, ... }: {
+{ inputs, self, ... }: {
   flake.homeModules.niri =
     {
       config,
-      inputs',
       lib,
       pkgs,
       ...
@@ -38,7 +37,7 @@
             "Mod+Q".action.close-window = [ ];
             "Mod+R".action.spawn-sh = "noctalia msg panel-toggle launcher";
             "Mod+U".action.switch-preset-window-height = [ ];
-            "Mod+W".action.spawn-sh = lib.getExe inputs'.zen-browser.packages.default;
+            "Mod+W".action.spawn-sh = lib.getExe inputs.zen-browser.packages.${pkgs.stdenv.hostPlatform.system}.default;
             "Mod+Y".action.switch-preset-column-width = [ ];
             "Mod+Z".action.spawn-sh = "env -u WAYLAND_DISPLAY ${lib.getExe pkgs.zed-editor}";
             "Mod+Ctrl+L".action.spawn-sh = "noctalia msg session lock";

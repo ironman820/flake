@@ -1,7 +1,7 @@
-{ self, ... }:
+{ inputs, self, ... }:
 {
   flake.homeConfigurations.niceastman =
-    { inputs', pkgs, ... }:
+    { pkgs, ... }:
     {
       imports =
         (with self.homeModules; [
@@ -28,7 +28,7 @@
         ];
       };
       home.packages = with pkgs; [
-        inputs'.nixpkgs-stable.legacyPackages.qgis
+        inputs.nixpkgs-stable.legacyPackages.${pkgs.stdenv.hostPlatform.system}.qgis
         # qgis
         wireshark
         zoom-us

@@ -2,7 +2,6 @@
   config,
   flakeRoot,
   inputs,
-  inputs',
   modulesPath,
   pkgs,
   self,
@@ -185,7 +184,7 @@
   nix.settings.cores = 5;
   programs.steam = {
     enable = true;
-    package = inputs'.millennium.packages.millennium-steam;
+    package = inputs.millennium.packages.${pkgs.stdenv.hostPlatform.system}.millennium-steam;
     protontricks.enable = true;
   };
   services.openssh.settings.PermitRootLogin = "no";

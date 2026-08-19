@@ -1,13 +1,13 @@
-{
+{ self, ... }: {
   flake.nixosModules.xfce =
-    { pkgs, self', ... }:
+    { pkgs, ... }:
     {
       environment = {
         systemPackages =
         (with pkgs; [
           blueman
           catfish
-          self'.packages.bonafides-gtk-themes
+          self.packages.${pkgs.stdenv.hostPlatform.system}.bonafides-gtk-themes
           file-roller
           font-manager
           gigolo

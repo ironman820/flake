@@ -20,11 +20,10 @@
                 {
                   id = "vm-pdns";
                   mac = "56:4D:50:44:4E:53";
-                  tap.vhost = true;
                   type = "tap";
                 }
               ];
-              mem = 2 * 1000;
+              mem = 2 * 1024;
               vcpu = 2;
               vsock.cid = 3;
             };

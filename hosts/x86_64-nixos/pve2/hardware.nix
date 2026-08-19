@@ -24,6 +24,9 @@
     "sr_mod"
   ];
   boot.initrd.kernelModules = [ "dm-snapshot" ];
+  boot.extraModprobeConfig = ''
+    install intel_spi /bin/true
+  '';
   boot.kernelModules = [
     "kvm-intel"
     "vhost_net"

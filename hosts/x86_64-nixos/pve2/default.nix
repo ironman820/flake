@@ -33,6 +33,7 @@
     host.enable = true;
   };
   networking = {
+    firewall.enable = false;
     hostName = "pve2";
     useNetworkd = true;
   };

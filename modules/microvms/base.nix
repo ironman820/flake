@@ -109,6 +109,7 @@
     };
     location.provider = "geoclue2";
     microvm = {
+      hypervisor = "cloud-hypervisor";
       shares = [
         {
           source = "/nix/store";

@@ -478,9 +478,10 @@
             user = "root";
           };
           "pve.desk" = {
-            hostname = "192.168.20.253";
-            user = "root";
-          };
+            hostname = "192.168.20.10";
+            user = "ironman";
+          }
+          // deployIdentity;
           "pve.home" = {
             hostname = "192.168.248.11";
             user = "root";

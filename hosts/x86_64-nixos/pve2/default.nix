@@ -130,6 +130,11 @@
           info = "https://pdns.home.niceastman.com/";
           name = "Home DNS Server";
         };
+        ntp = {
+          details.ntp.text = "NTP server";
+          icon = "services.ntpd-rs";
+          name = "Home NTP Server";
+        };
       };
     };
     self = {

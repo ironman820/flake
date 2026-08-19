@@ -53,6 +53,27 @@
               internet = mkInternet {
                 connections = mkConnection "router" "ether1";
               };
+              nas = mkDevice "NAS" {
+                icon = "devices.cloud-server";
+                info = "Synology DS918+";
+                interfaceGroups = [
+                  [
+                    "ether1"
+                    "ether2"
+                  ]
+                ];
+                interfaces.lag1 = {
+                  addresses = [
+                    "192.168.248.13"
+                  ];
+                  network = "home";
+                  sharesNetworkWith = [
+                    (lib.const true)
+                  ];
+                  type = "bridge";
+                  virtual = true;
+                };
+              };
               router = mkRouter "Router" {
                 connections.sfp-sfpplus1 = [
                   (mkConnection "switch" "sfp+1")
@@ -88,18 +109,19 @@
               switch = mkSwitch "Switch" {
                 connections = {
                   ether1 = mkConnection "ap" "ether1";
+                  ether2 = mkConnection "nas" "ether1";
+                  ether3 = mkConnection "nas" "ether2";
                   ether4 = [
                     (mkConnection "pve2" "enp1s0")
                     (mkConnection "pve2" "br0")
                   ];
+                  lag1 = mkConnection "nas" "lag1";
                 };
                 icon = "devices.mikrotik";
                 info = "MikroTik CSS318-16G-2S+";
                 interfaceGroups = [
                   [
                     "ether1"
-                    "ether2"
-                    "ether3"
                     "ether4"
                     "ether5"
                     "ether6"
@@ -116,8 +138,16 @@
                     "sfp+1"
                     "sfp+2"
                   ]
+                  [
+                    "ether2"
+                    "ether3"
+                  ]
                 ];
                 interfaces = {
+                  "lag1" = {
+                    type = "bridge";
+                    virtual = true;
+                  };
                   "sfp+1" = {
                     addresses = [
                       "192.168.248.3"

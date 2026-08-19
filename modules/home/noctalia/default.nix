@@ -11,7 +11,6 @@
         enable = true;
         settings = ./noctalia.toml;
       };
-      zed-editor.userSettings.theme = "Noctalia Dark";
     };
   };
 }

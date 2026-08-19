@@ -7,7 +7,7 @@
       ...
     }:
     let
-      inherit (config.ironman) personal_laptop work_laptop zed_device;
+      inherit (config.ironman) personal_laptop work_laptop;
       inherit (lib) mkIf mkMerge;
     in
     {
@@ -18,8 +18,8 @@
       programs.niri = {
         settings = {
           binds = {
-            "Mod+1".action.focus-workspace = "";
-            "Mod+2".action.focus-workspace = "";
+            "Mod+1".action.focus-workspace = 1;
+            "Mod+2".action.focus-workspace = 2;
             "Mod+3".action.focus-workspace = 3;
             "Mod+4".action.focus-workspace = 4;
             "Mod+5".action.focus-workspace = 5;
@@ -39,11 +39,10 @@
             "Mod+U".action.switch-preset-window-height = [ ];
             "Mod+W".action.spawn-sh = lib.getExe inputs.zen-browser.packages.${pkgs.stdenv.hostPlatform.system}.default;
             "Mod+Y".action.switch-preset-column-width = [ ];
-            "Mod+Z".action.spawn-sh = "env -u WAYLAND_DISPLAY ${lib.getExe pkgs.zed-editor}";
             "Mod+Ctrl+L".action.spawn-sh = "noctalia msg session lock";
             "Mod+Return".action.spawn-sh = lib.getExe pkgs.ghostty;
-            "Mod+Shift+1".action.move-column-to-workspace = "";
-            "Mod+Shift+2".action.move-column-to-workspace = "";
+            "Mod+Shift+1".action.move-column-to-workspace = 1;
+            "Mod+Shift+2".action.move-column-to-workspace = 2;
             "Mod+Shift+3".action.move-column-to-workspace = 3;
             "Mod+Shift+4".action.move-column-to-workspace = 4;
             "Mod+Shift+5".action.move-column-to-workspace = 5;
@@ -102,7 +101,6 @@
           };
           environment = {
             "NIXOS_OZONE_WL" = "1";
-            "ZED_DEVICE_ID" = zed_device;
           };
           gestures.hot-corners.enable = false;
           hotkey-overlay = {
@@ -194,15 +192,6 @@
             {
               matches = [
                 {
-                  app-id = "roxterm";
-                }
-              ];
-              open-focused = true;
-              open-on-workspace = "";
-            }
-            {
-              matches = [
-                {
                   app-id = "steam";
                 }
                 {
@@ -218,30 +207,14 @@
             {
               matches = [
                 {
-                  app-id = "dev.zed.Zed";
-                }
-              ];
-              default-column-width.proportion = 1.;
-              default-window-height.proportion = 1.;
-              open-focused = true;
-              open-on-workspace = "";
-            }
-            {
-              matches = [
-                {
                   app-id = "zen";
                 }
               ];
               default-column-width.proportion = 1.;
               default-window-height.proportion = 1.;
               open-focused = true;
-              open-on-workspace = "";
             }
           ];
-          workspaces = {
-            "" = { };
-            "" = { };
-          };
         };
       };
     };

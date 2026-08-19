@@ -178,7 +178,6 @@
         };
       };
     };
-    zed_device = "0x15e7";
   };
   networking.hostName = "friday";
   nix.settings.cores = 5;

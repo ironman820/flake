@@ -129,7 +129,6 @@
       };
       network-profiles.work = true;
       work_laptop = true;
-      zed_device = "0x1114";
     };
     networking = {
       firewall.allowedTCPPorts = [

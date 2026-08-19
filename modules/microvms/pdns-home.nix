@@ -1,4 +1,4 @@
-{
+{ self, ... }: {
   flake.nixosModules.pdns-home =
     { pkgs, ... }:
     {
@@ -9,32 +9,23 @@
             inherit (pkgs) lib;
           in
           {
+            imports = with self.nixosModules; [
+              microvms-base
+            ];
+            home-manager = {
+              users.ironman = self.homeConfigurations.ironman-server;
+            };
             microvm = {
               interfaces = [
                 {
                   id = "vm-pdns";
-                  mac = "02:00:00:00:00:01";
+                  mac = "56:4D:50:44:4E:53";
                   tap.vhost = true;
                   type = "tap";
                 }
               ];
               mem = 2 * 1000;
-              shares = [
-                {
-                  source = "/nix/store";
-                  mountPoint = "/nix/.ro-store";
-                  tag = "ro-store";
-                  proto = "virtiofs";
-                }
-              ];
               vcpu = 2;
-              volumes = [
-                {
-                  image = "root.ext4";
-                  mountPoint = "/";
-                  size = 5 * 1024;
-                }
-              ];
               vsock.cid = 3;
             };
             nix = {
@@ -44,25 +35,7 @@
                 cores = 1;
               };
             };
-            networking = {
-              firewall = {
-                allowedTCPPorts = [
-                  22
-                  53
-                  80
-                  443
-                  538
-                  853
-                  5380
-                  53443
-                ];
-                allowedUDPPorts = [
-                  53
-                  538
-                  853
-                ];
-              };
-            };
+            networking.firewall.enable = false;
             security.sudo.wheelNeedsPassword = false;
             services = {
               chrony = {

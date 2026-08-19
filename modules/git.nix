@@ -1,6 +1,6 @@
 {
   flake.nixosModules.git =
-    { pkgs, ... }:
+    { lib, pkgs, ... }:
     {
       environment.systemPackages = with pkgs; [
         gh
@@ -12,7 +12,7 @@
         git = {
           enable = true;
           lfs.enable = true;
-          prompt.enable = true;
+          prompt.enable = lib.mkDefault true;
         };
         lazygit.enable = true;
       };

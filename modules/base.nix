@@ -23,15 +23,11 @@
         tmux
       ]);
       boot = {
-        # kernel.sysctl = {
-        #   "vm.swappiness" = 10;
-        # };
         kernelParams = [
           "quiet"
         ];
         loader = {
           efi.canTouchEfiVariables = true;
-          # timeout = 2;
         };
       };
       console = {

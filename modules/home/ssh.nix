@@ -34,6 +34,7 @@
           ".ssh/royell_git_servers.pub".source = configFiles + "/royell_git_servers.pub";
           ".ssh/royell_git_work.pub".source = configFiles + "/royell_git_work.pub";
         };
+
         packages = with pkgs; [
           (writeShellScriptBin "mytty" ''
             if [ $# -eq 0 ]; then
@@ -480,21 +481,12 @@
             hostname = "192.168.20.253";
             user = "root";
           };
-          "pve2.desk" = {
-            hostname = "192.168.21.2";
-            user = "root";
-          };
-          "pve-old.home" = {
-            hostname = "192.168.248.3";
-            user = "root";
-          }
-          // deployIdentity;
           "pve.home" = {
             hostname = "192.168.248.11";
             user = "root";
           }
           // deployIdentity;
-          "pve2.home" = {
+          "pve2" = {
             hostname = "192.168.248.12";
             user = "ironman";
           }

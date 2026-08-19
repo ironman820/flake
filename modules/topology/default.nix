@@ -22,7 +22,7 @@
               };
               work = {
                 name = "Work Network";
-                cidrv4 = "92.168.20.0/23";
+                cidrv4 = "192.168.20.0/23";
               };
             };
             nodes = with config.lib.topology; {

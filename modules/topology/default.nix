@@ -14,8 +14,14 @@
           { config, ... }:
           {
             icons = {
-              devices.mikrotik.file = ./mikrotik-white.svg;
-              services.technitium.file = ./technitium.png;
+              devices = {
+                mikrotik.file = ./mikrotik-white.svg;
+                server.file = ./server.svg;
+              };
+              services = {
+                proxmox.file = ./proxmox.png;
+                technitium.file = ./technitium.png;
+              };
             };
             nixosConfigurations = self.nixosConfigurations;
             networks = {
@@ -74,6 +80,28 @@
                   virtual = true;
                 };
               };
+              pve = mkDevice "pve.home" {
+                icon = "devices.server";
+                info = "Custom Built Server";
+                interfaces = {
+                  vmbr0 = {
+                    addresses = [
+                      "192.168.248.11"
+                    ];
+                    network = "home";
+                    sharesNetworkWith = [
+                      (lib.const true)
+                    ];
+                    type = "bridge";
+                  };
+                  enp42s0.type = "ethernet";
+                };
+                services.proxmox = {
+                  icon = "services.proxmox";
+                  info = "https://pve.home.niceastman.com";
+                  name = "Home Server";
+                };
+              };
               router = mkRouter "Router" {
                 connections.sfp-sfpplus1 = [
                   (mkConnection "switch" "sfp+1")
@@ -114,6 +142,10 @@
                   ether4 = [
                     (mkConnection "pve2" "enp1s0")
                     (mkConnection "pve2" "br0")
+                  ];
+                  ether5 = [
+                    (mkConnection "pve" "enp42s0")
+                    (mkConnection "pve" "vmbr0")
                   ];
                   lag1 = mkConnection "nas" "lag1";
                 };

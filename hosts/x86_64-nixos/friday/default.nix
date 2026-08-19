@@ -215,6 +215,7 @@
   topology.self = {
     deviceType = "nixos";
     hardware.info = "Lenovo Thinkpad E14";
+    icon = "devices.laptop";
     interfaces.wlp192s0 = {
       network = "home";
       physicalConnections = [

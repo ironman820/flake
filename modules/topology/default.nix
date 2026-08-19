@@ -54,7 +54,10 @@
                 connections = mkConnection "router" "ether1";
               };
               router = mkRouter "Router" {
-                connections.sfp-sfpplus1 = mkConnection "switch" "sfp+1";
+                connections.sfp-sfpplus1 = [
+                  (mkConnection "switch" "sfp+1")
+                  (mkConnection "switch" "sfp+2")
+                ];
                 icon = "devices.mikrotik";
                 info = "MikroTik RB5009UG+S+";
                 interfaceGroups = [
@@ -69,11 +72,17 @@
                     "sfp-sfpplus1"
                   ]
                   [ "ether1" ]
+                  [ "wg0" ]
                 ];
-                interfaces.sfp-sfpplus1 = {
-                  addresses = [ "192.168.248.1" ];
-                  network = "home";
-                  type = "fiber-duplex";
+                interfaces = {
+                  sfp-sfpplus1 = {
+                    addresses = [ "192.168.248.1" ];
+                    network = "home";
+                    type = "fiber-duplex";
+                  };
+                  wg0 = {
+                    type = "wireguard";
+                  };
                 };
               };
               switch = mkSwitch "Switch" {

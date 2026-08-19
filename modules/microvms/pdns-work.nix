@@ -12,14 +12,12 @@
             imports = with self.nixosModules; [
               microvms-base
             ];
-            home-manager = {
-              users.ironman = self.homeConfigurations.ironman-server;
-            };
+            home-manager.users.ironman = self.homeConfigurations.ironman-server;
             microvm = {
               interfaces = [
                 {
-                  id = "vm-pdns";
-                  mac = "56:4D:50:44:4E:53";
+                  id = "vm-pdns-work";
+                  mac = "4D:50:44:4E:53:57";
                   type = "tap";
                 }
               ];
@@ -34,16 +32,16 @@
               ];
               vsock.cid = 3;
             };
+            networking = {
+              firewall.enable = false;
+              hostName = "pdns-work";
+            };
             nix = {
               optimise.automatic = lib.mkForce false;
               settings = {
                 auto-optimise-store = lib.mkForce false;
                 cores = 1;
               };
-            };
-            networking = {
-              firewall.enable = false;
-              hostName = "pdns";
             };
             security.sudo.wheelNeedsPassword = false;
             services = {
@@ -61,7 +59,6 @@
               technitium-dns-server.enable = true;
               xserver.enable = false;
             };
-            system.stateVersion = "25.05";
             systemd.network = {
               enable = true;
               networks."20-lan" = {

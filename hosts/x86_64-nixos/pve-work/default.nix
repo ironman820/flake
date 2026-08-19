@@ -14,6 +14,7 @@
     ]
     ++ (with self.nixosModules; [
       pdns-work
+      rcm-work
       systemdboot
       x64-linux
     ])
@@ -27,12 +28,13 @@
   microvm = {
     autostart = [
       "pdns-work"
+      "rcm-work"
     ];
     host.enable = true;
   };
   networking = {
     firewall.enable = false;
-    hostName = "pve";
+    hostName = "pve-work";
     useNetworkd = true;
   };
   nix = {
@@ -69,7 +71,7 @@
           ];
           Gateway = [ "192.168.20.1" ];
           DNS = [
-            # "192.168.248.2"
+            # "192.168.20.2"
             "192.168.0.10"
           ];
         };
@@ -77,11 +79,12 @@
     };
   };
   topology = {
-    nodes.pdns-home = {
+    nodes = {
+      pdns-work = {
       name = "pdns.work";
       deviceType = "nixos";
       guestType = "microvm";
-      interfaces.vm-pdns = {
+      interfaces.vm-pdns-work = {
         addresses = [
           "192.168.20.2"
         ];
@@ -106,12 +109,36 @@
         };
       };
     };
+      rcm-work = {
+        name = "rcm.work";
+        deviceType = "nixos";
+        guestType = "microvm";
+        interfaces.vm-rcm-work = {
+          addresses = [
+            "192.168.20.101"
+          ];
+          network = "work";
+          physicalConnections = [
+            (config.lib.topology.mkConnection "pve-work" "br0")
+          ];
+        };
+        parent = "pve-work";
+        services = {
+          nginx = {
+            details.rcm.text = "RCM Development Server";
+            icon = "services.nginx";
+            info = "https://rcm.desk.niceastman.com/";
+          };
+        };
+      };
+    };
     self = {
       hardware = {
         info = "Dell Mini";
       };
       name = "pve.desk";
       interfaces = {
+        br0 = { };
         enp0s31f6 = {
           network = "work";
           sharesNetworkWith = [

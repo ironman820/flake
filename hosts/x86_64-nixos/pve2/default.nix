@@ -139,6 +139,10 @@
       };
     };
     self = {
+      hardware = {
+        image = ./fw4b.png;
+        info = "Protectli Vault FW4B";
+      };
       name = "pve2.home";
       interfaces = {
         enp1s0 = {

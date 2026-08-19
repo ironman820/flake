@@ -17,6 +17,7 @@
         caligula
         deploy-rs
         ffmpeg
+        graphicsmagick
         gns3-gui
         hplip
         self.packages.${pkgs.stdenv.hostPlatform.system}.idracclient

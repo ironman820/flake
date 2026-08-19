@@ -36,6 +36,7 @@
             };
             nodes = with config.lib.topology; {
               ap = mkDevice "AP" {
+                hardware.image = ./wap-ax.png;
                 icon = "devices.mikrotik";
                 info = "MikroTik wAP ax";
                 interfaceGroups = [
@@ -60,6 +61,7 @@
                 connections = mkConnection "router" "ether1";
               };
               nas = mkDevice "NAS" {
+                hardware.image = ./ds918plus.png;
                 icon = "devices.cloud-server";
                 info = "Synology DS918+";
                 interfaceGroups = [
@@ -107,6 +109,7 @@
                   (mkConnection "switch" "sfp+1")
                   (mkConnection "switch" "sfp+2")
                 ];
+                hardware.image = ./rb5009.png;
                 icon = "devices.mikrotik";
                 info = "MikroTik RB5009UG+S+";
                 interfaceGroups = [
@@ -149,6 +152,7 @@
                   ];
                   lag1 = mkConnection "nas" "lag1";
                 };
+                hardware.image = ./css318.png;
                 icon = "devices.mikrotik";
                 info = "MikroTik CSS318-16G-2S+";
                 interfaceGroups = [

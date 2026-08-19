@@ -1,8 +1,8 @@
 {
-  flake.nixosModules.pdns-home2 =
+  flake.nixosModules.pdns-home =
     { pkgs, ... }:
     {
-      microvm.vms.pdns-home2 = {
+      microvm.vms.pdns-home = {
         inherit pkgs;
         config =
           let
@@ -35,6 +35,7 @@
                   size = 5 * 1024;
                 }
               ];
+              vsock.cid = 3;
             };
             nix = {
               optimise.automatic = lib.mkForce false;
@@ -81,17 +82,17 @@
             systemd.network = {
               enable = true;
               networks."20-lan" = {
-                matchConfig.Name = "ether";
+                matchConfig.Type = "ether";
                 networkConfig = {
-                  # Address = [
-                  #   "192.168.248.2/23"
-                  # ];
-                  # Gateway = "192.168.248.1";
-                  # DNS = [
-                  #   "208.80.144.50"
-                  #   "208.80.144.51"
-                  # ];
-                  DHCP = "yes";
+                  Address = [
+                    "192.168.248.2/23"
+                  ];
+                  Gateway = "192.168.248.1";
+                  DNS = [
+                    "208.80.144.50"
+                    "208.80.144.51"
+                  ];
+                  DHCP = "no";
                 };
               };
             };

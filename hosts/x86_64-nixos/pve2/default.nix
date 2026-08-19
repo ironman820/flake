@@ -14,7 +14,7 @@
       microvm.nixosModules.host
     ]
     ++ (with self.nixosModules; [
-      pdns-home2
+      pdns-home
       systemdboot
       ups
       x64-linux
@@ -28,7 +28,7 @@
   };
   microvm = {
     autostart = [
-      "pdns-home2"
+      "pdns-home"
     ];
     host.enable = true;
   };
@@ -99,7 +99,7 @@
           Address = [
             "192.168.248.12/23"
           ];
-          Gateway = "192.168.248.1";
+          Gateway = [ "192.168.248.1" ];
           DNS = [
             "192.168.248.2"
           ];
@@ -107,14 +107,40 @@
       };
     };
   };
-  topology.self = {
-    name = "PVE2";
-    interfaces = {
-      enp1s0 = {
-        network = "home";
-        sharesNetworkWith = [
-          (br0: true)
+  topology = {
+    nodes.pdns-home = {
+      name = "pdns.home";
+      deviceType = "nixos";
+      guestType = "microvm";
+      interfaces.vm-pdns = {
+        addresses = [
+          "192.168.248.2"
         ];
+        network = "home";
+        physicalConnections = [
+          (config.lib.topology.mkConnection "pve2" "br0")
+        ];
+        virtual = true;
+      };
+      parent = "pve2";
+      services = {
+        dns = {
+          details.technitium.text = "Technitium DNS Server";
+          icon = "services.technitium";
+          info = "https://pdns.home.niceastman.com/";
+          name = "Home DNS Server";
+        };
+      };
+    };
+    self = {
+      name = "pve2.home";
+      interfaces = {
+        enp1s0 = {
+          network = "home";
+          sharesNetworkWith = [
+            (br0: true)
+          ];
+        };
       };
     };
   };

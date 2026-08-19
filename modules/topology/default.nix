@@ -13,7 +13,10 @@
         (
           { config, ... }:
           {
-            icons.devices.mikrotik.file = ./mikrotik-white.svg;
+            icons = {
+              devices.mikrotik.file = ./mikrotik-white.svg;
+              services.technitium.file = ./technitium.png;
+            };
             nixosConfigurations = self.nixosConfigurations;
             networks = {
               home = {
@@ -75,8 +78,11 @@
               };
               switch = mkSwitch "Switch" {
                 connections = {
-          ether1 = mkConnection "ap" "ether1";
-                  ether4 = mkConnection "pve2" "enp1s0";
+                  ether1 = mkConnection "ap" "ether1";
+                  ether4 = [
+                    (mkConnection "pve2" "enp1s0")
+                    (mkConnection "pve2" "br0")
+                  ];
                 };
                 icon = "devices.mikrotik";
                 info = "MikroTik CSS318-16G-2S+";

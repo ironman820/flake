@@ -13,7 +13,7 @@
       microvm.nixosModules.host
     ]
     ++ (with self.nixosModules; [
-      # pdns-work
+      pdns-work
       # rcm-work
       systemdboot
       x64-linux
@@ -27,7 +27,7 @@
   };
   microvm = {
     autostart = [
-      # "pdns-work"
+      "pdns-work"
       # "rcm-work"
     ];
     host.enable = true;

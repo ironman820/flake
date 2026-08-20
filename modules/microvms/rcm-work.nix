@@ -19,9 +19,15 @@
           microvm = {
             interfaces = [
               {
-                id = "vm-rcm-work";
-                mac = "56:4D:52:43:4D:57";
+                id = "vm-rcm";
+                mac =
+                  let
+                    hash = builtins.hashString "sha256" "rcm-work";
+                    octets = lib.genList (i: builtins.substring (i * 2) 2 hash) 5;
+                  in
+                  "02:${lib.concatStringsSep ":" octets}";
                 type = "tap";
+                tap.vhost = true;
               }
             ];
             mem = 8 * 1024;
@@ -60,7 +66,7 @@
           systemd.network = {
             enable = true;
             networks."20-lan" = {
-              matchConfig.type = "ether";
+              matchConfig.Type = "ether";
               networkConfig = {
                 Address = [
                   "192.168.20.101/23"

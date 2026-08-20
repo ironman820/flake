@@ -76,6 +76,7 @@
       yq
       zip
     ];
+    fileSystems."/etc/ssh".neededForBoot = true;
     fonts.packages =
       (with pkgs; [
         meslo-lgs-nf

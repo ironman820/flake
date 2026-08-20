@@ -17,7 +17,12 @@
               interfaces = [
                 {
                   id = "vm-pdns";
-                  mac = "4D:50:44:4E:53:57";
+                  mac =
+                    let
+                      hash = builtins.hashString "sha256" "pdns-work";
+                      octets = lib.genList (i: builtins.substring (i * 2) 2 hash) 5;
+                    in
+                    "02:${lib.concatStringsSep ":" octets}";
                   type = "tap";
                   tap.vhost = true;
                 }

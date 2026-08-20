@@ -21,7 +21,7 @@
                   type = "tap";
                 }
               ];
-              mem = 2 * 1024;
+              mem = 2 * 1000;
               vcpu = 2;
               volumes = [
                 {

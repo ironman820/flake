@@ -16,9 +16,10 @@
             microvm = {
               interfaces = [
                 {
-                  id = "vm-pdns-work";
+                  id = "vm-pdns";
                   mac = "4D:50:44:4E:53:57";
                   type = "tap";
+                  tap.vhost = true;
                 }
               ];
               mem = 2 * 1000;
@@ -54,7 +55,7 @@
                   "208.91.182.74"
                 ];
               };
-              openssh.settings.PermitRootLogin = "no";
+              # openssh.settings.PermitRootLogin = "no";
               qemuGuest.enable = true;
               technitium-dns-server.enable = true;
               xserver.enable = false;

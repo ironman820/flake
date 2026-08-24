@@ -1,5 +1,4 @@
 {
-  config,
   inputs,
   lib,
   self,
@@ -16,6 +15,7 @@
       pdns-work
       rcm-work
       systemdboot
+      traefik-work
       x64-linux
     ])
     ++ (with inputs.nixos-hardware.nixosModules; [
@@ -29,6 +29,7 @@
     autostart = [
       "pdns-work"
       "rcm-work"
+      "traefik-work"
     ];
     host.enable = true;
   };

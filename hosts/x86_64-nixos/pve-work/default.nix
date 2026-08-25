@@ -12,7 +12,6 @@
       microvm.nixosModules.host
     ]
     ++ (with self.nixosModules; [
-      pdns-work
       rcm-work
       systemdboot
       traefik-work
@@ -27,7 +26,6 @@
   };
   microvm = {
     autostart = [
-      "pdns-work"
       "rcm-work"
       "traefik-work"
     ];

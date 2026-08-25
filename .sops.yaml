@@ -4,6 +4,7 @@ keys:
   - &server_pve2 age1tj460ln353gy48end4dl0efqf28z2ntwxu5we7qkauw472dax9xsvmwmhq
   - &server_work_dns age14lru46n84vakjj2mjah3ewftjt33fwr2km9g75a3lcpw8af4yawq6n6uag
   - &server_work_rcm age17ygl4us55m6nu4vrqd8s28snaqnkrcp6unyenlmj3wc4r0nms3es4vd39g
+  - &server_work_traefik age1awkh9z7z2nhellpu8plla7xnrs4xvt3npnfkxfg90m5zxetp8glsvns093
   - &system_friday age13exnaeq7ftcskap67kml5jgv7vxxdgjjf22f9ugypxh3jesm9ars0l9jeh
   - &system_wednesday age13xc4axyyg8wdwvtvx54cxdcfnlcwxrjcns4dfsrpe0vs0dcn8enqv8fuhz
 creation_rules:
@@ -15,5 +16,6 @@ creation_rules:
         - *server_pve2
         - *server_work_dns
         - *server_work_rcm
+        - *server_work_traefik
         - *system_friday
         - *system_wednesday

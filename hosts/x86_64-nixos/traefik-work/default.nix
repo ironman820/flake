@@ -1,4 +1,5 @@
 {
+  inputs,
   config,
   flakeRoot,
   self,
@@ -7,22 +8,39 @@
 {
   imports = [
     ./hardware.nix
+    inputs.disko.nixosModules.disko
+    self.diskoConfigurations.server
   ]
   ++ (with self.nixosModules; [
     git
-    proxmox
+    grub
     x64-linux
   ]);
+  boot.plymouth.enable = false;
   home-manager = {
     users.ironman = self.homeConfigurations.ironman-server;
   };
-  networking.firewall.allowedTCPPorts = [
-    22
-    80
-    443
-    3128
-    8080
-  ];
+  networking = {
+    firewall.enable = false;
+    interfaces = {
+      ens18 = {
+        ipv4.addresses = [
+          {
+            address = "192.168.20.11";
+            prefixLength = 23;
+          }
+        ];
+      };
+    };
+    defaultGateway = {
+      address = "192.168.20.1";
+      interface = "ens18";
+    };
+    nameservers = [
+      "192.168.20.2"
+    ];
+    useDHCP = false;
+  };
   nix.settings.cores = 1;
   security.sudo.wheelNeedsPassword = false;
   services = {

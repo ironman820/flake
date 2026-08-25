@@ -14,7 +14,6 @@
     ++ (with self.nixosModules; [
       rcm-work
       systemdboot
-      traefik-work
       x64-linux
     ])
     ++ (with inputs.nixos-hardware.nixosModules; [
@@ -27,7 +26,6 @@
   microvm = {
     autostart = [
       "rcm-work"
-      "traefik-work"
     ];
     host.enable = true;
   };

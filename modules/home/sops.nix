@@ -7,7 +7,7 @@
     {
       sops = {
         age = {
-          generateKey = true;
+          generateKey = false;
           keyFile = "${config.xdg.configHome}/sops/age/keys.txt";
           sshKeyPaths = [ ];
         };

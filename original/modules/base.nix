@@ -20,9 +20,6 @@
         nixvim
         tmux
       ]);
-      systemd.settings.Manager = {
-        DefaultTimeoutStopSec = "10s";
-      };
       users.users.root = {
         initialHashedPassword = lib.mkForce null;
         initialPassword = "@ppl3Sauc3";

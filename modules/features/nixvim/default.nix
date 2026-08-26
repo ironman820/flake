@@ -45,7 +45,10 @@
           inputs.nixvim.homeModules.nixvim
           self.homeModules.nixvimOptions
         ];
-        home.shellAliases.nv = "nvim";
+        home = {
+          sessionVariables.EDITOR = "nvim";
+          shellAliases.nv = "nvim";
+        };
         programs.nixvim =
           let
             cfg = (

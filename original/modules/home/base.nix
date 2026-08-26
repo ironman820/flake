@@ -16,9 +16,6 @@
           plasma-manager.homeModules.plasma-manager
         ]);
       home = {
-        sessionVariables = {
-          EDITOR = "nvim";
-        };
         shellAliases = {
           d = "docker";
           df = "duf -only local";
@@ -26,7 +23,6 @@
           # "ducks" = "${pkgs.coreutils}/bin/du -chs * 2>/dev/null | sort -rh | head -11 && ${pkgs.coreutils}/bin/du -chs .* 2>/dev/null | sort -rh | head -11";
           gmount = "rclone mount google:/ ~/Drive/";
           htop = "btop";
-          nv = "nvim";
           top = "btop";
         };
       };

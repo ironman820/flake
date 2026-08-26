@@ -7,6 +7,10 @@
           [ -z "''${TMUX}" ] && { tmux new-session -A -s ${osConfig.ironman.user.name} && exit; }
         fi
       '';
+      fzf = {
+        enable = true;
+        tmux.enableShellIntegration = true;
+      };
       sesh = {
         enable = true;
         enableTmuxIntegration = true;

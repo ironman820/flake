@@ -14,6 +14,7 @@
             boot
             direnv
             fonts
+            git
             homeManager
             java
             localisation
@@ -77,37 +78,35 @@
         ]
       );
     };
-    homeModules.core = moduleWithSystem (
-      perSystem@{ ... }:
-      _: {
-        imports = (
-          with self.homeModules;
-          [
-            bat
-            direnv
-            nixvim
-            ssh
-            sops
-          ]
-        );
-        home = {
-          sessionPath = [
-            "$HOME/bin"
-            "$HOME/.local/bin"
-          ];
-          shellAliases = {
-            ".." = "cd ..";
-            "..." = "cd ../..";
-            "...." = "cd ../../..";
-          };
-          stateVersion = "25.05";
+    homeModules.core = {
+      imports = (
+        with self.homeModules;
+        [
+          bat
+          direnv
+          git
+          nixvim
+          ssh
+          sops
+        ]
+      );
+      home = {
+        sessionPath = [
+          "$HOME/bin"
+          "$HOME/.local/bin"
+        ];
+        shellAliases = {
+          ".." = "cd ..";
+          "..." = "cd ../..";
+          "...." = "cd ../../..";
         };
-        programs = {
-          bash.enable = true;
-          home-manager.enable = true;
-        };
-        xdg.enable = true;
-      }
-    );
+        stateVersion = "25.05";
+      };
+      programs = {
+        bash.enable = true;
+        home-manager.enable = true;
+      };
+      xdg.enable = true;
+    };
   };
 }

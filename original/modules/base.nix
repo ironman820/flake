@@ -9,7 +9,6 @@
         noctalia.nixosModules.default
         noctalia-greeter.nixosModules.default
       ]) ++ (with self.nixosModules; [
-        git
         ironman
         nix
         tmux

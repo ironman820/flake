@@ -15,9 +15,6 @@
           noctalia.homeModules.default
           plasma-manager.homeModules.plasma-manager
         ]);
-      programs = {
-        zoxide.enable = true;
-      };
       services = {
         gpg-agent = {
           enable = true;

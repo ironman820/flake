@@ -104,7 +104,13 @@
         };
         stateVersion = "25.05";
       };
-      programs.home-manager.enable = true;
+      programs = {
+        home-manager.enable = true;
+        zoxide = {
+          enable = true;
+          enableBashIntegration = true;
+        };
+      };
       xdg.enable = true;
     };
   };

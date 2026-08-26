@@ -171,6 +171,22 @@
         "type": "github"
       }
     },
+    "nixpkgs-openssh": {
+      "locked": {
+        "lastModified": 1708813774,
+        "narHash": "sha256-X/2y788dV0yDcVFZPLFiei0ORGL9XyWFt6/+Bv975jc=",
+        "owner": "nixos",
+        "repo": "nixpkgs",
+        "rev": "08581608531b9dee7af520b58db09ef02d2a1b19",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nixos",
+        "ref": "0858160",
+        "repo": "nixpkgs",
+        "type": "github"
+      }
+    },
     "root": {
       "inputs": {
         "disko": "disko",
@@ -178,7 +194,9 @@
         "home-manager": "home-manager",
         "import-tree": "import-tree",
         "nixpkgs": "nixpkgs",
-        "snowfall-flake": "snowfall-flake"
+        "nixpkgs-openssh": "nixpkgs-openssh",
+        "snowfall-flake": "snowfall-flake",
+        "sops-nix": "sops-nix"
       }
     },
     "snowfall-flake": {
@@ -224,6 +242,26 @@
         "owner": "snowfallorg",
         "ref": "v3.0.2",
         "repo": "lib",
+        "type": "github"
+      }
+    },
+    "sops-nix": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1786629091,
+        "narHash": "sha256-gkig4nPi1CWc4Z50GBsjE4ygSE7hMpl/TwID2an2Cck=",
+        "owner": "mic92",
+        "repo": "sops-nix",
+        "rev": "a8627b21b9107c5711c96b84f32a9a4b3d45295f",
+        "type": "github"
+      },
+      "original": {
+        "owner": "mic92",
+        "repo": "sops-nix",
         "type": "github"
       }
     }

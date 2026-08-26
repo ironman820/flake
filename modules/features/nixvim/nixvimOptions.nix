@@ -1,16 +1,34 @@
 {
-  flake.nixosModules.nixvimOptions =
-    {
-      lib,
-      ...
-    }:
-    {
-      options.ironman.neovimPkg = lib.mkOption {
-        default = true;
-        description = "Wheather this is the standalone package (true) or in a module (false)";
-        type = lib.types.bool;
-      };
+  flake = {
+    nixosModules.nixvimOptions =
+      {
+        lib,
+        ...
+      }:
+      with lib;
+      {
+        options.ironman.neovimPkg = mkOption {
+          default = true;
+          description = "Wheather this is the standalone package (true) or in a module (false)";
+          type = types.bool;
+        };
 
-      config = { };
-    };
+        config = { };
+      };
+    homeModules.nixvimOptions =
+      {
+        lib,
+        ...
+      }:
+      with lib;
+      {
+        options.ironman.neovimPkg = mkOption {
+          default = true;
+          description = "Wheather this is the standalone package (true) or in a module (false)";
+          type = types.bool;
+        };
+
+        config = { };
+      };
+  };
 }

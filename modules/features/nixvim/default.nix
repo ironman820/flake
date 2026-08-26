@@ -1,41 +1,69 @@
 {
   inputs,
-  moduleWithSystem,
   self,
   ...
 }:
 {
-  flake.nixosModules.nixvim = moduleWithSystem (
-    perSystem@{ self', ... }:
-    {
-      config,
-      pkgs,
-      ...
-    }:
-    {
-      imports = [
-        inputs.nixvim.nixosModules.nixvim
-        self.nixosModules.nixvimOptions
-      ];
-      environment.shellAliases.nv = "nvim";
-      programs.nixvim =
-        let
-          cfg = (
-            import ./_nixvim.nix {
-              inherit pkgs;
-              config = config // {
-                ironman.neovimPkg = false;
-              };
-            }
-          );
-        in
-        {
-          enable = true;
-          defaultEditor = true;
-        }
-        // cfg;
-    }
-  );
+  flake = {
+    nixosModules.nixvim =
+      {
+        config,
+        pkgs,
+        ...
+      }:
+      {
+        imports = [
+          inputs.nixvim.nixosModules.nixvim
+          self.nixosModules.nixvimOptions
+        ];
+        environment.shellAliases.nv = "nvim";
+        programs.nixvim =
+          let
+            cfg = (
+              import ./_nixvim.nix {
+                inherit pkgs;
+                config = config // {
+                  ironman.neovimPkg = false;
+                };
+              }
+            );
+          in
+          {
+            enable = true;
+            defaultEditor = true;
+          }
+          // cfg;
+      };
+    homeModules.nixvim =
+      {
+        config,
+        pkgs,
+        ...
+      }:
+      {
+        imports = [
+          inputs.nixvim.homeModules.nixvim
+          self.homeModules.nixvimOptions
+        ];
+        home.shellAliases.nv = "nvim";
+        programs.nixvim =
+          let
+            cfg = (
+              import ./_nixvim.nix {
+                inherit pkgs;
+                config = config // {
+                  ironman.neovimPkg = false;
+                };
+              }
+            );
+          in
+          {
+            enable = true;
+            defaultEditor = true;
+          }
+          // cfg;
+      };
+  };
   perSystem =
     {
       self',

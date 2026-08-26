@@ -32,18 +32,10 @@
           sops-nix.homeModules.sops
         ]);
       home = {
-        homeDirectory = osConfig.users.users.${osConfig.ironman.user.name}.home;
-        sessionPath = [
-          "$HOME/bin"
-          "$HOME/.local/bin"
-        ];
         sessionVariables = {
           EDITOR = "nvim";
         };
         shellAliases = {
-          ".." = "cd ..";
-          "..." = "cd ../..";
-          "...." = "cd ../../..";
           d = "docker";
           df = "duf -only local";
           du = "dust -xd1 --skip-total";
@@ -53,8 +45,6 @@
           nv = "nvim";
           top = "btop";
         };
-        stateVersion = "25.05";
-        username = osConfig.ironman.user.name;
       };
       nixpkgs = {
         config.allowUnfree = true;
@@ -112,7 +102,6 @@
             throw-keyids = true;
           };
         };
-        home-manager.enable = true;
         starship = {
           enable = true;
           enableBashIntegration = true;

@@ -75,6 +75,18 @@
             bat
           ]
         );
+        home = {
+          sessionPath = [
+            "$HOME/bin"
+            "$HOME/.local/bin"
+          ];
+          shellAliases = {
+            ".." = "cd ..";
+            "..." = "cd ../..";
+            "...." = "cd ../../..";
+          };
+          stateVersion = "25.05";
+        };
         programs = {
           bash.enable = true;
           home-manager.enable = true;

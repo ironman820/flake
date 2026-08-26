@@ -115,10 +115,6 @@
       inputs.nixpkgs.follows = "nixpkgs";
       url = "github:oxalica/rust-overlay";
     };
-    snowfall-flake = {
-      url = "github:snowfallorg/flake";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
     sops-nix = {
       inputs.nixpkgs.follows = "nixpkgs";
       url = "github:mic92/sops-nix";

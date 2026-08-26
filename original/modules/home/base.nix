@@ -15,15 +15,6 @@
           noctalia.homeModules.default
           plasma-manager.homeModules.plasma-manager
         ]);
-      home = {
-        shellAliases = {
-          d = "docker";
-          df = "duf -only local";
-          du = "dust -xd1 --skip-total";
-          # "ducks" = "${pkgs.coreutils}/bin/du -chs * 2>/dev/null | sort -rh | head -11 && ${pkgs.coreutils}/bin/du -chs .* 2>/dev/null | sort -rh | head -11";
-          gmount = "rclone mount google:/ ~/Drive/";
-        };
-      };
       nixpkgs = {
         config.allowUnfree = true;
         overlays = [

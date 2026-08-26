@@ -26,8 +26,6 @@
         environment.systemPackages = with pkgs; [
           cifs-utils
           dig
-          duf
-          dust
           entr
           enum4linux
           inputs'.snowfall-flake.packages.flake
@@ -73,7 +71,7 @@
         ]
       );
     };
-    homeModules.core = {
+    homeModules.core = { lib, pkgs, ... }: {
       imports = (
         with self.homeModules;
         [
@@ -99,6 +97,8 @@
           ".." = "cd ..";
           "..." = "cd ../..";
           "...." = "cd ../../..";
+          df = "${lib.getExe pkgs.duf} -only local";
+          du = "${lib.getExe pkgs.dust} -xd1 --skip-total";
         };
         stateVersion = "25.05";
       };

@@ -9,6 +9,7 @@
       '';
       fzf = {
         enable = true;
+        enableBashIntegration = true;
         historyWidget.command = "";
         tmux.enableShellIntegration = true;
       };

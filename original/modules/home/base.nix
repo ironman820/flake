@@ -16,12 +16,6 @@
           plasma-manager.homeModules.plasma-manager
         ]);
       programs = {
-        fzf = {
-          enable = true;
-          enableBashIntegration = true;
-          historyWidget.command = "";
-          tmux.enableShellIntegration = true;
-        };
         gpg = {
           enable = true;
           settings = {

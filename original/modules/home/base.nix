@@ -15,13 +15,6 @@
           noctalia.homeModules.default
           plasma-manager.homeModules.plasma-manager
         ]);
-      nixpkgs = {
-        config.allowUnfree = true;
-        overlays = [
-          inputs.kineticwe.overlays.default
-          inputs.self.overlays.default
-        ];
-      };
       programs = {
         atuin = {
           enable = true;

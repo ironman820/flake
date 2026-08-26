@@ -44,6 +44,7 @@
         ];
         sessionVariables.NH_FLAKE = "${config.home.homeDirectory}/git/flake";
       };
+      nixpkgs.config.allowUnfree = true;
       programs = {
         nh = {
           enable = true;

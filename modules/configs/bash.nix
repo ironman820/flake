@@ -13,6 +13,10 @@
           historySize = 32768;
         };
         bashmount.enable = true;
+        dircolors = {
+          enable = true;
+          enableBashIntegration = true;
+        };
       };
     };
   };

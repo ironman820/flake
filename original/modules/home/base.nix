@@ -16,7 +16,6 @@
           plasma-manager.homeModules.plasma-manager
         ]);
       programs = {
-        dircolors.enable = true;
         fzf = {
           enable = true;
           enableBashIntegration = true;

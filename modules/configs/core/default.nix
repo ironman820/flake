@@ -102,10 +102,7 @@
         };
         stateVersion = "25.05";
       };
-      programs = {
-        bash.enable = true;
-        home-manager.enable = true;
-      };
+      programs.home-manager.enable = true;
       xdg.enable = true;
     };
   };

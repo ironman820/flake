@@ -38,7 +38,6 @@
           gnumake
           inetutils
           jq
-          just
           fastfetch
           nix-output-monitor
           nixos-anywhere
@@ -83,6 +82,7 @@
           direnv
           eza
           git
+          just
           nix
           nixvim
           ssh

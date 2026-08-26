@@ -9,8 +9,6 @@
       imports =
         (with self.homeModules; [
           ironman
-          just
-          nixvim
         ])
         ++ (with inputs; [
           nix-flatpak.homeManagerModules.nix-flatpak

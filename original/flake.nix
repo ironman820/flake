@@ -42,10 +42,6 @@
       inputs.nixpkgs.follows = "nixpkgs";
       url = "github:abenz1267/elephant";
     };
-    flake-parts = {
-      inputs.nixpkgs-lib.follows = "nixpkgs-lib";
-      url = "github:hercules-ci/flake-parts";
-    };
     hexecute = {
       inputs.nixpkgs.follows = "nixpkgs";
       url = "github:ThatOtherAndrew/Hexecute";
@@ -54,7 +50,6 @@
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    import-tree.url = "github:vic/import-tree";
     kineticwe = {
       inputs.nixpkgs.follows = "nixpkgs";
       url = "gitlab:theblackdon/kineticwe";
@@ -79,7 +74,6 @@
       inputs.nixpkgs.follows = "nixpkgs";
       url = "github:NixOS/nixos-hardware/master";
     };
-    nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
     # Nixpkgs for glocom
     nixpkgs-8cad3db.url = "github:nixos/nixpkgs/8cad3db";
     nixpkgs-lib.url = "github:nix-community/nixpkgs.lib";
@@ -171,7 +165,6 @@
           disko.flakeModules.default
           easy-hosts.flakeModule
           home-manager.flakeModules.home-manager
-          (import-tree ./modules)
           nix-topology.flakeModule
           pkgs-by-name.flakeModule
         ];

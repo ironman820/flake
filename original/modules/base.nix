@@ -13,7 +13,6 @@
         nixvim.nixosModules.nixvim
         noctalia.nixosModules.default
         noctalia-greeter.nixosModules.default
-        sops-nix.nixosModules.sops
       ]) ++ (with self.nixosModules; [
         git
         ironman
@@ -21,15 +20,6 @@
         nixvim
         tmux
       ]);
-      services.openssh.enable = true;
-      sops = {
-        age = {
-          generateKey = true;
-          keyFile = "/etc/nixos/keys.txt";
-          sshKeyPaths = [ "/etc/ssh/ssh_host_ed25519_key" ];
-        };
-        gnupg.sshKeyPaths = [ ];
-      };
       systemd.settings.Manager = {
         DefaultTimeoutStopSec = "10s";
       };

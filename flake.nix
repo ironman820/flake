@@ -13,9 +13,15 @@
     };
     import-tree.url = "github:vic/import-tree";
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
+    # openssh v9
+    nixpkgs-openssh.url = "github:nixos/nixpkgs/0858160";
     snowfall-flake = {
       url = "github:snowfallorg/flake";
       inputs.nixpkgs.follows = "nixpkgs";
+    };
+    sops-nix = {
+      inputs.nixpkgs.follows = "nixpkgs";
+      url = "github:mic92/sops-nix";
     };
   };
 

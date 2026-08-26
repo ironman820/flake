@@ -7,7 +7,7 @@
 {
   flake = {
     nixosModules.core = moduleWithSystem (
-      perSystem@{ inputs', self', ... }: { pkgs, ... }: {
+      perSystem@{ inputs', ... }: { pkgs, ... }: {
         imports =
           (with inputs; [ ])
           ++ (with self.nixosModules; [
@@ -17,6 +17,8 @@
             homeManager
             java
             localisation
+            ssh
+            sops
           ]);
         environment.systemPackages = with pkgs; [
           age
@@ -53,7 +55,6 @@
           ripgrep
           ssh-to-age
           sops
-          self'.packages.switchssh
           tealdeer
           unrar
           unzip
@@ -77,6 +78,8 @@
           [
             bat
             direnv
+            ssh
+            sops
           ]
         );
         home = {

@@ -69,8 +69,6 @@
     # Nixpkgs for glocom
     nixpkgs-8cad3db.url = "github:nixos/nixpkgs/8cad3db";
     nixpkgs-lib.url = "github:nix-community/nixpkgs.lib";
-    # openssh v9
-    nixpkgs-openssh.url = "github:nixos/nixpkgs/0858160";
     # PHP 7.2.29
     nixpkgs-php.url = "github:nixos/nixpkgs/53951c0";
     nixpkgs-stable.url = "github:nixos/nixpkgs/nixos-26.05";
@@ -110,10 +108,6 @@
     rust-overlay = {
       inputs.nixpkgs.follows = "nixpkgs";
       url = "github:oxalica/rust-overlay";
-    };
-    sops-nix = {
-      inputs.nixpkgs.follows = "nixpkgs";
-      url = "github:mic92/sops-nix";
     };
     stable.url = "github:nixos/nixpkgs/nixos-25.05";
     tokyonight = {

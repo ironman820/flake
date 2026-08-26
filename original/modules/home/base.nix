@@ -20,8 +20,6 @@
           ironman
           just
           nixvim
-          ssh
-          sops
           tmux
         ])
         ++ (with inputs; [
@@ -29,7 +27,6 @@
           nixvim.homeModules.nixvim
           noctalia.homeModules.default
           plasma-manager.homeModules.plasma-manager
-          sops-nix.homeModules.sops
         ]);
       home = {
         sessionVariables = {
@@ -114,10 +111,6 @@
           defaultCacheTtl = 10800;
           maxCacheTtl = 21600;
         };
-      };
-      sops.secrets.nix_conf = {
-        sopsFile = "${flakeRoot}/.secrets/nix.yaml";
-        path = "/home/${osConfig.ironman.user.name}/.config/nix/nix.conf";
       };
       xdg = {
         enable = true;

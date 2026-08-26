@@ -88,6 +88,7 @@
           [
             bat
             direnv
+            nixvim
             ssh
             sops
           ]

@@ -83,13 +83,6 @@
         nixpkgs.follows = "nixpkgs";
       };
     };
-    nixvim = {
-      url = "github:nix-community/nixvim";
-      inputs = {
-        flake-parts.follows = "flake-parts";
-        nixpkgs.follows = "nixpkgs";
-      };
-    };
     # Keep Noctalia using it's own nixpkgs. This allows cache usage.
     noctalia.url = "github:noctalia-dev/noctalia/cachix";
     noctalia-greeter = {

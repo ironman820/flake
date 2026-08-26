@@ -15,6 +15,10 @@
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
     # openssh v9
     nixpkgs-openssh.url = "github:nixos/nixpkgs/0858160";
+    nixvim = {
+      url = "github:nix-community/nixvim";
+      inputs.flake-parts.follows = "flake-parts";
+    };
     snowfall-flake = {
       url = "github:snowfallorg/flake";
       inputs.nixpkgs.follows = "nixpkgs";

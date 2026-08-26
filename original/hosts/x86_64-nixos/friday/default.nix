@@ -32,7 +32,6 @@
     freerdp
     mmex
   ];
-  home-manager.users.ironman = self.homeConfigurations.ironman;
   ironman = {
     network-profiles.work = true;
     personal_laptop = true;

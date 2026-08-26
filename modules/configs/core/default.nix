@@ -17,6 +17,7 @@
             homeManager
             java
             localisation
+            userIronman
             userRoot
             ssh
             sops

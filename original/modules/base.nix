@@ -22,9 +22,6 @@
         nixvim
         tmux
       ]);
-      programs = {
-        mtr.enable = true;
-      };
       security.sudo = {
         execWheelOnly = true;
       };

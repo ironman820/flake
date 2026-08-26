@@ -1,5 +1,9 @@
 {
   flake.homeModules.btop = {
+    home.shellAliases = {
+      htop = "btop";
+      top = "btop";
+    };
     programs.btop = {
       enable = true;
       settings = {

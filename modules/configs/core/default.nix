@@ -58,6 +58,7 @@
           yq
           zip
         ];
+        system.stateVersion = "25.05";
       }
     );
     homeModules.core = moduleWithSystem (

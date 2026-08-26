@@ -1,21 +1,18 @@
 {
-  inputs,
-  moduleWithSystem,
-  self,
-  ...
-}:
-{
-  flake.nixosModules.boot = moduleWithSystem (
-    perSystem@{ ... }:
-    _: {
-      boot = {
-        kernelParams = [
-          "quiet"
-        ];
-        loader = {
-          efi.canTouchEfiVariables = true;
+  flake.nixosModules.boot = { lib, ... }: {
+    boot = {
+      kernelParams = [
+        "quiet"
+      ];
+      loader = {
+        grub = {
+          efiSupport = true;
+          device = "nodev";
+          timeoutStyle = "hidden";
         };
+        efi.canTouchEfiVariables = true;
       };
-    }
-  );
+      plymouth.enable = lib.mkDefault true;
+    };
+  };
 }

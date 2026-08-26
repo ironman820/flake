@@ -24,10 +24,7 @@
             sops
           ]);
         environment.systemPackages = with pkgs; [
-          btop
           cifs-utils
-          delta
-          diff-so-fancy
           dig
           duf
           dust
@@ -83,6 +80,7 @@
         with self.homeModules;
         [
           bat
+          btop
           direnv
           git
           nix

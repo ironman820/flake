@@ -1,5 +1,4 @@
 {
-  flakeRoot,
   inputs,
   self,
   ...
@@ -7,14 +6,8 @@
 {
   flake.homeModules.base =
     {
-      osConfig,
-      pkgs,
-      ...
-    }:
-    {
       imports =
         (with self.homeModules; [
-          btop
           eza
           git
           ironman

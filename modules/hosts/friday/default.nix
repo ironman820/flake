@@ -8,7 +8,8 @@
     modules = with self.nixosModules; [
       ./_config.nix
       # core
-      ./_hardware.nix
+      inputs.disko.nixosModules.disko
+      self.diskoConfigurations.friday
     ];
   };
 }

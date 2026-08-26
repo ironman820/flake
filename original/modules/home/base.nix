@@ -16,13 +16,6 @@
           plasma-manager.homeModules.plasma-manager
         ]);
       programs = {
-        bash = {
-          enable = true;
-          enableCompletion = true;
-          enableVteIntegration = true;
-          historyControl = [ "ignoreboth" ];
-          historySize = 32768;
-        };
         dircolors.enable = true;
         fzf = {
           enable = true;

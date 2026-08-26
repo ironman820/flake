@@ -11,6 +11,7 @@
         imports =
           (with inputs; [ ])
           ++ (with self.nixosModules; [
+            bash
             boot
             fonts
             git
@@ -55,10 +56,7 @@
           yq
           zip
         ];
-        programs = {
-          bash.enable = true;
-          mtr.enable = true;
-        };
+        programs.mtr.enable = true;
         security.sudo.execWheelOnly = true;
         system.stateVersion = "25.05";
       }
@@ -76,6 +74,7 @@
         with self.homeModules;
         [
           atuin
+          bash
           bat
           btop
           direnv

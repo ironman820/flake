@@ -13,6 +13,7 @@
           (with inputs; [ ])
           ++ (with self.nixosModules; [
             boot
+            fonts
           ]);
       }
     );

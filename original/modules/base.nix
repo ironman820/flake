@@ -22,10 +22,6 @@
         nixvim
         tmux
       ]);
-      console = {
-        font = ./files/EnvyCodeRNerdFontMono-Regular.psf;
-        useXkbConfig = true; # use xkbOptions in tty.
-      };
       environment.systemPackages = with pkgs; [
         age
         btop
@@ -69,16 +65,6 @@
         yq
         zip
       ];
-      fonts.packages =
-        (with pkgs; [
-          meslo-lgs-nf
-        ])
-        ++ (with pkgs.nerd-fonts; [
-          envy-code-r
-          fira-code
-          fira-mono
-          inconsolata
-        ]);
       home-manager = {
         backupFileExtension = "backup";
         useGlobalPkgs = false;

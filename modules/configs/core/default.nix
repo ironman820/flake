@@ -19,6 +19,7 @@
             java
             localisation
             nix
+            nixvim
             userIronman
             userRoot
             ssh
@@ -86,7 +87,6 @@
           bat
           git
           nix
-          nixvim
           ssh
           sops
         ]

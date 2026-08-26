@@ -33,10 +33,6 @@
       inputs.nixpkgs.follows = "nixpkgs";
       url = "github:serokell/deploy-rs";
     };
-    disko = {
-      inputs.nixpkgs.follows = "nixpkgs";
-      url = "github:nix-community/disko";
-    };
     easy-hosts.url = "github:tgirlcloud/easy-hosts";
     elephant = {
       inputs.nixpkgs.follows = "nixpkgs";
@@ -162,14 +158,10 @@
           flakeRoot = self.outPath;
         };
         imports = with inputs; [
-          disko.flakeModules.default
           easy-hosts.flakeModule
           home-manager.flakeModules.home-manager
           nix-topology.flakeModule
           pkgs-by-name.flakeModule
-        ];
-        systems = [
-          "x86_64-linux"
         ];
       }
     );

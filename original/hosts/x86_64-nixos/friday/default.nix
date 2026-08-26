@@ -9,11 +9,7 @@
 }:
 {
   imports = [
-    ./hardware.nix
   ]
-  ++ (with inputs; [
-    nixos-hardware.nixosModules.lenovo-thinkpad-e14-amd
-  ])
   ++ (with self.nixosModules; [
     extraGuiApps
     python

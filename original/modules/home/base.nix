@@ -8,16 +8,12 @@
     {
       imports =
         (with self.homeModules; [
-          eza
-          git
           ironman
           just
           nixvim
-          tmux
         ])
         ++ (with inputs; [
           nix-flatpak.homeManagerModules.nix-flatpak
-          nixvim.homeModules.nixvim
           noctalia.homeModules.default
           plasma-manager.homeModules.plasma-manager
         ]);

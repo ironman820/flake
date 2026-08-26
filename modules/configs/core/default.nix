@@ -30,7 +30,6 @@
           dust
           entr
           enum4linux
-          eza
           inputs'.snowfall-flake.packages.flake
           fping
           fzf
@@ -82,6 +81,7 @@
           bat
           btop
           direnv
+          eza
           git
           nix
           nixvim

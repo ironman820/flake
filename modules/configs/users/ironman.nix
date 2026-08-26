@@ -65,6 +65,7 @@
         with self.homeModules;
         [
           core
+          extraGuiApps
         ]
       );
     };

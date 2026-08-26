@@ -7,4 +7,5 @@
       site = "royell.org";
     };
   };
+  home-manager.users.niceastman.ironman.extraGui = true;
 }

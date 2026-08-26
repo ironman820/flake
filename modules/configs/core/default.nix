@@ -84,7 +84,6 @@
         with self.homeModules;
         [
           bat
-          direnv
           git
           nix
           nixvim

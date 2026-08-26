@@ -4,68 +4,29 @@
 }:
 {
   flake = {
-    nixosModules.git = { lib, pkgs, ... }: {
-      environment.systemPackages = with pkgs; [
-        git-extras
-        git-filter-repo
-        github-cli
-      ];
-      programs.git = {
-        enable = true;
-        prompt.enable = lib.mkDefault true;
-      };
-    };
-    homeModules.git =
+    nixosModules.git =
       {
         config,
-        osConfig,
         lib,
         pkgs,
         ...
       }:
-      let
-        os = osConfig.ironman.user;
-      in
       {
-        home = {
-          sessionVariables.GH_TOKEN = "$(${lib.getExe' pkgs.coreutils "cat"} ${config.sops.secrets.github_token.path})";
+        environment = {
           shellAliases = {
             lg = "lazygit";
           };
+          systemPackages = with pkgs; [
+            git-extras
+            git-filter-repo
+            github-cli
+          ];
+          sessionVariables.gh_token = "$(${lib.getexe' pkgs.coreutils "cat"} ${config.sops.secrets.github_token.path})";
         };
         programs = {
-          delta = {
-            enable = true;
-            enableGitIntegration = true;
-            options = {
-              minus-style = ''syntax "#4a272f"'';
-              minus-non-emph-style = ''syntax "#4a272f"'';
-              minus-emph-style = ''syntax "#713137"'';
-              minus-empty-line-marker-style = ''syntax "#4a272f"'';
-              line-numbers-minus-style = ''"#914c54"'';
-              plus-style = ''syntax "#243e4a"'';
-              plus-non-emph-style = ''syntax "#243e4a"'';
-              plus-emph-style = ''syntax "#2c5a66"'';
-              plus-empty-line-marker-style = ''syntax "#243e4a"'';
-              line-numbers-plus-style = ''"#449dab"'';
-              line-numbers-zero-style = ''"#3b4261"'';
-            };
-          };
-          gh = {
-            enable = true;
-            settings = {
-              editor = "nvim";
-              git_protocol = "ssh";
-            };
-          };
           git = {
             enable = true;
-            ignores = [
-              ".direnv"
-              "result"
-            ];
-            lfs.enable = true;
-            settings = {
+            config = {
               alias.graph = "log --decorate --oneline --graph";
               commit.gpgSign = true;
               feature.manyFiles = true;
@@ -77,14 +38,14 @@
               };
               user = {
                 email = "29488820+ironman820@users.noreply.github.com";
-                name = os.fullName;
-                signingKey = config.sops.secrets.github.path;
+                name = config.ironman.user.fullName;
               };
             };
+            lfs.enable = true;
+            prompt.enable = lib.mkDefault true;
           };
           lazygit = {
             enable = true;
-            enableBashIntegration = true;
             settings = {
               disableStartupPopups = true;
               git.diffRenderers = [
@@ -136,6 +97,51 @@
           };
         };
         sops.secrets.github_token.sopsFile = "${self.outPath}/.secrets/git.yaml";
+      };
+    homeModules.git =
+      {
+        config,
+        ...
+      }:
+      {
+        programs = {
+          delta = {
+            enable = true;
+            enablegitintegration = true;
+            options = {
+              minus-style = ''syntax "#4a272f"'';
+              minus-non-emph-style = ''syntax "#4a272f"'';
+              minus-emph-style = ''syntax "#713137"'';
+              minus-empty-line-marker-style = ''syntax "#4a272f"'';
+              line-numbers-minus-style = ''"#914c54"'';
+              plus-style = ''syntax "#243e4a"'';
+              plus-non-emph-style = ''syntax "#243e4a"'';
+              plus-emph-style = ''syntax "#2c5a66"'';
+              plus-empty-line-marker-style = ''syntax "#243e4a"'';
+              line-numbers-plus-style = ''"#449dab"'';
+              line-numbers-zero-style = ''"#3b4261"'';
+            };
+          };
+          gh = {
+            enable = true;
+            settings = {
+              editor = "nvim";
+              git_protocol = "ssh";
+            };
+          };
+          git = {
+            enable = true;
+            ignores = [
+              ".direnv"
+              "result"
+            ];
+            settings.user.signingkey = config.sops.secrets.github.path;
+          };
+          lazygit = {
+            enable = true;
+            enablebashintegration = true;
+          };
+        };
       };
   };
 }

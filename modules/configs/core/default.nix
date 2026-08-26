@@ -85,6 +85,7 @@
           nix
           nixvim
           ssh
+          starship
           sops
           tmux
         ]

@@ -16,10 +16,6 @@
           plasma-manager.homeModules.plasma-manager
         ]);
       programs = {
-        starship = {
-          enable = true;
-          enableBashIntegration = true;
-        };
         zoxide.enable = true;
       };
       services = {

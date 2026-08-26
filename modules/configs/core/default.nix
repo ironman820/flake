@@ -12,14 +12,12 @@
           (with inputs; [ ])
           ++ (with self.nixosModules; [
             boot
-            direnv
             fonts
             git
             homeManager
             java
             localisation
             nix
-            nixvim
             userIronman
             userRoot
             ssh
@@ -85,10 +83,13 @@
         with self.homeModules;
         [
           bat
+          direnv
           git
           nix
+          nixvim
           ssh
           sops
+          tmux
         ]
       );
       home = {

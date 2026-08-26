@@ -1,0 +1,95 @@
+{
+  flake.homeModules.tmux = { osConfig, pkgs, ... }: {
+    programs = {
+      bash.initExtra = ''
+        if [ $DISPLAY ]; then
+          [[ $- != *i* ]] && return
+          [ -z "''${TMUX}" ] && { tmux new-session -A -s ${osConfig.ironman.user.name} && exit; }
+        fi
+      '';
+      sesh = {
+        enable = true;
+        enableTmuxIntegration = true;
+        tmuxKey = "o";
+      };
+      tmux = {
+        enable = true;
+        baseIndex = 1;
+        clock24 = true;
+        customPaneNavigationAndResize = true;
+        escapeTime = 0;
+        historyLimit = 1000000;
+        keyMode = "vi";
+        terminal = "tmux-256color";
+        extraConfig =
+          let
+            reset = pkgs.writeText "tmux.reset.conf" ''
+              # First remove *all* keybindings
+              # unbind-key -a
+              # Now reinsert all the regular tmux keys
+              # bind ^X lock-server
+              bind C-c new-window
+              bind C-d detach
+              # bind * list-clients
+
+              bind H previous-window
+              bind L next-window
+
+              # bind r command-prompt "rename-window %%"
+              bind R source-file /etc/tmux.conf
+              # bind ^A last-window
+              # bind ^W list-windows
+              bind w list-windows
+              bind z resize-pane -Z
+              # bind ^L refresh-client
+              bind C-r refresh-client
+              # bind | split-window
+              # bind s split-window -v -c "#{pane_current_path}"
+              # bind v split-window -h -c "#{pane_current_path}"
+              # bind '"' choose-window
+              bind h select-pane -L
+              bind j select-pane -D
+              bind k select-pane -U
+              bind l select-pane -R
+              # bind -r -T prefix , resize-pane -L 20
+              # bind -r -T prefix . resize-pane -R 20
+              # bind -r -T prefix - resize-pane -D 7
+              # bind -r -T prefix = resize-pane -U 7
+              bind : command-prompt
+              bind * setw synchronize-panes
+              # bind P set pane-border-status
+              # bind c kill-pane
+              # bind x swap-pane -D
+              # bind S choose-session
+              bind-key -T copy-mode-vi v send-keys -X begin-selection
+            '';
+          in
+          ''
+            source-file ${reset}
+
+            set -g detach-on-destroy off
+            set -g renumber-windows on
+            set -g set-clipboard on
+            set -g status-position top
+            set -g mouse on
+
+            bind-key -T copy-mode-vi v send-keys -X begin-selection
+            bind-key -T copy-mode-vi C-v send-keys -X rectangle-toggle
+            bind-key -T copy-mode-vi y send-keys -X copy-selection-and-cancel
+            bind-key -T prefix g display-popup -E -w 95% -h 95% -d '#{pane_current_path}' lazygit
+          '';
+        plugins = with pkgs.tmuxPlugins; [
+          sensible
+          yank
+          {
+            plugin = fzf-tmux-url;
+            extraConfig = ''
+              set -g @fzf-url-fzf-options '-p 60%,30% --prompt="   " --border-label=" Open URL "'
+              set -g @fzf-url-history-limit '2000'
+            '';
+          }
+        ];
+      };
+    };
+  };
+}

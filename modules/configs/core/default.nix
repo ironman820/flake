@@ -17,6 +17,7 @@
             homeManager
             java
             localisation
+            userRoot
             ssh
             sops
           ]);
@@ -70,6 +71,14 @@
         system.stateVersion = "25.05";
       }
     );
+    homeConfigurations.core = {
+      imports = (
+        with self.homeModules;
+        [
+          core
+        ]
+      );
+    };
     homeModules.core = moduleWithSystem (
       perSystem@{ ... }:
       _: {

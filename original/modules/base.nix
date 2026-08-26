@@ -22,19 +22,7 @@
         nixvim
         tmux
       ]);
-      networking.useDHCP = lib.mkDefault true;
       programs = {
-        bat = {
-          enable = true;
-          extraPackages = with pkgs.bat-extras; [
-            batdiff
-            batgrep
-            batman
-            batpipe
-            batwatch
-            prettybat
-          ];
-        };
         # command-not-found.enable = false;
         direnv = {
           enable = true;

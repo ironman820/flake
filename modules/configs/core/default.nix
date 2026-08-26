@@ -59,12 +59,26 @@
           yq
           zip
         ];
+        programs = {
+          bash.enable = true;
+          mtr.enable = true;
+        };
         system.stateVersion = "25.05";
       }
     );
     homeModules.core = moduleWithSystem (
       perSystem@{ ... }:
       _: {
+        imports = (
+          with self.homeModules;
+          [
+            bat
+          ]
+        );
+        programs = {
+          bash.enable = true;
+          home-manager.enable = true;
+        };
       }
     );
   };

@@ -44,19 +44,14 @@
           ".." = "cd ..";
           "..." = "cd ../..";
           "...." = "cd ../../..";
-          cat = "bat";
           d = "docker";
-          diff = "batdiff";
           df = "duf -only local";
           du = "dust -xd1 --skip-total";
           # "ducks" = "${pkgs.coreutils}/bin/du -chs * 2>/dev/null | sort -rh | head -11 && ${pkgs.coreutils}/bin/du -chs .* 2>/dev/null | sort -rh | head -11";
           gmount = "rclone mount google:/ ~/Drive/";
           htop = "btop";
-          man = "batman";
           nv = "nvim";
-          rg = "batgrep";
           top = "btop";
-          watch = "batwatch --command";
         };
         stateVersion = "25.05";
         username = osConfig.ironman.user.name;
@@ -74,16 +69,12 @@
           flags = [ "--disable-up-arrow" ];
         };
         bash = {
-          bashrcExtra = ''
-            eval $(${pkgs.bat-extras.batpipe}/bin/batpipe)
-          '';
           enable = true;
           enableCompletion = true;
           enableVteIntegration = true;
           historyControl = [ "ignoreboth" ];
           historySize = 32768;
         };
-        bat.enable = true;
         dircolors.enable = true;
         direnv = {
           enable = true;

@@ -15,6 +15,7 @@
             direnv
             fonts
             homeManager
+            java
             localisation
           ]);
         environment.systemPackages = with pkgs; [

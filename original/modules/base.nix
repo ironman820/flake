@@ -23,12 +23,6 @@
         tmux
       ]);
       programs = {
-        # command-not-found.enable = false;
-        java = {
-          binfmt = true;
-          enable = true;
-          package = pkgs.jdk;
-        };
         mtr.enable = true;
       };
       security.sudo = {

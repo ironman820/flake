@@ -1,6 +1,7 @@
 keys:
   - &ironman age1nny857q3ujh77zved353ufzte5clv444783m6jc4xthmn43r75wqcputn0
   - &royell age1et3rsqjzt2z70vt0p8p4jcm47ms8e22um57vj5nvfpss58zwlcfsmcddrt
+  - &server_dns age1mcssf7calvchkh8l3kv6mjd69c46znaanlmd5dqf2e3guxv0fq6s8wm27z
   - &server_pve2 age1tj460ln353gy48end4dl0efqf28z2ntwxu5we7qkauw472dax9xsvmwmhq
   - &server_work_dns age14lru46n84vakjj2mjah3ewftjt33fwr2km9g75a3lcpw8af4yawq6n6uag
   - &server_work_rcm age17ygl4us55m6nu4vrqd8s28snaqnkrcp6unyenlmj3wc4r0nms3es4vd39g
@@ -13,6 +14,7 @@ creation_rules:
       - age:
         - *ironman
         - *royell
+        - *server_dns
         - *server_pve2
         - *server_work_dns
         - *server_work_rcm

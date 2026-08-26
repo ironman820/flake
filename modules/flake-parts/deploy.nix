@@ -77,6 +77,14 @@
       };
       sshUser = "ironman";
     };
+    pdns-home = {
+      hostname = "pdns.home";
+      profiles.system = {
+        user = "root";
+        path = inputs.deploy-rs.lib.x86_64-linux.activate.nixos self.nixosConfigurations.pdns-home;
+      };
+      sshUser = "ironman";
+    };
     pdns-work = {
       hostname = "pdns.desk";
       profiles.system = {

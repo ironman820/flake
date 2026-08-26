@@ -18,6 +18,7 @@
             homeManager
             java
             localisation
+            nix
             userIronman
             userRoot
             ssh
@@ -85,6 +86,7 @@
           bat
           direnv
           git
+          nix
           nixvim
           ssh
           sops

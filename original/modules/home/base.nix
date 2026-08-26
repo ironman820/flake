@@ -113,7 +113,6 @@
         };
       };
       xdg = {
-        enable = true;
         configFile = {
           "tealdeer/config.toml".text = ''
             [updates]

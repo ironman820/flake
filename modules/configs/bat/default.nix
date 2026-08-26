@@ -1,10 +1,10 @@
 {
   flake.homeModules.bat = { lib, pkgs, ... }: {
     home = {
+      sessionVariables.PAGER = "bat";
       shellAliases = {
         cat = "bat";
         diff = "batdiff";
-        man = "batman";
         rg = "batgrep";
         watch = "batwatch --command";
       };

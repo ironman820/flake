@@ -49,7 +49,6 @@
           qrencode
           rclone
           ripgrep
-          tealdeer
           unrar
           unzip
           wget
@@ -87,6 +86,7 @@
           ssh
           starship
           sops
+          tealdeer
           tmux
         ]
       );

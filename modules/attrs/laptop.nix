@@ -10,6 +10,7 @@
         core
       ]
     );
+    ironman.laptop = true;
     nix = {
       gc = {
         automatic = true;

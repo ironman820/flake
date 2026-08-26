@@ -60,14 +60,19 @@
             };
           };
       };
-    homeConfigurations.ironman = {
-      imports = (
-        with self.homeModules;
-        [
+    homeConfigurations.ironman = { osConfig, ... }: {
+      imports =
+        (with self.homeModules; [
           core
-          extraGuiApps
-        ]
-      );
+        ])
+        ++ (
+          if osConfig.ironman.laptop then
+            (with self.homeModules; [
+              extraGuiApps
+            ])
+          else
+            [ ]
+        );
     };
   };
 }

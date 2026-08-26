@@ -25,5 +25,15 @@
         throw-keyids = true;
       };
     };
+    services.gpg-agent = {
+      enable = true;
+      enableScDaemon = true;
+      enableSshSupport = true;
+      extraConfig = ''
+        ttyname $GPG_TTY
+      '';
+      defaultCacheTtl = 10800;
+      maxCacheTtl = 21600;
+    };
   };
 }

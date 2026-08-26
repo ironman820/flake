@@ -15,18 +15,6 @@
           noctalia.homeModules.default
           plasma-manager.homeModules.plasma-manager
         ]);
-      services = {
-        gpg-agent = {
-          enable = true;
-          enableScDaemon = true;
-          enableSshSupport = true;
-          extraConfig = ''
-            ttyname $GPG_TTY
-          '';
-          defaultCacheTtl = 10800;
-          maxCacheTtl = 21600;
-        };
-      };
       xdg = {
         configFile = {
           "tealdeer/config.toml".text = ''

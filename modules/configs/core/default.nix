@@ -14,6 +14,7 @@
             boot
             fonts
             homeManager
+            localisation
           ]);
         environment.systemPackages = with pkgs; [
           age

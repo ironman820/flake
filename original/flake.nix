@@ -42,10 +42,6 @@
       inputs.nixpkgs.follows = "nixpkgs";
       url = "github:ThatOtherAndrew/Hexecute";
     };
-    home-manager = {
-      url = "github:nix-community/home-manager";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
     kineticwe = {
       inputs.nixpkgs.follows = "nixpkgs";
       url = "gitlab:theblackdon/kineticwe";
@@ -155,7 +151,6 @@
         };
         imports = with inputs; [
           easy-hosts.flakeModule
-          home-manager.flakeModules.home-manager
           nix-topology.flakeModule
           pkgs-by-name.flakeModule
         ];

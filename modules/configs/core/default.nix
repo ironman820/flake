@@ -13,6 +13,7 @@
           ++ (with self.nixosModules; [
             boot
             fonts
+            homeManager
           ]);
         environment.systemPackages = with pkgs; [
           age

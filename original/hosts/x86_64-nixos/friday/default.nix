@@ -16,7 +16,6 @@
     arduino
     grub
     fonts
-    self.diskoConfigurations.friday
     drive-shares
     laptop
     niri
@@ -25,7 +24,6 @@
     winbox
     x64-linux
     yubikey
-    (modulesPath + "/installer/scan/not-detected.nix")
   ]);
   environment.systemPackages = with pkgs; [
     calibre

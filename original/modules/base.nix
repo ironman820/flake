@@ -22,11 +22,6 @@
         nixvim
         tmux
       ]);
-      home-manager = {
-        backupFileExtension = "backup";
-        useGlobalPkgs = false;
-        useUserPackages = true;
-      };
       i18n = {
         defaultLocale = "en_US.UTF-8";
         extraLocaleSettings = {

@@ -7,6 +7,10 @@
       url = "github:nix-community/disko";
     };
     flake-parts.url = "github:hercules-ci/flake-parts";
+    home-manager = {
+      url = "github:nix-community/home-manager";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     import-tree.url = "github:vic/import-tree";
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
     snowfall-flake = {
@@ -19,12 +23,14 @@
     inputs@{
       disko,
       flake-parts,
+      home-manager,
       import-tree,
       ...
     }:
     flake-parts.lib.mkFlake { inherit inputs; } {
       imports = [
         disko.flakeModules.default
+        home-manager.flakeModules.home-manager
         (import-tree ./modules)
       ];
       systems = [ "x86_64-linux" ];

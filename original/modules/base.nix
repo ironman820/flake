@@ -22,14 +22,6 @@
         nixvim
         tmux
       ]);
-      boot = {
-        kernelParams = [
-          "quiet"
-        ];
-        loader = {
-          efi.canTouchEfiVariables = true;
-        };
-      };
       console = {
         font = ./files/EnvyCodeRNerdFontMono-Regular.psf;
         useXkbConfig = true; # use xkbOptions in tty.
@@ -87,7 +79,6 @@
           fira-mono
           inconsolata
         ]);
-      hardware.enableRedistributableFirmware = true;
       home-manager = {
         backupFileExtension = "backup";
         useGlobalPkgs = false;

@@ -12,6 +12,7 @@
           (with inputs; [ ])
           ++ (with self.nixosModules; [
             boot
+            direnv
             fonts
             homeManager
             localisation
@@ -73,6 +74,7 @@
           with self.homeModules;
           [
             bat
+            direnv
           ]
         );
         home = {

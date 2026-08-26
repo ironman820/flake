@@ -24,10 +24,6 @@
       ]);
       programs = {
         # command-not-found.enable = false;
-        direnv = {
-          enable = true;
-          nix-direnv.enable = true;
-        };
         java = {
           binfmt = true;
           enable = true;

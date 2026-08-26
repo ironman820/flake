@@ -66,11 +66,6 @@
           historySize = 32768;
         };
         dircolors.enable = true;
-        direnv = {
-          enable = true;
-          enableBashIntegration = true;
-          nix-direnv.enable = true;
-        };
         fzf = {
           enable = true;
           enableBashIntegration = true;

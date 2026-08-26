@@ -16,10 +16,6 @@
           plasma-manager.homeModules.plasma-manager
         ]);
       programs = {
-        atuin = {
-          enable = true;
-          flags = [ "--disable-up-arrow" ];
-        };
         bash = {
           enable = true;
           enableCompletion = true;

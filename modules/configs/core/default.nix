@@ -75,6 +75,7 @@
       imports = (
         with self.homeModules;
         [
+          atuin
           bat
           btop
           direnv

@@ -80,6 +80,7 @@
           direnv
           eza
           git
+          gpg
           just
           nix
           nixvim

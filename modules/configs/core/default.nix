@@ -65,6 +65,7 @@
           bash.enable = true;
           mtr.enable = true;
         };
+        security.sudo.execWheelOnly = true;
         system.stateVersion = "25.05";
       }
     );

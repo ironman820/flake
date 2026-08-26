@@ -3,7 +3,6 @@
   flake.nixosModules.base =
     {
       lib,
-      pkgs,
       ...
     }:
     {
@@ -22,9 +21,6 @@
         nixvim
         tmux
       ]);
-      security.sudo = {
-        execWheelOnly = true;
-      };
       services.openssh.enable = true;
       sops = {
         age = {

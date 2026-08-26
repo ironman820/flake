@@ -5,13 +5,18 @@
 }:
 {
   flake = {
-    nixosModules.sops = {
+    nixosModules.sops = { pkgs, ... }: {
       imports = (
         with inputs;
         [
           sops-nix.nixosModules.sops
         ]
       );
+      environment.systemPackages = with pkgs; [
+        age
+        ssh-to-age
+        sops
+      ];
       sops = {
         age = {
           generateKey = true;

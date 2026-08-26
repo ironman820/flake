@@ -23,7 +23,6 @@
             sops
           ]);
         environment.systemPackages = with pkgs; [
-          age
           btop
           cifs-utils
           delta
@@ -55,8 +54,6 @@
           qrencode
           rclone
           ripgrep
-          ssh-to-age
-          sops
           tealdeer
           unrar
           unzip

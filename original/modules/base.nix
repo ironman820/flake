@@ -6,14 +6,12 @@
         disko.nixosModules.disko
         niri.nixosModules.niri
         nix-topology.nixosModules.default
-        nixvim.nixosModules.nixvim
         noctalia.nixosModules.default
         noctalia-greeter.nixosModules.default
       ]) ++ (with self.nixosModules; [
         git
         ironman
         nix
-        nixvim
         tmux
       ]);
     };

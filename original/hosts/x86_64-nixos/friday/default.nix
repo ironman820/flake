@@ -18,7 +18,6 @@
     fonts
     drive-shares
     laptop
-    niri
     virtualHost
     docker
     winbox

@@ -41,4 +41,21 @@
       };
     };
   };
+  networking.hostName = "wednesday";
+  topology.self = {
+    deviceType = "nixos";
+    hardware.info = "Framework Laptop 13 (AMD Ryzen AI 300 Series)";
+    icon = "devices.laptop";
+    interfaces = {
+      enp195s0f0u2 = {
+        network = "work";
+        renderer.hidePhysicalConnections = true;
+      };
+      wlp192s0 = {
+        network = "work";
+        renderer.hidePhysicalConnections = true;
+      };
+    };
+    name = "Wednesday";
+  };
 }

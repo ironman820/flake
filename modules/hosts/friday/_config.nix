@@ -13,17 +13,15 @@
       };
     };
   };
+  networking.hostName = "friday";
   topology.self = {
     deviceType = "nixos";
     hardware.info = "Lenovo Thinkpad E14";
     icon = "devices.laptop";
-    # interfaces.wlp192s0 = {
-    #   network = "home";
-    #   physicalConnections = [
-    #     (config.lib.topology.mkConnection "ap" "wifi2")
-    #   ];
-    #   renderer.hidePhysicalConnections = true;
-    # };
+    interfaces.wlp3s0 = {
+      network = "home";
+      renderer.hidePhysicalConnections = true;
+    };
     name = "Friday";
   };
   users.groups.ironman.gid = pkgs.lib.mkForce 986;

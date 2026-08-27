@@ -10,6 +10,7 @@
         core
       ]
     );
+    networking.firewall.enable = false;
     security.sudo.wheelNeedsPassword = false;
   };
 }

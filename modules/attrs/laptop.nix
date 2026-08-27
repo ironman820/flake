@@ -21,6 +21,7 @@
           niri
           sound
           syncthing
+          winbox
           yubikey
         ]
       );

@@ -54,7 +54,6 @@
       url = "github:SteamClientHomebrew/Millennium?dir=packages/nix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    nix-flatpak.url = "github:gmodena/nix-flatpak/?ref=latest";
     nixos-hardware = {
       inputs.nixpkgs.follows = "nixpkgs";
       url = "github:NixOS/nixos-hardware/master";

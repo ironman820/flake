@@ -5,7 +5,6 @@
       with self.homeModules;
       [
         extra
-        flatpak
         python
         qt
         syncthing

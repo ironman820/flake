@@ -10,7 +10,6 @@
         ironman
       ])
       ++ (with inputs; [
-        nix-flatpak.homeManagerModules.nix-flatpak
         plasma-manager.homeModules.plasma-manager
       ]);
   };

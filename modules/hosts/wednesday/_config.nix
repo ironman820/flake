@@ -2,6 +2,9 @@
   hardware.facter.reportPath = ./facter.json;
   ironman = {
     extraGui = true;
+    flatpaks = [
+      "com.anydesk.Anydesk"
+    ];
     niri =
       let
         niri_cmd = "niri msg output";

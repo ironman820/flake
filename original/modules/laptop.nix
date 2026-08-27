@@ -35,7 +35,6 @@
       };
       services = {
         avahi.enable = true;
-        flatpak.enable = true;
         logind.settings.Login = {
           KillUserProcesses = true;
           HandleLidSwitchExternalPower = "ignore";

@@ -19,6 +19,7 @@
         nixpkgs-stable.follows = "nixpkgs-stable";
       };
     };
+    nix-flatpak.url = "github:gmodena/nix-flatpak/?ref=latest";
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
     # openssh v9
     nixpkgs-openssh.url = "github:nixos/nixpkgs/0858160";

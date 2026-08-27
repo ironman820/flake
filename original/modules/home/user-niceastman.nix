@@ -8,7 +8,6 @@
         [
           base
           extra
-          flatpak
           python
           qt
           syncthing
@@ -21,8 +20,5 @@
         zoom-us
       ];
       programs.tmux.shortcut = "Space";
-      services.flatpak.packages = [
-        "com.anydesk.Anydesk"
-      ];
     };
 }

@@ -77,6 +77,7 @@
             if laptop then
               (with self.homeModules; [
                 extraGuiApps
+                flatpak
                 niri
               ])
             else

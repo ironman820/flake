@@ -1,4 +1,4 @@
-{
+{ config, ... }: {
   hardware.facter.reportPath = ./facter.json;
   ironman = {
     extraGui = true;
@@ -33,6 +33,93 @@
           ${niri_cmd} ${niri_screen} off
         '';
       };
+    syncthing = {
+      devices = {
+        friday = {
+          id = "C2T72DJ-35SQ4DJ-OTQFZUH-R54J3FK-7K2M46K-RAN5SFU-4Y4ZNIL-FZ64AQQ";
+          name = "Friday";
+        };
+      };
+      folders =
+        let
+          inherit (config.ironman.user) name;
+        in
+        {
+          "/home/${name}/.var/app/com.orcaslicer.OrcaSlicer/config/OrcaSlicer" = {
+            id = "eubqq-hp2qx";
+            devices = [
+              "nas"
+              "friday"
+            ];
+            label = "OrcaSlicer";
+          };
+          "/home/${name}/.thunderbird" = {
+            id = "upryn-vzhy9";
+            devices = [
+              "nas"
+            ];
+            label = "Thunderbird";
+            type = "sendonly";
+          };
+          "/home/${name}/Downloads" = {
+            id = "zuqju-kwzbp";
+            devices = [
+              "friday"
+              "nas"
+              "work-desktop"
+            ];
+            label = "Downloads";
+            versioning = {
+              type = "simple";
+              params.keep = "10";
+            };
+          };
+          "/home/${name}/Documents" = {
+            id = "kuriw-survq";
+            devices = [
+              "friday"
+              "nas"
+              "work-desktop"
+            ];
+            label = "Work Documents";
+            versioning = {
+              type = "simple";
+              params.keep = "10";
+            };
+          };
+          "/home/${name}/Notes" = {
+            id = "q6twd-r4s4f";
+            devices = [
+              "friday"
+              "nas"
+              "phone"
+            ];
+            label = "Notes";
+          };
+          "/home/${name}/Pictures" = {
+            id = "okbn5-ywkrq";
+            devices = [
+              "friday"
+              "nas"
+              "work-desktop"
+            ];
+            label = "Work Pictures";
+            versioning = {
+              type = "simple";
+              params.keep = "10";
+            };
+          };
+          "/home/${name}/Wallpapers" = {
+            id = "gtwyq-tfzfb";
+            devices = [
+              "friday"
+              "nas"
+              "work-desktop"
+            ];
+            label = "Wallpapers";
+          };
+        };
+    };
     user = {
       name = "niceastman";
       email = {
@@ -50,11 +137,11 @@
       enp195s0f0u2 = {
         network = "work";
         renderer.hidePhysicalConnections = true;
+        sharesNetworkWith = [
+          (wlp192s0: true)
+        ];
       };
-      wlp192s0 = {
-        network = "work";
-        renderer.hidePhysicalConnections = true;
-      };
+      wlp192s0.renderer.hidePhysicalConnections = true;
     };
     name = "Wednesday";
   };

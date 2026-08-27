@@ -80,6 +80,7 @@
                 flatpak
                 ghostty
                 niri
+                syncthing
                 yubikey
               ])
             else

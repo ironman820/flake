@@ -11,7 +11,6 @@
           gtk-application-prefer-dark-theme=1
         '';
       };
-      # home.pointerCursor = {};
       xfconf = {
         enable = true;
         settings = {

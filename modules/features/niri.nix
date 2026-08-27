@@ -19,7 +19,7 @@
           ])
           ++ (with self.nixosModules; [
             noctalia
-            #     noctalia-greeter
+            noctaliaGreeter
           ]);
         options.ironman.niri =
           let

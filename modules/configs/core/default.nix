@@ -113,6 +113,10 @@
           enableBashIntegration = true;
         };
       };
+      services.udiskie = {
+        enable = true;
+        tray = "never";
+      };
       xdg.enable = true;
     };
   };

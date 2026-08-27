@@ -78,6 +78,7 @@
               (with self.homeModules; [
                 extraGuiApps
                 flatpak
+                ghostty
                 niri
                 yubikey
               ])

@@ -1,11 +1,15 @@
 { inputs, self, ... }:
+let
+  inherit (inputs.deploy-rs.lib.x86_64-linux) activate;
+  nxc = self.nixosConfigurations;
+in
 {
   flake.deploy.nodes = {
     calibre = {
       hostname = "calibre";
       profiles.system = {
         user = "root";
-        path = inputs.deploy-rs.lib.x86_64-linux.activate.nixos self.nixosConfigurations.calibre;
+        path = activate.nixos nxc.calibre;
       };
       sshUser = "ironman";
     };
@@ -13,7 +17,7 @@
       hostname = "files.home";
       profiles.system = {
         user = "root";
-        path = inputs.deploy-rs.lib.x86_64-linux.activate.nixos self.nixosConfigurations.zipline;
+        path = activate.nixos nxc.zipline;
       };
       sshUser = "ironman";
     };
@@ -21,7 +25,7 @@
       hostname = "gns3-work";
       profiles.system = {
         user = "root";
-        path = inputs.deploy-rs.lib.x86_64-linux.activate.nixos self.nixosConfigurations.gns3-work;
+        path = activate.nixos nxc.gns3-work;
       };
       remoteBuild = true;
       sshUser = "ironman";
@@ -30,7 +34,7 @@
       hostname = "llama";
       profiles.system = {
         user = "root";
-        path = inputs.deploy-rs.lib.x86_64-linux.activate.nixos self.nixosConfigurations.llama;
+        path = activate.nixos nxc.llama;
       };
       remoteBuild = true;
       sshUser = "ironman";
@@ -39,7 +43,7 @@
       hostname = "llama-work";
       profiles.system = {
         user = "root";
-        path = inputs.deploy-rs.lib.x86_64-linux.activate.nixos self.nixosConfigurations.llama-work;
+        path = activate.nixos nxc.llama-work;
       };
       remoteBuild = true;
       sshUser = "ironman";
@@ -48,7 +52,7 @@
       hostname = "lidarr";
       profiles.system = {
         user = "root";
-        path = inputs.deploy-rs.lib.x86_64-linux.activate.nixos self.nixosConfigurations.lidarr;
+        path = activate.nixos nxc.lidarr;
       };
       sshUser = "ironman";
     };
@@ -57,7 +61,7 @@
       interactiveSudo = true;
       profiles.system = {
         user = "root";
-        path = inputs.deploy-rs.lib.x86_64-linux.activate.nixos self.nixosConfigurations.monday;
+        path = activate.nixos nxc.monday;
       };
       sshUser = "ironman";
     };
@@ -65,7 +69,7 @@
       hostname = "netbox.desk";
       profiles.system = {
         user = "root";
-        path = inputs.deploy-rs.lib.x86_64-linux.activate.nixos self.nixosConfigurations.netbox-work;
+        path = activate.nixos nxc.netbox-work;
       };
       sshUser = "ironman";
     };
@@ -73,7 +77,7 @@
       hostname = "pass";
       profiles.system = {
         user = "root";
-        path = inputs.deploy-rs.lib.x86_64-linux.activate.nixos self.nixosConfigurations.vaultwarden;
+        path = activate.nixos nxc.vaultwarden;
       };
       sshUser = "ironman";
     };
@@ -81,7 +85,7 @@
       hostname = "pdns.desk";
       profiles.system = {
         user = "root";
-        path = inputs.deploy-rs.lib.x86_64-linux.activate.nixos self.nixosConfigurations.pdns-work;
+        path = activate.nixos nxc.pdns-work;
       };
       sshUser = "ironman";
     };
@@ -89,7 +93,7 @@
       hostname = "pve.desk";
       profiles.system = {
         user = "root";
-        path = inputs.deploy-rs.lib.x86_64-linux.activate.nixos self.nixosConfigurations.pve-work;
+        path = activate.nixos nxc.pve-work;
       };
       sshUser = "ironman";
     };
@@ -97,7 +101,7 @@
       hostname = "pve2";
       profiles.system = {
         user = "root";
-        path = inputs.deploy-rs.lib.x86_64-linux.activate.nixos self.nixosConfigurations.pve2;
+        path = activate.nixos nxc.pve2;
       };
       sshUser = "ironman";
     };
@@ -105,7 +109,7 @@
       hostname = "radarr";
       profiles.system = {
         user = "root";
-        path = inputs.deploy-rs.lib.x86_64-linux.activate.nixos self.nixosConfigurations.radarr;
+        path = activate.nixos nxc.radarr;
       };
       sshUser = "ironman";
     };
@@ -113,7 +117,7 @@
       hostname = "radius.desk";
       profiles.system = {
         user = "root";
-        path = inputs.deploy-rs.lib.x86_64-linux.activate.nixos self.nixosConfigurations.radius-work;
+        path = activate.nixos nxc.radius-work;
       };
       sshUser = "ironman";
     };
@@ -121,7 +125,7 @@
       hostname = "rcm.home";
       profiles.system = {
         user = "root";
-        path = inputs.deploy-rs.lib.x86_64-linux.activate.nixos self.nixosConfigurations.rcm-home;
+        path = activate.nixos nxc.rcm-home;
       };
       sshUser = "ironman";
     };
@@ -129,7 +133,7 @@
       hostname = "rcm.desk";
       profiles.system = {
         user = "root";
-        path = inputs.deploy-rs.lib.x86_64-linux.activate.nixos self.nixosConfigurations.rcm-work;
+        path = activate.nixos nxc.rcm-work;
       };
       sshUser = "ironman";
     };
@@ -137,7 +141,7 @@
       hostname = "rcm2.home";
       profiles.system = {
         user = "root";
-        path = inputs.deploy-rs.lib.x86_64-linux.activate.nixos self.nixosConfigurations.rcm2-home;
+        path = activate.nixos nxc.rcm2-home;
       };
       sshUser = "ironman";
     };
@@ -145,7 +149,7 @@
       hostname = "rcm2.desk";
       profiles.system = {
         user = "root";
-        path = inputs.deploy-rs.lib.x86_64-linux.activate.nixos self.nixosConfigurations.rcm2-work;
+        path = activate.nixos nxc.rcm2-work;
       };
       sshUser = "ironman";
     };
@@ -153,7 +157,7 @@
       hostname = "sonarqube";
       profiles.system = {
         user = "root";
-        path = inputs.deploy-rs.lib.x86_64-linux.activate.nixos self.nixosConfigurations.sonarqube;
+        path = activate.nixos nxc.sonarqube;
       };
       sshUser = "ironman";
     };
@@ -161,7 +165,7 @@
       hostname = "traefik.home";
       profiles.system = {
         user = "root";
-        path = inputs.deploy-rs.lib.x86_64-linux.activate.nixos self.nixosConfigurations.traefik;
+        path = activate.nixos nxc.traefik;
       };
       sshUser = "ironman";
     };
@@ -169,7 +173,7 @@
       hostname = "traefik.desk";
       profiles.system = {
         user = "root";
-        path = inputs.deploy-rs.lib.x86_64-linux.activate.nixos self.nixosConfigurations.traefik-work;
+        path = activate.nixos nxc.traefik-work;
       };
       sshUser = "ironman";
     };

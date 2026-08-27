@@ -9,10 +9,6 @@
       };
       url = "github:hercules-ci/arion";
     };
-    deploy-rs = {
-      inputs.nixpkgs.follows = "nixpkgs";
-      url = "github:serokell/deploy-rs";
-    };
     easy-hosts.url = "github:tgirlcloud/easy-hosts";
     elephant = {
       inputs.nixpkgs.follows = "nixpkgs";

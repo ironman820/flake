@@ -6,6 +6,10 @@
       flake = false;
       url = "github:l4ki/bonafides-plasma-themes";
     };
+    deploy-rs = {
+      inputs.nixpkgs.follows = "nixpkgs";
+      url = "github:serokell/deploy-rs";
+    };
     disko = {
       inputs.nixpkgs.follows = "nixpkgs";
       url = "github:nix-community/disko";

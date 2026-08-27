@@ -9,6 +9,7 @@
       [
         core
         flatpak
+        ghostty
         niri
         yubikey
       ]

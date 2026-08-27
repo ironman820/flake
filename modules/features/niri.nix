@@ -154,12 +154,10 @@
         inherit (osConfig.ironman) browser niri terminal;
       in
       {
-        imports = [
-          self.homeModules.noctalia
-        ]
-        ++ (mkIf (terminal == pkgs.ghostty) [
-          self.homeModules.ghostty
-        ]);
+        imports = with self.homeModules; [
+          noctalia
+          ghostty
+        ];
         home.packages = (
           with pkgs;
           [

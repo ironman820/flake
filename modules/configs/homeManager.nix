@@ -1,12 +1,9 @@
 {
   inputs,
-  moduleWithSystem,
   ...
 }:
 {
-  flake.nixosModules.homeManager = moduleWithSystem (
-    perSystem@{ ... }:
-    _: {
+  flake.nixosModules.homeManager = {
       imports = [
         inputs.home-manager.nixosModules.home-manager
       ];
@@ -15,6 +12,5 @@
         useGlobalPkgs = false;
         useUserPackages = true;
       };
-    }
-  );
+    };
 }

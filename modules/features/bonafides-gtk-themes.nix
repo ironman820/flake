@@ -6,11 +6,11 @@
   perSystem =
     {
       lib,
-      stdenvNoCC,
+      pkgs,
       ...
     }:
     {
-      packages.bonafides-gtk-themes = stdenvNoCC.mkDerivation (finalAttrs: {
+      packages.bonafides-gtk-themes = pkgs.stdenvNoCC.mkDerivation (finalAttrs: {
         pname = "bonafides-gtk-themes";
         version = "2025.12.18";
 

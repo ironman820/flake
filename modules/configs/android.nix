@@ -7,8 +7,8 @@
     }:
     {
       users.users.${config.ironman.user.name}.extraGroups = [ "adbusers" ];
-      environment.systemPackages = with pkgs; [
-        android-studio
+      environment.systemPackages = [
+        pkgs.android-studio
       ];
       programs.adb.enable = true;
       services.udev.packages = [

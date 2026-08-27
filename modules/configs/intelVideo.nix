@@ -13,8 +13,8 @@
         "i915.enable_fbc=1"
         "i915.enable_dc=2"
       ];
-      environment.systemPackages = with pkgs; [
-        libva-utils
+      environment.systemPackages = [
+        pkgs.libva-utils
       ];
       hardware.graphics = {
         enable = true;

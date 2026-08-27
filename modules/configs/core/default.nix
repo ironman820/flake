@@ -1,5 +1,4 @@
 {
-  inputs,
   moduleWithSystem,
   self,
   ...
@@ -8,24 +7,22 @@
   flake = {
     nixosModules.core = moduleWithSystem (
       perSystem@{ inputs', ... }: { lib, pkgs, ... }: {
-        imports =
-          (with inputs; [ ])
-          ++ (with self.nixosModules; [
-            bash
-            boot
-            fonts
-            git
-            homeManager
-            java
-            localisation
-            nix
-            python
-            ssh
-            sops
-            topology
-            userIronman
-            userRoot
-          ]);
+        imports = with self.nixosModules; [
+          bash
+          boot
+          fonts
+          git
+          homeManager
+          java
+          localisation
+          nix
+          python
+          ssh
+          sops
+          topology
+          userIronman
+          userRoot
+        ];
         environment.systemPackages = with pkgs; [
           cifs-utils
           dig
@@ -63,14 +60,9 @@
         system.stateVersion = "25.05";
       }
     );
-    homeConfigurations.core = {
-      imports = (
-        with self.homeModules;
-        [
-          core
-        ]
-      );
-    };
+    homeConfigurations.core.imports = [
+      self.homeModules.core
+    ];
     homeModules.core = { lib, pkgs, ... }: {
       imports = (
         with self.homeModules;

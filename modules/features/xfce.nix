@@ -47,8 +47,8 @@
               xwinmosaic
             ]
           );
-          xfce.excludePackages = with pkgs; [
-            xfce4-terminal
+          xfce.excludePackages = [
+            pkgs.xfce4-terminal
           ];
         };
         nixpkgs.config.pulseaudio = true;

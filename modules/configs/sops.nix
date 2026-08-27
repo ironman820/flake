@@ -6,12 +6,9 @@
 {
   flake = {
     nixosModules.sops = { pkgs, ... }: {
-      imports = (
-        with inputs;
-        [
-          sops-nix.nixosModules.sops
-        ]
-      );
+      imports = [
+        inputs.sops-nix.nixosModules.sops
+      ];
       environment.systemPackages = with pkgs; [
         age
         ssh-to-age
@@ -27,12 +24,9 @@
       };
     };
     homeModules.sops = { config, osConfig, ... }: {
-      imports = (
-        with inputs;
-        [
-          sops-nix.homeModules.sops
-        ]
-      );
+      imports = [
+        inputs.sops-nix.homeModules.sops
+      ];
       sops = {
         age = {
           generateKey = false;

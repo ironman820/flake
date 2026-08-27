@@ -6,9 +6,9 @@
       ...
     }:
     {
-      environment.systemPackages = with pkgs; [
+      environment.systemPackages = [
         inputs'.stable.legacyPackages.firmware-manager
-        gnome-firmware
+        pkgs.gnome-firmware
       ];
       services.fwupd.enable = true;
     }

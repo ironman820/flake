@@ -13,7 +13,10 @@
         pkgs,
         ...
       }:
-      with lib;
+      let
+        inherit (lib) mkOption;
+        inherit (lib.types) bool package str;
+      in
       {
         imports = with self.nixosModules; [
           extraGuiApps
@@ -22,42 +25,42 @@
           browser = mkOption {
             default = inputs'.zen-browser.packages.default;
             description = "Default browser to open with launchers";
-            type = types.package;
+            type = package;
           };
           laptop = mkOption {
             default = false;
             description = "Is this system a laptop?";
-            type = types.bool;
+            type = bool;
           };
           netbook = mkOption {
             default = false;
             description = "Is this system a netbook";
-            type = types.bool;
+            type = bool;
           };
           terminal = mkOption {
             default = pkgs.ghostty;
             description = "Default terminal emulator to open with launchers";
-            type = types.package;
+            type = package;
           };
           user = {
             name = mkOption {
-              type = types.str;
+              type = str;
               default = "ironman";
               description = "User name to pass to other functions";
             };
             fullName = mkOption {
-              type = types.str;
+              type = str;
               default = "Nicholas Eastman";
               description = "The user's full name";
             };
             email = {
               bob = mkOption {
-                type = types.str;
+                type = str;
                 default = "nicholas.m.eastman";
                 description = "The user's email address";
               };
               site = mkOption {
-                type = types.str;
+                type = str;
                 default = "gmail.com";
                 description = "email domain";
               };
@@ -66,7 +69,7 @@
           workWorkstation = mkOption {
             default = false;
             description = "If this machine is a work workstation.";
-            type = types.bool;
+            type = bool;
           };
         };
         config =
@@ -117,36 +120,35 @@
         inherit (osConfig.ironman) laptop netbook workWorkstation;
       in
       {
-        imports =
-          (with self.homeModules; [
-            core
-          ])
-          ++ (
-            if laptop then
-              (with self.homeModules; [
-                extraGuiApps
-                flatpak
-                ghostty
-                niri
-                syncthing
-                yubikey
-              ])
-            else
-              [ ]
-          )
-          ++ (
-            if netbook then
-              (with self.homeModules; [
-                extraGuiApps
-                flatpak
-                ghostty
-                syncthing
-                xfce
-                yubikey
-              ])
-            else
-              [ ]
-          );
+        imports = [
+          self.homeModules.core
+        ]
+        ++ (
+          if laptop then
+            (with self.homeModules; [
+              extraGuiApps
+              flatpak
+              ghostty
+              niri
+              syncthing
+              yubikey
+            ])
+          else
+            [ ]
+        )
+        ++ (
+          if netbook then
+            (with self.homeModules; [
+              extraGuiApps
+              flatpak
+              ghostty
+              syncthing
+              xfce
+              yubikey
+            ])
+          else
+            [ ]
+        );
         home.packages = mkIf workWorkstation (
           with pkgs;
           [

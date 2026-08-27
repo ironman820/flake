@@ -109,8 +109,8 @@ in
     ripgrep
     tectonic
   ];
-  extraPlugins = with pkgs.vimPlugins; [
-    tokyodark-nvim
+  extraPlugins = [
+    pkgs.vimPlugins.tokyodark-nvim
   ];
   globals = {
     depreciation_warnings = false;

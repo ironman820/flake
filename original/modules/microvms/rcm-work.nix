@@ -11,8 +11,8 @@
             microvms-base
             rcm
           ];
-          environment.systemPackages = with pkgs; [
-            sonar-scanner-cli
+          environment.systemPackages = [
+            pkgs.sonar-scanner-cli
           ];
           home-manager.users.ironman = self.homeConfigurations.ironman-server;
           microvm = {

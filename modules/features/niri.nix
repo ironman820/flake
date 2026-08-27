@@ -13,14 +13,13 @@
         ...
       }:
       {
-        imports =
-          (with inputs; [
-            niri.nixosModules.niri
-          ])
-          ++ (with self.nixosModules; [
-            noctalia
-            noctaliaGreeter
-          ]);
+        imports = [
+          inputs.niri.nixosModules.niri
+        ]
+        ++ (with self.nixosModules; [
+          noctalia
+          noctaliaGreeter
+        ]);
         options.ironman.niri =
           let
             inherit (lib) mkOption;
@@ -95,8 +94,8 @@
             };
           };
         config = {
-          environment.systemPackages = with pkgs; [
-            xwayland-satellite
+          environment.systemPackages = [
+            pkgs.xwayland-satellite
           ];
           ironman.niri =
             let

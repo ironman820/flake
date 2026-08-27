@@ -7,7 +7,20 @@
     { config, ... }:
     {
       hardware.facter.reportPath = ./facter.json;
-      networking.hostName = "calibre";
+      networking = {
+        defaultGateway.address = "192.168.248.1";
+        hostName = "calibre";
+        interfaces.eth0.ipv4.addresses = [
+          {
+            address = "192.168.248.101";
+            prefixLength = 23;
+          }
+        ];
+        nameservers = [
+          "192.168.248.2"
+        ];
+      };
+      proxmoxLXC.manageNetwork = true;
       services = {
         calibre-web = {
           enable = true;
@@ -69,12 +82,20 @@
         };
       topology.self = {
         deviceType = "nixos";
+        guestType = "nixos-container";
         interfaces.eth0 = {
           network = "home";
+          physicalConnections = [
+            (config.lib.topology.mkConnection "pve" "vmbr0")
+          ];
           virtual = true;
         };
         name = "Calibre";
-        services.calibre-web.name = "Calibre-Web";
+        parent = "pve";
+        services.calibre-web = {
+          info = "https://mybooks.niceastman.com";
+          name = "Calibre-Web";
+        };
       };
     };
 }

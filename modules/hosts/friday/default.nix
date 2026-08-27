@@ -7,8 +7,9 @@
   flake.nixosConfigurations.friday = inputs.nixpkgs.lib.nixosSystem {
     modules = with self.nixosModules; [
       arduino
-      fridayConfig
+      docker
       laptop
+      virtualHost
       inputs.disko.nixosModules.disko
       self.diskoConfigurations.friday
     ];

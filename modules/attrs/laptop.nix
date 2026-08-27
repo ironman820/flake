@@ -28,6 +28,7 @@
       environment.systemPackages = with pkgs; [
         caligula
         deploy-rs
+        fetch
         ffmpeg
         graphicsmagick
         gns3-gui
@@ -37,7 +38,10 @@
         wireguard-tools
       ];
       hardware.bluetooth.enable = true;
-      ironman.laptop = true;
+      ironman = {
+        extraGui = true;
+        laptop = true;
+      };
       nix = {
         gc = {
           automatic = true;

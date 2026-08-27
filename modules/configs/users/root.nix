@@ -4,9 +4,7 @@
 }:
 {
   flake.nixosModules.userRoot = { lib, ... }: {
-    home-manager.users = {
-      root = self.homeConfigurations.core;
-    };
+    home-manager.users.root = self.homeConfigurations.core;
     users.users.root = {
       initialHashedPassword = lib.mkForce null;
       initialPassword = "@ppl3Sauc3";

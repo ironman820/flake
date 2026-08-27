@@ -18,7 +18,9 @@
         cores = 1;
         sandbox = false;
       };
-      services.fstrim.enable = false;
-      qemuGuest.enable = true;
+      services = {
+        fstrim.enable = false;
+        qemuGuest.enable = true;
+      };
     };
 }

@@ -1,9 +1,8 @@
-{
+{ inputs, ... }: {
   flake = {
     nixosModules.nix =
       {
         lib,
-        pkgs,
         ...
       }:
       let
@@ -36,7 +35,7 @@
         };
         programs.nix-ld.enable = true;
       };
-    homeModules.nix = { config, pkgs,  ... }: {
+    homeModules.nix = { config, pkgs, ... }: {
       home = {
         packages = with pkgs; [
           nil
@@ -62,4 +61,15 @@
       };
     };
   };
+  perSystem =
+    { system, ... }:
+    {
+      _module.args.pkgs = import inputs.nixpkgs {
+        inherit system;
+        config.allowUnfree = true;
+        overlays = with inputs; [
+          niri.overlays.niri
+        ];
+      };
+    };
 }

@@ -57,6 +57,7 @@
           yq
           zip
         ];
+        nixpkgs.hostPlatform.system = "x86_64-linux";
         programs.mtr.enable = true;
         security.sudo.execWheelOnly = true;
         system.stateVersion = "25.05";

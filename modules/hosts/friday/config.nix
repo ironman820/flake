@@ -13,6 +13,7 @@
           scale = 1;
         };
       };
+      shares.personal = true;
       syncthing = {
         cert = config.sops.secrets.syncthing-friday-cert.path;
         key = config.sops.secrets.syncthing-friday-key.path;

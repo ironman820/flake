@@ -33,6 +33,10 @@
           ${niri_cmd} ${niri_screen} off
         '';
       };
+    shares = {
+      personal = true;
+      work = true;
+    };
     syncthing = {
       devices = {
         friday = {
@@ -127,7 +131,7 @@
         site = "royell.org";
       };
     };
-    workWorkstation =  true;
+    workWorkstation = true;
   };
   networking.hostName = "wednesday";
   topology.self = {

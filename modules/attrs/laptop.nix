@@ -8,6 +8,7 @@
       with self.nixosModules;
       [
         core
+        driveShares
         flatpak
         ghostty
         niri

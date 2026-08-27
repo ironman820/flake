@@ -8,6 +8,9 @@
       { config, lib, ... }:
       with lib;
       {
+        imports = [
+          self.nixosModules.extraGuiApps
+        ];
         options.ironman.user = {
           name = mkOption {
             type = types.str;

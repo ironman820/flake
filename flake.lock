@@ -1,5 +1,21 @@
 {
   "nodes": {
+    "bonafides-themes": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1771180782,
+        "narHash": "sha256-D0HVxhuPr8fvUm/WshApZQm/eZAEYfsD2CVT8+ncWdE=",
+        "owner": "l4ki",
+        "repo": "bonafides-plasma-themes",
+        "rev": "97d4fe35e5c6d925b9f723f5411a42880fe41298",
+        "type": "github"
+      },
+      "original": {
+        "owner": "l4ki",
+        "repo": "bonafides-plasma-themes",
+        "type": "github"
+      }
+    },
     "disko": {
       "inputs": {
         "nixpkgs": [
@@ -394,6 +410,7 @@
     },
     "root": {
       "inputs": {
+        "bonafides-themes": "bonafides-themes",
         "disko": "disko",
         "flake-parts": "flake-parts",
         "home-manager": "home-manager",

@@ -8,8 +8,8 @@
       { config, lib, ... }:
       with lib;
       {
-        imports = [
-          self.nixosModules.extraGuiApps
+        imports = with self.nixosModules; [
+          extraGuiApps
         ];
         options.ironman.user = {
           name = mkOption {
@@ -72,6 +72,7 @@
           if osConfig.ironman.laptop then
             (with self.homeModules; [
               extraGuiApps
+              niri
             ])
           else
             [ ]

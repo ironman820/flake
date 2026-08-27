@@ -54,13 +54,6 @@
       url = "github:SteamClientHomebrew/Millennium?dir=packages/nix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    niri = {
-      url = "github:epireyn/niri-flake";
-      inputs = {
-        nixpkgs.follows = "nixpkgs";
-        nixpkgs-stable.follows = "nixpkgs-stable";
-      };
-    };
     nix-flatpak.url = "github:gmodena/nix-flatpak/?ref=latest";
     nixos-hardware = {
       inputs.nixpkgs.follows = "nixpkgs";
@@ -71,7 +64,6 @@
     nixpkgs-lib.url = "github:nix-community/nixpkgs.lib";
     # PHP 7.2.29
     nixpkgs-php.url = "github:nixos/nixpkgs/53951c0";
-    nixpkgs-stable.url = "github:nixos/nixpkgs/nixos-26.05";
     # nVidia 575.64
     nixpkgs-9041993.url = "github:nixos/nixpkgs/9041993";
     # nVidia 580.95.05
@@ -117,10 +109,6 @@
     wrapper-modules = {
       inputs.nixpkgs.follows = "nixpkgs";
       url = "github:birdeehub/nix-wrapper-modules";
-    };
-    zen-browser = {
-      url = "github:youwen5/zen-browser-flake";
-      inputs.nixpkgs.follows = "nixpkgs";
     };
   };
   nixConfig = {

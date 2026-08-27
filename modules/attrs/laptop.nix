@@ -8,6 +8,7 @@
       with self.nixosModules;
       [
         core
+        niri
       ]
     );
     ironman.laptop = true;

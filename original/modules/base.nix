@@ -3,7 +3,6 @@
   flake.nixosModules.base =
     {
       imports = (with inputs; [
-        niri.nixosModules.niri
         nix-topology.nixosModules.default
         noctalia.nixosModules.default
         noctalia-greeter.nixosModules.default

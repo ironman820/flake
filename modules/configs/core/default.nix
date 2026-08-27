@@ -16,7 +16,6 @@
             fonts
             git
             homeManager
-            ironman
             java
             localisation
             nix

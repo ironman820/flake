@@ -1,37 +1,61 @@
 {
   self,
+  moduleWithSystem,
   ...
 }:
 {
   flake = {
-    nixosModules.userIronman =
-      { config, lib, ... }:
+    nixosModules.userIronman = moduleWithSystem (
+      perSystem@{ inputs', ... }:
+      {
+        config,
+        lib,
+        pkgs,
+        ...
+      }:
       with lib;
       {
         imports = with self.nixosModules; [
           extraGuiApps
         ];
-        options.ironman.user = {
-          name = mkOption {
-            type = types.str;
-            default = "ironman";
-            description = "User name to pass to other functions";
+        options.ironman = {
+          browser = mkOption {
+            default = inputs'.zen-browser.packages.default;
+            description = "Default browser to open with launchers";
+            type = types.package;
           };
-          fullName = mkOption {
-            type = types.str;
-            default = "Nicholas Eastman";
-            description = "The user's full name";
+          laptop = mkOption {
+            default = false;
+            description = "Is this system a laptop?";
+            type = types.bool;
           };
-          email = {
-            bob = mkOption {
+          terminal = mkOption {
+            default = pkgs.ghostty;
+            description = "Default terminal emulator to open with launchers";
+            type = types.package;
+          };
+          user = {
+            name = mkOption {
               type = types.str;
-              default = "nicholas.m.eastman";
-              description = "The user's email address";
+              default = "ironman";
+              description = "User name to pass to other functions";
             };
-            site = mkOption {
+            fullName = mkOption {
               type = types.str;
-              default = "gmail.com";
-              description = "email domain";
+              default = "Nicholas Eastman";
+              description = "The user's full name";
+            };
+            email = {
+              bob = mkOption {
+                type = types.str;
+                default = "nicholas.m.eastman";
+                description = "The user's email address";
+              };
+              site = mkOption {
+                type = types.str;
+                default = "gmail.com";
+                description = "email domain";
+              };
             };
           };
         };
@@ -62,7 +86,8 @@
               uid = 1000;
             };
           };
-      };
+      }
+    );
     homeConfigurations.ironman =
       { lib, osConfig, ... }:
       let

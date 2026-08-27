@@ -6,13 +6,6 @@
       inherit (lib) mkDefault;
     in
     {
-      imports = with self.nixosModules; [
-        guiApps
-        firmware
-        networking
-        network-profiles
-        sound
-      ];
       environment.systemPackages = with pkgs; [
         caligula
         deploy-rs

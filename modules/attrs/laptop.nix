@@ -9,9 +9,14 @@
       [
         core
         driveShares
+        firmware
         flatpak
         ghostty
+        guiApps
+        networkManager
+        networkProfiles
         niri
+        sound
         syncthing
         yubikey
       ]

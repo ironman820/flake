@@ -1,20 +1,18 @@
-{ inputs, ... }: {
-  flake.nixosModules.guiApps =
+{ moduleWithSystem, ... }: {
+  flake.nixosModules.guiApps = moduleWithSystem (
+    perSystem@{ inputs', ... }:
     { pkgs, ... }:
     {
       environment.systemPackages = with pkgs; [
-        boxbuddy
         feishin
         # freecad
         google-chrome
         obsidian
         remmina
-        roxterm
         udiskie
         vlc
-        zotero
-        # Zen Browser - defaults
-        inputs.zen-browser.packages.${pkgs.stdenv.hostPlatform.system}.default
+        # Zen Browser
+        inputs'.zen-browser.packages.default
       ];
       programs = {
         appimage = {
@@ -25,8 +23,8 @@
       };
       xdg.portal = {
         enable = true;
-        # config.common.default = "*";
         xdgOpenUsePortal = true;
       };
-    };
+    }
+  );
 }

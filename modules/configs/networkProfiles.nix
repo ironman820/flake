@@ -1,5 +1,5 @@
-{ flakeRoot, ... }: {
-  flake.nixosModules.network-profiles =
+{ self, ... }: {
+  flake.nixosModules.networkProfiles =
     {
       config,
       lib,
@@ -9,7 +9,7 @@
       inherit (lib) mkIf mkMerge mkOption;
       inherit (lib.types) bool;
       cfg = config.ironman.network-profiles;
-      sopsFile = flakeRoot + "/.secrets/network-profiles.yaml";
+      sopsFile = "${self.outPath}/.secrets/networkProfiles.yaml";
       settingsPath = "/etc/NetworkManager/system-connections";
     in
     {

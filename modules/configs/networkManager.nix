@@ -1,5 +1,5 @@
 {
-  flake.nixosModules.networking =
+  flake.nixosModules.networkManager =
   { config, ... }:
   {
       networking.networkmanager = {

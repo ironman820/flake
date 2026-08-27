@@ -1,5 +1,5 @@
 {
-  flake.nixosModules.intel-video =
+  flake.nixosModules.intelVideo =
     {
       pkgs,
       ...

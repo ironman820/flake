@@ -2,7 +2,6 @@
 {
   flake.homeModules.extra = {
     imports = with self.homeModules; [
-      podman
       yubikey
     ];
     services.udiskie = {

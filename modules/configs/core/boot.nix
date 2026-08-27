@@ -8,6 +8,7 @@
     config =
       let
         inherit (config) ironman;
+        inherit (lib) mkDefault;
       in
       {
         boot = {
@@ -24,11 +25,11 @@
               timeoutStyle = "hidden";
             };
             systemd-boot = {
-              enable = !ironman.grub;
+              enable = mkDefault (!ironman.grub);
               configurationLimit = 5;
             };
           };
-          plymouth.enable = lib.mkDefault ironman.grub;
+          plymouth.enable = mkDefault ironman.grub;
         };
       };
   };

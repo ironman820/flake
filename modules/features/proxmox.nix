@@ -14,6 +14,7 @@
       #   manageNetwork = false;
       #   privileged = false;
       # };
+      boot.loader.systemd-boot.enable = false;
       nix.settings = {
         cores = 1;
         sandbox = false;

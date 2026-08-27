@@ -2,6 +2,10 @@
   description = "Description for the project";
 
   inputs = {
+    bonafides-themes = {
+      flake = false;
+      url = "github:l4ki/bonafides-plasma-themes";
+    };
     disko = {
       inputs.nixpkgs.follows = "nixpkgs";
       url = "github:nix-community/disko";

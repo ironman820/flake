@@ -29,6 +29,11 @@
             description = "Is this system a laptop?";
             type = types.bool;
           };
+          netbook = mkOption {
+            default = false;
+            description = "Is this system a netbook";
+            type = types.bool;
+          };
           terminal = mkOption {
             default = pkgs.ghostty;
             description = "Default terminal emulator to open with launchers";
@@ -66,9 +71,16 @@
         };
         config =
           let
+            inherit (config.ironman) laptop netbook;
             inherit (config.ironman.user) fullName name;
           in
           {
+            assertions = [
+              {
+                assertion = !(laptop && netbook);
+                message = "For the sake of this configuration, a system CAN NOT be a laptop and a netbook at the same time. Please disable one of those options.";
+              }
+            ];
             home-manager.users.${name} = self.homeConfigurations.ironman;
             users.groups.${name} = {
               gid = 1000;
@@ -102,7 +114,7 @@
       }:
       let
         inherit (lib) mkIf;
-        inherit (osConfig.ironman) laptop workWorkstation;
+        inherit (osConfig.ironman) laptop netbook workWorkstation;
       in
       {
         imports =
@@ -117,6 +129,19 @@
                 ghostty
                 niri
                 syncthing
+                yubikey
+              ])
+            else
+              [ ]
+          )
+          ++ (
+            if netbook then
+              (with self.homeModules; [
+                extraGuiApps
+                flatpak
+                ghostty
+                syncthing
+                xfce
                 yubikey
               ])
             else

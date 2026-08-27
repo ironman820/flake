@@ -14,7 +14,6 @@
       ./hardware.nix
       winbox
       x64-linux
-      yubikey
     ];
     environment.systemPackages = with pkgs; [
       boxbuddy

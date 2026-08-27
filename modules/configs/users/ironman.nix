@@ -79,6 +79,7 @@
                 extraGuiApps
                 flatpak
                 niri
+                yubikey
               ])
             else
               [ ]

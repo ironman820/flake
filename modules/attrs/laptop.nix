@@ -10,6 +10,7 @@
         core
         flatpak
         niri
+        yubikey
       ]
     );
     ironman.laptop = true;

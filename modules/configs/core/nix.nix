@@ -69,6 +69,7 @@
         config.allowUnfree = true;
         overlays = with inputs; [
           niri.overlays.niri
+          nix-topology.overlays.default
         ];
       };
     };

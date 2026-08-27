@@ -67,13 +67,6 @@
     nixpkgs-9041993.url = "github:nixos/nixpkgs/9041993";
     # nVidia 580.95.05
     nixpkgs-3652b3e.url = "github:nixos/nixpkgs/3652b3e";
-    nix-topology = {
-      url = "github:oddlama/nix-topology";
-      inputs = {
-        flake-parts.follows = "flake-parts";
-        nixpkgs.follows = "nixpkgs";
-      };
-    };
     pkgs-by-name.url = "github:drupol/pkgs-by-name-for-flake-parts";
     plasma-manager = {
       inputs = {
@@ -115,7 +108,6 @@
         };
         imports = with inputs; [
           easy-hosts.flakeModule
-          nix-topology.flakeModule
           pkgs-by-name.flakeModule
         ];
       }

@@ -20,6 +20,13 @@
       };
     };
     nix-flatpak.url = "github:gmodena/nix-flatpak/?ref=latest";
+    nix-topology = {
+      url = "github:oddlama/nix-topology";
+      inputs = {
+        flake-parts.follows = "flake-parts";
+        nixpkgs.follows = "nixpkgs";
+      };
+    };
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
     # openssh v9
     nixpkgs-openssh.url = "github:nixos/nixpkgs/0858160";
@@ -50,7 +57,9 @@
 
   nixConfig = {
     extra-substituters = [ "https://noctalia.cachix.org" ];
-    extra-trusted-public-keys = [ "noctalia.cachix.org-1:pCOR47nnMEo5thcxNDtzWpOxNFQsBRglJzxWPp3dkU4=" ];
+    extra-trusted-public-keys = [
+      "noctalia.cachix.org-1:pCOR47nnMEo5thcxNDtzWpOxNFQsBRglJzxWPp3dkU4="
+    ];
   };
 
   outputs =
@@ -59,6 +68,7 @@
       flake-parts,
       home-manager,
       import-tree,
+      nix-topology,
       ...
     }:
     flake-parts.lib.mkFlake { inherit inputs; } {
@@ -66,6 +76,7 @@
         disko.flakeModules.default
         home-manager.flakeModules.home-manager
         (import-tree ./modules)
+        nix-topology.flakeModule
       ];
       systems = [ "x86_64-linux" ];
       perSystem =

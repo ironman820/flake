@@ -20,10 +20,11 @@
             java
             localisation
             nix
-            userIronman
-            userRoot
             ssh
             sops
+            topology
+            userIronman
+            userRoot
           ]);
         environment.systemPackages = with pkgs; [
           cifs-utils

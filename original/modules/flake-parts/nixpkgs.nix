@@ -1,8 +1,5 @@
 {
   inputs,
-  flakeRoot,
-  self,
-  withSystem,
   ...
 }:
 {
@@ -13,21 +10,9 @@
         inherit system;
         config.allowUnfree = true;
         overlays = with inputs; [
-          millennium.overlays.default
-          nix-topology.overlays.default
           # noctalia.overlays.default
           rust-overlay.overlays.default
-          self.overlays.default
         ];
       };
-      pkgsDirectory = flakeRoot + "/packages";
     };
-  flake.overlays.default =
-    final: prev:
-    withSystem prev.stdenv.hostPlatform.system (
-      { config, ... }:
-      {
-        local = config.packages;
-      }
-    );
 }

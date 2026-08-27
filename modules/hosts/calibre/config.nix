@@ -93,6 +93,7 @@
         name = "Calibre";
         parent = "pve";
         services.calibre-web = {
+          icon = "services.calibreweb";
           info = "https://mybooks.niceastman.com";
           name = "Calibre-Web";
         };

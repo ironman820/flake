@@ -25,6 +25,7 @@
                 server.file = ./server.svg;
               };
               services = {
+                calibreweb.file = ./calibreweb.svg;
                 proxmox.file = ./proxmox.png;
                 technitium.file = ./technitium.png;
               };

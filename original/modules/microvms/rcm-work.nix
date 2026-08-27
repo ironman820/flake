@@ -9,7 +9,6 @@
         {
           imports = with self.nixosModules; [
             microvms-base
-            python
             rcm
           ];
           environment.systemPackages = with pkgs; [

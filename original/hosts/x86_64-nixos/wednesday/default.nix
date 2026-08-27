@@ -1,7 +1,6 @@
 { config, inputs, pkgs, self, ... }: {
     imports = with self.nixosModules; [
       extraGuiApps
-      python
       arduino
       grub
       fonts

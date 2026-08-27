@@ -20,6 +20,7 @@
             java
             localisation
             nix
+            python
             ssh
             sops
             topology
@@ -85,6 +86,7 @@
           just
           nix
           nixvim
+          python
           ssh
           starship
           sops

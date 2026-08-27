@@ -8,7 +8,6 @@
         [
           base
           extra
-          python
           qt
           syncthing
         ]

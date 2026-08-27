@@ -12,7 +12,6 @@
   ]
   ++ (with self.nixosModules; [
     extraGuiApps
-    python
     arduino
     grub
     fonts

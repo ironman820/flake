@@ -1,12 +1,5 @@
 {
   hardware.facter.reportPath = ./facter.json;
-  ironman.user = {
-    name = "niceastman";
-    email = {
-      bob = "nic.eastman";
-      site = "royell.org";
-    };
-  };
   ironman = {
     extraGui = true;
     niri =
@@ -36,5 +29,12 @@
           ${niri_cmd} ${niri_screen} off
         '';
       };
+    user = {
+      name = "niceastman";
+      email = {
+        bob = "nic.eastman";
+        site = "royell.org";
+      };
+    };
   };
 }

@@ -1,7 +1,7 @@
 {
   flake.nixosModules.fonts = { pkgs, ... }: {
     console = {
-      font = ./files/EnvyCodeRNerdFontMono-Regular.psf;
+      font = ./EnvyCodeRNerdFontMono-Regular.psf;
       useXkbConfig = true; # use xkbOptions in tty.
     };
     fonts.packages =

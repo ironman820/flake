@@ -8,6 +8,7 @@
     modules = with self.nixosModules; [
       arduino
       docker
+      fridayConfig
       laptop
       virtualHost
       inputs.disko.nixosModules.disko

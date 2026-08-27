@@ -298,8 +298,8 @@
             spawn-at-startup = [
               { argv = [ "noctalia" ]; }
             ];
-            switch-events.lid-close.action = mkIf niri.lockOnClose {
-              spawn = [
+            switch-events.lid-close = mkIf niri.lockOnClose {
+              action.spawn = [
                 "noctalia"
                 "msg"
                 "session"

@@ -58,6 +58,11 @@
               };
             };
           };
+          workWorkstation = mkOption {
+            default = false;
+            description = "If this machine is a work workstation.";
+            type = types.bool;
+          };
         };
         config =
           let
@@ -89,9 +94,15 @@
       }
     );
     homeConfigurations.ironman =
-      { lib, osConfig, ... }:
+      {
+        lib,
+        osConfig,
+        pkgs,
+        ...
+      }:
       let
-        inherit (osConfig.ironman) laptop;
+        inherit (lib) mkIf;
+        inherit (osConfig.ironman) laptop workWorkstation;
       in
       {
         imports =
@@ -111,7 +122,15 @@
             else
               [ ]
           );
-        programs.tmux = lib.mkIf laptop {
+        home.packages = mkIf workWorkstation (
+          with pkgs;
+          [
+            qgis
+            wireshark
+            zoom-us
+          ]
+        );
+        programs.tmux = mkIf laptop {
           shortcut = "Space";
         };
       };

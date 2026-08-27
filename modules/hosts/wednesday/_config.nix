@@ -127,6 +127,7 @@
         site = "royell.org";
       };
     };
+    workWorkstation =  true;
   };
   networking.hostName = "wednesday";
   topology.self = {

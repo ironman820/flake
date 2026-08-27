@@ -75,8 +75,6 @@
         nixpkgs.follows = "nixpkgs";
       };
     };
-    # Keep Noctalia using it's own nixpkgs. This allows cache usage.
-    noctalia.url = "github:noctalia-dev/noctalia/cachix";
     noctalia-greeter = {
       url = "github:noctalia-dev/noctalia-greeter";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -110,10 +108,6 @@
       inputs.nixpkgs.follows = "nixpkgs";
       url = "github:birdeehub/nix-wrapper-modules";
     };
-  };
-  nixConfig = {
-    extra-substituters = [ "https://noctalia.cachix.org" ];
-    extra-trusted-public-keys = [ "noctalia.cachix.org-1:pCOR47nnMEo5thcxNDtzWpOxNFQsBRglJzxWPp3dkU4=" ];
   };
   outputs =
     inputs:

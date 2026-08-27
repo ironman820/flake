@@ -8,6 +8,7 @@
         niri_screen = "DP-4";
       in
       {
+        lockOnClose = false;
         outputs = {
           "eDP-1" = {
             mode = {

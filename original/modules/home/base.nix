@@ -11,7 +11,6 @@
       ])
       ++ (with inputs; [
         nix-flatpak.homeManagerModules.nix-flatpak
-        noctalia.homeModules.default
         plasma-manager.homeModules.plasma-manager
       ]);
   };

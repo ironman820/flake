@@ -27,6 +27,8 @@
       url = "github:nix-community/nixvim";
       inputs.flake-parts.follows = "flake-parts";
     };
+    # Keep Noctalia using it's own nixpkgs. This allows cache usage.
+    noctalia.url = "github:noctalia-dev/noctalia/cachix";
     snowfall-flake = {
       url = "github:snowfallorg/flake";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -39,6 +41,11 @@
       url = "github:youwen5/zen-browser-flake";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+  };
+
+  nixConfig = {
+    extra-substituters = [ "https://noctalia.cachix.org" ];
+    extra-trusted-public-keys = [ "noctalia.cachix.org-1:pCOR47nnMEo5thcxNDtzWpOxNFQsBRglJzxWPp3dkU4=" ];
   };
 
   outputs =

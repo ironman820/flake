@@ -1,6 +1,6 @@
 {
   inputs,
-  # self,
+  self,
   ...
 }:
 {
@@ -13,21 +13,20 @@
         ...
       }:
       {
-        imports = (
-          with inputs;
-          [
+        imports =
+          (with inputs; [
             niri.nixosModules.niri
-            # ])
-            # ++ (with self.nixosModules; [
-            #     noctalia
+          ])
+          ++ (with self.nixosModules; [
+            noctalia
             #     noctalia-greeter
-          ]
-        );
+          ]);
         options.ironman.niri =
           let
             inherit (lib) mkOption;
             inherit (lib.types)
               attrs
+              bool
               float
               int
               lines
@@ -35,6 +34,11 @@
               ;
           in
           {
+            lockOnClose = mkOption {
+              default = true;
+              description = "Lock the screen when closing the laptop lid";
+              type = bool;
+            };
             outputs = mkOption {
               default = { };
               description = "Custom Output options configurable per machine";
@@ -146,13 +150,14 @@
         ...
       }:
       let
+        inherit (lib) mkIf;
         inherit (osConfig.ironman) browser niri terminal;
       in
       {
-        # imports = with self.homeModules; [
-        #   ghostty
-        #   noctalia
-        # ];
+        imports = with self.homeModules; [
+          #   ghostty
+          noctalia
+        ];
         home.packages = (
           with pkgs;
           [
@@ -293,6 +298,14 @@
             spawn-at-startup = [
               { argv = [ "noctalia" ]; }
             ];
+            switch-events.lid-close.action = mkIf niri.lockOnClose {
+              spawn = [
+                "noctalia"
+                "msg"
+                "session"
+                "lock-and-suspend"
+              ];
+            };
             window-rules = [
               {
                 clip-to-geometry = true;

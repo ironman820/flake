@@ -63,20 +63,28 @@
             };
           };
       };
-    homeConfigurations.ironman = { osConfig, ... }: {
-      imports =
-        (with self.homeModules; [
-          core
-        ])
-        ++ (
-          if osConfig.ironman.laptop then
-            (with self.homeModules; [
-              extraGuiApps
-              niri
-            ])
-          else
-            [ ]
-        );
-    };
+    homeConfigurations.ironman =
+      { lib, osConfig, ... }:
+      let
+        inherit (osConfig.ironman) laptop;
+      in
+      {
+        imports =
+          (with self.homeModules; [
+            core
+          ])
+          ++ (
+            if laptop then
+              (with self.homeModules; [
+                extraGuiApps
+                niri
+              ])
+            else
+              [ ]
+          );
+        programs.tmux = lib.mkIf laptop {
+          shortcut = "Space";
+        };
+      };
   };
 }

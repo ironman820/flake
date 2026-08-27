@@ -96,6 +96,8 @@ widget_order = [ "lockscreen-login-box@eDP-1", "lockscreen-widget-00000000000000
     cx = 768.0
     cy = 778.0
     output = "eDP-1"
+    placement_height = 1200.0
+    placement_width = 1920.0
     rotation = 0.0
     type = "login_box"
 
@@ -121,6 +123,8 @@ widget_order = [ "lockscreen-login-box@eDP-1", "lockscreen-widget-00000000000000
     cx = 768.0
     cy = 347.5
     output = "eDP-1"
+    placement_height = 1200.0
+    placement_width = 1920.0
     rotation = 0.0
     type = "clock"
 
@@ -134,6 +138,8 @@ widget_order = [ "lockscreen-login-box@eDP-1", "lockscreen-widget-00000000000000
     cx = 768.0
     cy = 528.0
     output = "eDP-1"
+    placement_height = 1200.0
+    placement_width = 1920.0
     rotation = 0.0
     type = "media_player"
 
@@ -164,20 +170,8 @@ builtin = "Tokyo-Night"
 wallpaper_scheme = "faithful"
 
     [theme.templates]
-    builtin_ids = [ "btop", "gtk3", "gtk4", "ghostty", "niri", "qt", "starship" ]
-    community_ids = [
-        "feishin",
-        "zen-browser",
-        "telegram",
-        "blender",
-        "gimp",
-        "libreoffice",
-        "obsidian",
-        "steam",
-        "fastfetch",
-        "bat",
-        "lazygit"
-    ]
+    builtin_ids = [ "gtk3", "gtk4", "niri", "qt" ]
+    community_ids = [ "zen-browser", "steam" ]
 
 [wallpaper]
 directory = "/home/ironman/Wallpapers"
@@ -187,13 +181,13 @@ directory = "/home/ironman/Wallpapers"
     interval_seconds = 300
 
     [wallpaper.default]
-    path = "/home/ironman/Wallpapers/wallhaven-n6q586.jpg"
+    path = "/home/ironman/Wallpapers/wallhaven-vm88om.jpg"
 
     [wallpaper.last]
-    path = "/home/ironman/Wallpapers/wallhaven-n6q586.jpg"
+    path = "/home/ironman/Wallpapers/wallhaven-vm88om.jpg"
 
     [wallpaper.monitors.eDP-1]
-    path = "/home/ironman/Wallpapers/wallhaven-n6q586.jpg"
+    path = "/home/ironman/Wallpapers/wallhaven-vm88om.jpg"
 
 [weather]
 enabled = false

@@ -33,7 +33,6 @@
         themeFile = "tokyo_night_night";
       };
     }
-    (lib.mkIf osConfig.ironman.plasma {plasma.shortcuts."services/kitty.desktop"._launch = "Ctrl+Alt+T";})
     ];
   };
 }

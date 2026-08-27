@@ -14,7 +14,6 @@
           description = "AutoFS autoMaster share declarations";
         };
         personal_laptop = mkEnableOption "personal laptop";
-        plasma = mkEnableOption "plasma";
         syncthing = {
           cert = mkOption {
             default = null;

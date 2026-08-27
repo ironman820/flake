@@ -31,7 +31,6 @@
     ];
     home-manager.users.niceastman = self.homeConfigurations.niceastman;
     ironman = {
-      plasma = true;
       shares = {
         work = true;
         personal = true;

@@ -9,10 +9,6 @@
       };
       url = "github:hercules-ci/arion";
     };
-    bonafides-themes = {
-      flake = false;
-      url = "github:l4ki/bonafides-plasma-themes";
-    };
     catppuccin-btop = {
       flake = false;
       url = "github:catppuccin/btop";
@@ -68,13 +64,6 @@
     # nVidia 580.95.05
     nixpkgs-3652b3e.url = "github:nixos/nixpkgs/3652b3e";
     pkgs-by-name.url = "github:drupol/pkgs-by-name-for-flake-parts";
-    plasma-manager = {
-      inputs = {
-        nixpkgs.follows = "nixpkgs";
-        home-manager.follows = "home-manager";
-      };
-      url = "github:nix-community/plasma-manager";
-    };
     # Rust Overlays for rcm2 djc-core-html package
     rust-overlay = {
       inputs.nixpkgs.follows = "nixpkgs";

@@ -34,11 +34,6 @@
           };
         };
         work_laptop = mkEnableOption "work laptop";
-        zed_device = mkOption {
-          type = types.str;
-          default = "";
-          description = "Device ID to set in the ZED_DEVICE_ID environment variable";
-        };
       };
       config = {
         services.autofs.autoMaster = strings.concatStringsSep "\n" (

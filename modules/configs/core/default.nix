@@ -7,7 +7,7 @@
 {
   flake = {
     nixosModules.core = moduleWithSystem (
-      perSystem@{ inputs', ... }: { pkgs, ... }: {
+      perSystem@{ inputs', ... }: { lib, pkgs, ... }: {
         imports =
           (with inputs; [ ])
           ++ (with self.nixosModules; [
@@ -57,7 +57,7 @@
           yq
           zip
         ];
-        nixpkgs.hostPlatform.system = "x86_64-linux";
+        nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
         programs.mtr.enable = true;
         security.sudo.execWheelOnly = true;
         system.stateVersion = "25.05";

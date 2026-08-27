@@ -9,22 +9,6 @@
       };
       url = "github:hercules-ci/arion";
     };
-    catppuccin-btop = {
-      flake = false;
-      url = "github:catppuccin/btop";
-    };
-    catppuccin-kitty = {
-      flake = false;
-      url = "github:catppuccin/kitty";
-    };
-    catppuccin-lazygit = {
-      flake = false;
-      url = "github:catppuccin/lazygit";
-    };
-    # Crane for rcm2 djc-core-html package
-    crane = {
-      url = "github:ipetkov/crane";
-    };
     deploy-rs = {
       inputs.nixpkgs.follows = "nixpkgs";
       url = "github:serokell/deploy-rs";

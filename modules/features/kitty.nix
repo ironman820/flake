@@ -1,8 +1,6 @@
 {
-  flake.homeModules.kitty = { osConfig, lib, ... }: {
-    home.sessionVariables.TERMINAL = "kitty";
-    programs = lib.mkMerge [
-      {
+  flake.homeModules.kitty = {
+    programs = {
       kitty = {
         enable = true;
         font = {
@@ -32,7 +30,6 @@
         };
         themeFile = "tokyo_night_night";
       };
-    }
-    ];
+    };
   };
 }

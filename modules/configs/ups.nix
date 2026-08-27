@@ -1,9 +1,15 @@
 {
   flake.nixosModules.ups =
-    { config, pkgs, ... }:
+    {
+      config,
+      lib,
+      pkgs,
+      ...
+    }:
     let
+      inherit (pkgs) writeShellScript writeText;
       pkg = config.power.ups.package;
-      logger = "${pkgs.util-linux.bin}/bin/logger";
+      logger = lib.getExe' pkgs.util-linux "logger";
       upsPass = config.power.ups.users.upsadmin.passwordFile;
     in
     {
@@ -13,7 +19,7 @@
         openFirewall = true;
         schedulerRules =
           let
-            upssched-cmd = pkgs.writeShellScript "upssched-cmd" ''
+            upssched-cmd = writeShellScript "upssched-cmd" ''
               case $1 in
                 muteups)
                   ${pkg}/bin/upscmd -u upsadmin -p "$(cat ${upsPass})" ups@localhost beeper.mute
@@ -41,21 +47,23 @@
               esac
             '';
           in
-          toString (pkgs.writeText "upssched.conf" ''
-            CMDSCRIPT ${upssched-cmd}
-            PIPEFN /etc/nixos/upssched.pipe
-            LOCKFN /etc/nixos/upssched.lock
+          toString (
+            writeText "upssched.conf" ''
+              CMDSCRIPT ${upssched-cmd}
+              PIPEFN /etc/nixos/upssched.pipe
+              LOCKFN /etc/nixos/upssched.lock
 
-            AT ONBATT ups EXECUTE muteups
-            AT ONBATT ups START-TIMER muteups 30
-            AT ONLINE ups CANCEL-TIMER muteups
-            AT LOWBATT ups EXECUTE shutdowncritical
-            AT COMMBAD * START-TIMER commbad 30
-            AT COMMOK * CANCEL-TIMER commbad commok
-            AT NOCOMM * EXECUTE commbad
-            AT SHUTDOWN * EXECUTE powerdown
-            AT SHUTDOWN * EXECUTE powerdown
-          '');
+              AT ONBATT ups EXECUTE muteups
+              AT ONBATT ups START-TIMER muteups 30
+              AT ONLINE ups CANCEL-TIMER muteups
+              AT LOWBATT ups EXECUTE shutdowncritical
+              AT COMMBAD * START-TIMER commbad 30
+              AT COMMOK * CANCEL-TIMER commbad commok
+              AT NOCOMM * EXECUTE commbad
+              AT SHUTDOWN * EXECUTE powerdown
+              AT SHUTDOWN * EXECUTE powerdown
+            ''
+          );
         upsd = {
           enable = true;
           listen = [

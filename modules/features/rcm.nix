@@ -1,6 +1,12 @@
-{ flakeRoot, inputs, ... }:
 {
-  flake.nixosModules.rcm =
+  inputs,
+  moduleWithSystem,
+  self,
+  ...
+}:
+{
+  flake.nixosModules.rcm = moduleWithSystem (
+    perSystem@{ system, ... }:
     {
       config,
       pkgs,
@@ -8,37 +14,36 @@
     }:
     let
       phpPkgs = import inputs.nixpkgs-php {
-        inherit (pkgs.stdenv.hostPlatform) system;
+        inherit system;
         config.allowUnfree = true;
       };
+      sps = config.sops.secrets;
       user = config.ironman.user.name;
     in
     {
-      environment =
-        {
-          systemPackages =
-            with phpPkgs; [
-              (php74.buildEnv {
-                extensions =
-                  {
-                    all,
-                    enabled,
-                  }:
-                  enabled ++ (with all; [ sqlsrv ]);
-              })
-              pkgs.phpactor
-              pkgs.pretty-php
-              unixODBC
-              (unixODBCDrivers.msodbcsql17.override { openssl = phpPkgs.openssl_1_1; })
-            ];
-          unixODBCDrivers = with phpPkgs.unixODBCDrivers; [
-            (msodbcsql17.override { openssl = phpPkgs.openssl_1_1; })
-          ];
-          variables = {
-            LD_LIBRARY_PATH = "/run/opengl-driver/lib:${phpPkgs.unixODBC}/lib:${phpPkgs.unixODBCDrivers.msodbcsql17}/lib";
-          };
+      environment = {
+        systemPackages = with phpPkgs; [
+          (php74.buildEnv {
+            extensions =
+              {
+                all,
+                enabled,
+              }:
+              enabled ++ (with all; [ sqlsrv ]);
+          })
+          pkgs.phpactor
+          pkgs.pretty-php
+          unixODBC
+          (unixODBCDrivers.msodbcsql17.override { openssl = phpPkgs.openssl_1_1; })
+        ];
+        unixODBCDrivers = with phpPkgs.unixODBCDrivers; [
+          (msodbcsql17.override { openssl = phpPkgs.openssl_1_1; })
+        ];
+        variables = {
+          LD_LIBRARY_PATH = "/run/opengl-driver/lib:${phpPkgs.unixODBC}/lib:${phpPkgs.unixODBCDrivers.msodbcsql17}/lib";
         };
-      networking.firewall.allowedTCPPorts = [ 443 ];
+      };
+      networking.firewall.enable = false;
       services = {
         nginx = {
           inherit user;
@@ -63,8 +68,8 @@
             };
             onlySSL = true;
             root = "/data/rcm";
-            sslCertificate = config.sops.secrets.rcm_cert.path;
-            sslCertificateKey = config.sops.secrets.rcm_key.path;
+            sslCertificate = sps.rcm_cert.path;
+            sslCertificateKey = sps.rcm_key.path;
           };
         };
         phpfpm = {
@@ -103,22 +108,25 @@
           '';
         };
       };
-      sops.secrets = {
-        rcm_cert = {
+      sops.secrets =
+        let
           format = "binary";
           mode = "0400";
           owner = user;
-          sopsFile = "${flakeRoot}/.secrets/rcm-cert.pem";
+        in
+        {
+          rcm_cert = {
+            inherit format mode owner;
+            sopsFile = "${self.outPath}/.secrets/rcm-cert.pem";
+          };
+          rcm_key = {
+            inherit format mode owner;
+            sopsFile = "${self.outPath}/.secrets/rcm-key.pem";
+          };
         };
-        rcm_key = {
-          format = "binary";
-          mode = "0400";
-          owner = user;
-          sopsFile = "${flakeRoot}/.secrets/rcm-key.pem";
-        };
-      };
       users.users.${user}.extraGroups = [
         config.services.nginx.group
       ];
-    };
+    }
+  );
 }

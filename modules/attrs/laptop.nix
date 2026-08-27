@@ -1,38 +1,72 @@
 {
   self,
+  moduleWithSystem,
   ...
 }:
 {
-  flake.nixosModules.laptop = {
-    imports = (
-      with self.nixosModules;
-      [
-        core
-        driveShares
-        firmware
-        flatpak
-        ghostty
-        guiApps
-        networkManager
-        networkProfiles
-        niri
-        sound
-        syncthing
-        yubikey
-      ]
-    );
-    ironman.laptop = true;
-    nix = {
-      gc = {
-        automatic = true;
-        dates = "weekly";
-        options = "--delete-older-than 7d";
+  flake.nixosModules.laptop = moduleWithSystem (
+    perSystem@{ self', ... }: { lib, pkgs, ... }: {
+      imports = (
+        with self.nixosModules;
+        [
+          core
+          driveShares
+          firmware
+          flatpak
+          ghostty
+          gpg
+          guiApps
+          networkManager
+          networkProfiles
+          niri
+          sound
+          syncthing
+          yubikey
+        ]
+      );
+      environment.systemPackages = with pkgs; [
+        caligula
+        deploy-rs
+        ffmpeg
+        graphicsmagick
+        gns3-gui
+        hplip
+        self'.packages.idracclient
+        poppler-utils
+        wireguard-tools
+      ];
+      hardware.bluetooth.enable = true;
+      ironman.laptop = true;
+      nix = {
+        gc = {
+          automatic = true;
+          dates = "weekly";
+          options = "--delete-older-than 7d";
+        };
+        optimise.automatic = true;
+        settings.auto-optimise-store = true;
       };
-      optimise.automatic = true;
-      settings.auto-optimise-store = true;
-    };
-    systemd.settings.Manager = {
-      DefaultTimeoutStopSec = "10s";
-    };
-  };
+      programs.system-config-printer.enable = true;
+      services = {
+        avahi.enable = true;
+        logind.settings.Login = {
+          KillUserProcesses = true;
+          HandleLidSwitchExternalPower = "ignore";
+        };
+        printing = {
+          enable = true;
+          cups-pdf.enable = true;
+          drivers = with pkgs; [
+            gutenprint
+            hplip
+          ];
+        };
+        udisks2.enable = true;
+      };
+      systemd.settings.Manager = {
+        DefaultTimeoutStopSec = "10s";
+      };
+      zramSwap.enable = lib.mkDefault true;
+    }
+  );
 }

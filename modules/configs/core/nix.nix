@@ -43,7 +43,6 @@
         ];
         sessionVariables.NH_FLAKE = "${config.home.homeDirectory}/git/flake";
       };
-      nixpkgs.config.allowUnfree = true;
       programs = {
         nh = {
           enable = true;
@@ -68,7 +67,8 @@
         inherit system;
         config.allowUnfree = true;
         overlays = with inputs; [
-          niri.overlays.niri
+          kineticwe.overlays.default
+          # niri.overlays.niri
           nix-topology.overlays.default
         ];
       };

@@ -28,13 +28,20 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     import-tree.url = "github:vic/import-tree";
-    niri = {
-      url = "github:epireyn/niri-flake";
+    kineticwe = {
+      url = "gitlab:theblackdon/kineticwe";
       inputs = {
         nixpkgs.follows = "nixpkgs";
-        nixpkgs-stable.follows = "nixpkgs-stable";
+        noctalia.follows = "noctalia";
       };
     };
+    # niri = {
+    #   url = "github:epireyn/niri-flake";
+    #   inputs = {
+    #     nixpkgs.follows = "nixpkgs";
+    #     nixpkgs-stable.follows = "nixpkgs-stable";
+    #   };
+    # };
     nix-flatpak.url = "github:gmodena/nix-flatpak/?ref=latest";
     nix-topology = {
       url = "github:oddlama/nix-topology";
@@ -53,17 +60,17 @@
     };
     # Keep Noctalia using it's own nixpkgs. This allows cache usage.
     noctalia.url = "github:noctalia-dev/noctalia/cachix";
-    noctalia-greeter = {
-      url = "github:noctalia-dev/noctalia-greeter";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-    # plasma-manager = {
-    #   inputs = {
-    #     nixpkgs.follows = "nixpkgs";
-    #     home-manager.follows = "home-manager";
-    #   };
-    #   url = "github:nix-community/plasma-manager";
+    # noctalia-greeter = {
+    #   url = "github:noctalia-dev/noctalia-greeter";
+    #   inputs.nixpkgs.follows = "nixpkgs";
     # };
+    plasma-manager = {
+      inputs = {
+        nixpkgs.follows = "nixpkgs";
+        home-manager.follows = "home-manager";
+      };
+      url = "github:nix-community/plasma-manager";
+    };
     snowfall-flake = {
       url = "github:snowfallorg/flake";
       inputs.nixpkgs.follows = "nixpkgs";

@@ -126,10 +126,10 @@
         ++ (
           if laptop then
             (with self.homeModules; [
-              cosmic
               extraGuiApps
               flatpak
               ghostty
+              plasma
               syncthing
               yubikey
             ])

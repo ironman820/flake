@@ -9,7 +9,7 @@
       ];
       home-manager = {
         backupFileExtension = "backup";
-        useGlobalPkgs = false;
+        useGlobalPkgs = true;
         useUserPackages = true;
       };
     };

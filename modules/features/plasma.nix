@@ -23,6 +23,7 @@
     };
     homeModules.plasma =
       {
+        config,
         lib,
         osConfig,
         pkgs,
@@ -260,7 +261,7 @@
                 lookAndFeel = "org.kde.breezedark.desktop";
                 theme = "breeze-dark";
                 wallpaperFillMode = "preserveAspectCrop";
-                wallpaperSlideShow.path = "/home/${osConfig.ironman.user.name}/Wallpapers";
+                wallpaperSlideShow.path = "${config.home.homeDirectory}/Wallpapers";
               };
             };
         };

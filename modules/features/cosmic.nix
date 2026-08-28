@@ -33,7 +33,7 @@
             appearance.theme.dark = {
               gaps = mkRON "tuple" [
                 20
-                20
+                10
               ];
               is_frosted = true;
             };

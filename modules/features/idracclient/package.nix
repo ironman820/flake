@@ -9,7 +9,7 @@
     {
       apps.idracclient = {
         meta.description = "A wrapped iDRAC client made to work with iDRAC v6";
-        program = self'.packages.NAME;
+        program = self'.packages.idracclient;
       };
       packages.idracclient =
         let

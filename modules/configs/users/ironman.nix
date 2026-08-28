@@ -129,7 +129,6 @@
               extraGuiApps
               flatpak
               ghostty
-              niri
               syncthing
               yubikey
             ])

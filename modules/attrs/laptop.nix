@@ -10,6 +10,7 @@
         with self.nixosModules;
         [
           core
+          cosmic
           docker
           driveShares
           firmware
@@ -19,7 +20,6 @@
           guiApps
           networkManager
           networkProfiles
-          niri
           sound
           syncthing
           virtualHost

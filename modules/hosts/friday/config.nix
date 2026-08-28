@@ -17,16 +17,6 @@
       hardware.facter.reportPath = ./facter.json;
       ironman = {
         network-profiles.work = true;
-        niri.outputs = {
-          "eDP-1" = {
-            mode = {
-              height = 1200;
-              refresh = 60.;
-              width = 1920;
-            };
-            scale = 1;
-          };
-        };
         shares.personal = true;
         syncthing = {
           cert = config.sops.secrets.syncthing-friday-cert.path;

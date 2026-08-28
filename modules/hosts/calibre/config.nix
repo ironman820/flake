@@ -71,6 +71,9 @@
         deviceType = "nixos";
         guestType = "nixos-container";
         interfaces.eth0 = {
+          addresses = [
+            "192.168.248.101"
+          ];
           network = "home";
           physicalConnections = [
             (config.lib.topology.mkConnection "pve" "vmbr0")

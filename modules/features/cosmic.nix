@@ -30,6 +30,10 @@
           in
           {
             enable = true;
+            appearance.theme.dark.gaps = mkRON "tuple" [
+              20
+              20
+            ];
             compositor.autotile = true;
             resetFiles = true;
             resetFilesDirectories = [

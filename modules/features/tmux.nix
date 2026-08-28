@@ -86,7 +86,13 @@
           '';
         plugins = with pkgs.tmuxPlugins; [
           sensible
-          tokyo-night-tmux
+          {
+            plugin = tokyo-night-tmux;
+            extraConfig = ''
+              set -g @tokyo-night-tmux_theme night
+              set -g @tokyo-night-tmux_transparent 1
+            '';
+          }
           yank
           {
             plugin = fzf-tmux-url;

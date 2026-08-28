@@ -64,6 +64,7 @@
       inputs.nixpkgs.follows = "nixpkgs";
       url = "github:mic92/sops-nix";
     };
+    tokyonight.url = "github:mrjones2014/tokyonight.nix";
     zen-browser = {
       url = "github:youwen5/zen-browser-flake";
       inputs.nixpkgs.follows = "nixpkgs";

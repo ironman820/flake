@@ -1,4 +1,5 @@
 {
+  inputs,
   moduleWithSystem,
   self,
   ...
@@ -84,6 +85,7 @@
           sops
           tealdeer
           tmux
+          inputs.tokyonight.homeManagerModules.default
         ]
       );
       home = {
@@ -110,6 +112,10 @@
       services.udiskie = {
         enable = true;
         tray = "never";
+      };
+      tokyonight = {
+        enable = true;
+        style = "night";
       };
       xdg.enable = true;
     };

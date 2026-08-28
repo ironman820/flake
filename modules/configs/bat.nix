@@ -15,7 +15,6 @@
       '';
       bat = {
         enable = true;
-        config.theme = "tokyonight_night";
         extraPackages = with pkgs.bat-extras; [
           batdiff
           batgrep
@@ -24,7 +23,6 @@
           batwatch
           prettybat
         ];
-        themes.tokyonight_night.src = ./tokyonight_night.tmTheme;
       };
     };
   };

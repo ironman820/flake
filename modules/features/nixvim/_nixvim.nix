@@ -80,7 +80,7 @@ in
     CodeCompanionFidget = { };
     YankHighlight.clear = true;
   };
-  colorscheme = "tokyodark";
+  colorscheme = "tokyonight-night";
   enableMan = true;
   extraConfigLua = ''
     vim.opt.cpoptions:append('I')
@@ -110,7 +110,7 @@ in
     tectonic
   ];
   extraPlugins = [
-    pkgs.vimPlugins.tokyodark-nvim
+    pkgs.vimPlugins.tokyonight-nvim
   ];
   globals = {
     depreciation_warnings = false;

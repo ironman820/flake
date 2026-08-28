@@ -30,6 +30,7 @@
           in
           {
             enable = true;
+            compositor.autotile = true;
             resetFiles = true;
             resetFilesDirectories = [
               "config"

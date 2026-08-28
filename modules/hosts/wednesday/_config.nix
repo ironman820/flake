@@ -1,10 +1,14 @@
-{ config, ... }: {
+{ config, pkgs, ... }: {
+  environment.systemPackages = [
+    pkgs.googleearth-pro
+  ];
   hardware.facter.reportPath = ./facter.json;
   ironman = {
     extraGui = true;
     flatpaks = [
       "com.anydesk.Anydesk"
     ];
+    network-profiles.work = true;
     niri =
       let
         niri_cmd = "niri msg output";
@@ -133,7 +137,13 @@
     };
     workWorkstation = true;
   };
-  networking.hostName = "wednesday";
+  networking = {
+    firewall.allowedTCPPorts = [
+      24800
+    ];
+    hostName = "wednesday";
+  };
+  nix.settings.cores = 4;
   topology.self = {
     deviceType = "nixos";
     hardware.info = "Framework Laptop 13 (AMD Ryzen AI 300 Series)";

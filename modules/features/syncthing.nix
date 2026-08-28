@@ -39,7 +39,6 @@
           enable = true;
           cert = mkIf (isPath st.cert) st.cert;
           key = mkIf (isPath st.key) st.key;
-          overrideFolders = true;
           settings = {
             inherit (st) folders;
             devices = st.devices // {

@@ -10,6 +10,7 @@
         with self.nixosModules;
         [
           core
+          docker
           driveShares
           firmware
           flatpak
@@ -21,6 +22,7 @@
           niri
           sound
           syncthing
+          virtualHost
           winbox
           yubikey
         ]
@@ -30,6 +32,7 @@
         deploy-rs
         fetch
         ffmpeg
+        freerdp
         graphicsmagick
         gns3-gui
         hplip

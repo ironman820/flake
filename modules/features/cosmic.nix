@@ -20,9 +20,9 @@
           inputs.cosmic-manager.homeManagerModules.cosmic-manager
         ];
         home.activation.ironmanCosmicWallpapers = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
-          rm -rf $HOME/.wallpapers
           mkdir -p $HOME/.wallpapers
-          find $HOME/Wallpapers -maxdepth 1 -type f | ${lib.getExe pkgs.parallel} ln {} $HOME/.wallpapers/{/}
+          rm -f $HOME/.wallpapers/*
+          find $HOME/Wallpapers -maxdepth 1 -type f | ${lib.getExe pkgs.parallel} ln -f {} $HOME/.wallpapers/{/}
         '';
         wayland.desktopManager.cosmic =
           let

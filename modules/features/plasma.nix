@@ -62,8 +62,20 @@
                 };
                 kwinrc = {
                   Effect-overview.BorderActivate = 9;
+                  Tiling = {
+                    EnabledLayouts = "MasterStack,CenterTile,Columns,AutoGrid";
+                    GapBetween = 20;
+                    GapBottom = 5;
+                    GapLeft = 10;
+                    GapRight = 10;
+                    GapTop = 5;
+                    TilingBorderMode = "ActiveOnly";
+                    TilingBorderThickness = 5;
+                    TilingCornerRadius = 10;
+                  };
                   Xwayland.Scale = 1;
                 };
+                kwinrulesrc.General.rules = "";
               };
               fonts = {
                 fixedWidth = {
@@ -180,48 +192,50 @@
                   "Screensaver"
                   "Meta+Ctrl+L"
                 ];
-                kwin."Swap Tiled Window Down" = [
-                  "Meta+Shift+J"
-                  "Meta+Shift+Down"
-                ];
-                kwin."Swap Tiled Window Left" = [
-                  "Meta+Shift+H"
-                  "Meta+Shift+Left"
-                ];
-                kwin."Swap Tiled Window Right" = [
-                  "Meta+Shift+L"
-                  "Meta+Shift+Right"
-                ];
-                kwin."Swap Tiled Window Up" = [
-                  "Meta+Shift+K"
-                  "Meta+Shift+Up"
-                ];
-                kwin."Tiling Focus Down" = [
-                  "Meta+J"
-                  "Meta+Down"
-                ];
-                kwin."Tiling Focus Left" = [
-                  "Meta+H"
-                  "Meta+Left"
-                ];
-                kwin."Tiling Focus Right" = [
-                  "Meta+L"
-                  "Meta+Right"
-                ];
-                kwin."Tiling Focus Up" = [
-                  "Meta+K"
-                  "Meta+Up"
-                ];
-                kwin."Window Close" = [
-                  "Alt+F4"
-                  "Meta+Q"
-                ];
-                kwin."Window Grow Horizontal" = "Meta+Y";
-                kwin."Window Maximize" = [
-                  "Meta+PgUp"
-                  "Meta+Shift+M"
-                ];
-                kwin."Window Shrink Horizontal" = "Meta+Shift+Y";
+                kwn = {
+                  "Swap Tiled Window Down" = [
+                    "Meta+Shift+J"
+                    "Meta+Shift+Down"
+                  ];
+                  "Swap Tiled Window Left" = [
+                    "Meta+Shift+H"
+                    "Meta+Shift+Left"
+                  ];
+                  "Swap Tiled Window Right" = [
+                    "Meta+Shift+L"
+                    "Meta+Shift+Right"
+                  ];
+                  "Swap Tiled Window Up" = [
+                    "Meta+Shift+K"
+                    "Meta+Shift+Up"
+                  ];
+                  "Tiling Focus Down" = [
+                    "Meta+J"
+                    "Meta+Down"
+                  ];
+                  "Tiling Focus Left" = [
+                    "Meta+H"
+                    "Meta+Left"
+                  ];
+                  "Tiling Focus Right" = [
+                    "Meta+L"
+                    "Meta+Right"
+                  ];
+                  "Tiling Focus Up" = [
+                    "Meta+K"
+                    "Meta+Up"
+                  ];
+                  "Window Close" = [
+                    "Alt+F4"
+                    "Meta+Q"
+                  ];
+                  "Window Grow Horizontal" = "Meta+Y";
+                  "Window Maximize" = [
+                    "Meta+PgUp"
+                    "Meta+Shift+M"
+                  ];
+                  "Window Shrink Horizontal" = "Meta+Shift+Y";
+                };
                 plasmashell."manage activities" = [ ];
                 "services/org.kde.konsole.desktop"._launch = [ ];
               }

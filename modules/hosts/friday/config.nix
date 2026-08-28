@@ -68,7 +68,10 @@
                 label = "Documents";
                 versioning = {
                   type = "simple";
-                  params.keep = "10";
+                  params = {
+                    cleanoutDays = "7";
+                    keep = "10";
+                  };
                 };
               };
               "/home/${name}/Downloads" = {
@@ -81,7 +84,10 @@
                 label = "Downloads";
                 versioning = {
                   type = "simple";
-                  params.keep = "10";
+                  params = {
+                    cleanoutDays = "7";
+                    keep = "10";
+                  };
                 };
               };
               "/home/${name}/Calibre Library" = {
@@ -93,7 +99,10 @@
                 label = "Calibre Library";
                 versioning = {
                   type = "simple";
-                  params.keep = "10";
+                  params = {
+                    cleanoutDays = "7";
+                    keep = "10";
+                  };
                 };
               };
               "/home/${name}/Money" = {
@@ -127,7 +136,10 @@
                 label = "Pictures";
                 versioning = {
                   type = "simple";
-                  params.keep = "10";
+                  params = {
+                    cleanoutDays = "7";
+                    keep = "10";
+                  };
                 };
               };
               "/home/${name}/Work/Documents" = {
@@ -140,7 +152,10 @@
                 label = "Work Documents";
                 versioning = {
                   type = "simple";
-                  params.keep = "10";
+                  params = {
+                    cleanoutDays = "7";
+                    keep = "10";
+                  };
                 };
               };
               "/home/${name}/Work/Pictures" = {
@@ -153,7 +168,10 @@
                 label = "Work Pictures";
                 versioning = {
                   type = "simple";
-                  params.keep = "10";
+                  params = {
+                    cleanoutDays = "7";
+                    keep = "10";
+                  };
                 };
               };
               "/home/${name}/Wallpapers" = {

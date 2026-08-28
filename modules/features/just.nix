@@ -80,6 +80,9 @@
               ${extraLines}
             '';
         };
+        packages = [
+          pkgs.just
+        ];
         shellAliases = {
           "jc" = "just check";
           "js" = "just switch";

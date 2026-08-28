@@ -88,7 +88,9 @@
             settings = {
               disableStartupPopups = true;
               git.diffRenderers = [
-                "delta --paging=never"
+                {
+                  command = "delta --paging=never";
+                }
               ];
               gui = {
                 nerdFontsVersion = 3;

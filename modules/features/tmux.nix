@@ -86,6 +86,7 @@
           '';
         plugins = with pkgs.tmuxPlugins; [
           sensible
+          tokyo-night-tmux
           yank
           {
             plugin = fzf-tmux-url;

@@ -8,19 +8,19 @@
     {
       hardware.facter.reportPath = ./facter.json;
       networking = {
-        # defaultGateway.address = "192.168.248.1";
+        defaultGateway.address = "192.168.248.1";
         hostName = "calibre";
-        # interfaces.eth0.ipv4.addresses = [
-        #   {
-        #     address = "192.168.248.101";
-        #     prefixLength = 23;
-        #   }
-        # ];
-        # nameservers = [
-        #   "192.168.248.2"
-        # ];
+        interfaces.eth0.ipv4.addresses = [
+          {
+            address = "192.168.248.101";
+            prefixLength = 23;
+          }
+        ];
+        nameservers = [
+          "192.168.248.2"
+        ];
       };
-      # proxmoxLXC.manageNetwork = true;
+      proxmoxLXC.manageNetwork = true;
       services = {
         calibre-web = {
           enable = true;

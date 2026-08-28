@@ -6,6 +6,14 @@
       flake = false;
       url = "github:l4ki/bonafides-plasma-themes";
     };
+    cosmic-manager = {
+      url = "github:HeitorAugustoLN/cosmic-manager";
+      inputs = {
+        flake-parts.follows = "flake-parts";
+        home-manager.follows = "home-manager";
+        nixpkgs.follows = "nixpkgs";
+      };
+    };
     deploy-rs = {
       inputs.nixpkgs.follows = "nixpkgs";
       url = "github:serokell/deploy-rs";

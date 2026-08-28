@@ -206,6 +206,9 @@
         interfaces.wlp3s0 = {
           network = "home";
           renderer.hidePhysicalConnections = true;
+          sharesNetworkWith = [
+            (lib.const true)
+          ];
         };
         name = "Friday";
       };

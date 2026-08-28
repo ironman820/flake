@@ -35,7 +35,7 @@
           self.homeModules.noctalia
           plasma-manager.homeModules.plasma-manager
         ];
-        home.packages = [ ];
+        # home.packages = [ ];
         programs = {
           kineticwe.enable = true;
           okular = {
@@ -188,73 +188,74 @@
                 };
               };
               session.general.askForConfirmationOnLogout = true;
-              shortcuts = {
-                kmserver."Lock Session" = [
-                  "Screensaver"
-                  "Meta+Ctrl+L"
-                ];
-                kwn = {
-                  "Swap Tiled Window Down" = [
-                    "Meta+Shift+J"
-                    "Meta+Shift+Down"
-                  ];
-                  "Swap Tiled Window Left" = [
-                    "Meta+Shift+H"
-                    "Meta+Shift+Left"
-                  ];
-                  "Swap Tiled Window Right" = [
-                    "Meta+Shift+L"
-                    "Meta+Shift+Right"
-                  ];
-                  "Swap Tiled Window Up" = [
-                    "Meta+Shift+K"
-                    "Meta+Shift+Up"
-                  ];
-                  "Tiling Focus Down" = [
-                    "Meta+J"
-                    "Meta+Down"
-                  ];
-                  "Tiling Focus Left" = [
-                    "Meta+H"
-                    "Meta+Left"
-                  ];
-                  "Tiling Focus Right" = [
-                    "Meta+L"
-                    "Meta+Right"
-                  ];
-                  "Tiling Focus Up" = [
-                    "Meta+K"
-                    "Meta+Up"
-                  ];
-                  "Window Close" = [
-                    "Alt+F4"
-                    "Meta+Q"
-                  ];
-                  "Window Grow Horizontal" = "Meta+Y";
-                  "Window Maximize" = [
-                    "Meta+PgUp"
-                    "Meta+Shift+M"
-                  ];
-                  "Window Shrink Horizontal" = "Meta+Shift+Y";
-                };
-                plasmashell."manage activities" = [ ];
-                "services/org.kde.konsole.desktop"._launch = [ ];
-              }
-              // mkIf (osConfig.ironman.browser == pkgs.brave) {
-                "org.chromium.Chromium"."189254525C2995BCF141B90AE0CFA0E4-MediaPrevTrack" = [ ];
-                "org.chromium.Chromium"."789D4A8DD37264E4A9D1003B7815A8F1-MediaPlayPause" = [ ];
-                "org.chromium.Chromium"."808F2B98A91BFA0FC4164AF05BB516AC-MediaStop" = [ ];
-                "org.chromium.Chromium".D88FD5032C22FF295F83A92DC60FE751-MediaNextTrack = [ ];
-              }
-              // mkIf (osConfig.ironman.terminal == pkgs.ghostty) {
-                "services/com.mitchellh.ghostty.desktop"._launch = [
-                  "Ctrl+Alt+T"
-                  "Meta+Return"
-                ];
-              }
-              // mkIf (osConfig.ironman.terminal == pkgs.kitty) {
-                "services/kitty.desktop".__launch = "Ctrl+Alt+T";
-              };
+              # KineticWE does not use the global key daemon and this breaks
+              # shortcuts = {
+              #   kmserver."Lock Session" = [
+              #     "Screensaver"
+              #     "Meta+Ctrl+L"
+              #   ];
+              #   kwn = {
+              #     "Swap Tiled Window Down" = [
+              #       "Meta+Shift+J"
+              #       "Meta+Shift+Down"
+              #     ];
+              #     "Swap Tiled Window Left" = [
+              #       "Meta+Shift+H"
+              #       "Meta+Shift+Left"
+              #     ];
+              #     "Swap Tiled Window Right" = [
+              #       "Meta+Shift+L"
+              #       "Meta+Shift+Right"
+              #     ];
+              #     "Swap Tiled Window Up" = [
+              #       "Meta+Shift+K"
+              #       "Meta+Shift+Up"
+              #     ];
+              #     "Tiling Focus Down" = [
+              #       "Meta+J"
+              #       "Meta+Down"
+              #     ];
+              #     "Tiling Focus Left" = [
+              #       "Meta+H"
+              #       "Meta+Left"
+              #     ];
+              #     "Tiling Focus Right" = [
+              #       "Meta+L"
+              #       "Meta+Right"
+              #     ];
+              #     "Tiling Focus Up" = [
+              #       "Meta+K"
+              #       "Meta+Up"
+              #     ];
+              #     "Window Close" = [
+              #       "Alt+F4"
+              #       "Meta+Q"
+              #     ];
+              #     "Window Grow Horizontal" = "Meta+Y";
+              #     "Window Maximize" = [
+              #       "Meta+PgUp"
+              #       "Meta+Shift+M"
+              #     ];
+              #     "Window Shrink Horizontal" = "Meta+Shift+Y";
+              #   };
+              #   plasmashell."manage activities" = "None";
+              #   "services/org.kde.konsole.desktop"._launch = "None";
+              # }
+              # // mkIf (osConfig.ironman.browser == pkgs.brave) {
+              #   "org.chromium.Chromium"."189254525C2995BCF141B90AE0CFA0E4-MediaPrevTrack" = "None";
+              #   "org.chromium.Chromium"."789D4A8DD37264E4A9D1003B7815A8F1-MediaPlayPause" = "None";
+              #   "org.chromium.Chromium"."808F2B98A91BFA0FC4164AF05BB516AC-MediaStop" = "None";
+              #   "org.chromium.Chromium".D88FD5032C22FF295F83A92DC60FE751-MediaNextTrack = "None";
+              # }
+              # // mkIf (osConfig.ironman.terminal == pkgs.ghostty) {
+              #   "services/com.mitchellh.ghostty.desktop"._launch = [
+              #     "Ctrl+Alt+T"
+              #     "Meta+Return"
+              #   ];
+              # }
+              # // mkIf (osConfig.ironman.terminal == pkgs.kitty) {
+              #   "services/kitty.desktop".__launch = "Ctrl+Alt+T";
+              # };
               workspace = {
                 colorScheme = "BreezeDark";
                 cursor.theme = "breeze_cursors";

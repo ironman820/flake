@@ -23,7 +23,7 @@
     }:
     {
       apps.manman = {
-        meta.description = "";
+        meta.description = "custom tealdeer and man wrapper";
         program = self'.packages.manman;
       };
       packages.manman = pkgs.writers.writePython3Bin "manman" {

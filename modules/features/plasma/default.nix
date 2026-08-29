@@ -71,7 +71,7 @@
                     Name_7 = 7;
                     Name_8 = 8;
                     Name_9 = 9;
-                    Number = 9;
+                    Number = lib.mkForce 9;
                     Rows = 9;
                   };
                   Effect-overview.BorderActivate = 9;

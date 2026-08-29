@@ -35,7 +35,6 @@
           self.homeModules.noctalia
           plasma-manager.homeModules.plasma-manager
         ];
-        # home.packages = [ ];
         programs = {
           kineticwe.enable = true;
           okular = {
@@ -62,21 +61,50 @@
                   TerminalService = "com.mitchellh.ghostty.desktop";
                 };
                 kwinrc = {
+                  Desktops = {
+                    Name_1 = 1;
+                    Name_2 = 2;
+                    Name_3 = 3;
+                    Name_4 = 4;
+                    Name_5 = 5;
+                    Name_6 = 6;
+                    Name_7 = 7;
+                    Name_8 = 8;
+                    Name_9 = 9;
+                    Number = 9;
+                    Rows = 9;
+                  };
                   Effect-overview.BorderActivate = 9;
+                  MouseBindings.CommandAllWheel = "Previous/Next Desktop";
                   Tiling = {
                     EnabledLayouts = "MasterStack,CenterTile,Columns,AutoGrid";
                     GapBetween = 20;
-                    GapBottom = 5;
-                    GapLeft = 10;
-                    GapRight = 10;
-                    GapTop = 5;
+                    GapBottom = 10;
+                    GapLeft = 15;
+                    GapRight = 15;
+                    GapTop = 10;
                     TilingBorderMode = "ActiveOnly";
                     TilingBorderThickness = 5;
                     TilingCornerRadius = 10;
                   };
+                  Windows.InvertScrollDesktopSwitch = true;
                   Xwayland.Scale = 1;
                 };
-                kwinrulesrc.General.rules = "";
+                kwinrulesrc = {
+                  General = {
+                    count = 1;
+                    rules = "a0317d8e-1f89-4e30-960a-f368ed64c262";
+                  };
+                  a0317d8e-1f89-4e30-960a-f368ed64c262 = {
+                    Description = "Opacity";
+                    opacityactive = 98;
+                    opacityactiverule = 2;
+                    opacityinactive = 95;
+                    opacityinactiverule = 2;
+                    types = 66461;
+                  };
+                };
+                plasmaparc.General.RaiseMaximumVolume = true;
               };
               fonts = {
                 fixedWidth = {
@@ -266,6 +294,7 @@
               };
             };
         };
+        xdg.configFile."kglobalshortcutsrc".source = ./kglobalshortcutsrc;
       };
   };
 }

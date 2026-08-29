@@ -35,6 +35,13 @@
           self.homeModules.noctalia
           plasma-manager.homeModules.plasma-manager
         ];
+        home.activation.ironmanShortcuts =
+          let
+            kglobalshortcutsrc = pkgs.writeText "kglobalshortcutsrc" (builtins.readFile ./kglobalshortcutsrc);
+          in
+          lib.hm.dag.entryAfter [ "writeBoundary" ] ''
+            ln -sf ${kglobalshortcutsrc} ${config.home.homeDirectory}/.config/kglobalshortcutsrc
+          '';
         programs = {
           kineticwe.enable = true;
           okular = {
@@ -294,7 +301,6 @@
               };
             };
         };
-        xdg.configFile."kglobalshortcutsrc".source = ./kglobalshortcutsrc;
       };
   };
 }

@@ -1,5 +1,6 @@
 {
   flake.homeModules.tmux = { osConfig, pkgs, ... }: {
+    home.shellAliases.ts = "tmux new-session -A -s ${osConfig.ironman.user.name} && exit;";
     programs = {
       bash.initExtra = ''
         if [ $DISPLAY ]; then

@@ -53,6 +53,8 @@
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
     # openssh v9
     nixpkgs-openssh.url = "github:nixos/nixpkgs/0858160";
+    # PHP 7.2.29
+    nixpkgs-php.url = "github:nixos/nixpkgs/53951c0";
     nixpkgs-stable.url = "github:nixos/nixpkgs/nixos-26.05";
     nixvim = {
       url = "github:nix-community/nixvim";

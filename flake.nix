@@ -29,7 +29,7 @@
     };
     import-tree.url = "github:vic/import-tree";
     kineticwe = {
-      url = "gitlab:theblackdon/kineticwe";
+      url = "gitlab:ironman820/kineticwe/kineticwe-2.0";
       inputs = {
         nixpkgs.follows = "nixpkgs";
         noctalia.follows = "noctalia";

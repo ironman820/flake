@@ -53,7 +53,7 @@
             listen = [
               {
                 addr = "0.0.0.0";
-                port = 41443;
+                port = 443;
                 ssl = true;
               }
             ];

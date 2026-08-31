@@ -46,6 +46,7 @@
             ".ssh/github_home.pub".source = "${toString configFiles}/github_home.pub";
             ".ssh/github_servers.pub".source = "${toString configFiles}/github_servers.pub";
             ".ssh/github_work.pub".source = "${toString configFiles}/github_work.pub";
+            ".ssh/gitlab.pub".source = "${toString configFiles}/gitlab.pub";
             ".ssh/id_rsa_yubikey.pub".source = "${toString configFiles}/id_rsa_yubikey.pub";
             ".ssh/royell_git_servers.pub".source = "${toString configFiles}/royell_git_servers.pub";
             ".ssh/royell_git_work.pub".source = "${toString configFiles}/royell_git_work.pub";
@@ -267,6 +268,10 @@
             "github.com" = {
               identitiesOnly = true;
               identityFile = config.sops.secrets.github.path;
+            };
+            "gitlab.com" = {
+              identitiesOnly = true;
+              identityFile = config.sops.secrets.gitlab.path;
             };
             "gns3-work" = {
               hostname = "192.168.21.199";
@@ -502,6 +507,9 @@
             inherit mode sopsFile;
           };
           github = {
+            inherit mode sopsFile;
+          };
+          gitlab = {
             inherit mode sopsFile;
           };
           royell_git = {

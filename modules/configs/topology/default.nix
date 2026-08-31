@@ -121,6 +121,28 @@
                     name = "Home Server";
                   };
                 };
+                pve-work = mkDevice "pve.desk" {
+                  icon = "devices.server";
+                  info = "Dell Mini";
+                  interfaces = {
+                    vmbr0 = {
+                      addresses = [
+                        "192.168.20.10"
+                      ];
+                      network = "work";
+                      sharesNetworkWith = [
+                        (lib.const true)
+                      ];
+                      type = "bridge";
+                    };
+                    nic0.type = "ethernet";
+                  };
+                  services.proxmox = {
+                    icon = "services.proxmox";
+                    info = "https://pve.desk.niceastman.com";
+                    name = "Work Server";
+                  };
+                };
                 router = mkRouter "Router" {
                   connections.sfp-sfpplus1 = [
                     (mkConnection "switch" "sfp+1")

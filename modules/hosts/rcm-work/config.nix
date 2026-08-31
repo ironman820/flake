@@ -14,5 +14,18 @@
       group = config.ironman.user.name;
       path = "/data/rcm/sonar-project.properties";
     };
+    topology.self = {
+      deviceType = "nixos";
+      guestType = "nixos-container";
+      interfaces.eth0 = {
+        addresses = [
+          "192.168.20.102"
+        ];
+        network = "work";
+        virtual = true;
+      };
+      name = "RCM";
+      parent = "pve-work";
+    };
   };
 }

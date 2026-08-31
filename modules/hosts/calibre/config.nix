@@ -67,25 +67,28 @@
               ;
           };
         };
-      topology.self = {
-        deviceType = "nixos";
-        guestType = "nixos-container";
-        interfaces.eth0 = {
-          addresses = [
-            "192.168.248.101"
-          ];
-          network = "home";
-          physicalConnections = [
-            (config.lib.topology.mkConnection "pve" "vmbr0")
-          ];
-          virtual = true;
-        };
-        name = "Calibre";
-        parent = "pve";
-        services.calibre-web = {
-          icon = "services.calibreweb";
-          info = "https://mybooks.niceastman.com";
-          name = "Calibre-Web";
+      topology = {
+        id = "calibre";
+        self = {
+          deviceType = "nixos";
+          guestType = "nixos-container";
+          interfaces.eth0 = {
+            addresses = [
+              "192.168.248.101"
+            ];
+            network = "home";
+            physicalConnections = [
+              (config.lib.topology.mkConnection "pve" "vmbr0")
+            ];
+            virtual = true;
+          };
+          name = "Calibre";
+          parent = "pve";
+          services.calibre-web = {
+            icon = "services.calibreweb";
+            info = "https://mybooks.niceastman.com";
+            name = "Calibre-Web";
+          };
         };
       };
     };

@@ -27,6 +27,7 @@
               services = {
                 calibreweb.file = ./calibreweb.svg;
                 proxmox.file = ./proxmox.png;
+                rcm.file = ./rcm.svg;
                 technitium.file = ./technitium.png;
               };
             };
@@ -75,7 +76,10 @@
                   };
                 };
                 internet = mkInternet {
-                  connections = mkConnection "router" "ether1";
+                  connections = [
+                    (mkConnection "router" "ether1")
+                    (mkConnection "work-switch" "ether1")
+                  ];
                 };
                 nas = mkDevice "NAS" {
                   hardware.image = ./ds918plus.png;
@@ -144,10 +148,15 @@
                   };
                 };
                 router = mkRouter "Router" {
-                  connections.sfp-sfpplus1 = [
-                    (mkConnection "switch" "sfp+1")
-                    (mkConnection "switch" "sfp+2")
-                  ];
+                  connections = {
+                    sfp-sfpplus1 = [
+                      (mkConnection "switch" "sfp+1")
+                      (mkConnection "switch" "sfp+2")
+                    ];
+                    wg0 = [
+                      (mkConnection "work-router" "wg0")
+                    ];
+                  };
                   hardware.image = ./rb5009.png;
                   icon = "devices.mikrotik";
                   info = "MikroTik RB5009UG+S+";
@@ -171,9 +180,7 @@
                       network = "home";
                       type = "fiber-duplex";
                     };
-                    wg0 = {
-                      type = "wireguard";
-                    };
+                    wg0.type = "wireguard";
                   };
                 };
                 switch = mkSwitch "Switch" {
@@ -232,6 +239,102 @@
                       type = "fiber-duplex";
                     };
                     "sfp+2".type = "fiber-duplex";
+                  };
+                };
+                work-kvm = mkDevice "Work KVM" {
+                  deviceType = "device";
+                  hardware = {
+                    info = "GL.inet KVM";
+                    image = ./glinet.png;
+                  };
+                  interfaces.ether1 = {
+                    addresses = [
+                      "DHCP"
+                    ];
+                    network = "work";
+                  };
+                };
+                work-router = mkRouter "Work Router" {
+                  connections = {
+                    ether1 = [
+                      (mkConnection "work-switch" "ether2")
+                    ];
+                    ether2 = [
+                      (mkConnection "work-windows" "ether1")
+                    ];
+                    ether3 = [
+                      (mkConnection "pve-work" "nic0")
+                      (mkConnection "pve-work" "vmbr0")
+                    ];
+                    ether4 = [
+                      (mkConnection "gns3-work" "enp193s0")
+                    ];
+                    ether5 = [
+                      (mkConnection "work-kvm" "ether1")
+                    ];
+                  };
+                  hardware.image = ./hapax2.png;
+                  icon = "devices.mikrotik";
+                  info = "Mikrotik hAP-ax2";
+                  interfaceGroups = [
+                    [
+                      "ether1"
+                    ]
+                    [
+                      "ether2"
+                      "ether3"
+                      "ether4"
+                      "ether5"
+                      "wifi1"
+                      "wifi2"
+                    ]
+                    [ "wg0" ]
+                  ];
+                  interfaces = {
+                    ether2 = {
+                      addresses = [
+                        "192.168.20.1"
+                      ];
+                      network = "work";
+                      sharesNetworkWith = [
+                        (ether3: true)
+                        (ether4: true)
+                        (ether5: true)
+                        (wifi1: true)
+                        (wifi2: true)
+                      ];
+                    };
+                    wg0.type = "wireguard";
+                  };
+                };
+                work-switch = mkSwitch "Work Switch" {
+                  connections = {
+                  };
+                  hardware.image = ./rb260gs.png;
+                  icon = "devices.mikrotik";
+                  info = "Mikrotik RB260GS";
+                  interfaceGroups = [
+                    [
+                      "ether1"
+                      "ether2"
+                      "ether3"
+                      "ether4"
+                      "sfp"
+                    ]
+                    [
+                      "ether2"
+                    ]
+                  ];
+                };
+                work-windows = mkDevice "Work Windows" {
+                  deviceType = "device";
+                  hardware.info = "Dell Mini";
+                  icon = "devices.desktop";
+                  interfaces.ether1 = {
+                    addresses = [
+                      "DHCP"
+                    ];
+                    network = "work";
                   };
                 };
               };

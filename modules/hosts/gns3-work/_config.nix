@@ -8,4 +8,8 @@
     };
   };
   nix.settings.cores = 8;
+  topology = {
+    id = "gns3-work";
+
+  };
 }

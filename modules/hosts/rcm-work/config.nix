@@ -13,7 +13,12 @@
       environment.systemPackages = [
         pkgs.sonar-scanner-cli
       ];
-      networking.hostName = "rcm-work";
+      networking = {
+        hostName = "rcm-work";
+        nameservers = [
+          "192.168.20.2"
+        ];
+      };
       sops.secrets."sonar-project.properties" = {
         sopsFile = "${self.outPath}/.secrets/rcm.yaml";
         owner = config.ironman.user.name;

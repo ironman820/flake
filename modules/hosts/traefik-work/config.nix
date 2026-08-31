@@ -1,52 +1,8 @@
-{
-  inputs,
-  config,
-  flakeRoot,
-  self,
-  ...
-}:
-{
-  imports = [
-    ./hardware.nix
-    inputs.disko.nixosModules.disko
-    self.diskoConfigurations.server
-  ]
-  ++ (with self.nixosModules; [
-    git
-    grub
-    x64-linux
-  ]);
-  boot.plymouth.enable = false;
-  home-manager = {
-    users.ironman = self.homeConfigurations.ironman-server;
-  };
-  networking = {
-    firewall.enable = false;
-    interfaces = {
-      ens18 = {
-        ipv4.addresses = [
-          {
-            address = "192.168.20.11";
-            prefixLength = 23;
-          }
-        ];
-      };
-    };
-    defaultGateway = {
-      address = "192.168.20.1";
-      interface = "ens18";
-    };
-    nameservers = [
-      "192.168.20.2"
-    ];
-    useDHCP = false;
-  };
-  nix.settings.cores = 1;
-  security.sudo.wheelNeedsPassword = false;
-  services = {
-    openssh.settings.PermitRootLogin = "no";
-    qemuGuest.enable = true;
-    traefik = {
+{ self, ... }: {
+  flake.nixosModules.traefikWorkConfig = { config, ... }: {
+    hardware.facter.reportPath = ./facter.json;
+    networking.hostName = "traefik-work";
+    services.traefik = {
       enable = true;
       dynamicConfigOptions = {
         http = {
@@ -232,7 +188,7 @@
               passHostHeader = true;
               servers = [
                 {
-                  url = "https://192.168.20.103";
+                  url = "https://192.168.20.102";
                 }
               ];
               serversTransport = "insecure";
@@ -310,14 +266,20 @@
         };
       };
     };
+    sops.secrets."traefik.env" = {
+      format = "binary";
+      group = config.systemd.services.traefik.serviceConfig.Group;
+      owner = config.systemd.services.traefik.serviceConfig.User;
+      sopsFile = "${self.outPath}/.secrets/traefik.sops";
+    };
+    topology = {
+      id = "traefik-work";
+      self = {
+        deviceType = "nixos";
+        guestType = "nixos-container";
+        name = "Traefik";
+        parent = "pve-work";
+      };
+    };
   };
-  sops.secrets."traefik.env" = {
-    format = "binary";
-    group = config.systemd.services.traefik.serviceConfig.Group;
-    owner = config.systemd.services.traefik.serviceConfig.User;
-    sopsFile = "${flakeRoot}/.secrets/traefik.sops";
-  };
-  users.users.ironman.extraGroups = [
-    "networkmanager"
-  ];
 }

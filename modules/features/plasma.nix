@@ -25,11 +25,6 @@
           inputs.plasma-manager.homeModules.plasma-manager
           self.homeModules.qt
         ];
-        home.activation = {
-          ironmanClearShortcuts = lib.hm.dag.entryBefore [ "configure-plasma" ] ''
-            rm -f ${config.home.homeDirectory}/.config/kglobalshortcutsrc
-          '';
-        };
         programs = {
           okular = {
             enable = true;

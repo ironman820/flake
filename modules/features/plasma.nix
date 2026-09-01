@@ -1,23 +1,26 @@
 {
   inputs,
+  moduleWithSystem,
   self,
   ...
 }:
 {
   flake = {
-    nixosModules.plasma = { config, pkgs, ... }: {
-      environment.systemPackages = [
-        pkgs.kdePackages.partitionmanager
-      ];
-      services = {
-        displayManager.plasma-login-manager.enable = !config.services.displayManager.sddm.enable;
-        desktopManager.plasma6.enable = true;
-      };
-    };
+    nixosModules.plasma = moduleWithSystem (
+      perSystem@{ inputs', ... }: { config, pkgs, ... }: {
+        environment.systemPackages = [
+          pkgs.kdePackages.partitionmanager
+          inputs'.plasma-manager.packages.rc2nix
+        ];
+        services = {
+          displayManager.plasma-login-manager.enable = !config.services.displayManager.sddm.enable;
+          desktopManager.plasma6.enable = true;
+        };
+      }
+    );
     homeModules.plasma =
       {
         config,
-        lib,
         ...
       }:
       {

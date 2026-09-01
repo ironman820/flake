@@ -14,7 +14,7 @@
         ...
       }:
       let
-        inherit (lib) mkOption;
+        inherit (lib) mkEnableOption mkOption;
         inherit (lib.types) bool package str;
       in
       {
@@ -27,6 +27,7 @@
             description = "Default browser to open with launchers";
             type = package;
           };
+          kineticwe = mkEnableOption "Using Kinetic Window Environment";
           laptop = mkOption {
             default = false;
             description = "Is this system a laptop?";

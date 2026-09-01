@@ -5,18 +5,12 @@
 }:
 {
   flake = {
-    nixosModules.plasma = { pkgs, ... }: {
-      imports = with self.nixosModules; [
-        inputs.kineticwe.nixosModules.default
-        noctalia
-        sddm
-      ];
+    nixosModules.plasma = { config, pkgs, ... }: {
       environment.systemPackages = [
         pkgs.kdePackages.partitionmanager
       ];
-      programs.kineticwe.enable = true;
       services = {
-        # Kinetic doesn't like the plasma-login-manager currently
+        displayManager.plasma-login-manager.enable = !config.services.displayManager.sddm.enable;
         desktopManager.plasma6.enable = true;
       };
     };
@@ -24,29 +18,19 @@
       {
         config,
         lib,
-        pkgs,
         ...
       }:
       {
-        imports = with inputs; [
-          kineticwe.homeModules.default
-          self.homeModules.noctalia
-          plasma-manager.homeModules.plasma-manager
+        imports = [
+          inputs.plasma-manager.homeModules.plasma-manager
+          self.homeModules.qt
         ];
         home.activation = {
           ironmanClearShortcuts = lib.hm.dag.entryBefore [ "configure-plasma" ] ''
             rm -f ${config.home.homeDirectory}/.config/kglobalshortcutsrc
           '';
-          ironmanShortcuts =
-            let
-              kglobalshortcutsrc = pkgs.writeText "kglobalshortcutsrc" (builtins.readFile ./kglobalshortcutsrc);
-            in
-            lib.hm.dag.entryAfter [ "writeBoundary" ] ''
-              ln -sf ${kglobalshortcutsrc} ${config.home.homeDirectory}/.config/kglobalshortcutsrc
-            '';
         };
         programs = {
-          kineticwe.enable = true;
           okular = {
             enable = true;
             general = {
@@ -66,50 +50,50 @@
                 TerminalApplication = "ghostty --gtk-single-instance=true";
                 TerminalService = "com.mitchellh.ghostty.desktop";
               };
-              kwinrc = {
-                Desktops = {
-                  Name_1 = 1;
-                  Name_2 = 2;
-                  Name_3 = 3;
-                  Name_4 = 4;
-                  Name_5 = 5;
-                  Name_6 = 6;
-                  Name_7 = 7;
-                  Name_8 = 8;
-                  Name_9 = 9;
-                  Number = lib.mkForce 9;
-                  Rows = 9;
-                };
-                Effect-overview.BorderActivate = 9;
-                MouseBindings.CommandAllWheel = "Previous/Next Desktop";
-                Tiling = {
-                  EnabledLayouts = "MasterStack,CenterTile,Columns,AutoGrid";
-                  GapBetween = 20;
-                  GapBottom = 10;
-                  GapLeft = 15;
-                  GapRight = 15;
-                  GapTop = 10;
-                  TilingBorderMode = "ActiveOnly";
-                  TilingBorderThickness = 5;
-                  TilingCornerRadius = 10;
-                };
-                Windows.InvertScrollDesktopSwitch = true;
-                Xwayland.Scale = 1;
-              };
-              kwinrulesrc = {
-                General = {
-                  count = 1;
-                  rules = "a0317d8e-1f89-4e30-960a-f368ed64c262";
-                };
-                a0317d8e-1f89-4e30-960a-f368ed64c262 = {
-                  Description = "Opacity";
-                  opacityactive = 98;
-                  opacityactiverule = 2;
-                  opacityinactive = 95;
-                  opacityinactiverule = 2;
-                  types = 66461;
-                };
-              };
+              # kwinrc = {
+              #   Desktops = {
+              #     Name_1 = 1;
+              #     Name_2 = 2;
+              #     Name_3 = 3;
+              #     Name_4 = 4;
+              #     Name_5 = 5;
+              #     Name_6 = 6;
+              #     Name_7 = 7;
+              #     Name_8 = 8;
+              #     Name_9 = 9;
+              #     Number = lib.mkForce 9;
+              #     Rows = 9;
+              #   };
+              #   Effect-overview.BorderActivate = 9;
+              #   MouseBindings.CommandAllWheel = "Previous/Next Desktop";
+              #   Tiling = {
+              #     EnabledLayouts = "MasterStack,CenterTile,Columns,AutoGrid";
+              #     GapBetween = 20;
+              #     GapBottom = 10;
+              #     GapLeft = 15;
+              #     GapRight = 15;
+              #     GapTop = 10;
+              #     TilingBorderMode = "ActiveOnly";
+              #     TilingBorderThickness = 5;
+              #     TilingCornerRadius = 10;
+              #   };
+              #   Windows.InvertScrollDesktopSwitch = true;
+              #   Xwayland.Scale = 1;
+              # };
+              # kwinrulesrc = {
+              #   General = {
+              #     count = 1;
+              #     rules = "a0317d8e-1f89-4e30-960a-f368ed64c262";
+              #   };
+              #   a0317d8e-1f89-4e30-960a-f368ed64c262 = {
+              #     Description = "Opacity";
+              #     opacityactive = 98;
+              #     opacityactiverule = 2;
+              #     opacityinactive = 95;
+              #     opacityinactiverule = 2;
+              #     types = 66461;
+              #   };
+              # };
               plasmaparc.General.RaiseMaximumVolume = true;
             };
             fonts = {

@@ -8,8 +8,9 @@
   flake = {
     nixosModules.plasma = moduleWithSystem (
       perSystem@{ inputs', ... }: { config, pkgs, ... }: {
-        environment.systemPackages = [
-          pkgs.kdePackages.partitionmanager
+        environment.systemPackages = with pkgs.kdePackages; [
+          krohnkite
+          partitionmanager
           inputs'.plasma-manager.packages.rc2nix
         ];
         services = {

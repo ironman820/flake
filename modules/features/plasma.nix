@@ -7,12 +7,18 @@
 {
   flake = {
     nixosModules.plasma = moduleWithSystem (
-      perSystem@{ inputs', ... }: { config, pkgs, ... }: {
-        environment.systemPackages = with pkgs.kdePackages; [
-          krohnkite
-          partitionmanager
-          inputs'.plasma-manager.packages.rc2nix
-        ];
+      perSystem@{ inputs', self', ... }: { config, pkgs, ... }: {
+        environment = {
+          plasma6.excludePackages = [
+            pkgs.kdePackages.elisa
+          ];
+          systemPackages = with pkgs.kdePackages; [
+            krohnkite
+            partitionmanager
+            inputs'.plasma-manager.packages.rc2nix
+            self'.packages.plasma-tokyo-night
+          ];
+        };
         services = {
           displayManager.plasma-login-manager.enable = !config.services.displayManager.sddm.enable;
           desktopManager.plasma6.enable = true;
@@ -22,7 +28,7 @@
     homeModules.plasma =
       {
         config,
-      lib,
+        lib,
         ...
       }:
       {
@@ -31,6 +37,7 @@
           self.homeModules.qt
         ];
         programs = {
+          kate.editor.inputMode = "vi";
           okular = {
             enable = true;
             general = {
@@ -96,42 +103,42 @@
                   screenGapRight = 15;
                   screenGapTop = 10;
                 };
-                "Tiling/3544280a-0b8a-4da2-83a4-cf6d02739677/a3392d40-027b-498f-b125-5ae782f8f8fc" = {
-                  padding = 4;
-                  tiles = "{\"layoutDirection\":\"horizontal\",\"tiles\":[{\"width\":0.25},{\"width\":0.5},{\"width\":0.25}]}";
-                };
-                "Tiling/3544280a-0b8a-4da2-83a4-cf6d02739677/b0dc6b5b-84bd-4714-b056-075492318a45" = {
-                  padding = 4;
-                  tiles = "{\"layoutDirection\":\"horizontal\",\"tiles\":[{\"width\":0.25},{\"width\":0.5},{\"width\":0.25}]}";
-                };
-                "Tiling/636516b4-9a31-475d-90c2-2ce6a314bf89/a3392d40-027b-498f-b125-5ae782f8f8fc" = {
-                  padding = 4;
-                  tiles = "{\"layoutDirection\":\"horizontal\",\"tiles\":[{\"width\":0.25},{\"width\":0.5},{\"width\":0.25}]}";
-                };
-                "Tiling/636516b4-9a31-475d-90c2-2ce6a314bf89/b0dc6b5b-84bd-4714-b056-075492318a45" = {
-                  padding = 4;
-                  tiles = "{\"layoutDirection\":\"horizontal\",\"tiles\":[{\"width\":0.25},{\"width\":0.5},{\"width\":0.25}]}";
-                };
-                "Tiling/9e6585a8-a79d-465b-ba09-52be4df27bce/a3392d40-027b-498f-b125-5ae782f8f8fc" = {
-                  padding = 4;
-                  tiles = "{\"layoutDirection\":\"horizontal\",\"tiles\":[{\"width\":0.25},{\"width\":0.5},{\"width\":0.25}]}";
-                };
-                "Tiling/9e6585a8-a79d-465b-ba09-52be4df27bce/b0dc6b5b-84bd-4714-b056-075492318a45" = {
-                  padding = 4;
-                  tiles = "{\"layoutDirection\":\"horizontal\",\"tiles\":[{\"width\":0.25},{\"width\":0.5},{\"width\":0.25}]}";
-                };
-                "Tiling/Desktop_1/b0dc6b5b-84bd-4714-b056-075492318a45" = {
-                  padding = 4;
-                  tiles = "{\"layoutDirection\":\"horizontal\",\"tiles\":[{\"width\":0.25},{\"width\":0.5},{\"width\":0.25}]}";
-                };
-                "Tiling/d383a816-4b4b-4eb1-8e85-055c9c73bee1/a3392d40-027b-498f-b125-5ae782f8f8fc" = {
-                  padding = 4;
-                  tiles = "{\"layoutDirection\":\"horizontal\",\"tiles\":[{\"width\":0.25},{\"width\":0.5},{\"width\":0.25}]}";
-                };
-                "Tiling/d383a816-4b4b-4eb1-8e85-055c9c73bee1/b0dc6b5b-84bd-4714-b056-075492318a45" = {
-                  padding = 4;
-                  tiles = "{\"layoutDirection\":\"horizontal\",\"tiles\":[{\"width\":0.25},{\"width\":0.5},{\"width\":0.25}]}";
-                };
+                # "Tiling/3544280a-0b8a-4da2-83a4-cf6d02739677/a3392d40-027b-498f-b125-5ae782f8f8fc" = {
+                #   padding = 4;
+                #   tiles = "{\"layoutDirection\":\"horizontal\",\"tiles\":[{\"width\":0.25},{\"width\":0.5},{\"width\":0.25}]}";
+                # };
+                # "Tiling/3544280a-0b8a-4da2-83a4-cf6d02739677/b0dc6b5b-84bd-4714-b056-075492318a45" = {
+                #   padding = 4;
+                #   tiles = "{\"layoutDirection\":\"horizontal\",\"tiles\":[{\"width\":0.25},{\"width\":0.5},{\"width\":0.25}]}";
+                # };
+                # "Tiling/636516b4-9a31-475d-90c2-2ce6a314bf89/a3392d40-027b-498f-b125-5ae782f8f8fc" = {
+                #   padding = 4;
+                #   tiles = "{\"layoutDirection\":\"horizontal\",\"tiles\":[{\"width\":0.25},{\"width\":0.5},{\"width\":0.25}]}";
+                # };
+                # "Tiling/636516b4-9a31-475d-90c2-2ce6a314bf89/b0dc6b5b-84bd-4714-b056-075492318a45" = {
+                #   padding = 4;
+                #   tiles = "{\"layoutDirection\":\"horizontal\",\"tiles\":[{\"width\":0.25},{\"width\":0.5},{\"width\":0.25}]}";
+                # };
+                # "Tiling/9e6585a8-a79d-465b-ba09-52be4df27bce/a3392d40-027b-498f-b125-5ae782f8f8fc" = {
+                #   padding = 4;
+                #   tiles = "{\"layoutDirection\":\"horizontal\",\"tiles\":[{\"width\":0.25},{\"width\":0.5},{\"width\":0.25}]}";
+                # };
+                # "Tiling/9e6585a8-a79d-465b-ba09-52be4df27bce/b0dc6b5b-84bd-4714-b056-075492318a45" = {
+                #   padding = 4;
+                #   tiles = "{\"layoutDirection\":\"horizontal\",\"tiles\":[{\"width\":0.25},{\"width\":0.5},{\"width\":0.25}]}";
+                # };
+                # "Tiling/Desktop_1/b0dc6b5b-84bd-4714-b056-075492318a45" = {
+                #   padding = 4;
+                #   tiles = "{\"layoutDirection\":\"horizontal\",\"tiles\":[{\"width\":0.25},{\"width\":0.5},{\"width\":0.25}]}";
+                # };
+                # "Tiling/d383a816-4b4b-4eb1-8e85-055c9c73bee1/a3392d40-027b-498f-b125-5ae782f8f8fc" = {
+                #   padding = 4;
+                #   tiles = "{\"layoutDirection\":\"horizontal\",\"tiles\":[{\"width\":0.25},{\"width\":0.5},{\"width\":0.25}]}";
+                # };
+                # "Tiling/d383a816-4b4b-4eb1-8e85-055c9c73bee1/b0dc6b5b-84bd-4714-b056-075492318a45" = {
+                #   padding = 4;
+                #   tiles = "{\"layoutDirection\":\"horizontal\",\"tiles\":[{\"width\":0.25},{\"width\":0.5},{\"width\":0.25}]}";
+                # };
                 "org.kde.kdecoration2".theme = "Breeze";
                 Windows.InvertScrollDesktopSwitch = true;
                 Xwayland.Scale = 1;
@@ -254,10 +261,10 @@
             session.general.askForConfirmationOnLogout = true;
             shortcuts = {
               feishin = {
-                "189254525C2995BCF141B90AE0CFA0E4-MediaPrevTrack" = [ ];
-                "789D4A8DD37264E4A9D1003B7815A8F1-MediaPlayPause" = [ ];
-                "808F2B98A91BFA0FC4164AF05BB516AC-MediaStop" = [ ];
-                D88FD5032C22FF295F83A92DC60FE751-MediaNextTrack = [ ];
+                # "189254525C2995BCF141B90AE0CFA0E4-MediaPrevTrack" = [ ];
+                # "789D4A8DD37264E4A9D1003B7815A8F1-MediaPlayPause" = [ ];
+                # "808F2B98A91BFA0FC4164AF05BB516AC-MediaStop" = [ ];
+                # D88FD5032C22FF295F83A92DC60FE751-MediaNextTrack = [ ];
               };
               ksmserver."Lock Session" = [
                 "Screensaver"
@@ -368,4 +375,42 @@
         };
       };
   };
+  perSystem =
+    {
+      # config,
+      # inputs',
+      lib,
+      pkgs,
+      # system,
+      ...
+    }:
+    {
+      # apps.NAME = {
+      #   meta.description = "";
+      #   program = self'.packages.NAME;
+      # };
+      packages.plasma-tokyo-night = pkgs.stdenvNoCC.mkDerivation (finalAttrs: {
+        pname = "plasma-tokyo-night";
+        version = "2026.08.15";
+        src = inputs.plasma-tokyo-night;
+        installPhase = ''
+          runHook preInstall
+
+          mkdir -p $out/share/color-schemes
+          cp colorscheme/TokyoNight.colors $out/share/color-schemes/
+          cp -R plasma $out/share/
+          cp -R aurorae $out/share/
+
+          runHook postInstall
+        '';
+        meta = {
+          description = "Global Theme for Plasma Desktop based on the Tokyo Night color scheme.";
+          homepage = "https://github.com/Jayy-Dev/Plasma-Tokyo-Night";
+          license = with lib.licenses; [
+            gpl3
+          ];
+          platforms = lib.platforms.linux;
+        };
+      });
+    };
 }

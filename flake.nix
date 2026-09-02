@@ -77,6 +77,10 @@
       };
       url = "github:nix-community/plasma-manager";
     };
+    plasma-tokyo-night = {
+      flake = false;
+      url = "github:Jayy-Dev/Plasma-Tokyo-Night/plasma-6";
+    };
     snowfall-flake = {
       url = "github:snowfallorg/flake";
       inputs.nixpkgs.follows = "nixpkgs";

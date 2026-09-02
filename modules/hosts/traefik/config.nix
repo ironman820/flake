@@ -1,5 +1,5 @@
 { self, ... }: {
-  flake.nixosModule.traefikHomeConfig = { config, ... }: {
+  flake.nixosModules.traefikHomeConfig = { config, ... }: {
     hardware.facter.reportPath = ./facter.json;
     networking = {
       hostName = "traefik";
@@ -401,7 +401,7 @@
                 passHostHeader = true;
                 servers = [
                   {
-                    url = "http://192.168.248.100:3923";
+                    url = "https://192.168.248.100:3923";
                   }
                 ];
               };

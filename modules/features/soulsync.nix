@@ -81,7 +81,7 @@
     };
     sops.secrets.slskd_env = {
       sopsFile = "${self.outPath}/.secrets/soulsync.yaml";
-      owner = config.systemd.services."docker-slskd".serviceConfig.User;
+      group = "docker";
     };
     systemd = {
       services = {

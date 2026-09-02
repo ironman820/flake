@@ -446,6 +446,11 @@
               user = "ironman";
             }
             // deployIdentity;
+            "storage2.home" = {
+              hostname = "192.168.248.119";
+              user = "ironman";
+            }
+            // deployIdentity;
             "traefik.desk" = {
               hostname = "192.168.20.11";
               user = "ironman";

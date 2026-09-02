@@ -45,54 +45,100 @@
                 "exclude folders[$e]" = "$HOME/git/nixpkgs/";
                 "only basic indexing" = true;
               };
-              kdeglobals.General = {
-                TerminalApplication = "ghostty --gtk-single-instance=true";
-                TerminalService = "com.mitchellh.ghostty.desktop";
+              kdeglobals = {
+                Desktops = {
+                };
+                General = {
+                  TerminalApplication = "ghostty --gtk-single-instance=true";
+                  TerminalService = "com.mitchellh.ghostty.desktop";
+                };
+                "KFileDialog Settings" = {
+                  "Allow Expansion" = false;
+                  "Automatically select filename extension" = true;
+                  "Breadcrumb Navigation" = true;
+                  "Decoration position" = 2;
+                  "Show Full Path" = false;
+                  "Show Inline Previews" = true;
+                  "Show Speedbar" = true;
+                  "Show hidden files" = true;
+                  "Sort by" = "Name";
+                  "Sort directories first" = true;
+                  "Sort hidden files last" = false;
+                  "Sort reversed" = false;
+                  "Speedbar Width" = 162;
+                  "View Style" = "DetailTree";
+                };
               };
-              # kwinrc = {
-              #   Desktops = {
-              #     Name_1 = 1;
-              #     Name_2 = 2;
-              #     Name_3 = 3;
-              #     Name_4 = 4;
-              #     Name_5 = 5;
-              #     Name_6 = 6;
-              #     Name_7 = 7;
-              #     Name_8 = 8;
-              #     Name_9 = 9;
-              #     Number = lib.mkForce 9;
-              #     Rows = 9;
-              #   };
-              #   Effect-overview.BorderActivate = 9;
-              #   MouseBindings.CommandAllWheel = "Previous/Next Desktop";
-              #   Tiling = {
-              #     EnabledLayouts = "MasterStack,CenterTile,Columns,AutoGrid";
-              #     GapBetween = 20;
-              #     GapBottom = 10;
-              #     GapLeft = 15;
-              #     GapRight = 15;
-              #     GapTop = 10;
-              #     TilingBorderMode = "ActiveOnly";
-              #     TilingBorderThickness = 5;
-              #     TilingCornerRadius = 10;
-              #   };
-              #   Windows.InvertScrollDesktopSwitch = true;
-              #   Xwayland.Scale = 1;
-              # };
-              # kwinrulesrc = {
-              #   General = {
-              #     count = 1;
-              #     rules = "a0317d8e-1f89-4e30-960a-f368ed64c262";
-              #   };
-              #   a0317d8e-1f89-4e30-960a-f368ed64c262 = {
-              #     Description = "Opacity";
-              #     opacityactive = 98;
-              #     opacityactiverule = 2;
-              #     opacityinactive = 95;
-              #     opacityinactiverule = 2;
-              #     types = 66461;
-              #   };
-              # };
+              kwinrc = {
+                Desktops = {
+                  Name_1 = 1;
+                  Name_2 = 2;
+                  Name_3 = 3;
+                  Name_4 = 4;
+                  Name_5 = 5;
+                  Number = 5;
+                  Rows = 5;
+                };
+                Effect-translucency = {
+                  ExcludeFullScreen = true;
+                  Inactive = 91;
+                };
+                Plugins = {
+                  krohnkiteEnabled = true;
+                  translucencyEnabled = true;
+                };
+                Script-krohnkite = {
+                  noTileBorder = true;
+                  screenGapBetween = 20;
+                  screenGapBottom = 10;
+                  screenGapLeft = 15;
+                  screenGapRight = 15;
+                  screenGapTop = 10;
+                };
+                "Tiling/3544280a-0b8a-4da2-83a4-cf6d02739677/a3392d40-027b-498f-b125-5ae782f8f8fc" = {
+                  padding = 4;
+                  tiles = "{\"layoutDirection\":\"horizontal\",\"tiles\":[{\"width\":0.25},{\"width\":0.5},{\"width\":0.25}]}";
+                };
+                "Tiling/3544280a-0b8a-4da2-83a4-cf6d02739677/b0dc6b5b-84bd-4714-b056-075492318a45" = {
+                  padding = 4;
+                  tiles = "{\"layoutDirection\":\"horizontal\",\"tiles\":[{\"width\":0.25},{\"width\":0.5},{\"width\":0.25}]}";
+                };
+                "Tiling/636516b4-9a31-475d-90c2-2ce6a314bf89/a3392d40-027b-498f-b125-5ae782f8f8fc" = {
+                  padding = 4;
+                  tiles = "{\"layoutDirection\":\"horizontal\",\"tiles\":[{\"width\":0.25},{\"width\":0.5},{\"width\":0.25}]}";
+                };
+                "Tiling/636516b4-9a31-475d-90c2-2ce6a314bf89/b0dc6b5b-84bd-4714-b056-075492318a45" = {
+                  padding = 4;
+                  tiles = "{\"layoutDirection\":\"horizontal\",\"tiles\":[{\"width\":0.25},{\"width\":0.5},{\"width\":0.25}]}";
+                };
+                "Tiling/9e6585a8-a79d-465b-ba09-52be4df27bce/a3392d40-027b-498f-b125-5ae782f8f8fc" = {
+                  padding = 4;
+                  tiles = "{\"layoutDirection\":\"horizontal\",\"tiles\":[{\"width\":0.25},{\"width\":0.5},{\"width\":0.25}]}";
+                };
+                "Tiling/9e6585a8-a79d-465b-ba09-52be4df27bce/b0dc6b5b-84bd-4714-b056-075492318a45" = {
+                  padding = 4;
+                  tiles = "{\"layoutDirection\":\"horizontal\",\"tiles\":[{\"width\":0.25},{\"width\":0.5},{\"width\":0.25}]}";
+                };
+                "Tiling/Desktop_1/b0dc6b5b-84bd-4714-b056-075492318a45" = {
+                  padding = 4;
+                  tiles = "{\"layoutDirection\":\"horizontal\",\"tiles\":[{\"width\":0.25},{\"width\":0.5},{\"width\":0.25}]}";
+                };
+                "Tiling/d383a816-4b4b-4eb1-8e85-055c9c73bee1/a3392d40-027b-498f-b125-5ae782f8f8fc" = {
+                  padding = 4;
+                  tiles = "{\"layoutDirection\":\"horizontal\",\"tiles\":[{\"width\":0.25},{\"width\":0.5},{\"width\":0.25}]}";
+                };
+                "Tiling/d383a816-4b4b-4eb1-8e85-055c9c73bee1/b0dc6b5b-84bd-4714-b056-075492318a45" = {
+                  padding = 4;
+                  tiles = "{\"layoutDirection\":\"horizontal\",\"tiles\":[{\"width\":0.25},{\"width\":0.5},{\"width\":0.25}]}";
+                };
+                "org.kde.kdecoration2".theme = "Breeze";
+                Windows.InvertScrollDesktopSwitch = true;
+                Xwayland.Scale = 1;
+              };
+              plasmanotifyrc = {
+                "Applications/org.telegram.desktop".Seen = true;
+                "Applications/thunderbird".Seen = true;
+              };
               plasmaparc.General.RaiseMaximumVolume = true;
             };
             fonts = {
@@ -205,6 +251,110 @@
               };
             };
             session.general.askForConfirmationOnLogout = true;
+            shortcuts = {
+              feishin = {
+                "189254525C2995BCF141B90AE0CFA0E4-MediaPrevTrack" = [ ];
+                "789D4A8DD37264E4A9D1003B7815A8F1-MediaPlayPause" = [ ];
+                "808F2B98A91BFA0FC4164AF05BB516AC-MediaStop" = [ ];
+                D88FD5032C22FF295F83A92DC60FE751-MediaNextTrack = [ ];
+              };
+              ksmserver."Lock Session" = [
+                "Screensaver"
+                "Meta+Ctrl+Shift+L"
+              ];
+              kwin = {
+                KrohnkiteBTreeLayout = [ ];
+                KrohnkiteColumnsLayout = [ ];
+                KrohnkiteDecrease = "Meta+D";
+                KrohnkiteFloatAll = "Meta+Shift+F";
+                KrohnkiteFloatingLayout = [ ];
+                KrohnkiteFocusDown = "Meta+J";
+                KrohnkiteFocusLeft = "Meta+H";
+                KrohnkiteFocusNext = "Meta+.";
+                KrohnkiteFocusPrev = [ ];
+                KrohnkiteFocusRight = "Meta+L";
+                KrohnkiteFocusUp = "Meta+K";
+                KrohnkiteGrowHeight = "Meta+Ctrl+J";
+                KrohnkiteIncrease = "Meta+I";
+                KrohnkiteMonocleLayout = "Meta+M";
+                KrohnkiteNextLayout = "Meta+\\\\,none";
+                KrohnkitePreviousLayout = "Meta+|";
+                KrohnkiteQuarterLayout = [ ];
+                KrohnkiteRotate = "Meta+R";
+                KrohnkiteRotatePart = "Meta+Shift+R";
+                KrohnkiteSetMaster = [ ];
+                KrohnkiteShiftDown = "Meta+Shift+J";
+                KrohnkiteShiftLeft = "Meta+Shift+H";
+                KrohnkiteShiftRight = "Meta+Shift+L";
+                KrohnkiteShiftUp = "Meta+Shift+K";
+                KrohnkiteShrinkHeight = "Meta+Ctrl+K";
+                KrohnkiteShrinkWidth = "Meta+Ctrl+H";
+                KrohnkiteSpiralLayout = [ ];
+                KrohnkiteSpreadLayout = [ ];
+                KrohnkiteStackedLayout = [ ];
+                KrohnkiteStairLayout = [ ];
+                KrohnkiteTileLayout = "Meta+T";
+                KrohnkiteToggleFloat = "Meta+F";
+                KrohnkiteTreeColumnLayout = [ ];
+                KrohnkitegrowWidth = "Meta+Ctrl+L";
+                KrohnkitetoggleDock = [ ];
+                Overview = [ ];
+                "Switch to Desktop 1" = [
+                  "Ctrl+F1"
+                  "Meta+1"
+                  "Meta+F1"
+                ];
+                "Switch to Desktop 2" = [
+                  "Ctrl+F2"
+                  "Meta+2"
+                  "Meta+F2"
+                ];
+                "Switch to Desktop 3" = [
+                  "Ctrl+F3"
+                  "Meta+3"
+                  "Meta+F3"
+                ];
+                "Switch to Desktop 4" = [
+                  "Ctrl+F4"
+                  "Meta+4"
+                  "Meta+F4"
+                ];
+                "Switch to Desktop 5" = "Meta+5";
+                "Window Close" = [
+                  "Alt+F4"
+                  "Meta+Q"
+                ];
+                "Window Maximize" = [
+                  "Meta+PgUp"
+                  "Meta+Shift+M"
+                ];
+                "Window to Desktop 1" = "Meta+!";
+                "Window to Desktop 2" = "Meta+@";
+                "Window to Desktop 3" = "Meta+#";
+                "Window to Desktop 4" = "Meta+$";
+                "Window to Desktop 5" = "Meta+%";
+              };
+              plasmashell = {
+                "activate task manager entry 1" = [ ];
+                "activate task manager entry 2" = [ ];
+                "activate task manager entry 3" = [ ];
+                "activate task manager entry 4" = [ ];
+                "activate task manager entry 5" = [ ];
+                "manage activities" = [ ];
+              };
+              "services/com.mitchellh.ghostty.desktop"._launch = [
+                "Ctrl+Alt+T"
+                "Meta+Return"
+              ];
+              "services/org.kde.konsole.desktop"._launch = [ ];
+              "services/org.kde.spectacle.desktop".CurrentMonitorScreenShot = [ ];
+              "services/org.kde.spectacle.desktop".OpenWithoutScreenshot = [ ];
+              "services/systemsettings.desktop"._launch = [
+                "Tools"
+                "Meta+"
+              ];
+              "services/zen.desktop"._launch = "Meta+W";
+            };
             workspace = {
               colorScheme = "BreezeDark";
               cursor.theme = "breeze_cursors";

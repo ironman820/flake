@@ -161,6 +161,14 @@ in
       };
       sshUser = "ironman";
     };
+    soulsync = {
+      hostname = "soulsync.home";
+      profiles.system = {
+        user = "root";
+        path = activate.nixos nxc.soulsync;
+      };
+      sshUser = "ironman";
+    };
     storage = {
       hostname = "storage.home";
       profiles.system = {

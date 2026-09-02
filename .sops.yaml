@@ -5,6 +5,7 @@ keys:
   - &server_calibre age1ahfs26muknuhxeavht922e5kw009ewwjyegcrglatxn7n8rc5c2qlquffg
   - &server_gns3 age1z7p0u2ekdek8xy4zlsmczqp3xf68amrzj0nh3yx9chc6zhmxsufspdzpqe
   - &server_pve2 age1tj460ln353gy48end4dl0efqf28z2ntwxu5we7qkauw472dax9xsvmwmhq
+  - &server_soulsync age1dau2xrhtxrwanl9hv02yc4zxtl5px4q6rfeckrfa3mve9ds5pvqsxwtrsv
   - &server_storage age19fwep37ruj6x7l86dfa74hxh3l8rqclghuzy6uegcummdl07juxq56au72
   - &server_traefik age1wc99wq9lztk2j8qcnej5v6gp8gfz4f0dnmzey6ncfy7yaxplr4zspnhzcs
   - &server_work_dns age14lru46n84vakjj2mjah3ewftjt33fwr2km9g75a3lcpw8af4yawq6n6uag
@@ -22,6 +23,7 @@ creation_rules:
         - *server_calibre
         - *server_gns3
         - *server_pve2
+        - *server_soulsync
         - *server_storage
         - *server_traefik
         - *server_work_dns

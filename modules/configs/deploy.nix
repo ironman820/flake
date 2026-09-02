@@ -162,7 +162,7 @@ in
       sshUser = "ironman";
     };
     storage = {
-      hostname = "storage2.home";
+      hostname = "storage.home";
       profiles.system = {
         user = "root";
         path = activate.nixos nxc.storage;

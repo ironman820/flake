@@ -397,9 +397,10 @@
           runHook preInstall
 
           mkdir -p $out/share/color-schemes
+          mkdir -p $out/share/aurorae/themes
           cp colorscheme/TokyoNight.colors $out/share/color-schemes/
           cp -R plasma $out/share/
-          cp -R aurorae $out/share/
+          cp -R aurorae/TokyoNight $out/share/aurorae/themes/
 
           runHook postInstall
         '';

@@ -22,10 +22,12 @@
         ];
         volumes = [
           "/shares/data/docker/slskd-data:/app:rw"
-          "/shares/data/downloads:/app/downloads:rw"
+          "/shares/data/downloads/music:/app/downloads:rw"
+          "/shares/data/music:/app/library:rw"
         ];
         ports = [
           "5030:5030/tcp"
+          "2234:2234"
         ];
         log-driver = "journald";
         extraOptions = [
@@ -48,7 +50,7 @@
         volumes = [
           "/shares/data/docker/soulsync/config:/app/config"
           "/shares/data/docker/soulsync/logs:/app/logs"
-          "/shares/data/downloads:/app/downloads"
+          "/shares/data/downloads/music:/app/downloads"
           "/shares/data/music:/app/Transfer"
           "/shares/data/docker/soulsync/staging:/app/Staging"
           "/shares/data/musicVideos:/app/MusicVideos"

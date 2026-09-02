@@ -404,6 +404,7 @@
                     url = "https://192.168.248.100:3923";
                   }
                 ];
+                serversTransport = "insecure";
               };
               syncthing.loadBalancer = {
                 passHostHeader = true;

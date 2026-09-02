@@ -14,6 +14,10 @@
       group = config.ironman.user.name;
       settings = {
         i = "0.0.0.0";
+        rproxy = -1;
+        xf-proto = "X-Forwarded-Proto";
+        xf-host = "storage.home.niceastman.com";
+        xff-src = "lan";
         z = true;
       };
       accounts.ironman.passwordFile = config.sops.secrets.ironman_password.path;

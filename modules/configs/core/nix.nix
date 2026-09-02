@@ -67,7 +67,7 @@
         inherit system;
         config.allowUnfree = true;
         overlays = with inputs; [
-          kineticwe.overlays.default
+          # kineticwe.overlays.default
           # niri.overlays.niri
           nix-topology.overlays.default
         ];

@@ -28,13 +28,13 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     import-tree.url = "github:vic/import-tree";
-    kineticwe = {
-      url = "gitlab:theblackdon/kineticwe";
-      inputs = {
-        nixpkgs.follows = "nixpkgs";
-        noctalia.follows = "noctalia";
-      };
-    };
+    # kineticwe = {
+    #   url = "gitlab:theblackdon/kineticwe";
+    #   inputs = {
+    #     nixpkgs.follows = "nixpkgs";
+    #     noctalia.follows = "noctalia";
+    #   };
+    # };
     # niri = {
     #   url = "github:epireyn/niri-flake";
     #   inputs = {

@@ -156,6 +156,13 @@
                 service = "rcm2";
                 tls = { };
               };
+              slsk = {
+                entryPoints = "https";
+                middlewares = "secured";
+                rule = "Host(`slsk.home.niceastman.com`)";
+                service = "slsk";
+                tls = { };
+              };
               sonarqube = {
                 entryPoints = "https";
                 middlewares = "secured";
@@ -175,6 +182,13 @@
                 middlewares = "secured";
                 rule = "Host(`sonarr2.home.niceastman.com`)";
                 service = "sonarr2";
+                tls = { };
+              };
+              soul = {
+                entryPoints = "https";
+                middlewares = "secured";
+                rule = "Host(`soul.home.niceastman.com`)";
+                service = "soul";
                 tls = { };
               };
               storage = {
@@ -373,6 +387,15 @@
                 ];
                 serversTransport = "insecure";
               };
+              slsk.loadBalancer = {
+                passHostHeader = true;
+                servers = [
+                  {
+                    url = "http://192.168.248.119:5030";
+                  }
+                ];
+                serversTransport = "insecure";
+              };
               sonarqube.loadBalancer = {
                 passHostHeader = true;
                 servers = [
@@ -396,6 +419,15 @@
                     url = "http://192.168.248.110:8989";
                   }
                 ];
+              };
+              soul.loadBalancer = {
+                passHostHeader = true;
+                servers = [
+                  {
+                    url = "http://192.168.248.119:8008";
+                  }
+                ];
+                serversTransport = "insecure";
               };
               storage.loadBalancer = {
                 passHostHeader = true;

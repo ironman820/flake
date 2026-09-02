@@ -467,6 +467,23 @@
         "type": "github"
       }
     },
+    "plasma-tokyo-night": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1786835862,
+        "narHash": "sha256-9BvoDnHwlDo3qe2bhW4tQU858HRXxCL7Rk38IMCRtbA=",
+        "owner": "Jayy-Dev",
+        "repo": "Plasma-Tokyo-Night",
+        "rev": "a3e6c64a171dc226d03272a7f6cc97d0c916f3dd",
+        "type": "github"
+      },
+      "original": {
+        "owner": "Jayy-Dev",
+        "ref": "plasma-6",
+        "repo": "Plasma-Tokyo-Night",
+        "type": "github"
+      }
+    },
     "root": {
       "inputs": {
         "bonafides-themes": "bonafides-themes",
@@ -486,6 +503,7 @@
         "nixvim": "nixvim",
         "noctalia": "noctalia",
         "plasma-manager": "plasma-manager",
+        "plasma-tokyo-night": "plasma-tokyo-night",
         "snowfall-flake": "snowfall-flake",
         "sops-nix": "sops-nix",
         "tokyonight": "tokyonight",

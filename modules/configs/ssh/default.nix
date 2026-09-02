@@ -441,6 +441,11 @@
               hostname = "smx.royell.org";
               user = "royell";
             };
+            "soulsync.home" = {
+              hostname = "192.168.248.119";
+              user = "ironman";
+            }
+            // deployIdentity;
             "storage.home" = {
               hostname = "192.168.248.100";
               user = "ironman";

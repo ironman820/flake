@@ -22,6 +22,7 @@
     homeModules.plasma =
       {
         config,
+      lib,
         ...
       }:
       {
@@ -76,7 +77,7 @@
                   Name_3 = 3;
                   Name_4 = 4;
                   Name_5 = 5;
-                  Number = 5;
+                  Number = lib.mkForce 5;
                   Rows = 5;
                 };
                 Effect-translucency = {

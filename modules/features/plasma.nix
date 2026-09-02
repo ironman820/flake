@@ -17,6 +17,7 @@
             partitionmanager
             inputs'.plasma-manager.packages.rc2nix
             self'.packages.plasma-tokyo-night
+            self'.packages.tokyo-night-icons
           ];
         };
         services = {
@@ -37,11 +38,17 @@
           self.homeModules.qt
         ];
         programs = {
-          kate.editor.inputMode = "vi";
+          kate = {
+            enable = true;
+            editor.inputMode = "vi";
+            ui.colorScheme = "Tokyo Night";
+          };
           okular = {
             enable = true;
             general = {
+              colorScheme = "Tokyo Night";
               openFileInTabs = true;
+              showMenuBar = false;
               smoothScrolling = true;
               zoomMode = "fitWidth";
             };
@@ -54,8 +61,6 @@
                 "only basic indexing" = true;
               };
               kdeglobals = {
-                Desktops = {
-                };
                 General = {
                   TerminalApplication = "ghostty --gtk-single-instance=true";
                   TerminalService = "com.mitchellh.ghostty.desktop";
@@ -78,23 +83,11 @@
                 };
               };
               kwinrc = {
-                Desktops = {
-                  Name_1 = 1;
-                  Name_2 = 2;
-                  Name_3 = 3;
-                  Name_4 = 4;
-                  Name_5 = 5;
-                  Number = lib.mkForce 5;
-                  Rows = 5;
-                };
                 Effect-translucency = {
                   ExcludeFullScreen = true;
-                  Inactive = 91;
+                  Inactive = 90;
                 };
-                Plugins = {
-                  krohnkiteEnabled = true;
-                  translucencyEnabled = true;
-                };
+                Plugins.krohnkiteEnabled = true;
                 Script-krohnkite = {
                   noTileBorder = true;
                   screenGapBetween = 20;
@@ -103,43 +96,6 @@
                   screenGapRight = 15;
                   screenGapTop = 10;
                 };
-                # "Tiling/3544280a-0b8a-4da2-83a4-cf6d02739677/a3392d40-027b-498f-b125-5ae782f8f8fc" = {
-                #   padding = 4;
-                #   tiles = "{\"layoutDirection\":\"horizontal\",\"tiles\":[{\"width\":0.25},{\"width\":0.5},{\"width\":0.25}]}";
-                # };
-                # "Tiling/3544280a-0b8a-4da2-83a4-cf6d02739677/b0dc6b5b-84bd-4714-b056-075492318a45" = {
-                #   padding = 4;
-                #   tiles = "{\"layoutDirection\":\"horizontal\",\"tiles\":[{\"width\":0.25},{\"width\":0.5},{\"width\":0.25}]}";
-                # };
-                # "Tiling/636516b4-9a31-475d-90c2-2ce6a314bf89/a3392d40-027b-498f-b125-5ae782f8f8fc" = {
-                #   padding = 4;
-                #   tiles = "{\"layoutDirection\":\"horizontal\",\"tiles\":[{\"width\":0.25},{\"width\":0.5},{\"width\":0.25}]}";
-                # };
-                # "Tiling/636516b4-9a31-475d-90c2-2ce6a314bf89/b0dc6b5b-84bd-4714-b056-075492318a45" = {
-                #   padding = 4;
-                #   tiles = "{\"layoutDirection\":\"horizontal\",\"tiles\":[{\"width\":0.25},{\"width\":0.5},{\"width\":0.25}]}";
-                # };
-                # "Tiling/9e6585a8-a79d-465b-ba09-52be4df27bce/a3392d40-027b-498f-b125-5ae782f8f8fc" = {
-                #   padding = 4;
-                #   tiles = "{\"layoutDirection\":\"horizontal\",\"tiles\":[{\"width\":0.25},{\"width\":0.5},{\"width\":0.25}]}";
-                # };
-                # "Tiling/9e6585a8-a79d-465b-ba09-52be4df27bce/b0dc6b5b-84bd-4714-b056-075492318a45" = {
-                #   padding = 4;
-                #   tiles = "{\"layoutDirection\":\"horizontal\",\"tiles\":[{\"width\":0.25},{\"width\":0.5},{\"width\":0.25}]}";
-                # };
-                # "Tiling/Desktop_1/b0dc6b5b-84bd-4714-b056-075492318a45" = {
-                #   padding = 4;
-                #   tiles = "{\"layoutDirection\":\"horizontal\",\"tiles\":[{\"width\":0.25},{\"width\":0.5},{\"width\":0.25}]}";
-                # };
-                # "Tiling/d383a816-4b4b-4eb1-8e85-055c9c73bee1/a3392d40-027b-498f-b125-5ae782f8f8fc" = {
-                #   padding = 4;
-                #   tiles = "{\"layoutDirection\":\"horizontal\",\"tiles\":[{\"width\":0.25},{\"width\":0.5},{\"width\":0.25}]}";
-                # };
-                # "Tiling/d383a816-4b4b-4eb1-8e85-055c9c73bee1/b0dc6b5b-84bd-4714-b056-075492318a45" = {
-                #   padding = 4;
-                #   tiles = "{\"layoutDirection\":\"horizontal\",\"tiles\":[{\"width\":0.25},{\"width\":0.5},{\"width\":0.25}]}";
-                # };
-                "org.kde.kdecoration2".theme = "Breeze";
                 Windows.InvertScrollDesktopSwitch = true;
                 Xwayland.Scale = 1;
               };
@@ -175,20 +131,32 @@
                 pointSize = 10;
               };
             };
+            krunner.position = "center";
             kwin = {
               effects = {
                 blur = {
                   enable = true;
-                  noiseStrength = 7;
-                  strength = 7;
+                  noiseStrength = 9;
+                  strength = 9;
                 };
                 dimAdminMode.enable = true;
                 fallApart.enable = true;
                 minimization.animation = "magiclamp";
                 snapHelper.enable = true;
+                translucency.enable = true;
                 wobblyWindows.enable = true;
               };
-              virtualDesktops.number = 1;
+              virtualDesktops = {
+                names = [
+                  "1"
+                  "2"
+                  "3"
+                  "4"
+                  "5"
+                ];
+                number = 5;
+                rows = 5;
+              };
             };
             overrideConfig = true;
             powerdevil = {
@@ -355,21 +323,28 @@
                 "Meta+Return"
               ];
               "services/org.kde.konsole.desktop"._launch = [ ];
-              "services/org.kde.spectacle.desktop".CurrentMonitorScreenShot = [ ];
-              "services/org.kde.spectacle.desktop".OpenWithoutScreenshot = [ ];
               "services/systemsettings.desktop"._launch = [
                 "Tools"
                 "Meta+"
               ];
               "services/zen.desktop"._launch = "Meta+W";
             };
+            spectacle.shortcuts = {
+              captureCurrentMonitor = [ ];
+              launchWithoutCapturing = [ ];
+            };
             workspace = {
-              colorScheme = "BreezeDark";
+              colorScheme = "TokyoNight";
               cursor.theme = "breeze_cursors";
-              lookAndFeel = "org.kde.breezedark.desktop";
-              theme = "breeze-dark";
+              iconTheme = "TokyoNight-SE";
+              # lookAndFeel = "com.github.Jayy-Dev.Plasma.Tokyo.Night";
+              theme = "Tokyo-Night";
               wallpaperFillMode = "preserveAspectCrop";
               wallpaperSlideShow.path = "${config.home.homeDirectory}/Wallpapers";
+              windowDecorations = {
+                library = "org.kde.kwin.aurorae.v2";
+                theme = "__aurorae__svg__TokyoNight";
+              };
             };
           };
         };
@@ -389,29 +364,51 @@
       #   meta.description = "";
       #   program = self'.packages.NAME;
       # };
-      packages.plasma-tokyo-night = pkgs.stdenvNoCC.mkDerivation (finalAttrs: {
-        pname = "plasma-tokyo-night";
-        version = "2026.08.15";
-        src = inputs.plasma-tokyo-night;
-        installPhase = ''
-          runHook preInstall
+      packages = {
+        plasma-tokyo-night = pkgs.stdenvNoCC.mkDerivation (finalAttrs: {
+          pname = "plasma-tokyo-night";
+          version = "2026.08.15";
+          src = inputs.plasma-tokyo-night;
+          installPhase = ''
+            runHook preInstall
 
-          mkdir -p $out/share/color-schemes
-          mkdir -p $out/share/aurorae/themes
-          cp colorscheme/TokyoNight.colors $out/share/color-schemes/
-          cp -R plasma $out/share/
-          cp -R aurorae/TokyoNight $out/share/aurorae/themes/
+            mkdir -p $out/share/color-schemes
+            mkdir -p $out/share/aurorae/themes
+            cp colorscheme/TokyoNight.colors $out/share/color-schemes/
+            cp -R plasma $out/share/
+            cp -R aurorae/TokyoNight $out/share/aurorae/themes/
 
-          runHook postInstall
-        '';
-        meta = {
-          description = "Global Theme for Plasma Desktop based on the Tokyo Night color scheme.";
-          homepage = "https://github.com/Jayy-Dev/Plasma-Tokyo-Night";
-          license = with lib.licenses; [
-            gpl3
-          ];
-          platforms = lib.platforms.linux;
-        };
-      });
+            runHook postInstall
+          '';
+          meta = {
+            description = "Global Theme for Plasma Desktop based on the Tokyo Night color scheme.";
+            homepage = "https://github.com/Jayy-Dev/Plasma-Tokyo-Night";
+            license = with lib.licenses; [
+              gpl3
+            ];
+            platforms = lib.platforms.linux;
+          };
+        });
+        tokyo-night-icons = pkgs.stdenvNoCC.mkDerivation (finalAttrs: {
+          pname = "tokyo-night-icons";
+          version = "0.2.0";
+          src = fetchTarball {
+            url = "https://github.com/ljmill/tokyo-night-icons/releases/download/v0.2.0/TokyoNight-SE.tar.bz2";
+            sha256 = "0x8hb2i523j87ijbng41msac9rffwlvrd76r4h1qsrb864b3b9fv";
+          };
+          installPhase = ''
+            mkdir -p $out/share/icons/TokyoNight-SE
+            cp -R * $out/share/icons/TokyoNight-SE/
+          '';
+          meta = {
+            description = "GTK Icon theme inspired by Tokyo Night color scheme";
+            homepage = "https://github.com/ljmill/tokyo-night-icons";
+            license = [
+              lib.licenses.gpl3
+            ];
+            platforms = lib.platforms.linux;
+          };
+        });
+      };
     };
 }

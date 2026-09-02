@@ -161,6 +161,14 @@ in
       };
       sshUser = "ironman";
     };
+    storage = {
+      hostname = "storage2.home";
+      profiles.system = {
+        user = "root";
+        path = activate.nixos nxc.storage;
+      };
+      sshUser = "ironman";
+    };
     traefik = {
       hostname = "traefik.home";
       profiles.system = {

@@ -67,6 +67,7 @@
         inherit system;
         config.allowUnfree = true;
         overlays = with inputs; [
+          copyparty.overlays.default
           # kineticwe.overlays.default
           # niri.overlays.niri
           nix-topology.overlays.default

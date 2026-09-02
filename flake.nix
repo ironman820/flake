@@ -6,6 +6,10 @@
       flake = false;
       url = "github:l4ki/bonafides-plasma-themes";
     };
+    copyparty = {
+      inputs.nixpkgs.follows = "nixpkgs";
+      url = "github:9001/copyparty";
+    };
     cosmic-manager = {
       url = "github:HeitorAugustoLN/cosmic-manager";
       inputs = {

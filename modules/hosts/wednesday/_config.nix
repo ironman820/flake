@@ -20,6 +20,7 @@
           id = "C2T72DJ-35SQ4DJ-OTQFZUH-R54J3FK-7K2M46K-RAN5SFU-4Y4ZNIL-FZ64AQQ";
           name = "Friday";
         };
+        soulsync.id = "CNMVTVS-4PTOXZY-PO6E2SZ-R7UAVMV-4ZOE7KI-VCVGRA7-Z6LRDHJ-PUSCIAZ";
       };
       folders =
         let
@@ -73,6 +74,14 @@
                 keep = "10";
               };
             };
+          };
+          "/home/${name}/Music" = {
+            id = "6znxz-uhdps";
+            devices = [
+              "friday"
+              "soulsync"
+            ];
+            label = "Music";
           };
           "/home/${name}/Notes" = {
             id = "q6twd-r4s4f";

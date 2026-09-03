@@ -25,6 +25,7 @@
           devices = {
             calibre.id = "J3LVEJP-XUTHFQ2-2W5U22G-JLDNUL2-S3GC4GW-VVQOY7Q-N6SFPJT-REN45AO";
             wednesday.id = "ICGQ6GR-GFFLBJB-N4AF3AP-IOSLCHN-337F5UX-RW2A35G-UZ3Q2N4-SVWXTQY";
+            soulsync.id = "CNMVTVS-4PTOXZY-PO6E2SZ-R7UAVMV-4ZOE7KI-VCVGRA7-Z6LRDHJ-PUSCIAZ";
             steamdeck = {
               id = "NHY6BAU-WXMQZC2-CZP7P7Z-N5VZQIS-WI5P5L5-R2K2VOL-QYJG4NX-FNH5OA7";
               name = "SteamDeck";
@@ -109,6 +110,14 @@
                     maxAge = "31536000";
                   };
                 };
+              };
+              "/home/${name}/Music" = {
+                id = "6znxz-uhdps";
+                devices = [
+                  "soulsync"
+                  "wednesday"
+                ];
+                label = "Music";
               };
               "/home/${name}/Notes" = {
                 id = "q6twd-r4s4f";

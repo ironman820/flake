@@ -9,6 +9,7 @@
     };
     services.syncthing = {
       enable = true;
+      dataDir = "/home/${config.ironman.user.name}";
       relay.enable = true;
       group = config.ironman.user.name;
       guiAddress = "0.0.0.0:8384";
@@ -24,17 +25,28 @@
             name = "Wednesday";
           };
         };
-        folders = {
-
+        folders."/shares/data/music" = {
+          devices = [
+            "friday"
+            "wednesday"
+          ];
+          id = "6znxz-uhdps";
+          ignorePatterns = [
+            "!**/*.mp3"
+            "**/*"
+          ];
+          label = "music";
+          type = "sendonly";
         };
         options.urAccepted = -1;
       };
       user = config.ironman.user.name;
     };
     sops.secrets.syncthing_password = {
-      owner = config.ironman.user.name;
-      sopsFile = "${self.outPath}/.secrets/syncthing.yaml";
       group = config.ironman.user.name;
+      owner = config.ironman.user.name;
+      restartUnits = [ "syncthing.service" ];
+      sopsFile = "${self.outPath}/.secrets/syncthing.yaml";
     };
     topology = {
       id = "soulsync";

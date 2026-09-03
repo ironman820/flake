@@ -11,6 +11,7 @@
         calibre
         distrobox
         docker-compose
+        freefilesync
         freerdp
         mmex
       ];

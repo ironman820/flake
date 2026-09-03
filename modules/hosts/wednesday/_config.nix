@@ -1,6 +1,7 @@
 { config, pkgs, ... }: {
-  environment.systemPackages = [
-    pkgs.googleearth-pro
+  environment.systemPackages = with pkgs; [
+    freefilesync
+    googleearth-pro
   ];
   hardware.facter.reportPath = ./facter.json;
   ironman = {

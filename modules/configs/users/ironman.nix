@@ -38,6 +38,7 @@
             description = "Is this system a netbook";
             type = bool;
           };
+          sync = mkEnableOption "Enable syncthing modules";
           terminal = mkOption {
             default = pkgs.ghostty;
             description = "Default terminal emulator to open with launchers";
@@ -118,7 +119,12 @@
       }:
       let
         inherit (lib) mkIf;
-        inherit (osConfig.ironman) laptop netbook workWorkstation;
+        inherit (osConfig.ironman)
+          laptop
+          netbook
+          sync
+          workWorkstation
+          ;
       in
       {
         imports = [
@@ -131,7 +137,6 @@
               flatpak
               ghostty
               plasma
-              syncthing
               yubikey
             ])
           else
@@ -143,10 +148,17 @@
               extraGuiApps
               flatpak
               ghostty
-              syncthing
               xfce
               yubikey
             ])
+          else
+            [ ]
+        )
+        ++ (
+          if sync then
+            [
+              self.homeModules.syncthing
+            ]
           else
             [ ]
         );

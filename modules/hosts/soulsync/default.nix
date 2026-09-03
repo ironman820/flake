@@ -10,6 +10,7 @@
       proxmox
       server
       soulsync
+      syncthing
     ];
   };
 }

@@ -13,6 +13,7 @@
       personal = true;
       work = true;
     };
+    sync = true;
     syncthing = {
       devices = {
         friday = {

@@ -18,6 +18,7 @@
       ironman = {
         network-profiles.work = true;
         shares.personal = true;
+        sync = true;
         syncthing = {
           cert = config.sops.secrets.syncthing-friday-cert.path;
           key = config.sops.secrets.syncthing-friday-key.path;

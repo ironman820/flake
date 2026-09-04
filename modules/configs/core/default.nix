@@ -49,6 +49,7 @@
           qrencode
           rclone
           ripgrep
+          steam-run
           unrar
           unzip
           wget

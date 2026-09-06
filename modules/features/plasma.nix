@@ -23,6 +23,7 @@
         services = {
           displayManager.plasma-login-manager.enable = !config.services.displayManager.sddm.enable;
           desktopManager.plasma6.enable = true;
+          xserver.enable = true;
         };
       }
     );

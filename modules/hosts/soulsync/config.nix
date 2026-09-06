@@ -31,10 +31,6 @@
             "wednesday"
           ];
           id = "6znxz-uhdps";
-          ignorePatterns = [
-            "!**/*.mp3"
-            "**/*"
-          ];
           label = "music";
           type = "sendonly";
         };

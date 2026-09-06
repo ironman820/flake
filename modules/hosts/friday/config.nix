@@ -189,9 +189,12 @@
       };
       networking.hostName = "friday";
       nix.settings.cores = 5;
-      programs.steam = {
-        enable = true;
-        protontricks.enable = true;
+      programs = {
+        hopmatrix.enable = true;
+        steam = {
+          enable = true;
+          protontricks.enable = true;
+        };
       };
       sops.secrets =
         let

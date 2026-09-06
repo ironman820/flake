@@ -1,18 +1,44 @@
 {
-  inputs,
   moduleWithSystem,
-  self,
   ...
 }:
 {
+  flake.nixosModules.hopmatrix = moduleWithSystem (
+    perSystem@{ self', ... }:
+    { config, lib, ... }:
+    let
+      inherit (lib) mkEnableOption mkIf mkPackageOption;
+    in
+    {
+      options.programs.hopmatrix = {
+        enable = mkEnableOption "Install hopmatrix";
+        package = mkPackageOption self'.packages "hopmatrix" { };
+      };
+      config =
+        let
+          cfg = config.programs.hopmatrix;
+        in
+        mkIf cfg.enable {
+          environment.systemPackages = [
+            cfg.package
+          ];
+          security.wrappers.HopMatrix = {
+            owner = "root";
+            group = "pcap";
+            capabilities = "cap_net_raw+p";
+            source = "${cfg.package}/bin/HopMatrix-linux-x64";
+          };
+          users.users.${config.ironman.user.name}.extraGroups = [
+            "pcap"
+          ];
+        };
+    }
+  );
   perSystem =
     {
-      # config,
-      # inputs',
       lib,
       pkgs,
       self',
-      # system,
       ...
     }:
     {

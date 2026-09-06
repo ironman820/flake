@@ -17,6 +17,7 @@
           ghostty
           gpg
           guiApps
+          hopmatrix
           networkManager
           networkProfiles
           plasma
@@ -41,7 +42,6 @@
           wireguard-tools
         ])
         ++ (with self'.packages; [
-          hopmatrix
           idracclient
         ]);
       hardware.bluetooth.enable = true;

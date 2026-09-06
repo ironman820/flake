@@ -117,7 +117,6 @@
                 id = "6znxz-uhdps";
                 devices = [
                   "soulsync"
-                  "wednesday"
                 ];
                 label = "Music";
                 type = "receiveonly";

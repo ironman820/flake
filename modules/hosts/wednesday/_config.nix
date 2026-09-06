@@ -79,7 +79,6 @@
           "/home/${name}/Music" = {
             id = "6znxz-uhdps";
             devices = [
-              "friday"
               "soulsync"
             ];
             label = "Music";

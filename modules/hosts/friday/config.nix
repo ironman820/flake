@@ -11,6 +11,7 @@
         calibre
         distrobox
         docker-compose
+        easyaudiosync
         freefilesync
         freerdp
         mmex
@@ -119,6 +120,7 @@
                   "wednesday"
                 ];
                 label = "Music";
+                type = "receiveonly";
               };
               "/home/${name}/Notes" = {
                 id = "q6twd-r4s4f";
@@ -190,7 +192,7 @@
       networking.hostName = "friday";
       nix.settings.cores = 5;
       programs = {
-        hopmatrix.enable = true;
+        # hopmatrix.enable = true;
         steam = {
           enable = true;
           protontricks.enable = true;

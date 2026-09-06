@@ -17,7 +17,7 @@
           ghostty
           gpg
           guiApps
-          hopmatrix
+          # hopmatrix
           networkManager
           networkProfiles
           plasma

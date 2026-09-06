@@ -24,13 +24,10 @@
           ];
           security.wrappers.HopMatrix = {
             owner = "root";
-            group = "pcap";
+            group = "root";
             capabilities = "cap_net_raw+p";
-            source = "${cfg.package}/bin/HopMatrix-linux-x64";
+            source = "${self'.packages.hopmatrix-unwrapped}/bin/HopMatrix-linux-x64";
           };
-          users.users.${config.ironman.user.name}.extraGroups = [
-            "pcap"
-          ];
         };
     }
   );
@@ -46,34 +43,35 @@
         meta.description = "";
         program = self'.packages.hopmatrix;
       };
-      packages.hopmatrix =
-        let
-          libPath = lib.makeLibraryPath (
-            with pkgs;
-            [
-              fontconfig
-              icu
-              libice
-              libsm
-              libx11
-              zlib
-            ]
-          );
-          hopmatrix = pkgs.writeShellScript "hopmatrix" ''
-            export LD_LIBRARY_PATH="${libPath}:$LD_LIBRARY_PATH"
-            export PATH="${pkgs.nmap}/bin:$PATH"
-            exec -a "$0" ./HopMatrix-linux-x64 "$@"
-          '';
-        in
-        pkgs.stdenv.mkDerivation {
-          pname = "hopmatrix";
+      packages = {
+        # hopmatrix =
+        #   let
+        #     libPath = lib.makeLibraryPath (
+        #       with pkgs;
+        #       [
+        #         fontconfig
+        #         icu
+        #         libice
+        #         libsm
+        #         libx11
+        #         zlib
+        #       ]
+        #     );
+        #   in
+        #   pkgs.writeShellScriptBin "hopmatrix" ''
+        #     export LD_LIBRARY_PATH="${libPath}:$LD_LIBRARY_PATH"
+        #     export PATH="${pkgs.nmap}/bin:$PATH"
+        #     exec -a "$0" ${lib.getExe self'.packages.hopmatrix-unwrapped} "$@"
+        #   '';
+        hopmatrix = pkgs.stdenv.mkDerivation {
+          pname = "hopmatrix-unwrapped";
           version = "2026.09.05";
           src = builtins.fetchurl {
             url = "https://download.redeyenetworks.com/hopmatrix/releases/latest/HopMatrix-linux-x64";
-            sha256 = "0j8wyr3savs8j35kzhxlwimbrd3aibqkqw7cs62cn7pzcrbpj431";
+            sha256 = "0y7xx9s8w6m6vhijmxlcn35p11dc2nirdjvfmq0wy91fzqh034xp";
           };
 
-          sourceRoot = ".";
+          # sourceRoot = ".";
           dontUnpack = true;
           dontConfigure = true;
           dontBuild = true;
@@ -81,15 +79,33 @@
           installPhase = ''
             runHook preInstall
             mkdir -p $out/bin
-            cp $src $out/bin/HopMatrix-linux-x64
-            chmod +x $out/bin/HopMatrix-linux-x64
-            cp ${hopmatrix} $out/bin/hopmatrix
+            cp $src $out/bin/hopmatrix
+            chmod +x $out/bin/hopmatrix
             runHook postInstall
           '';
+
+          preFixup =
+            let
+              libPath = lib.makeLibraryPath (with pkgs; [
+                fontconfig
+                icu
+                libice
+                libsm
+                libx11
+                zlib
+                stdenv.cc.cc.lib
+              ]);
+            in ''
+              patchelf \
+                --set-interpreter "$(cat $NIX_CC/nix-support/dynamic-linker)" \
+                --set-rpath "${libPath}" \
+                $out/bin/hopmatrix
+            '';
 
           meta = {
             mainProgram = "hopmatrix";
           };
         };
+      };
     };
 }

@@ -27,19 +27,23 @@
           yubikey
         ]
       );
-      environment.systemPackages = with pkgs; [
-        caligula
-        deploy-rs
-        fetch
-        ffmpeg
-        freerdp
-        graphicsmagick
-        gns3-gui
-        hplip
-        self'.packages.idracclient
-        poppler-utils
-        wireguard-tools
-      ];
+      environment.systemPackages =
+        (with pkgs; [
+          caligula
+          deploy-rs
+          fetch
+          ffmpeg
+          freerdp
+          graphicsmagick
+          gns3-gui
+          hplip
+          poppler-utils
+          wireguard-tools
+        ])
+        ++ (with self'.packages; [
+          hopmatrix
+          idracclient
+        ]);
       hardware.bluetooth.enable = true;
       ironman = {
         extraGui = true;

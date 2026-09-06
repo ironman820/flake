@@ -38,6 +38,7 @@
           inetutils
           jq
           fastfetch
+          nix-ld
           nix-output-monitor
           nixos-anywhere
           nodejs

@@ -35,7 +35,7 @@
             backend = "docker";
             # Containers
             containers."droppedneedle" = {
-              image = "ghcr.io/habirabbu/droppedneedle:latest";
+              image = "droppedneedle/droppedneedle:latest";
               environment = {
                 "PGID" = "1000";
                 "PORT" = "8688";
@@ -60,7 +60,7 @@
             entryPoints = "https";
             middlewares = "secured";
             rule = "Host(`droppedneedle.home.niceastman.com`)";
-            service = "slsk";
+            service = "droppedneedle";
             tls = { };
           };
           services.droppedneedle.loadBalancer = {

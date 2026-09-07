@@ -13,6 +13,14 @@ in
       };
       sshUser = "ironman";
     };
+    droppedneedle = {
+      hostname = "droppedneedle";
+      profiles.system = {
+        user = "root";
+        path = activate.nixos nxc.droppedneedle;
+      };
+      sshUser = "ironman";
+    };
     files = {
       hostname = "files.home";
       profiles.system = {

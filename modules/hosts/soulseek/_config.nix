@@ -16,7 +16,7 @@
       self = {
         interfaces.eth0 = {
           addresses = [
-            "192.168.248.10"
+            "192.168.248.125"
           ];
           network = "home";
           physicalConnections = [

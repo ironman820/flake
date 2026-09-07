@@ -111,6 +111,11 @@
               hostname = "dns2.royell.org";
               user = "root";
             };
+            "droppedneedle" = {
+              hostname = "192.168.248.126";
+              user = "ironman";
+            }
+            // deployIdentity;
             "er1" = {
               hostname = "162.216.110.104";
               user = "royell";

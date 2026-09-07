@@ -10,7 +10,6 @@
       proxmox
       server
       slskd
-      traefik
     ];
   };
 }

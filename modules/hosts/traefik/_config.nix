@@ -1,5 +1,6 @@
 { config, ... }: {
   ironman = {
+    droppedneedle.ip = "192.168.248.126";
     traefik.enable = true;
     slsk.ip = "192.168.248.125";
   };

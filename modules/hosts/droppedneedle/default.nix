@@ -4,14 +4,12 @@
   ...
 }:
 {
-  flake.nixosConfigurations.traefik = inputs.nixpkgs.lib.nixosSystem {
+  flake.nixosConfigurations.NAME = inputs.nixpkgs.lib.nixosSystem {
     modules = with self.nixosModules; [
       ./_config.nix
       droppedneedle
       proxmox
       server
-      slskd
-      traefik
     ];
   };
 }

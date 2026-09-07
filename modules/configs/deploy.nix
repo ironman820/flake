@@ -13,14 +13,6 @@ in
       };
       sshUser = "ironman";
     };
-    droppedneedle = {
-      hostname = "droppedneedle";
-      profiles.system = {
-        user = "root";
-        path = activate.nixos nxc.droppedneedle;
-      };
-      sshUser = "ironman";
-    };
     files = {
       hostname = "files.home";
       profiles.system = {
@@ -174,14 +166,6 @@ in
       profiles.system = {
         user = "root";
         path = activate.nixos nxc.soulseek;
-      };
-      sshUser = "ironman";
-    };
-    soulsync = {
-      hostname = "soulsync.home";
-      profiles.system = {
-        user = "root";
-        path = activate.nixos nxc.soulsync;
       };
       sshUser = "ironman";
     };

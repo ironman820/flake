@@ -167,7 +167,7 @@ in
         user = "root";
         path = activate.nixos nxc.soulseek;
       };
-      sshUser = "root";
+      sshUser = "ironman";
     };
     soulsync = {
       hostname = "soulsync.home";

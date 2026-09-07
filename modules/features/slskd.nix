@@ -87,7 +87,7 @@
         };
         sops.secrets.slskd_env = {
           sopsFile = "${self.outPath}/.secrets/soulseek.yaml";
-          group = "docker";
+          group = cfg.user.name;
         };
       };
   };

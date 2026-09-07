@@ -9,6 +9,8 @@
       traefikHomeConfig
       proxmox
       server
+      slskd
+      traefik
     ];
   };
 }

@@ -68,7 +68,7 @@
           version = "2026.09.05";
           src = builtins.fetchurl {
             url = "https://download.redeyenetworks.com/hopmatrix/releases/latest/HopMatrix-linux-x64";
-            sha256 = "0y7xx9s8w6m6vhijmxlcn35p11dc2nirdjvfmq0wy91fzqh034xp";
+            sha256 = "1d930c7zpr4xgffad63p43wmqkfqja36bvf5nhzxjhi0vavxd3kp";
           };
 
           # sourceRoot = ".";

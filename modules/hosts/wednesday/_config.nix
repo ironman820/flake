@@ -85,6 +85,7 @@
               "storage"
             ];
             label = "Music";
+            type = "receiveonly";
           };
           "/home/${name}/Notes" = {
             id = "q6twd-r4s4f";

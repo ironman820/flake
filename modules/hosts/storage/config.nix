@@ -38,7 +38,6 @@
         cert = config.sops.secrets.syncthing_cert.path;
         dataDir = "/home/${config.ironman.user.name}";
         key = config.sops.secrets.syncthing_key.path;
-        relay.enable = true;
         group = config.ironman.user.name;
         guiAddress = "0.0.0.0:8384";
         guiPasswordFile = config.sops.secrets.syncthing_password.path;

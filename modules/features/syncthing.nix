@@ -58,6 +58,7 @@
               };
               urAccepted = -1;
             };
+            relay.enable = true;
           };
         };
       };

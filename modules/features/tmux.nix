@@ -2,12 +2,12 @@
   flake.homeModules.tmux = { osConfig, pkgs, ... }: {
     home.shellAliases.ts = "tmux new-session -A -s ${osConfig.ironman.user.name} && exit;";
     programs = {
-      bash.initExtra = ''
-        if [ $DISPLAY ]; then
-          [[ $- != *i* ]] && return
-          [ -z "''${TMUX}" ] && { tmux new-session -A -s ${osConfig.ironman.user.name} && exit; }
-        fi
-      '';
+      # bash.initExtra = ''
+      #   if [ $DISPLAY ]; then
+      #     [[ $- != *i* ]] && return
+      #     [ -z "''${TMUX}" ] && { tmux new-session -A -s ${osConfig.ironman.user.name} && exit; }
+      #   fi
+      # '';
       fzf = {
         enable = true;
         enableBashIntegration = true;

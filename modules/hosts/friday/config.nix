@@ -144,6 +144,13 @@
                   };
                 };
               };
+              "/home/${name}/player-sync" = {
+                id = "3gxrk-yv2vv";
+                devices = [
+                  "wednesday"
+                ];
+                label = "Player Sync";
+              };
               "/home/${name}/Work/Documents" = {
                 id = "kuriw-survq";
                 devices = [

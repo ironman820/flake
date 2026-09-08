@@ -108,6 +108,13 @@
               };
             };
           };
+          "/home/${name}/player-sync" = {
+            id = "3gxrk-yv2vv";
+            devices = [
+              "friday"
+            ];
+            label = "Player Sync";
+          };
           "/home/${name}/Wallpapers" = {
             id = "gtwyq-tfzfb";
             devices = [

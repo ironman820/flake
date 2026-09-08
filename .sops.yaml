@@ -3,6 +3,7 @@ keys:
   - &royell age1et3rsqjzt2z70vt0p8p4jcm47ms8e22um57vj5nvfpss58zwlcfsmcddrt
   - &server_dns age1mcssf7calvchkh8l3kv6mjd69c46znaanlmd5dqf2e3guxv0fq6s8wm27z
   - &server_calibre age1ahfs26muknuhxeavht922e5kw009ewwjyegcrglatxn7n8rc5c2qlquffg
+  - &server_flaresolverr age1ecem282xme7smdursedzsn9eje7sxf84gxfnqz5l6d29guv8sp3qj2tkep
   - &server_gns3 age1z7p0u2ekdek8xy4zlsmczqp3xf68amrzj0nh3yx9chc6zhmxsufspdzpqe
   - &server_pve2 age1tj460ln353gy48end4dl0efqf28z2ntwxu5we7qkauw472dax9xsvmwmhq
   - &server_soulseek age155z8naqx5e5lvj209g8u5aa3ml60qdt8xxnmum959lcksnc6aqnszxh8gh
@@ -21,6 +22,7 @@ creation_rules:
         - *royell
         - *server_dns
         - *server_calibre
+        - *server_flaresolverr
         - *server_gns3
         - *server_pve2
         - *server_soulseek

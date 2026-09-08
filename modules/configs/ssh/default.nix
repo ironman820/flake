@@ -119,6 +119,10 @@
               hostname = "162.216.110.8";
               user = "royell";
             };
+            flaresolverr = {
+              hostname = "192.168.248.119";
+              user = "ironman";
+            } // deployIdentity;
             "meet" = {
               hostname = "meet.royell.org";
               user = "royell";

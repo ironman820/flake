@@ -21,6 +21,14 @@ in
       };
       sshUser = "ironman";
     };
+    flaresolverr = {
+      hostname = "flaresolverr";
+      profiles.system = {
+        user = "root";
+        path = activate.nixos nxc.flaresolverr;
+      };
+      sshUser = "ironman";
+    };
     gns3-work = {
       hostname = "gns3-work";
       profiles.system = {

@@ -52,14 +52,24 @@
               name = "Wednesday";
             };
           };
-          folders."/shares/data/music" = {
-            devices = [
-              "friday"
-              "wednesday"
-            ];
-            id = "6znxz-uhdps";
-            label = "music";
-            type = "sendonly";
+          folders = {
+            "/shares/data/music" = {
+              devices = [
+                "friday"
+                "wednesday"
+              ];
+              id = "6znxz-uhdps";
+              label = "music";
+              type = "sendonly";
+            };
+            "/shares/data/player-sync" = {
+              id = "3gxrk-yv2vv";
+              devices = [
+                "friday"
+                "wednesday"
+              ];
+              label = "Player Sync";
+            };
           };
           gui = {
             insecureAdminAccess = true;

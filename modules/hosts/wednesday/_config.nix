@@ -51,6 +51,9 @@
               "nas"
               "work-desktop"
             ];
+            ignorePatterns = [
+              "(?d)99-Archives/**"
+            ];
             label = "Downloads";
             versioning = {
               type = "simple";
@@ -112,6 +115,7 @@
             id = "3gxrk-yv2vv";
             devices = [
               "friday"
+              "storage"
             ];
             label = "Player Sync";
           };

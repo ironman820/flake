@@ -147,6 +147,7 @@
               "/home/${name}/player-sync" = {
                 id = "3gxrk-yv2vv";
                 devices = [
+                  "storage"
                   "wednesday"
                 ];
                 label = "Player Sync";

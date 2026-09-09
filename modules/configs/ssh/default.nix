@@ -323,6 +323,11 @@
               hostname = "192.168.253.5";
               user = "ironman";
             };
+            navidrome = {
+              hostname = "192.168.248.126";
+              user = "ironman";
+            }
+            // deployIdentity;
             "netbox" = {
               hostname = "netbox.royell.org";
               user = "root";

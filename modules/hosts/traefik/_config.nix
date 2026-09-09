@@ -1,7 +1,8 @@
 { config, ... }: {
   ironman = {
-    traefik.enable = true;
+    navidrome.ip = "192.168.248.126";
     slsk.ip = "192.168.248.125";
+    traefik.enable = true;
   };
   hardware.facter.reportPath = ./facter.json;
   networking = {

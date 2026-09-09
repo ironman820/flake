@@ -17,7 +17,7 @@
           ghostty
           gpg
           guiApps
-          # hopmatrix
+          hopmatrix
           networkManager
           networkProfiles
           plasma
@@ -58,7 +58,10 @@
         optimise.automatic = true;
         settings.auto-optimise-store = true;
       };
-      programs.system-config-printer.enable = true;
+      programs = {
+        hopmatrix.enable = true;
+        system-config-printer.enable = true;
+      };
       services = {
         avahi.enable = true;
         logind.settings.Login = {

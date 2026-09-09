@@ -22,11 +22,19 @@
           environment.systemPackages = [
             cfg.package
           ];
-          security.wrappers.HopMatrix = {
-            owner = "root";
-            group = "root";
-            capabilities = "cap_net_raw+p";
-            source = "${self'.packages.hopmatrix-unwrapped}/bin/HopMatrix-linux-x64";
+          security.wrappers = {
+            hopmatrix = {
+              owner = "root";
+              group = "wheel";
+              capabilities = "cap_net_raw+eip";
+              source = "${self'.packages.hopmatrix}/bin/hopmatrix";
+            };
+            HopMatrix-linux-x64 = {
+              owner = "root";
+              group = "wheel";
+              capabilities = "cap_net_raw+eip";
+              source = "${self'.packages.hopmatrix-unwrapped}/bin/HopMatrix-linux-x64";
+            };
           };
         };
     }
@@ -44,26 +52,26 @@
         program = self'.packages.hopmatrix;
       };
       packages = {
-        # hopmatrix =
-        #   let
-        #     libPath = lib.makeLibraryPath (
-        #       with pkgs;
-        #       [
-        #         fontconfig
-        #         icu
-        #         libice
-        #         libsm
-        #         libx11
-        #         zlib
-        #       ]
-        #     );
-        #   in
-        #   pkgs.writeShellScriptBin "hopmatrix" ''
-        #     export LD_LIBRARY_PATH="${libPath}:$LD_LIBRARY_PATH"
-        #     export PATH="${pkgs.nmap}/bin:$PATH"
-        #     exec -a "$0" ${lib.getExe self'.packages.hopmatrix-unwrapped} "$@"
-        #   '';
-        hopmatrix = pkgs.stdenv.mkDerivation {
+        hopmatrix =
+          let
+            libPath = lib.makeLibraryPath (
+              with pkgs;
+              [
+                fontconfig
+                icu
+                libice
+                libsm
+                libx11
+                zlib
+              ]
+            );
+          in
+          pkgs.writeShellScriptBin "hopmatrix" ''
+            export LD_LIBRARY_PATH="${libPath}:$LD_LIBRARY_PATH"
+            export PATH="${pkgs.nmap}/bin:$PATH"
+            exec -a "$0" ${lib.getExe self'.packages.hopmatrix-unwrapped} "$@"
+          '';
+        hopmatrix-unwrapped = pkgs.stdenv.mkDerivation {
           pname = "hopmatrix-unwrapped";
           version = "2026.09.05";
           src = builtins.fetchurl {
@@ -72,38 +80,42 @@
           };
 
           # sourceRoot = ".";
-          dontUnpack = true;
-          dontConfigure = true;
-          dontBuild = true;
+          # dontUnpack = true;
+          # dontConfigure = true;
+          # dontBuild = true;
+          # dontPatch = true;
+          phases = [
+            "installPhase"
+          ];
 
           installPhase = ''
             runHook preInstall
             mkdir -p $out/bin
-            cp $src $out/bin/hopmatrix
-            chmod +x $out/bin/hopmatrix
+            cp $src $out/bin/HopMatrix-linux-x64
+            chmod +x $out/bin/HopMatrix-linux-x64
             runHook postInstall
           '';
 
-          preFixup =
-            let
-              libPath = lib.makeLibraryPath (with pkgs; [
-                fontconfig
-                icu
-                libice
-                libsm
-                libx11
-                zlib
-                stdenv.cc.cc.lib
-              ]);
-            in ''
-              patchelf \
-                --set-interpreter "$(cat $NIX_CC/nix-support/dynamic-linker)" \
-                --set-rpath "${libPath}" \
-                $out/bin/hopmatrix
-            '';
+          # preFixup =
+          #   let
+          #     libPath = lib.makeLibraryPath (with pkgs; [
+          #       fontconfig
+          #       icu
+          #       libice
+          #       libsm
+          #       libx11
+          #       zlib
+          #       stdenv.cc.cc.lib
+          #     ]);
+          #   in ''
+          #     patchelf \
+          #       --set-interpreter "$(cat $NIX_CC/nix-support/dynamic-linker)" \
+          #       --set-rpath "${libPath}" \
+          #       $out/bin/hopmatrix
+          #   '';
 
           meta = {
-            mainProgram = "hopmatrix";
+            mainProgram = "HopMatrix-linux-x64";
           };
         };
       };

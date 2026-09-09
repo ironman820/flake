@@ -1,13 +1,10 @@
 {
-  inputs,
-  moduleWithSystem,
   self,
   ...
 }:
 {
   flake = {
-    nixosModules.navidrome = moduleWithSystem (
-      perSystem@{ ... }:
+    nixosModules.navidrome =
       { config, lib, ... }:
       let
         inherit (lib) mkEnableOption mkOption types;
@@ -43,7 +40,7 @@
               routers.navidrome = {
                 entryPoints = "https";
                 middlewares = "secured";
-                rule = "Host(`navi.home.niceastman.com`)";
+                rule = "Host(`mymusic.niceastman.com`)";
                 service = "navidrome";
                 tls = { };
               };
@@ -64,7 +61,6 @@
             group = cfg.user.name;
           };
         };
-      }
-    );
+      };
   };
 }

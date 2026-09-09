@@ -26,7 +26,7 @@
         config = {
           services = {
             navidrome = {
-              inherit (cfg) enable;
+              inherit (navi) enable;
               environmentFile = config.sops.secrets.navidrome_env.path;
               group = cfg.user.name;
               settings = {

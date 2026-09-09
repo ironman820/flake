@@ -73,6 +73,14 @@ in
       };
       sshUser = "ironman";
     };
+    navidrome = {
+      hostname = "navidrome";
+      profiles.system = {
+        user = "root";
+        path = activate.nixos nxc.navidrome;
+      };
+      sshUser = "ironman";
+    };
     netbox-work = {
       hostname = "netbox.desk";
       profiles.system = {

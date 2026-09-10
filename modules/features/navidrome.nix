@@ -39,7 +39,7 @@
             traefik.dynamicConfigOptions.http = {
               routers.navidrome = {
                 entryPoints = "https";
-                middlewares = "secured";
+                middlewares = "default-headers";
                 rule = "Host(`mymusic.niceastman.com`)";
                 service = "navidrome";
                 tls = { };

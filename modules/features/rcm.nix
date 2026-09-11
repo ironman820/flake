@@ -13,6 +13,18 @@
       ...
     }:
     let
+      phpPackage = phpPkgs.php74.buildEnv {
+        extensions =
+          {
+            all,
+            enabled,
+          }:
+          enabled
+          ++ (with all; [
+            snmp
+            sqlsrv
+          ]);
+      };
       phpPkgs = import inputs.nixpkgs-php {
         inherit system;
         config.allowUnfree = true;
@@ -23,14 +35,7 @@
     {
       environment = {
         systemPackages = with phpPkgs; [
-          (php74.buildEnv {
-            extensions =
-              {
-                all,
-                enabled,
-              }:
-              enabled ++ (with all; [ sqlsrv ]);
-          })
+          phpPackage
           pkgs.phpactor
           pkgs.pretty-php
           unixODBC
@@ -74,7 +79,7 @@
         };
         phpfpm = {
           pools.rcm = {
-            inherit user;
+            inherit phpPackage user;
             phpOptions = ''
               display_errors = On
               error_reporting = E_ALL
@@ -85,14 +90,6 @@
               register_global = On
               short_open_tag = Off
             '';
-            phpPackage = phpPkgs.php74.buildEnv {
-              extensions =
-                {
-                  all,
-                  enabled,
-                }:
-                enabled ++ (with all; [ sqlsrv ]);
-            };
             settings = {
               pm = "dynamic";
               "listen.owner" = user;

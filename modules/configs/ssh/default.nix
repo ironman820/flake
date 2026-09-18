@@ -441,6 +441,11 @@
               hostname = "rcm3.royell.org";
               user = "royell";
             };
+            "rdp.desk" = {
+              hostname = "192.168.20.103";
+              user = "ironman";
+            }
+            // deployIdentity;
             "share" = {
               hostname = "share.royell.org";
               user = "royell";

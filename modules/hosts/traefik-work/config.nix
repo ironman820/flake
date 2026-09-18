@@ -1,6 +1,7 @@
 { self, ... }: {
   flake.nixosModules.traefikWorkConfig = { config, ... }: {
     hardware.facter.reportPath = ./facter.json;
+    ironman.guacamole.ip = "192.168.20.103";
     networking.hostName = "traefik-work";
     services.traefik = {
       enable = true;

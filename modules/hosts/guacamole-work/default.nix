@@ -4,7 +4,7 @@
   ...
 }:
 {
-  flake.nixosConfigurations.guacamole = inputs.nixpkgs.lib.nixosSystem {
+  flake.nixosConfigurations.guacamole-work = inputs.nixpkgs.lib.nixosSystem {
     modules = with self.nixosModules; [
       ./_config.nix
       guacamole

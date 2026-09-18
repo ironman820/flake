@@ -169,6 +169,14 @@ in
       };
       sshUser = "ironman";
     };
+    rdp-work = {
+      hostname = "rdp.desk";
+      profiles.system = {
+        user = "root";
+        path = activate.nixos nxc.guacamole-work;
+      };
+      sshUser = "ironman";
+    };
     sonarqube = {
       hostname = "sonarqube";
       profiles.system = {

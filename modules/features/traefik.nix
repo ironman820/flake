@@ -17,12 +17,12 @@
           dynamicConfigOptions = {
             http = {
               middlewares = {
-                # guac-prefix.addprefix.prefix = "/guacamole";
-                # guacamole.chain.middlewares = [
-                #   "guac-prefix"
-                #   "private-whitelist"
-                #   "default-headers"
-                # ];
+                guac-prefix.addprefix.prefix = "/guacamole";
+                guacamole.chain.middlewares = [
+                  "guac-prefix"
+                  "private-whitelist"
+                  "default-headers"
+                ];
                 webauthheader.plugin.htransformation.Rules = [
                   {
                     Name = "Auth header rename";

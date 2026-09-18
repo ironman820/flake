@@ -14,11 +14,23 @@
           description = "Guacamole server's IP address";
           type = types.nullOr types.str;
         };
+        userMappingXml = mkOption {
+          type = types.nullOr types.path;
+          default = null;
+          example = "/path/to/user-mapping.xml";
+          description = ''
+            Configuration file that correspond to `user-mapping.xml`.
+          '';
+        };
       };
       config = {
         services = {
           guacamole-client = {
-            inherit (guac) enable;
+            inherit (guac) enable userMappingXml;
+            settings = {
+              allowed-languages = "en";
+              case-sensitivity = "disabled";
+            };
           };
           guacamole-server = {
             inherit (guac) enable;
@@ -26,7 +38,7 @@
           traefik.dynamicConfigOptions.http = {
             routers.guacamole = {
               entryPoints = "https";
-              middlewares = "secured";
+              middlewares = "guacamole";
               rule = "Host(`rdp.desk.niceastman.com`)";
               service = "guacamole";
               tls = { };
@@ -35,7 +47,7 @@
               passHostHeader = true;
               servers = [
                 {
-                  url = "http://${guac.ip}";
+                  url = "http://${guac.ip}:8080";
                 }
               ];
             };

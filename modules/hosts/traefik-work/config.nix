@@ -1,78 +1,15 @@
 { self, ... }: {
   flake.nixosModules.traefikWorkConfig = { config, ... }: {
     hardware.facter.reportPath = ./facter.json;
-    ironman.guacamole.ip = "192.168.20.103";
+    ironman = {
+      guacamole.ip = "192.168.20.103";
+      traefik.enable = true;
+    };
     networking.hostName = "traefik-work";
     services.traefik = {
       enable = true;
       dynamicConfigOptions = {
         http = {
-          middlewares = {
-            authentik.forwardAuth = {
-              address = "http://192.168.248.38:9000/outpost.goauthentik.io/auth/traefik";
-              trustForwardHeader = true;
-              authResponseHeaders = [
-                "X-authentik-username"
-                "X-authentik-groups"
-                "X-authentik-entitlements"
-                "X-authentik-email"
-                "X-authentik-name"
-                "X-authentik-uid"
-                "X-authentik-jwt"
-                "X-authentik-meta-jwks"
-                "X-authentik-meta-outpost"
-                "X-authentik-meta-provider"
-                "X-authentik-meta-app"
-                "X-authentik-meta-version"
-                "authorization"
-              ];
-            };
-            guac-prefix.addprefix.prefix = "/guacamole";
-            guacamole.chain.middlewares = [
-              "guac-prefix"
-              "private-whitelist"
-              "default-headers"
-            ];
-            webauthheader.plugin.htransformation.Rules = [
-              {
-                Name = "Auth header rename";
-                Header = "Remote-User";
-                Value = "X-WebAuth-User";
-                Type = "Rename";
-              }
-            ];
-            default-headers.headers = {
-              browserXssFilter = true;
-              contentTypeNosniff = true;
-              customFrameOptionsValue = "SAMEORIGIN";
-              forceSTSHeader = true;
-              frameDeny = true;
-              stsIncludeSubdomains = true;
-              stsPreload = true;
-              stsSeconds = 15552000;
-              customRequestHeaders.X-Forwarded-Proto = "https";
-            };
-            large-files.buffering.maxRequestBodyBytes = 53687091200;
-            private-whitelist.ipAllowList.sourceRange = [
-              "192.168.0.0/16"
-              "172.16.0.0/12"
-            ];
-            proxmox.chain.middlewares = [
-              "private-whitelist"
-              "default-headers"
-              "large-files"
-            ];
-            secured.chain.middlewares = [
-              "private-whitelist"
-              "default-headers"
-            ];
-            notifiarr.chain.middlewares = [
-              "private-whitelist"
-              "default-headers"
-              "webauthheader"
-            ];
-            sslheader.headers.customRequestHeaders.X-Forwarded-Proto = "https";
-          };
           routers = {
             dns = {
               entryPoints = "https";
@@ -122,22 +59,6 @@
               rule = "Host(`rcm2.desk.niceastman.com`)";
               service = "rcm2";
               tls = { };
-            };
-            traefik = {
-              entryPoints = "https";
-              middlewares = "secured";
-              rule = "Host(`proxy.desk.niceastman.com`)";
-              service = "api@internal";
-              tls = {
-                certResolver = "cloudflare";
-                domains = [
-                  {
-                    sans = [
-                      "*.desk.niceastman.com"
-                    ];
-                  }
-                ];
-              };
             };
           };
           services = {

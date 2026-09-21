@@ -6,11 +6,21 @@
       userMappingXml = config.sops.secrets.workUserMappingXml.path;
     };
     networking = {
+      defaultGateway = {
+        address = "192.168.20.1";
+        interface = "ens18";
+      };
       hostName = "rdp-work";
-      # nameservers = [
-      #   "208.80.144.50"
-      #   "208.80.144.51"
-      # ];
+      interfaces.ens18.ipv4.addresses = [
+        {
+          address = "192.168.20.103";
+          prefixLength = 23;
+        }
+      ];
+      nameservers = [
+        "192.168.20.2"
+      ];
+      useDHCP = false;
     };
     services.guacamole-client.settings.log-level = "debug";
     sops.secrets.workUserMappingXml = {

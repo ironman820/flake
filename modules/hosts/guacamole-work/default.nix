@@ -6,10 +6,12 @@
 {
   flake.nixosConfigurations.guacamole-work = inputs.nixpkgs.lib.nixosSystem {
     modules = with self.nixosModules; [
-      ./_config.nix
       guacamole
-      proxmox
+      guacamoleWorkConfig
+      networkManager
       server
+      inputs.disko.nixosModules.disko
+      self.diskoConfigurations.guacamoleWork
     ];
   };
 }

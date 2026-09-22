@@ -47,12 +47,24 @@
               id = "C2T72DJ-35SQ4DJ-OTQFZUH-R54J3FK-7K2M46K-RAN5SFU-4Y4ZNIL-FZ64AQQ";
               name = "Friday";
             };
+            nas = {
+              id = "MAJ6SK3-COCJQMB-BUCAUK5-KNIQPBP-2HCZLDM-Y52DUGR-CUQLSUV-ST3B7AQ";
+              name = "nas";
+            };
             wednesday = {
               id = "ICGQ6GR-GFFLBJB-N4AF3AP-IOSLCHN-337F5UX-RW2A35G-UZ3Q2N4-SVWXTQY";
               name = "Wednesday";
             };
           };
           folders = {
+            "/shares/data/downloads/adult" = {
+              devices = [
+                "friday"
+                "nas"
+              ];
+              id = "duytj-tdzw3";
+              label = "adult";
+            };
             "/shares/data/music" = {
               devices = [
                 "friday"

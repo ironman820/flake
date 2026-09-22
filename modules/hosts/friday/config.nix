@@ -46,6 +46,23 @@
                 ];
                 label = "OrcaSlicer";
               };
+              "/home/${name}/Adult" = {
+                id = "duytj-tdzw3";
+                ignorePatterns = [
+                  "(?d)VR/**"
+                  "(?d)keep/**"
+                ];
+                devices = [
+                  "nas"
+                  "storage"
+                ];
+                label = "Adult";
+                minDiskFree = {
+                  unit = "%";
+                  value = 10;
+                };
+                order = "alphabetic";
+              };
               "/home/${name}/Deck Sync" = {
                 id = "oz0sn-2p90q";
                 devices = [

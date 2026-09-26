@@ -26,12 +26,10 @@
           key = config.sops.secrets.syncthing-friday-key.path;
           devices = {
             calibre.id = "J3LVEJP-XUTHFQ2-2W5U22G-JLDNUL2-S3GC4GW-VVQOY7Q-N6SFPJT-REN45AO";
-            wednesday.id = "ICGQ6GR-GFFLBJB-N4AF3AP-IOSLCHN-337F5UX-RW2A35G-UZ3Q2N4-SVWXTQY";
-            storage.id = "CNMVTVS-4PTOXZY-PO6E2SZ-R7UAVMV-4ZOE7KI-VCVGRA7-Z6LRDHJ-PUSCIAZ";
-            steamdeck = {
-              id = "NHY6BAU-WXMQZC2-CZP7P7Z-N5VZQIS-WI5P5L5-R2K2VOL-QYJG4NX-FNH5OA7";
-              name = "SteamDeck";
-            };
+            # steamdeck = {
+            #   id = "NHY6BAU-WXMQZC2-CZP7P7Z-N5VZQIS-WI5P5L5-R2K2VOL-QYJG4NX-FNH5OA7";
+            #   name = "SteamDeck";
+            # };
           };
           folders =
             let
@@ -49,8 +47,8 @@
               "/home/${name}/Adult" = {
                 id = "duytj-tdzw3";
                 ignorePatterns = [
-                  "(?d)VR/**"
-                  "(?d)keep/**"
+                  "(?d)/VR"
+                  "(?d)keep"
                 ];
                 devices = [
                   "nas"
@@ -67,7 +65,7 @@
                 id = "oz0sn-2p90q";
                 devices = [
                   "nas"
-                  "steamdeck"
+                  # "steamdeck"
                 ];
                 label = "Deck Sync";
               };
@@ -164,6 +162,7 @@
               "/home/${name}/player-sync" = {
                 id = "3gxrk-yv2vv";
                 devices = [
+                  "M500_MIKU"
                   "storage"
                   "wednesday"
                 ];

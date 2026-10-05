@@ -1,6 +1,7 @@
 { self, ... }: {
   flake.nixosModules.storageConfig = { config, ... }: {
     hardware.facter.reportPath = ./facter.json;
+    ironman.sync = true;
     networking = {
       hostName = "storage";
       nameservers = [

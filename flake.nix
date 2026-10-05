@@ -81,10 +81,10 @@
       flake = false;
       url = "github:Jayy-Dev/Plasma-Tokyo-Night/plasma-6";
     };
-    snowfall-flake = {
-      url = "github:snowfallorg/flake";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
+    # snowfall-flake = {
+    #   url = "github:snowfallorg/flake";
+    #   inputs.nixpkgs.follows = "nixpkgs";
+    # };
     sops-nix = {
       inputs.nixpkgs.follows = "nixpkgs";
       url = "github:mic92/sops-nix";

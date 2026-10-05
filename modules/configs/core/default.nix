@@ -29,7 +29,7 @@
           dig
           entr
           enum4linux
-          inputs'.snowfall-flake.packages.flake
+          # inputs'.snowfall-flake.packages.flake
           fping
           fzf
           gcc

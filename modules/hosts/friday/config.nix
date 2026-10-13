@@ -75,13 +75,6 @@
                   "nas"
                 ];
                 label = "Documents";
-                versioning = {
-                  type = "simple";
-                  params = {
-                    cleanoutDays = "7";
-                    keep = "10";
-                  };
-                };
               };
               "/home/${name}/Downloads" = {
                 id = "zuqju-kwzbp";
@@ -91,13 +84,6 @@
                   "work-desktop"
                 ];
                 label = "Downloads";
-                versioning = {
-                  type = "simple";
-                  params = {
-                    cleanoutDays = "7";
-                    keep = "10";
-                  };
-                };
               };
               "/home/${name}/Calibre Library" = {
                 id = "eirgv-qg2rc";
@@ -106,13 +92,6 @@
                   "nas"
                 ];
                 label = "Calibre Library";
-                versioning = {
-                  type = "simple";
-                  params = {
-                    cleanoutDays = "7";
-                    keep = "10";
-                  };
-                };
               };
               "/home/${name}/Money" = {
                 id = "wsrp4-mckub";
@@ -120,13 +99,6 @@
                   "nas"
                 ];
                 label = "Money";
-                versioning = {
-                  type = "staggered";
-                  params = {
-                    cleanInterval = "3600";
-                    maxAge = "31536000";
-                  };
-                };
               };
               "/home/${name}/Music" = {
                 id = "6znxz-uhdps";
@@ -151,13 +123,6 @@
                   "nas"
                 ];
                 label = "Pictures";
-                versioning = {
-                  type = "simple";
-                  params = {
-                    cleanoutDays = "7";
-                    keep = "10";
-                  };
-                };
               };
               "/home/${name}/player-sync" = {
                 id = "3gxrk-yv2vv";
@@ -176,13 +141,6 @@
                   "work-desktop"
                 ];
                 label = "Work Documents";
-                versioning = {
-                  type = "simple";
-                  params = {
-                    cleanoutDays = "7";
-                    keep = "10";
-                  };
-                };
               };
               "/home/${name}/Work/Pictures" = {
                 id = "okbn5-ywkrq";
@@ -192,13 +150,6 @@
                   "work-desktop"
                 ];
                 label = "Work Pictures";
-                versioning = {
-                  type = "simple";
-                  params = {
-                    cleanoutDays = "7";
-                    keep = "10";
-                  };
-                };
               };
               "/home/${name}/Wallpapers" = {
                 id = "gtwyq-tfzfb";

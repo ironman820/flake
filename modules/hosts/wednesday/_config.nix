@@ -55,13 +55,6 @@
               "(?d)99-Archives/**"
             ];
             label = "Downloads";
-            versioning = {
-              type = "simple";
-              params = {
-                cleanoutDays = "7";
-                keep = "10";
-              };
-            };
           };
           "/home/${name}/Documents" = {
             id = "kuriw-survq";
@@ -71,13 +64,6 @@
               "work-desktop"
             ];
             label = "Work Documents";
-            versioning = {
-              type = "simple";
-              params = {
-                cleanoutDays = "7";
-                keep = "10";
-              };
-            };
           };
           "/home/${name}/Music" = {
             id = "6znxz-uhdps";
@@ -104,18 +90,12 @@
               "work-desktop"
             ];
             label = "Work Pictures";
-            versioning = {
-              type = "simple";
-              params = {
-                cleanoutDays = "7";
-                keep = "10";
-              };
-            };
           };
           "/home/${name}/player-sync" = {
             id = "3gxrk-yv2vv";
             devices = [
               "friday"
+              "M500_MIKU"
               "storage"
             ];
             label = "Player Sync";

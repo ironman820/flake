@@ -21,6 +21,7 @@
             self'.packages.tokyo-night-icons
           ];
         };
+        programs.kde-pim.enable = false;
         services = {
           displayManager.plasma-login-manager.enable = !config.services.displayManager.sddm.enable;
           desktopManager.plasma6.enable = true;

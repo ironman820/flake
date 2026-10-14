@@ -71,6 +71,7 @@
               "storage"
             ];
             label = "Music";
+            paused = true;
             type = "receiveonly";
           };
           "/home/${name}/Notes" = {
@@ -99,6 +100,7 @@
               "storage"
             ];
             label = "Player Sync";
+            paused = true;
           };
           "/home/${name}/Wallpapers" = {
             id = "gtwyq-tfzfb";

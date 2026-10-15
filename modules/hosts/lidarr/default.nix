@@ -4,7 +4,7 @@
   ...
 }:
 {
-  flake.nixosConfigurations.NAME = inputs.nixpkgs.lib.nixosSystem {
+  flake.nixosConfigurations.lidarr = inputs.nixpkgs.lib.nixosSystem {
     modules = with self.nixosModules; [
       ./_config.nix
       lidarr

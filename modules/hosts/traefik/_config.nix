@@ -1,5 +1,6 @@
 { config, ... }: {
   ironman = {
+    lidarr.ip = "192.168.248.113";
     navidrome.ip = "192.168.248.126";
     slsk.ip = "192.168.248.125";
     traefik.enable = true;
@@ -53,13 +54,6 @@
               middlewares = "default-headers";
               rule = "Host(`mymedia.niceastman.com`)";
               service = "jellyfin";
-              tls = { };
-            };
-            lidarr = {
-              entryPoints = "https";
-              middlewares = "secured";
-              rule = "Host(`lidarr.home.niceastman.com`)";
-              service = "lidarr";
               tls = { };
             };
             nas = {
@@ -208,15 +202,6 @@
               servers = [
                 {
                   url = "http://192.168.248.111:8096";
-                }
-              ];
-              serversTransport = "insecure";
-            };
-            lidarr.loadBalancer = {
-              passHostHeader = true;
-              servers = [
-                {
-                  url = "http://192.168.248.113:8686";
                 }
               ];
               serversTransport = "insecure";

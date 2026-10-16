@@ -1,7 +1,43 @@
 { self, ... }: {
   flake.nixosModules.storageConfig = { config, ... }: {
     hardware.facter.reportPath = ./facter.json;
-    ironman.sync = true;
+    ironman = {
+      sync = true;
+      syncthing = {
+        cert = config.sops.secrets.syncthing_cert.path;
+        folders = {
+          "/shares/data/downloads/adult" = {
+            devices = [
+              "friday"
+              "nas"
+            ];
+            id = "duytj-tdzw3";
+            label = "adult";
+          };
+          "/shares/data/music" = {
+            devices = [
+              "friday"
+              "wednesday"
+            ];
+            id = "6znxz-uhdps";
+            label = "music";
+            type = "sendonly";
+          };
+          "/shares/data/player-sync" = {
+            id = "3gxrk-yv2vv";
+            devices = [
+              "friday"
+              "M500_MIKU"
+              "wednesday"
+            ];
+            label = "Player Sync";
+          };
+        };
+        guiPasswordFile = config.sops.secrets.syncthing_password.path;
+        key = config.sops.secrets.syncthing_key.path;
+        public = true;
+      };
+    };
     networking = {
       hostName = "storage";
       nameservers = [
@@ -34,51 +70,13 @@
         };
       };
       samba-wsdd.enable = true;
-      syncthing = {
-        enable = true;
-        cert = config.sops.secrets.syncthing_cert.path;
-        dataDir = "/home/${config.ironman.user.name}";
-        key = config.sops.secrets.syncthing_key.path;
-        group = config.ironman.user.name;
-        guiAddress = "0.0.0.0:8384";
-        guiPasswordFile = config.sops.secrets.syncthing_password.path;
-        settings = {
-          folders = {
-            "/shares/data/downloads/adult" = {
-              devices = [
-                "friday"
-                "nas"
-              ];
-              id = "duytj-tdzw3";
-              label = "adult";
-            };
-            "/shares/data/music" = {
-              devices = [
-                "friday"
-                "wednesday"
-              ];
-              id = "6znxz-uhdps";
-              label = "music";
-              type = "sendonly";
-            };
-            "/shares/data/player-sync" = {
-              id = "3gxrk-yv2vv";
-              devices = [
-                "friday"
-                "M500_MIKU"
-                "wednesday"
-              ];
-              label = "Player Sync";
-            };
-          };
-          gui = {
-            insecureAdminAccess = true;
-            theme = "black";
-          };
-          options.urAccepted = -1;
-        };
-        user = config.ironman.user.name;
-      };
+      # syncthing = {
+      #   dataDir = "/home/${config.ironman.user.name}";
+      #   group = config.ironman.user.name;
+      #   guiAddress = "0.0.0.0:8384";
+      #   settings.gui.insecureAdminAccess = true;
+      #   user = config.ironman.user.name;
+      # };
     };
     sops.secrets =
       let

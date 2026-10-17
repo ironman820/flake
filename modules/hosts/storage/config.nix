@@ -43,6 +43,12 @@
         guiAddress = "0.0.0.0:8384";
         guiPasswordFile = config.sops.secrets.syncthing_password.path;
         settings = {
+          devices = {
+            friday.id = "C2T72DJ-35SQ4DJ-OTQFZUH-R54J3FK-7K2M46K-RAN5SFU-4Y4ZNIL-FZ64AQQ";
+            M500_MIKU.id = "NXYJYHC-TSITMOQ-KICX3MA-P3Q3NDQ-HVQIYZJ-4C2LRTJ-CCJA357-6357AQ2";
+            nas.id = "MAJ6SK3-COCJQMB-BUCAUK5-KNIQPBP-2HCZLDM-Y52DUGR-CUQLSUV-ST3B7AQ";
+            wednesday.id = "ICGQ6GR-GFFLBJB-N4AF3AP-IOSLCHN-337F5UX-RW2A35G-UZ3Q2N4-SVWXTQY";
+          };
           folders = {
             "/shares/data/downloads/adult" = {
               devices = [

@@ -1,6 +1,6 @@
 { self, ... }:
 {
-  flake.nixosModules.sonobar =
+  flake.nixosModules.sonobarr =
     {
       config,
       lib,

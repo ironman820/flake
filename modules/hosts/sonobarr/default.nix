@@ -4,10 +4,10 @@
   ...
 }:
 {
-  flake.nixosConfigurations.aurral = inputs.nixpkgs.lib.nixosSystem {
+  flake.nixosConfigurations.sonobarr = inputs.nixpkgs.lib.nixosSystem {
     modules = with self.nixosModules; [
       ./_config.nix
-      aurral
+      snonobarr
       proxmox
       server
     ];

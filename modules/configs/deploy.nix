@@ -5,14 +5,6 @@ let
 in
 {
   flake.deploy.nodes = {
-    aurral = {
-      hostname = "aurral";
-      profiles.system = {
-        user = "root";
-        path = activate.nixos nxc.aurral;
-      };
-      sshUser = "ironman";
-    };
     calibre = {
       hostname = "calibre";
       profiles.system = {
@@ -190,6 +182,14 @@ in
       profiles.system = {
         user = "root";
         path = activate.nixos nxc.sonarqube;
+      };
+      sshUser = "ironman";
+    };
+    sonobarr = {
+      hostname = "sonobarr";
+      profiles.system = {
+        user = "root";
+        path = activate.nixos nxc.sonobarr;
       };
       sshUser = "ironman";
     };

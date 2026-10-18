@@ -1,8 +1,8 @@
 {
   hardware.facter.reportPath = ./facter.json;
-  ironman.aurral.enable = true;
+  ironman.sonobarr.enable = true;
   networking = {
-    hostName = "aurral";
+    hostName = "sonobarr";
     nameservers = [
       "192.168.248.2"
     ];

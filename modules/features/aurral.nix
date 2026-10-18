@@ -24,7 +24,10 @@
           services = {
             aurral = {
               inherit (aur) enable;
-              dataDir = "/shares/data/docker/aurral";
+              dataDir = "/data/docker/aurral";
+              directories = [
+                "/data"
+              ];
               environmentFile = config.sops.secrets.aurral_env.path;
               group = cfg.user.name;
               user = cfg.user.name;

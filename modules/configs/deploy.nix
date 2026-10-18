@@ -5,6 +5,14 @@ let
 in
 {
   flake.deploy.nodes = {
+    aurral = {
+      hostname = "aurral";
+      profiles.system = {
+        user = "root";
+        path = activate.nixos nxc.aurral;
+      };
+      sshUser = "root";
+    };
     calibre = {
       hostname = "calibre";
       profiles.system = {

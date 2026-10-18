@@ -11,7 +11,7 @@ in
         user = "root";
         path = activate.nixos nxc.aurral;
       };
-      sshUser = "root";
+      sshUser = "ironman";
     };
     calibre = {
       hostname = "calibre";

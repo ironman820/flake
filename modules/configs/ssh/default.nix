@@ -76,6 +76,11 @@
               controlPath = "${sshPath}/master-%r@%n:%p";
               controlPersist = "no";
             };
+            "aurral" = {
+              hostname = "192.168.248.117";
+              user = "ironman";
+            }
+            // deployIdentity;
             "billmax" = {
               hostname = "billing.royell.org";
               user = "royell";
@@ -122,7 +127,8 @@
             flaresolverr = {
               hostname = "192.168.248.119";
               user = "ironman";
-            } // deployIdentity;
+            }
+            // deployIdentity;
             "meet" = {
               hostname = "meet.royell.org";
               user = "royell";

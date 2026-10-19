@@ -55,7 +55,7 @@
           };
         };
         services.traefik.dynamicConfigOptions.http = {
-          routers.droppedneedle = {
+          routers.sonobarr = {
             entryPoints = "https";
             middlewares = "secured";
             rule = "Host(`sonobarr.home.niceastman.com`)";
@@ -66,7 +66,7 @@
             passHostHeader = true;
             servers = [
               {
-                url = "http://${cfg.ip}:5000";
+                url = "http://${sono.ip}:5000";
               }
             ];
             serversTransport = "insecure";

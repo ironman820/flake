@@ -13,6 +13,7 @@
       server
       slskd
       sonobarr
+      sonarqube
       traefik
     ];
   };

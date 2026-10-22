@@ -4,6 +4,7 @@
     lidarr.ip = "192.168.248.113";
     navidrome.ip = "192.168.248.126";
     slsk.ip = "192.168.248.125";
+    sonarqube.ip = "192.168.248.107";
     traefik.enable = true;
   };
   hardware.facter.reportPath = ./facter.json;
@@ -104,13 +105,6 @@
               middlewares = "secured";
               rule = "Host(`rcm2.home.niceastman.com`)";
               service = "rcm2";
-              tls = { };
-            };
-            sonarqube = {
-              entryPoints = "https";
-              middlewares = "secured";
-              rule = "Host(`sonarqube.home.niceastman.com`)";
-              service = "sonarqube";
               tls = { };
             };
             sonarr = {
@@ -295,14 +289,6 @@
                 }
               ];
               serversTransport = "insecure";
-            };
-            sonarqube.loadBalancer = {
-              passHostHeader = true;
-              servers = [
-                {
-                  url = "http://192.168.248.107:9000";
-                }
-              ];
             };
             sonarr.loadBalancer = {
               passHostHeader = true;

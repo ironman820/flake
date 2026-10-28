@@ -65,6 +65,15 @@
             ];
             label = "Work Documents";
           };
+          "/home/${name}/Money" = {
+            id = "wsrp4-mckub";
+            devices = [
+              "friday"
+              "nas"
+            ];
+            label = "Money";
+            paused = true;
+          };
           "/home/${name}/Music" = {
             id = "6znxz-uhdps";
             devices = [

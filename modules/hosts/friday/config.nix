@@ -97,6 +97,7 @@
                 id = "wsrp4-mckub";
                 devices = [
                   "nas"
+                  "wednesday"
                 ];
                 label = "Money";
               };

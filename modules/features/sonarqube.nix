@@ -36,7 +36,7 @@
           postgresql = mkIf sqb.enable {
             enable = true;
             authentication = ''
-              host sonarqube sonarqube 172.17.0.0/16 password
+              host sonarqube sonarqube 172.16.0.0/12 password
             '';
             ensureDatabases = [
               "sonarqube"
@@ -61,7 +61,7 @@
               passHostHeader = true;
               servers = [
                 {
-                  url = "http://${sqb.ip}:5000";
+                  url = "http://${sqb.ip}:9000";
                 }
               ];
               serversTransport = "insecure";

@@ -119,6 +119,12 @@
               hostname = "162.216.110.8";
               user = "royell";
             };
+            fans = {
+              hostname = "208.80.144.20";
+              port = 2222;
+              user = "royell";
+            }
+            // deployIdentity;
             flaresolverr = {
               hostname = "192.168.248.119";
               user = "ironman";

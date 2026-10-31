@@ -61,6 +61,7 @@
             "/shares/data/music" = {
               devices = [
                 "friday"
+                "nas"
                 "wednesday"
               ];
               id = "6znxz-uhdps";

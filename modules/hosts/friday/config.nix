@@ -104,6 +104,7 @@
               "/home/${name}/Music" = {
                 id = "6znxz-uhdps";
                 devices = [
+                  "nas"
                   "storage"
                 ];
                 label = "Music";

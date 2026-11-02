@@ -264,7 +264,8 @@
             "docker2" = {
               hostname = "208.80.144.53";
               user = "royell";
-            };
+            }
+            // deployIdentity;
             "files.home" = {
               hostname = "192.168.248.103";
               user = "ironman";

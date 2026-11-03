@@ -365,7 +365,7 @@
             };
             "observium" = {
               hostname = "observium.royell.org";
-              user = "root";
+              user = "royell";
             }
             // deployIdentity;
             "pass" = {

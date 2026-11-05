@@ -459,6 +459,11 @@
               user = "ironman";
             }
             // deployIdentity;
+            "serverware" = {
+              hostname = "serverware.royell.org";
+              port = "2222";
+              user = "root";
+            };
             "share" = {
               hostname = "share.royell.org";
               user = "royell";

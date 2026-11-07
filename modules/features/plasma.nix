@@ -171,18 +171,18 @@
                 displayBrightness = 95;
                 inhibitLidActionWhenExternalMonitorConnected = true;
                 keyboardBrightness = 100;
-                powerButtonAction = "showLogoutScreen";
+                powerButtonAction = "hibernate";
                 powerProfile = "performance";
                 turnOffDisplay = {
                   idleTimeout = 960;
                   idleTimeoutWhenLocked = 60;
                 };
                 whenLaptopLidClosed = "doNothing";
-                whenSleepingEnter = "hybridSleep";
+                whenSleepingEnter = "standbyThenHibernate";
               };
               battery = {
                 autoSuspend = {
-                  action = "sleep";
+                  action = "hibernate";
                   idleTimeout = 600;
                 };
                 dimDisplay = {
@@ -193,18 +193,17 @@
                 displayBrightness = 75;
                 inhibitLidActionWhenExternalMonitorConnected = false;
                 keyboardBrightness = 50;
-                powerButtonAction = "showLogoutScreen";
+                powerButtonAction = "hibernate";
                 powerProfile = "balanced";
                 turnOffDisplay = {
                   idleTimeout = 960;
                   idleTimeoutWhenLocked = 60;
                 };
-                whenLaptopLidClosed = "sleep";
-                whenSleepingEnter = "standbyThenHibernate";
+                whenLaptopLidClosed = "hibernate";
               };
               batteryLevels = {
-                criticalLevel = 5;
-                lowLevel = 10;
+                criticalLevel = 15;
+                lowLevel = 20;
               };
               general.pausePlayersOnSuspend = true;
               lowBattery = {
@@ -219,14 +218,13 @@
                 displayBrightness = 50;
                 inhibitLidActionWhenExternalMonitorConnected = false;
                 keyboardBrightness = 0;
-                powerButtonAction = "sleep";
+                powerButtonAction = "hibernate";
                 powerProfile = "powerSaving";
                 turnOffDisplay = {
                   idleTimeout = 120;
                   idleTimeoutWhenLocked = 60;
                 };
                 whenLaptopLidClosed = "hibernate";
-                whenSleepingEnter = "standbyThenHibernate";
               };
             };
             session.general.askForConfirmationOnLogout = true;

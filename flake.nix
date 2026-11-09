@@ -1,6 +1,8 @@
 {
   description = "Description for the project";
 
+  # IMPORTANT: Removed tectonic from nixvim due to compile errors 2026-11-09
+
   inputs = {
     bonafides-themes = {
       flake = false;

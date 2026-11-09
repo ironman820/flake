@@ -107,7 +107,7 @@ in
     mermaid-cli
     nixfmt
     ripgrep
-    tectonic
+    # tectonic
   ];
   extraPlugins = [
     pkgs.vimPlugins.tokyonight-nvim

@@ -44,7 +44,6 @@ in
         user = "root";
         path = activate.nixos nxc.lazylibrarian;
       };
-      remoteBuild = true;
       sshUser = "ironman";
     };
     llama = {

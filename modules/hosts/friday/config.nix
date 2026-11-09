@@ -15,6 +15,7 @@
         freefilesync
         freerdp
         mmex
+        nix-tree
       ];
       hardware.facter.reportPath = ./facter.json;
       ironman = {

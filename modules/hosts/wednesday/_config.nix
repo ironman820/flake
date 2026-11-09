@@ -2,6 +2,7 @@
   environment.systemPackages = with pkgs; [
     freefilesync
     googleearth-pro
+    nix-tree
   ];
   hardware.facter.reportPath = ./facter.json;
   ironman = {

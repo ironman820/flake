@@ -5,6 +5,7 @@ keys:
   - &server_calibre age1ahfs26muknuhxeavht922e5kw009ewwjyegcrglatxn7n8rc5c2qlquffg
   - &server_flaresolverr age1ecem282xme7smdursedzsn9eje7sxf84gxfnqz5l6d29guv8sp3qj2tkep
   - &server_gns3 age1z7p0u2ekdek8xy4zlsmczqp3xf68amrzj0nh3yx9chc6zhmxsufspdzpqe
+  - &server_library age1tdgj0ymh66ps3veezuzu43j7n6ky7uv87s9ggxndu4ck3n2sxfwsa2fldm
   - &server_navidrome age1y70jtv8fuscxa8uuezngx6w5frggx4e0hlf49pzxwz88nv728fqs6zq442
   - &server_pve2 age1tj460ln353gy48end4dl0efqf28z2ntwxu5we7qkauw472dax9xsvmwmhq
   - &server_sonarqube age14674644rnn33rrn9dtn6u72k8s4v7d7p6dfx6xr92etgzkjhw4esk2hqp3
@@ -28,6 +29,7 @@ creation_rules:
         - *server_calibre
         - *server_flaresolverr
         - *server_gns3
+        - *server_library
         - *server_navidrome
         - *server_pve2
         - *server_sonarqube

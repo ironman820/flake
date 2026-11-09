@@ -130,6 +130,11 @@
               user = "ironman";
             }
             // deployIdentity;
+            library = {
+              hostname = "192.168.248.120";
+              user = "ironman";
+            }
+            // deployIdentity;
             "meet" = {
               hostname = "meet.royell.org";
               user = "royell";

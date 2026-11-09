@@ -38,6 +38,15 @@ in
       remoteBuild = true;
       sshUser = "ironman";
     };
+    lazylibrarian = {
+      hostname = "library";
+      profiles.system = {
+        user = "root";
+        path = activate.nixos nxc.lazylibrarian;
+      };
+      remoteBuild = true;
+      sshUser = "ironman";
+    };
     llama = {
       hostname = "llama";
       profiles.system = {

@@ -959,7 +959,7 @@ in
     cmp-omni.enable = true;
     cmp-path.enable = true;
     codecompanion = {
-      enable = true;
+      enable = false;
       settings = {
         adapters.http.qwen3.__raw = ''
           function ()

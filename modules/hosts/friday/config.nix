@@ -14,6 +14,7 @@
         easyaudiosync
         freefilesync
         freerdp
+        kdenlive
         mmex
         nix-tree
       ];

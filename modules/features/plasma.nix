@@ -13,7 +13,6 @@
             pkgs.kdePackages.elisa
           ];
           systemPackages = with pkgs.kdePackages; [
-            kdenlive
             krohnkite
             partitionmanager
             inputs'.plasma-manager.packages.rc2nix

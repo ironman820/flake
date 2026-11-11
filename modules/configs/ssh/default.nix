@@ -309,11 +309,11 @@
               hostname = "192.168.253.3";
               user = "ironman";
             };
-            # "llama-work" = {
-            #   hostname = "192.168.21.199";
-            #   user = "ironman";
-            # }
-            # // deployIdentity;
+            "llama-work" = {
+              hostname = "192.168.21.199";
+              user = "ironman";
+            }
+            // deployIdentity;
             "lidarr" = {
               hostname = "192.168.248.113";
               user = "ironman";

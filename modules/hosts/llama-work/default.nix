@@ -4,11 +4,11 @@
   ...
 }:
 {
-  flake.nixosConfigurations.gns3-work = inputs.nixpkgs.lib.nixosSystem {
+  flake.nixosConfigurations.llama-work = inputs.nixpkgs.lib.nixosSystem {
     modules = with self.nixosModules; [
-      ./_config.nix
       docker
-      gns3
+      # gns3
+      llamaWorkConfig
       networkManager
       server
       inputs.disko.nixosModules.disko

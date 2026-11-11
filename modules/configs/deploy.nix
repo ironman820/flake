@@ -61,7 +61,6 @@ in
         user = "root";
         path = activate.nixos nxc.llama-work;
       };
-      remoteBuild = true;
       sshUser = "ironman";
     };
     lidarr = {

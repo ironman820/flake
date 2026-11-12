@@ -51,7 +51,6 @@
             pkgs.xfce4-terminal
           ];
         };
-        nixpkgs.config.pulseaudio = true;
         programs = {
           dconf.enable = true;
           thunar = {

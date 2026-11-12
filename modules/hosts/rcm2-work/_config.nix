@@ -1,10 +1,7 @@
 {
   hardware.facter.reportPath = ./facter.json;
   ironman = {
-    rcm2 = {
-      enable = true;
-      domain = "desk";
-    };
+    rcm2.enable = true;
     server.unattended = false;
   };
   services = {

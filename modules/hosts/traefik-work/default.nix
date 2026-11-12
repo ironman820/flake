@@ -10,6 +10,7 @@
       traefik
       traefikWorkConfig
       proxmox
+      rcm2
       server
     ];
   };

@@ -11,7 +11,7 @@
     let
       inherit (config.ironman) rcm2;
       inherit (lib) mkEnableOption mkIf mkOption;
-      inherit (lib.types) nullOr string;
+      inherit (lib.types) nullOr str;
       phpPkgs = import inputs.nixpkgs-php {
         inherit system;
         config.allowUnfree = true;
@@ -23,12 +23,12 @@
         ip = mkOption {
           default = null;
           description = "IP address of the RCM2 server";
-          type = nullOr string;
+          type = nullOr str;
         };
         domain = mkOption {
           default = "home";
           description = "Subdomain of the server";
-          type = string;
+          type = str;
         };
       };
       config = {

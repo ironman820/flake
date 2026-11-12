@@ -3,6 +3,10 @@
     hardware.facter.reportPath = ./facter.json;
     ironman = {
       guacamole.ip = "192.168.20.103";
+      rcm2 = {
+        domain = "desk";
+        ip = "192.168.20.104";
+      };
       traefik.enable = true;
     };
     networking.hostName = "traefik-work";
@@ -51,13 +55,6 @@
               middlewares = "secured";
               rule = "Host(`rcm.desk.niceastman.com`)";
               service = "rcm";
-              tls = { };
-            };
-            rcm2 = {
-              entryPoints = "https";
-              middlewares = "secured";
-              rule = "Host(`rcm2.desk.niceastman.com`)";
-              service = "rcm2";
               tls = { };
             };
           };
@@ -111,15 +108,6 @@
               servers = [
                 {
                   url = "https://192.168.20.102";
-                }
-              ];
-              serversTransport = "insecure";
-            };
-            rcm2.loadBalancer = {
-              passHostHeader = true;
-              servers = [
-                {
-                  url = "http://192.168.20.107:8000";
                 }
               ];
               serversTransport = "insecure";

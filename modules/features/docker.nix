@@ -6,6 +6,7 @@
       ...
     }:
     {
+      boot.enableContainers = true;
       environment.systemPackages = [
         pkgs.docker-compose
       ];

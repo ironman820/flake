@@ -23,6 +23,10 @@
         enable32Bit = true;
       };
     };
+    ironman.server = {
+      lxc = false;
+      unattended = false;
+    };
     networking.hostName = "llama";
     nix.settings.cores = 8;
     sops.secrets.llama_work_env = {

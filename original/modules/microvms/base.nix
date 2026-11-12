@@ -26,6 +26,7 @@
         tmux
       ]);
     boot = {
+      enableContainers = true;
       kernelParams = [
         "quiet"
       ];

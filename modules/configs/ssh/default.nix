@@ -446,7 +446,7 @@
             }
             // deployIdentity;
             "rcm2.desk" = {
-              hostname = "192.168.20.107";
+              hostname = "192.168.20.104";
               user = "ironman";
             }
             // deployIdentity;

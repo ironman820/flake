@@ -10,6 +10,7 @@
       lidarr
       navidrome
       proxmox
+      radarr
       server
       slskd
       sonobarr

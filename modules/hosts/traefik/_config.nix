@@ -3,6 +3,7 @@
     sonobarr.ip = "192.168.248.117";
     lidarr.ip = "192.168.248.113";
     navidrome.ip = "192.168.248.126";
+    radarr.ip = "192.168.248.123";
     slsk.ip = "192.168.248.125";
     sonarqube.ip = "192.168.248.107";
     traefik.enable = true;
@@ -84,13 +85,6 @@
               middlewares = "proxmox";
               rule = "Host(`pve2.home.niceastman.com`)";
               service = "pve2";
-              tls = { };
-            };
-            radarr = {
-              entryPoints = "https";
-              middlewares = "secured";
-              rule = "Host(`radarr.home.niceastman.com`)";
-              service = "radarr";
               tls = { };
             };
             rcm = {
@@ -259,15 +253,6 @@
               servers = [
                 {
                   url = "http://192.168.248.104:8081";
-                }
-              ];
-              serversTransport = "insecure";
-            };
-            radarr.loadBalancer = {
-              passHostHeader = true;
-              servers = [
-                {
-                  url = "http://192.168.248.123:7878";
                 }
               ];
               serversTransport = "insecure";

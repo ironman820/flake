@@ -10,6 +10,10 @@
       imports = [
         self.nixosModules.rcm
       ];
+      ironman = {
+        rcm.enable = true;
+        server.unattended = false;
+      };
       environment.systemPackages = [
         pkgs.sonar-scanner-cli
       ];

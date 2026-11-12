@@ -3,6 +3,10 @@
     hardware.facter.reportPath = ./facter.json;
     ironman = {
       guacamole.ip = "192.168.20.103";
+      rcm = {
+        domain = "desk";
+        ip = "192.168.20.102";
+      };
       rcm2 = {
         domain = "desk";
         ip = "192.168.20.104";
@@ -50,13 +54,6 @@
               service = "pve";
               tls = { };
             };
-            rcm = {
-              entryPoints = "https";
-              middlewares = "secured";
-              rule = "Host(`rcm.desk.niceastman.com`)";
-              service = "rcm";
-              tls = { };
-            };
           };
           services = {
             dns.loadBalancer = {
@@ -102,15 +99,6 @@
                 }
               ];
               serverstransport = "insecure";
-            };
-            rcm.loadBalancer = {
-              passHostHeader = true;
-              servers = [
-                {
-                  url = "https://192.168.20.102";
-                }
-              ];
-              serversTransport = "insecure";
             };
           };
           serversTransports.insecure.insecureSkipVerify = true;

@@ -1,25 +1,8 @@
-{
-  config,
-  self,
-  ...
-}:
-{
-  imports = [
-    ./hardware.nix
-  ]
-  ++ (with self.nixosModules; [
-    grub
-    xfce
-    laptop
-    winbox
-  ]);
+{ config, ... }: {
   boot.plymouth.enable = false;
-  home-manager.users.ironman = self.homeConfigurations.ironman-minimal;
-  ironman = {
-    network-profiles.work = true;
-  };
+  # hardware.facter.reportPath = ./facter.json;
+  ironman.network-profiles.work = true;
   networking.hostName = "monday";
-  services.openssh.settings.PermitRootLogin = "no";
   topology.self = {
     hardware.info = "Dell Netbook";
     icon = "devices.laptop";

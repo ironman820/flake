@@ -9,6 +9,7 @@ keys:
   - &server_navidrome age1y70jtv8fuscxa8uuezngx6w5frggx4e0hlf49pzxwz88nv728fqs6zq442
   - &server_pve2 age1tj460ln353gy48end4dl0efqf28z2ntwxu5we7qkauw472dax9xsvmwmhq
   - &server_radarr age1sk85f987dh5sr67m3q6sp486xpagt4cx5csufe9t7h5vyuc4gcks37drga
+  - &server_rcm age1rg75knxa6d57ma62csp82mtma2vh9w6quhs0423qmz4jljyfjyzqz756jz
   - &server_sonarqube age14674644rnn33rrn9dtn6u72k8s4v7d7p6dfx6xr92etgzkjhw4esk2hqp3
   - &server_sonobarr age1zhm8w0vcx0893f9yj8wx2mk7l3v2m76h76g4jjxay0x4u5jmyexqf0led5
   - &server_soulseek age155z8naqx5e5lvj209g8u5aa3ml60qdt8xxnmum959lcksnc6aqnszxh8gh
@@ -35,6 +36,7 @@ creation_rules:
         - *server_navidrome
         - *server_pve2
         - *server_radarr
+        - *server_rcm
         - *server_sonarqube
         - *server_sonobarr
         - *server_soulseek

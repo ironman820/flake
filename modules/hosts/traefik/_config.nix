@@ -4,6 +4,7 @@
     lidarr.ip = "192.168.248.113";
     navidrome.ip = "192.168.248.126";
     radarr.ip = "192.168.248.123";
+    rcm.ip = "192.168.248.121";
     slsk.ip = "192.168.248.125";
     sonarqube.ip = "192.168.248.107";
     traefik.enable = true;
@@ -85,13 +86,6 @@
               middlewares = "proxmox";
               rule = "Host(`pve2.home.niceastman.com`)";
               service = "pve2";
-              tls = { };
-            };
-            rcm = {
-              entryPoints = "https";
-              middlewares = "secured";
-              rule = "Host(`rcm.home.niceastman.com`)";
-              service = "rcm";
               tls = { };
             };
             rcm2 = {
@@ -253,15 +247,6 @@
               servers = [
                 {
                   url = "http://192.168.248.104:8081";
-                }
-              ];
-              serversTransport = "insecure";
-            };
-            rcm.loadBalancer = {
-              passHostHeader = true;
-              servers = [
-                {
-                  url = "https://192.168.248.121";
                 }
               ];
               serversTransport = "insecure";

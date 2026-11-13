@@ -11,6 +11,7 @@
       navidrome
       proxmox
       radarr
+      rcm
       server
       slskd
       sonobarr

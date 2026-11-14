@@ -7,7 +7,7 @@
   flake.nixosConfigurations.traefik = inputs.nixpkgs.lib.nixosSystem {
     modules = with self.nixosModules; [
       ./_config.nix
-      lazylibrarian
+      bookkeep
       lidarr
       navidrome
       proxmox

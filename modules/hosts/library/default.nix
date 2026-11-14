@@ -4,11 +4,11 @@
   ...
 }:
 {
-  flake.nixosConfigurations.lazylibrarian = inputs.nixpkgs.lib.nixosSystem {
+  flake.nixosConfigurations.library = inputs.nixpkgs.lib.nixosSystem {
     modules = with self.nixosModules; [
-      ./_config.nix
+      bookkeep
       docker
-      lazylibrarian
+      libraryConfig
       proxmox
       server
     ];

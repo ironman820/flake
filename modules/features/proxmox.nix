@@ -15,6 +15,7 @@
       #   privileged = false;
       # };
       boot.loader.systemd-boot.enable = false;
+      ironman.server.lxc = lib.mkDefault true;
       nix.settings = {
         cores = 1;
         sandbox = false;

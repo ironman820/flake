@@ -38,6 +38,18 @@
             description = "Is this system a netbook";
             type = bool;
           };
+          server = {
+            lxc = mkOption {
+              default = false;
+              description = "This server is an LXC container";
+              type = bool;
+            };
+            unattended = mkOption {
+              default = false;
+              description = "This server is an unattended server";
+              type = bool;
+            };
+          };
           sync = mkEnableOption "Enable syncthing modules";
           terminal = mkOption {
             default = pkgs.ghostty;

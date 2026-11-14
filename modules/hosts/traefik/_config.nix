@@ -1,12 +1,13 @@
 { config, ... }: {
   ironman = {
-    sonobarr.ip = "192.168.248.117";
+    lazylibrarian.ip = "192.168.248.120";
     lidarr.ip = "192.168.248.113";
     navidrome.ip = "192.168.248.126";
     radarr.ip = "192.168.248.123";
     rcm.ip = "192.168.248.121";
     slsk.ip = "192.168.248.125";
     sonarqube.ip = "192.168.248.107";
+    sonobarr.ip = "192.168.248.117";
     traefik.enable = true;
   };
   hardware.facter.reportPath = ./facter.json;

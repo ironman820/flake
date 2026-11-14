@@ -9,7 +9,7 @@
           mkOption
           types
           ;
-        inherit (types) nullOr string;
+        inherit (types) nullOr str;
         cfg = config.ironman;
         llb = cfg.lazylibrarian;
       in
@@ -19,7 +19,7 @@
           ip = mkOption {
             default = null;
             description = "IP address of the lazylibrarian server";
-            type = nullOr string;
+            type = nullOr str;
           };
         };
         config = {

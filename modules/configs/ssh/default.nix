@@ -76,6 +76,11 @@
               controlPath = "${sshPath}/master-%r@%n:%p";
               controlPersist = "no";
             };
+            bazarr = {
+              hostname = "192.168.248.120";
+              user = "ironman";
+            }
+            // deployIdentity;
             "billmax" = {
               hostname = "billing.royell.org";
               user = "royell";
@@ -127,11 +132,6 @@
             // deployIdentity;
             flaresolverr = {
               hostname = "192.168.248.119";
-              user = "ironman";
-            }
-            // deployIdentity;
-            library = {
-              hostname = "192.168.248.120";
               user = "ironman";
             }
             // deployIdentity;

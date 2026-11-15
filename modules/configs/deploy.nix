@@ -5,6 +5,14 @@ let
 in
 {
   flake.deploy.nodes = {
+    bazarr = {
+      hostname = "bazarr";
+      profiles.system = {
+        user = "root";
+        path = activate.nixos nxc.bazarr;
+      };
+      sshUser = "ironman";
+    };
     calibre = {
       hostname = "calibre";
       profiles.system = {

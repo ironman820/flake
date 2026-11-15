@@ -1,6 +1,5 @@
 { config, ... }: {
   ironman = {
-    bookkeep.ip = "192.168.248.120";
     lidarr.ip = "192.168.248.113";
     navidrome.ip = "192.168.248.126";
     radarr.ip = "192.168.248.123";

@@ -7,7 +7,6 @@
   flake.nixosConfigurations.traefik = inputs.nixpkgs.lib.nixosSystem {
     modules = with self.nixosModules; [
       ./_config.nix
-      bookkeep
       lidarr
       navidrome
       proxmox

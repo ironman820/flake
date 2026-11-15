@@ -38,14 +38,6 @@ in
       remoteBuild = true;
       sshUser = "ironman";
     };
-    library = {
-      hostname = "library";
-      profiles.system = {
-        user = "root";
-        path = activate.nixos nxc.library;
-      };
-      sshUser = "ironman";
-    };
     llama = {
       hostname = "llama";
       profiles.system = {

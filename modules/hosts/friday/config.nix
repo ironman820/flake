@@ -14,7 +14,7 @@
         easyaudiosync
         freefilesync
         freerdp
-        kdenlive
+        kdePackages.kdenlive
         mmex
         nix-tree
       ];

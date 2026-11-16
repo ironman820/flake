@@ -5,6 +5,11 @@
 }:
 let
   cfg = if config.ironman.neovimPkg then config else config.programs.nixvim;
+  unattended =
+    if ((builtins.hasAttr "ironman" config) && (builtins.hasAttr "server" config.ironman)) then
+      config.ironman.server.unattended
+    else
+      false;
 in
 {
   autoCmd = [
@@ -99,16 +104,30 @@ in
     highlight Normal ctermbg=none
     highlight NonText ctermbg=none
   '';
-  extraPackagesAfter = with pkgs; [
-    fd
-    file
-    ghostscript
-    imagemagick
-    mermaid-cli
-    nixfmt
-    ripgrep
-    tectonic
-  ];
+  extraPackagesAfter =
+    with pkgs;
+    [
+      fd
+      file
+      imagemagick
+      nixfmt
+      ripgrep
+      luaPackages.tree-sitter-cli
+    ]
+    ++ (
+      if unattended then
+        [ ]
+      else
+        with pkgs;
+        [
+          # conform
+          pretty-php
+          # Snacks Image
+          ghostscript
+          mermaid-cli
+          tectonic
+        ]
+    );
   extraPlugins = [
     pkgs.vimPlugins.tokyonight-nvim
   ];
@@ -621,15 +640,6 @@ in
     }
     # Snacks
     {
-      key = "<leader>gg";
-      action.__raw = ''
-        function()
-          Snacks.lazygit()
-        end
-      '';
-      options.desc = "Lazygit";
-    }
-    {
       key = "<leader>n";
       action.__raw = ''
         function()
@@ -822,7 +832,24 @@ in
       mode = "n";
       options.desc = "Toggle [S]ymbols Panel";
     }
-  ];
+  ]
+  ++ (
+    if unattended then
+      [ ]
+    else
+      [
+        # Snacks lazygit
+        {
+          key = "<leader>gg";
+          action.__raw = ''
+            function()
+              Snacks.lazygit()
+            end
+          '';
+          options.desc = "Lazygit";
+        }
+      ]
+  );
   opts = {
     autowrite = true;
     breakindent = true;
@@ -997,7 +1024,7 @@ in
       enable = true;
       settings.formatters_by_ft = {
         nix = [ "nixfmt" ];
-        php = [ "pretty-php" ];
+        php = if unattended then [ ] else [ "pretty-php" ];
       };
     };
     dropbar.enable = true;
@@ -1190,10 +1217,10 @@ in
       settings = {
         bigfile.enabled = true;
         dim.enabled = true;
-        image.enabled = true;
+        image.enabled = !unattended;
         indent.enabled = true;
         input.enabled = true;
-        lazygit.enabled = true;
+        lazygit.enabled = !unattended;
         notifier.enabled = true;
         scope.enabled = true;
         scroll.enabled = true;
@@ -1252,36 +1279,54 @@ in
     };
     treesitter = {
       enable = true;
-      grammarPackages = with cfg.plugins.treesitter.package.builtGrammars; [
-        arduino
-        awk
-        bash
-        caddy
-        css
-        csv
-        editorconfig
-        git_rebase
-        gitcommit
-        gitignore
-        html
-        htmldjango
-        javascript
-        jinja
-        jinja_inline
-        json
-        just
-        markdown
-        nix
-        php
-        phpdoc
-        python
-        regex
-        sql
-        ssh_config
-        toml
-        xml
-        yaml
-      ];
+      grammarPackages =
+        with cfg.plugins.treesitter.package.builtGrammars;
+        [
+          awk
+          bash
+          csv
+          json
+          just
+          nix
+          python
+          regex
+          ssh_config
+          toml
+          xml
+          yaml
+        ]
+        ++ (
+          if unattended then
+            [ ]
+          else
+            with cfg.plugins.treesitter.package.builtGrammars;
+            [
+              arduino
+              caddy
+              editorconfig
+              git_rebase
+              gitcommit
+              gitignore
+              htmldjango
+              jinja
+              jinja_inline
+              php
+              phpdoc
+              sql
+              #snacks images
+              css
+              html
+              javascript
+              latex
+              markdown
+              # norg
+              scss
+              svelte
+              tsx
+              typst
+              vue
+            ]
+        );
       highlight.enable = true;
       indent.enable = true;
     };

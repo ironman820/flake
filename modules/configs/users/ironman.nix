@@ -130,7 +130,7 @@
         ...
       }:
       let
-        inherit (lib) mkIf;
+        inherit (lib) mkIf mkOption types;
         inherit (osConfig.ironman)
           laptop
           netbook
@@ -174,16 +174,32 @@
           else
             [ ]
         );
-        home.packages = mkIf workWorkstation (
-          with pkgs;
-          [
-            qgis
-            wireshark
-            zoom-us
-          ]
-        );
-        programs.tmux = mkIf laptop {
-          shortcut = "Space";
+        options.ironman = {
+          server = {
+            lxc = mkOption {
+              default = osConfig.ironman.server.lxc;
+              description = "This server is an LXC container";
+              type = types.bool;
+            };
+            unattended = mkOption {
+              default = osConfig.ironman.server.unattended;
+              description = "This server is an unattended server";
+              type = types.bool;
+            };
+          };
+        };
+        config = {
+          home.packages = mkIf workWorkstation (
+            with pkgs;
+            [
+              qgis
+              wireshark
+              zoom-us
+            ]
+          );
+          programs.tmux = mkIf laptop {
+            shortcut = "Space";
+          };
         };
       };
   };

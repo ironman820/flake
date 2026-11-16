@@ -86,11 +86,6 @@
               user = "royell";
             }
             // deployIdentity;
-            "calibre" = {
-              hostname = "192.168.248.101";
-              user = "ironman";
-            }
-            // deployIdentity;
             "cr1" = {
               hostname = "162.216.110.106";
               user = "royell";
@@ -132,6 +127,11 @@
             // deployIdentity;
             flaresolverr = {
               hostname = "192.168.248.119";
+              user = "ironman";
+            }
+            // deployIdentity;
+            library = {
+              hostname = "192.168.248.101";
               user = "ironman";
             }
             // deployIdentity;

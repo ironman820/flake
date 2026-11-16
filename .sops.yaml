@@ -2,10 +2,10 @@ keys:
   - &ironman age1nny857q3ujh77zved353ufzte5clv444783m6jc4xthmn43r75wqcputn0
   - &royell age1et3rsqjzt2z70vt0p8p4jcm47ms8e22um57vj5nvfpss58zwlcfsmcddrt
   - &server_bazarr age16musauvpxj3rhe84jshp4sfzmxdt8vkwvh9p484snh53lpfnw5gsg5u0g7
-  - &server_calibre age1ahfs26muknuhxeavht922e5kw009ewwjyegcrglatxn7n8rc5c2qlquffg
   - &server_dns age1mcssf7calvchkh8l3kv6mjd69c46znaanlmd5dqf2e3guxv0fq6s8wm27z
   - &server_flaresolverr age1ecem282xme7smdursedzsn9eje7sxf84gxfnqz5l6d29guv8sp3qj2tkep
   - &server_gns3 age1z7p0u2ekdek8xy4zlsmczqp3xf68amrzj0nh3yx9chc6zhmxsufspdzpqe
+  - &server_library age1ahfs26muknuhxeavht922e5kw009ewwjyegcrglatxn7n8rc5c2qlquffg
   - &server_navidrome age1y70jtv8fuscxa8uuezngx6w5frggx4e0hlf49pzxwz88nv728fqs6zq442
   - &server_pve2 age1tj460ln353gy48end4dl0efqf28z2ntwxu5we7qkauw472dax9xsvmwmhq
   - &server_radarr age1sk85f987dh5sr67m3q6sp486xpagt4cx5csufe9t7h5vyuc4gcks37drga
@@ -29,10 +29,10 @@ creation_rules:
         - *ironman
         - *royell
         - *server_bazarr
-        - *server_calibre
         - *server_dns
         - *server_flaresolverr
         - *server_gns3
+        - *server_library
         - *server_navidrome
         - *server_pve2
         - *server_radarr

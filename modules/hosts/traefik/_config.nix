@@ -1,6 +1,7 @@
 { config, ... }: {
   ironman = {
     bazarr.ip = "192.168.248.120";
+    bookorbit.ip = "192.168.248.101";
     lidarr.ip = "192.168.248.113";
     navidrome.ip = "192.168.248.126";
     radarr.ip = "192.168.248.123";
@@ -26,13 +27,6 @@
       dynamicConfigOptions = {
         http = {
           routers = {
-            calibre = {
-              entryPoints = "https";
-              middlewares = "default-headers";
-              rule = "Host(`mybooks.niceastman.com`)";
-              service = "calibre";
-              tls = { };
-            };
             dns = {
               entryPoints = "https";
               middlewares = "secured";
@@ -154,15 +148,6 @@
             };
           };
           services = {
-            calibre.loadBalancer = {
-              passHostHeader = true;
-              servers = [
-                {
-                  url = "http://192.168.248.101:8083";
-                }
-              ];
-              serversTransport = "insecure";
-            };
             dns.loadBalancer = {
               passHostHeader = true;
               servers = [

@@ -13,14 +13,6 @@ in
       };
       sshUser = "ironman";
     };
-    calibre = {
-      hostname = "calibre";
-      profiles.system = {
-        user = "root";
-        path = activate.nixos nxc.calibre;
-      };
-      sshUser = "ironman";
-    };
     files = {
       hostname = "files.home";
       profiles.system = {
@@ -44,6 +36,14 @@ in
         path = activate.nixos nxc.gns3-work;
       };
       remoteBuild = true;
+      sshUser = "ironman";
+    };
+    library = {
+      hostname = "library";
+      profiles.system = {
+        user = "root";
+        path = activate.nixos nxc.library;
+      };
       sshUser = "ironman";
     };
     llama = {

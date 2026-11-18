@@ -10,14 +10,14 @@
       inputs.nixpkgs.follows = "nixpkgs";
       url = "github:9001/copyparty";
     };
-    cosmic-manager = {
-      url = "github:HeitorAugustoLN/cosmic-manager";
-      inputs = {
-        flake-parts.follows = "flake-parts";
-        home-manager.follows = "home-manager";
-        nixpkgs.follows = "nixpkgs";
-      };
-    };
+    # cosmic-manager = {
+    #   url = "github:HeitorAugustoLN/cosmic-manager";
+    #   inputs = {
+    #     flake-parts.follows = "flake-parts";
+    #     home-manager.follows = "home-manager";
+    #     nixpkgs.follows = "nixpkgs";
+    #   };
+    # };
     deploy-rs = {
       inputs.nixpkgs.follows = "nixpkgs";
       url = "github:serokell/deploy-rs";
@@ -128,27 +128,27 @@
         nix-topology.flakeModule
       ];
       systems = [ "x86_64-linux" ];
-      perSystem =
-        {
-          config,
-          self',
-          inputs',
-          pkgs,
-          system,
-          ...
-        }:
-        {
-          # Per-system attributes can be defined here. The self' and inputs'
-          # module parameters provide easy access to attributes of the same
-          # system.
-
-          # Equivalent to  inputs'.nixpkgs.legacyPackages.hello;
-        };
-      flake = {
-        # The usual flake attributes can be defined here, including system-
-        # agnostic ones like nixosModule and system-enumerating ones, although
-        # those are more easily expressed in perSystem.
-
-      };
+      # perSystem =
+      #   {
+      #     config,
+      #     self',
+      #     inputs',
+      #     pkgs,
+      #     system,
+      #     ...
+      #   }:
+      #   {
+      #     # Per-system attributes can be defined here. The self' and inputs'
+      #     # module parameters provide easy access to attributes of the same
+      #     # system.
+      #
+      #     # Equivalent to  inputs'.nixpkgs.legacyPackages.hello;
+      #   };
+      # flake = {
+      #   # The usual flake attributes can be defined here, including system-
+      #   # agnostic ones like nixosModule and system-enumerating ones, although
+      #   # those are more easily expressed in perSystem.
+      #
+      # };
     };
 }

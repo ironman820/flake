@@ -65,7 +65,7 @@
       inputs.flake-parts.follows = "flake-parts";
     };
     # Keep Noctalia using it's own nixpkgs. This allows cache usage.
-    noctalia.url = "github:noctalia-dev/noctalia/cachix";
+    # noctalia.url = "github:noctalia-dev/noctalia/cachix";
     # noctalia-greeter = {
     #   url = "github:noctalia-dev/noctalia-greeter";
     #   inputs.nixpkgs.follows = "nixpkgs";

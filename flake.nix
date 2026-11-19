@@ -81,6 +81,14 @@
       flake = false;
       url = "github:Jayy-Dev/Plasma-Tokyo-Night/plasma-6";
     };
+    qtile = {
+      inputs.nixpkgs.follows = "nixpkgs";
+      url = "github:qtile/qtile";
+    };
+    qtile-extras = {
+      url = "github:elparaguayo/qtile-extras";
+      flake = false;
+    };
     # snowfall-flake = {
     #   url = "github:snowfallorg/flake";
     #   inputs.nixpkgs.follows = "nixpkgs";

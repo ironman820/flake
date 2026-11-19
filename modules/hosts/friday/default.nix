@@ -11,6 +11,7 @@
       laptop
       inputs.disko.nixosModules.disko
       self.diskoConfigurations.friday
+      qtile
     ];
   };
 }

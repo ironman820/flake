@@ -417,6 +417,42 @@
         "type": "github"
       }
     },
+    "qtile": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1794952438,
+        "narHash": "sha256-LetAzBYF71i9m04ziM4eQWiX/cfvdOljbZOzYepzosk=",
+        "owner": "qtile",
+        "repo": "qtile",
+        "rev": "393515a5df002d683c803f174af22d63eda5f0a8",
+        "type": "github"
+      },
+      "original": {
+        "owner": "qtile",
+        "repo": "qtile",
+        "type": "github"
+      }
+    },
+    "qtile-extras": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1789966211,
+        "narHash": "sha256-50lrkQe9h4Jv93AU2epi1hvet3IzT2qONfmujozBVEU=",
+        "owner": "elparaguayo",
+        "repo": "qtile-extras",
+        "rev": "c23659d981de80906c8afafa939e2c79db775cc7",
+        "type": "github"
+      },
+      "original": {
+        "owner": "elparaguayo",
+        "repo": "qtile-extras",
+        "type": "github"
+      }
+    },
     "root": {
       "inputs": {
         "bonafides-themes": "bonafides-themes",
@@ -437,6 +473,8 @@
         "noctalia": "noctalia",
         "plasma-manager": "plasma-manager",
         "plasma-tokyo-night": "plasma-tokyo-night",
+        "qtile": "qtile",
+        "qtile-extras": "qtile-extras",
         "sops-nix": "sops-nix",
         "tokyonight": "tokyonight",
         "zen-browser": "zen-browser"

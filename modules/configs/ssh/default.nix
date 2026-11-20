@@ -360,6 +360,11 @@
               user = "fastnetmon";
             }
             // deployIdentity;
+            nix = {
+              hostname = "208.80.144.84";
+              user = "royell";
+            }
+            // deployIdentity;
             "nokia" = {
               hostname = "nokia.royell.org";
               user = "royell";

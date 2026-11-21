@@ -58,6 +58,14 @@
               id = "duytj-tdzw3";
               label = "adult";
             };
+            "/shares/data/books" = {
+              devices = [
+                "friday"
+                "nas"
+              ];
+              id = "eirgv-qg2rc";
+              label = "books";
+            };
             "/shares/data/music" = {
               devices = [
                 "friday"

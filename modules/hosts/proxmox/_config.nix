@@ -1,0 +1,3 @@
+{
+  ironman.server.unattended = false;
+}

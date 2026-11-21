@@ -27,11 +27,7 @@
           cert = config.sops.secrets.syncthing-friday-cert.path;
           key = config.sops.secrets.syncthing-friday-key.path;
           devices = {
-            calibre.id = "J3LVEJP-XUTHFQ2-2W5U22G-JLDNUL2-S3GC4GW-VVQOY7Q-N6SFPJT-REN45AO";
-            # steamdeck = {
-            #   id = "NHY6BAU-WXMQZC2-CZP7P7Z-N5VZQIS-WI5P5L5-R2K2VOL-QYJG4NX-FNH5OA7";
-            #   name = "SteamDeck";
-            # };
+            saturday.id = "6DKKXPD-O4IJK3G-VR2MTOR-FCXWIAV-ZLETO3O-ZCINEWD-AMKXHWZ-JIVGPQJ";
           };
           folders =
             let
@@ -48,10 +44,6 @@
               };
               "/home/${name}/Adult" = {
                 id = "duytj-tdzw3";
-                ignorePatterns = [
-                  "(?d)/VR"
-                  "(?d)keep"
-                ];
                 devices = [
                   "nas"
                   "storage"
@@ -67,7 +59,7 @@
                 id = "oz0sn-2p90q";
                 devices = [
                   "nas"
-                  # "steamdeck"
+                  "saturday"
                 ];
                 label = "Deck Sync";
               };
@@ -87,13 +79,13 @@
                 ];
                 label = "Downloads";
               };
-              "/home/${name}/Calibre Library" = {
+              "/home/${name}/Books" = {
                 id = "eirgv-qg2rc";
                 devices = [
-                  "calibre"
                   "nas"
+                  "storage"
                 ];
-                label = "Calibre Library";
+                label = "Books";
               };
               "/home/${name}/Money" = {
                 id = "wsrp4-mckub";

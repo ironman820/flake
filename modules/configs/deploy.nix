@@ -38,6 +38,14 @@ in
       remoteBuild = true;
       sshUser = "ironman";
     };
+    kcc = {
+      hostname = "kcc";
+      profiles.system = {
+        user = "root";
+        path = activate.nixos nxc.kcc;
+      };
+      sshUser = "ironman";
+    };
     library = {
       hostname = "library";
       profiles.system = {

@@ -130,6 +130,11 @@
               user = "ironman";
             }
             // deployIdentity;
+            kcc = {
+              hostname = "192.168.248.124";
+              user = "ironman";
+            }
+            // deployIdentity;
             library = {
               hostname = "192.168.248.101";
               user = "ironman";

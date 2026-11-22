@@ -9,6 +9,7 @@
       ./_config.nix
       bazarr
       bookorbit
+      kcc
       lidarr
       navidrome
       proxmox

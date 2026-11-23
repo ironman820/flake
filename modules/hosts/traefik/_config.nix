@@ -10,6 +10,7 @@
     slsk.ip = "192.168.248.125";
     sonarqube.ip = "192.168.248.107";
     sonobarr.ip = "192.168.248.117";
+    thingport.ip = "192.168.248.127";
     traefik.enable = true;
   };
   hardware.facter.reportPath = ./facter.json;

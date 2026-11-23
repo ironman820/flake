@@ -13,6 +13,7 @@
       #   manageNetwork = false;
       #   privileged = false;
       # };
+      boot.loader.systemd-boot.enable = false;
       ironman.server.lxc = true;
     };
   };

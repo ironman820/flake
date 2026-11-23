@@ -16,6 +16,7 @@
             krohnkite
             partitionmanager
             inputs'.plasma-manager.packages.rc2nix
+            pkgs.gnome-themes-extra
             self'.packages.plasma-tokyo-night
             self'.packages.tokyo-night-icons
           ];

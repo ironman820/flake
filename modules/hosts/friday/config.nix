@@ -1,5 +1,6 @@
-{ self, ... }: {
-  flake.nixosModules.fridayConfig =
+{ self, moduleWithSystem, ... }: {
+  flake.nixosModules.fridayConfig = moduleWithSystem (
+    perSystem@{ self', ... }:
     {
       config,
       lib,
@@ -8,7 +9,7 @@
     }:
     {
       environment.systemPackages = with pkgs; [
-        calibre
+        self'.packages.calibre
         distrobox
         docker-compose
         easyaudiosync
@@ -208,5 +209,6 @@
         name = "Friday";
       };
       users.groups.ironman.gid = lib.mkForce 986;
-    };
+    }
+  );
 }

@@ -8,6 +8,7 @@
     modules = with self.nixosModules; [
       calibreConfig
       proxmox
+      proxmoxLXC
       server
     ];
   };

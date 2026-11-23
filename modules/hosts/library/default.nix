@@ -9,6 +9,7 @@
       bookorbit
       libraryConfig
       proxmox
+      proxmoxLXC
       server
     ];
   };

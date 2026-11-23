@@ -13,6 +13,7 @@
       lidarr
       navidrome
       proxmox
+      proxmoxLXC
       radarr
       rcm
       server

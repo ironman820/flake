@@ -10,6 +10,7 @@
       docker
       sonobarr
       proxmox
+      proxmoxLXC
       server
     ];
   };

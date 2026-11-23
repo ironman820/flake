@@ -9,6 +9,7 @@
       ./_config.nix
       bazarr
       proxmox
+      proxmoxLXC
       server
     ];
   };

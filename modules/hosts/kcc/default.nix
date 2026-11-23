@@ -10,6 +10,7 @@
       docker
       kcc
       proxmox
+      proxmoxLXC
       server
     ];
   };

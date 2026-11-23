@@ -9,6 +9,7 @@
       ./_config.nix
       navidrome
       proxmox
+      proxmoxLXC
       server
     ];
   };

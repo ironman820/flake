@@ -10,6 +10,7 @@
       syncthing
       copyparty
       proxmox
+      proxmoxLXC
       server
     ];
   };

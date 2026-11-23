@@ -9,6 +9,7 @@
       ./_config.nix
       lidarr
       proxmox
+      proxmoxLXC
       server
     ];
   };

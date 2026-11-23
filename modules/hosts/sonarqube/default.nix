@@ -9,6 +9,7 @@
       ./_config.nix
       docker
       proxmox
+      proxmoxLXC
       server
       sonarqube
     ];

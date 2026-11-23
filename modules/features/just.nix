@@ -62,13 +62,13 @@
                 systemctl reboot --firmware-setup
 
               boot:
-                nh os boot --accept-flake-config
+                nh os boot
 
               check:
                 nix flake check --show-trace
 
               switch:
-                nh os switch --accept-flake-config
+                nh os switch
                 systemctl --user restart sops-nix.service
 
               update:

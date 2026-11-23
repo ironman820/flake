@@ -224,6 +224,14 @@ in
       };
       sshUser = "ironman";
     };
+    thingport = {
+      hostname = "thingport";
+      profiles.system = {
+        user = "root";
+        path = activate.nixos nxc.thingport;
+      };
+      sshUser = "ironman";
+    };
     traefik = {
       hostname = "traefik.home";
       profiles.system = {

@@ -15,6 +15,7 @@ keys:
   - &server_sonobarr age1zhm8w0vcx0893f9yj8wx2mk7l3v2m76h76g4jjxay0x4u5jmyexqf0led5
   - &server_soulseek age155z8naqx5e5lvj209g8u5aa3ml60qdt8xxnmum959lcksnc6aqnszxh8gh
   - &server_storage age19fwep37ruj6x7l86dfa74hxh3l8rqclghuzy6uegcummdl07juxq56au72
+  - &server_thingport age1grmg8eu4ld44kgra2r6xxxhx2ag5dms6573jmnzwfcl29nrt99yswllcum
   - &server_traefik age1wc99wq9lztk2j8qcnej5v6gp8gfz4f0dnmzey6ncfy7yaxplr4zspnhzcs
   - &server_work_dns age14lru46n84vakjj2mjah3ewftjt33fwr2km9g75a3lcpw8af4yawq6n6uag
   - &server_work_rcm age1c8c6rdh6nrmcf4sz4jqe328v08ame6z43s3urv00552dh4a4qs4sjksfg7
@@ -43,6 +44,7 @@ creation_rules:
         - *server_sonobarr
         - *server_soulseek
         - *server_storage
+        - *server_thingport
         - *server_traefik
         - *server_work_dns
         - *server_work_rcm

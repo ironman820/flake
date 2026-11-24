@@ -39,6 +39,10 @@
     #     noctalia.follows = "noctalia";
     #   };
     # };
+    music-sync-converter = {
+      url = "github:patagonaa/music-sync-converter";
+      flake = false;
+    };
     # niri = {
     #   url = "github:epireyn/niri-flake";
     #   inputs = {

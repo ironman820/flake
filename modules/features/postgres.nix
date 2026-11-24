@@ -72,8 +72,8 @@
               }
             ];
             identMap = mkIf (!pgs.external.enable) ''
-              bookorbit ${userName} ${pgs.dbName}
-              bookorbit postgres postgres
+              ${pgs.dbName} ${userName} ${pgs.dbName}
+              ${pgs.dbName} postgres postgres
             '';
             initialScript = mkIf (!isNull pgs.initialScript) pgs.initialScript;
           };

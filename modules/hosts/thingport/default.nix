@@ -11,6 +11,7 @@
       self.diskoConfigurations.thingport
       proxmox
       server
+      staticIP
       thingport
       VM
     ];

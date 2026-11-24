@@ -15,25 +15,13 @@
         ];
     };
     hardware.facter.reportPath = ./facter.json;
-    ironman.thingport = {
-      enable = true;
-      envFile = config.sops.secrets.thingport_env.path;
-      flaresolverrIP = "192.168.248.119";
-    };
-    networking = {
-      defaultGateway = "192.168.248.1";
-      dhcpcd.enable = false;
-      hostName = "thingport";
-      interfaces.ens18.ipv4.addresses = [
-        {
-          address = "192.168.248.127";
-          prefixLength = 23;
-        }
-      ];
-      nameservers = [
-        "192.168.248.2"
-      ];
-      useDHCP = false;
+    ironman = {
+      staticIP.address = "192.168.248.127";
+      thingport = {
+        enable = true;
+        envFile = config.sops.secrets.thingport_env.path;
+        flaresolverrIP = "192.168.248.119";
+      };
     };
     sops.secrets =
       let

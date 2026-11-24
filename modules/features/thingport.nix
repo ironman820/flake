@@ -20,7 +20,6 @@
       {
         imports = with self.nixosModules; [
           docker
-          postgres
         ];
         options.ironman.thingport =
           mkTraefikOptions {

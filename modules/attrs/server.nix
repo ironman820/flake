@@ -15,8 +15,9 @@
       srv = config.ironman.server;
     in
     {
-      imports = [
-        self.nixosModules.core
+      imports = with self.nixosModules; [
+        core
+        postgres
       ];
       boot.enableContainers = mkDefault false;
       documentation = mkIf srv.unattended {

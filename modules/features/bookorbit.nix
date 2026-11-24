@@ -8,9 +8,6 @@
       userName = config.ironman.user.name;
     in
     {
-      imports = [
-        self.nixosModules.postgres
-      ];
       options.ironman.bookorbit = mkTraefikOptions {
         service = "BookOrbit";
         domain = "bookorbit.home";

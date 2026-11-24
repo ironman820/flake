@@ -79,6 +79,7 @@
             id = "6znxz-uhdps";
             devices = [
               "storage"
+              "nas"
             ];
             label = "Music";
             paused = true;

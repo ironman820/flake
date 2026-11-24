@@ -1,13 +1,10 @@
 {
-  inputs,
-  moduleWithSystem,
   self,
   ...
 }:
 {
   flake = {
-    nixosModules.thingport = moduleWithSystem (
-      perSystem@{ ... }:
+    nixosModules.thingport =
       {
         config,
         lib,
@@ -17,7 +14,7 @@
       let
         inherit (import ./_traefikModule.nix { inherit lib; }) mkTraefikConfig mkTraefikOptions;
         inherit (lib) mkIf mkOption;
-        inherit (lib.types) nullOr path str;
+        inherit (lib.types) nullOr str;
         cfg = config.ironman.thingport;
       in
       {
@@ -55,7 +52,6 @@
           };
           services.traefik.dynamicConfigOptions.http = mkTraefikConfig {
             inherit cfg;
-            inherit (cfg) port;
             name = "thingport";
           };
           systemd = mkIf cfg.enable {
@@ -184,12 +180,6 @@
             };
           };
         };
-      }
-    );
-    homeModules.thingport = moduleWithSystem (
-      perSystem@{ ... }:
-      _: {
-      }
-    );
+      };
   };
 }

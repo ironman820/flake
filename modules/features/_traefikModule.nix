@@ -34,7 +34,7 @@ in
         type = bool;
       };
     };
-  mkTraefikConfig = { cfg, name, port }: {
+  mkTraefikConfig = { cfg, name }: {
     routers.${name} = {
       entryPoints = "https";
       middlewares = if cfg.private then "secured" else "default-headers";
@@ -46,7 +46,7 @@ in
       passHostHeader = true;
       servers = [
         {
-          url = "http://${cfg.ip}:${port}";
+          url = "http://${cfg.ip}:${cfg.port}";
         }
       ];
       serversTransport = "insecure";

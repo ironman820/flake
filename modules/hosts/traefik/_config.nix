@@ -1,7 +1,11 @@
 { config, ... }: {
   ironman = {
     bazarr.ip = "192.168.248.120";
-    bookorbit.ip = "192.168.248.101";
+    bookorbit = {
+      domain = "mybooks";
+      ip = "192.168.248.101";
+      private = false;
+    };
     kcc.ip = "192.168.248.124";
     lidarr.ip = "192.168.248.113";
     navidrome.ip = "192.168.248.126";

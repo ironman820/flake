@@ -1,7 +1,10 @@
 { self, ... }: {
   flake.nixosModules.libraryConfig = { config, ... }: {
     hardware.facter.reportPath = ./facter.json;
-    ironman.bookorbit.enable = true;
+    ironman.bookorbit = {
+      enable = true;
+      environmentFile = config.sops.secrets.bookorbit_env.path;
+    };
     networking = {
       hostName = "library";
       nameservers = [

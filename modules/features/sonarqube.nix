@@ -32,23 +32,12 @@
         };
       };
       config = {
+        ironman.postgres = {
+          inherit (sqb) enable;
+          dbName = "sonarqube";
+          external.enable = true;
+        };
         services = {
-          postgresql = mkIf sqb.enable {
-            enable = true;
-            authentication = ''
-              host sonarqube sonarqube 172.16.0.0/12 password
-            '';
-            ensureDatabases = [
-              "sonarqube"
-            ];
-            ensureUsers = [
-              {
-                ensureDBOwnership = true;
-                name = "sonarqube";
-              }
-            ];
-            settings.listen_addresses = mkForce "*";
-          };
           traefik.dynamicConfigOptions.http = {
             routers.sonarqube = {
               entryPoints = "https";

@@ -2,20 +2,10 @@
   hardware.facter.reportPath = ./facter.json;
   ironman = {
     rcm2.enable = true;
-    server.unattended = false;
-  };
-  services = {
-    postgresql = {
+    postgres = {
       enable = true;
-      ensureDatabases = [
-        "rcm"
-      ];
-      ensureUsers = [
-        {
-          ensureDBOwnership = true;
-          name = "rcm";
-        }
-      ];
+      dbName = "rcm";
     };
+    server.unattended = false;
   };
 }

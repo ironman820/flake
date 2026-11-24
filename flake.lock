@@ -163,6 +163,22 @@
         "type": "github"
       }
     },
+    "music-sync-converter": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1783291956,
+        "narHash": "sha256-n/4ZtX6urqcA73BHGcoeOMewKRIaHKEt/oxL07cPR0c=",
+        "owner": "patagonaa",
+        "repo": "music-sync-converter",
+        "rev": "0dfd542e0c194789d5c951f5a3b2ba50dbe14a6e",
+        "type": "github"
+      },
+      "original": {
+        "owner": "patagonaa",
+        "repo": "music-sync-converter",
+        "type": "github"
+      }
+    },
     "nix-flatpak": {
       "locked": {
         "lastModified": 1790428548,
@@ -404,6 +420,7 @@
         "flake-parts": "flake-parts",
         "home-manager": "home-manager",
         "import-tree": "import-tree",
+        "music-sync-converter": "music-sync-converter",
         "nix-flatpak": "nix-flatpak",
         "nix-topology": "nix-topology",
         "nixpkgs": "nixpkgs",

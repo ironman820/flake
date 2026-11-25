@@ -1,57 +1,45 @@
 {
-  self,
-  ...
-}:
-{
-  flake = {
-    nixosModules.navidrome =
-      { config, lib, ... }:
-      let
-        inherit (import ./_traefikModule.nix { inherit lib; }) mkTraefikOptions mkTraefikConfig;
-        cfg = config.ironman.navidrome;
-      in
-      {
-        options.ironman.navidrome = mkTraefikOptions {
-          service = "Navidrome";
-          domain = "mymusic";
-          port = "4533";
-          private = false;
+  flake.nixosModules.navidrome =
+    { config, lib, ... }:
+    let
+      inherit (lib) mkOption;
+      inherit (lib.types) path;
+      cfg = config.ironman.navidrome;
+      user = config.ironman.user.name;
+    in
+    {
+      options.ironman.navidrome = {
+        DataFolder = mkOption {
+          default = "/data/navidrome";
+          description = "The data folder for configuration of Navidrome";
+          type = path;
         };
-        #   {
-        #   enable = mkEnableOption "Install navidrome server";
-        #   ip = mkOption {
-        #     default = null;
-        #     description = "Navidrome's IP address";
-        #     type = types.nullOr types.str;
-        #   };
-        # };
-        config = {
-          services = {
-            navidrome = {
-              inherit (cfg) enable;
-              environmentFile = config.sops.secrets.navidrome_env.path;
-              group = config.ironman.user.name;
-              settings = {
-                Address = "0.0.0.0";
-                DataFolder = "/shares/data/docker/navidrome";
-                DefaultUIVolume = "75";
-                EnableInsightsCollector = false;
-                EnforceNonRootUser = true;
-                MusicFolder = "/shares/data/music";
-              };
-              user = config.ironman.user.name;
+        environmentFile = mkOption {
+          description = "Path to the environment file for navidrome";
+          type = path;
+        };
+        MusicFolder = mkOption {
+          default = "/data/music";
+          description = "Folder with the music";
+          type = path;
+        };
+      };
+      config = {
+        services = {
+          navidrome = {
+            inherit (cfg) environmentFile;
+            inherit user;
+            enable = true;
+            group = user;
+            settings = {
+              inherit (cfg) DataFolder MusicFolder;
+              Address = "0.0.0.0";
+              DefaultUIVolume = "75";
+              EnableInsightsCollector = false;
+              EnforceNonRootUser = true;
             };
-            traefik.dynamicConfigOptions.http = mkTraefikConfig {
-              inherit cfg;
-              name = "navidrome";
-            };
-          };
-          sops.secrets.navidrome_env = {
-            sopsFile = "${self.outPath}/.secrets/navidrome.yaml";
-            owner = cfg.user.name;
-            group = cfg.user.name;
           };
         };
       };
-  };
+    };
 }

@@ -20,7 +20,6 @@
       slskd
       sonobarr
       sonarqube
-      thingport
       traefik
     ];
   };

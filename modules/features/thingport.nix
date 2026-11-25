@@ -12,8 +12,7 @@
         ...
       }:
       let
-        inherit (import ./_traefikModule.nix { inherit lib; }) mkTraefikConfig mkTraefikOptions;
-        inherit (lib) mkIf mkOption;
+        inherit (lib) mkOption;
         inherit (lib.types) nullOr str;
         cfg = config.ironman.thingport;
       in
@@ -22,11 +21,7 @@
           docker
         ];
         options.ironman.thingport =
-          mkTraefikOptions {
-            service = "ThingPort";
-            domain = "thingport.home";
-          }
-          // {
+          {
             envFile = mkOption {
               default = null;
               description = "Location of an envFile for the containers";
@@ -44,16 +39,12 @@
             };
           };
         config = {
-          ironman.postgres = mkIf cfg.enable {
+          ironman.postgres = {
             enable = true;
             dbName = "thingport";
             external.enable = true;
           };
-          services.traefik.dynamicConfigOptions.http = mkTraefikConfig {
-            inherit cfg;
-            name = "thingport";
-          };
-          systemd = mkIf cfg.enable {
+          systemd = {
             services = {
               # Containers
               "docker-thingport-backend" = {
@@ -123,7 +114,7 @@
               wantedBy = [ "multi-user.target" ];
             };
           };
-          virtualisation = mkIf cfg.enable {
+          virtualisation = {
             docker.autoPrune.enable = true;
             oci-containers = {
               backend = "docker";

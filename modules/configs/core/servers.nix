@@ -27,6 +27,10 @@
         );
       };
       config.ironman.servers = {
+        thingport = {
+          ip = "192.168.248.127";
+          service.enable = true;
+        };
       };
     };
 }

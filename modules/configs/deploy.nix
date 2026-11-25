@@ -225,7 +225,7 @@ in
       sshUser = "ironman";
     };
     thingport = {
-      hostname = "thingport";
+      hostname = "thingport.home";
       profiles.system = {
         user = "root";
         path = activate.nixos nxc.thingport;

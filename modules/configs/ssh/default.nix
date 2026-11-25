@@ -21,9 +21,12 @@
       perSystem@{ inputs', self', ... }:
       {
         config,
+        lib,
+        osConfig,
         ...
       }:
       let
+        inherit (lib) mapAttrs' mkIf nameValuePair;
         configFiles = ./files;
         sopsFile = "${self.outPath}/.secrets/ssh-keys.yaml";
         mode = "0400";
@@ -557,7 +560,19 @@
               hostname = "zabbix.royell.org";
               user = "royell";
             };
-          };
+          }
+          // mapAttrs' (
+            _: value:
+            nameValuePair value.service.name (
+              mkIf value.sshEnable (
+                {
+                  inherit (value) user;
+                  hostname = value.ip;
+                }
+                // deployIdentity
+              )
+            )
+          ) osConfig.ironman.servers;
         };
         sops.secrets = {
           deploy_ed25519 = {

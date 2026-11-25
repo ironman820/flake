@@ -6,8 +6,8 @@ keys:
   - &server_flaresolverr age1ecem282xme7smdursedzsn9eje7sxf84gxfnqz5l6d29guv8sp3qj2tkep
   - &server_gns3 age1z7p0u2ekdek8xy4zlsmczqp3xf68amrzj0nh3yx9chc6zhmxsufspdzpqe
   - &server_kcc age1tmmpqda52zw7vtkg6wp5r0p7lzuudhatjrhftq0trkz3zkktlfrsrvs9mu
-  - &server_library age19d06hye42xyd0c9l82u9p9fj8e3x9l8etlhgwy0hzgngga4qf33s9v6lhn
-  - &server_navidrome age1y70jtv8fuscxa8uuezngx6w5frggx4e0hlf49pzxwz88nv728fqs6zq442
+  - &server_mybooks age19d06hye42xyd0c9l82u9p9fj8e3x9l8etlhgwy0hzgngga4qf33s9v6lhn
+  - &server_mymusic age1areffwds9ahqd9m0xmgmuyj4ynmu0nmzwmzv4cvnn7pqthstr9dsfthmlw
   - &server_pve2 age1tj460ln353gy48end4dl0efqf28z2ntwxu5we7qkauw472dax9xsvmwmhq
   - &server_radarr age1sk85f987dh5sr67m3q6sp486xpagt4cx5csufe9t7h5vyuc4gcks37drga
   - &server_rcm age1rg75knxa6d57ma62csp82mtma2vh9w6quhs0423qmz4jljyfjyzqz756jz
@@ -35,8 +35,8 @@ creation_rules:
         - *server_flaresolverr
         - *server_gns3
         - *server_kcc
-        - *server_library
-        - *server_navidrome
+        - *server_mybooks
+        - *server_mymusic
         - *server_pve2
         - *server_radarr
         - *server_rcm

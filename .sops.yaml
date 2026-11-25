@@ -6,6 +6,7 @@ keys:
   - &server_flaresolverr age1ecem282xme7smdursedzsn9eje7sxf84gxfnqz5l6d29guv8sp3qj2tkep
   - &server_gns3 age1z7p0u2ekdek8xy4zlsmczqp3xf68amrzj0nh3yx9chc6zhmxsufspdzpqe
   - &server_kcc age1tmmpqda52zw7vtkg6wp5r0p7lzuudhatjrhftq0trkz3zkktlfrsrvs9mu
+  - &server_musicsync age1hm0fy0ngccv6gvhzxwr80mr04fzvms8mslfruq7s0khn3gpvjg2qt89uw8
   - &server_mybooks age19d06hye42xyd0c9l82u9p9fj8e3x9l8etlhgwy0hzgngga4qf33s9v6lhn
   - &server_mymusic age1areffwds9ahqd9m0xmgmuyj4ynmu0nmzwmzv4cvnn7pqthstr9dsfthmlw
   - &server_pve2 age1tj460ln353gy48end4dl0efqf28z2ntwxu5we7qkauw472dax9xsvmwmhq
@@ -35,6 +36,7 @@ creation_rules:
         - *server_flaresolverr
         - *server_gns3
         - *server_kcc
+        - *server_musicsync
         - *server_mybooks
         - *server_mymusic
         - *server_pve2

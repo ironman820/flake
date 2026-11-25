@@ -27,6 +27,9 @@
         );
       };
       config.ironman.servers = {
+        musicsync = {
+          ip = "192.168.248.128";
+        };
         mybooks = {
           ip = "192.168.248.101";
           publicFacing = true;

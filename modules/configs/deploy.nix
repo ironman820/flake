@@ -80,6 +80,14 @@ in
       };
       sshUser = "ironman";
     };
+    musicsync = {
+      hostname = "musicsync.home";
+      profiles.system = {
+        user = "root";
+        path = activate.nixos nxc.musicsync;
+      };
+      sshUser = "ironman";
+    };
     mybooks = {
       hostname = "mybooks";
       profiles.system = {

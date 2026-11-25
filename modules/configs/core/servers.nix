@@ -63,7 +63,7 @@
           ip = "192.168.248.100";
           service = {
             enable = true;
-            port = 8384;
+            port = 3923;
           };
         };
         thingport = {

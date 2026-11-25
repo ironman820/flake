@@ -35,6 +35,14 @@
             port = 3000;
           };
         };
+        mymusic = {
+          ip = "192.168.248.126";
+          publicFacing = true;
+          service = {
+            enable = true;
+            port = 4533;
+          };
+        };
         storage = {
           ip = "192.168.248.100";
           service = {

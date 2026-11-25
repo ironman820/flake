@@ -10,7 +10,6 @@
       bazarr
       kcc
       lidarr
-      navidrome
       proxmox
       proxmoxLXC
       radarr

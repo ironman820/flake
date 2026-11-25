@@ -88,11 +88,11 @@ in
       };
       sshUser = "ironman";
     };
-    navidrome = {
-      hostname = "navidrome";
+    mymusic = {
+      hostname = "mymusic";
       profiles.system = {
         user = "root";
-        path = activate.nixos nxc.navidrome;
+        path = activate.nixos nxc.mymusic;
       };
       sshUser = "ironman";
     };

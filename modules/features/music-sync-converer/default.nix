@@ -61,8 +61,8 @@
               let
                 syncConfig = pkgs.writeText "musicsync.json" ''
                   {
-                  "SourceDir": "${cfg.service.sourceFolder}",
-                  "TargetDir": "${cfg.service.destinationFolder}",
+                  "SourceDir": "file://${cfg.service.sourceFolder}/",
+                  "TargetDir": "file://${cfg.service.destinationFolder}",
                   ${
                     if cfg.service.makeMp3 then
                       ''
@@ -82,6 +82,7 @@
                       ''
                     else
                       ""
+                  }
                   }
                 '';
               in
@@ -136,7 +137,7 @@
       };
       runtimeDeps = with pkgs; [
         android-tools
-        ffmpeg
+        ffmpeg-full
         flac
       ];
     };

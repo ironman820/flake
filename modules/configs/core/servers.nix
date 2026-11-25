@@ -27,6 +27,14 @@
         );
       };
       config.ironman.servers = {
+        mybooks = {
+          ip = "192.168.248.101";
+          publicFacing = true;
+          service = {
+            enable = true;
+            port = 3000;
+          };
+        };
         storage = {
           ip = "192.168.248.100";
           service = {

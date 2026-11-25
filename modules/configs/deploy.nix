@@ -46,14 +46,6 @@ in
       };
       sshUser = "ironman";
     };
-    library = {
-      hostname = "library";
-      profiles.system = {
-        user = "root";
-        path = activate.nixos nxc.library;
-      };
-      sshUser = "ironman";
-    };
     llama = {
       hostname = "llama";
       profiles.system = {
@@ -85,6 +77,14 @@ in
       profiles.system = {
         user = "root";
         path = activate.nixos nxc.monday;
+      };
+      sshUser = "ironman";
+    };
+    mybooks = {
+      hostname = "mybooks";
+      profiles.system = {
+        user = "root";
+        path = activate.nixos nxc.mybooks;
       };
       sshUser = "ironman";
     };

@@ -1,5 +1,5 @@
 {
-  flake.diskoConfigurations.library = {
+  flake.diskoConfigurations.mybooks = {
     disko.devices.disk.main = {
       device = "/dev/sda";
       type = "disk";

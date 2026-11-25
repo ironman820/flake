@@ -8,7 +8,6 @@
     modules = with self.nixosModules; [
       ./_config.nix
       bazarr
-      bookorbit
       kcc
       lidarr
       navidrome

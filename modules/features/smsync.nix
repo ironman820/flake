@@ -81,10 +81,14 @@
               in
               ''
                 cd ${cfg.service.destinationFolder}
+                mv .stfolder /tmp/
+                mv .stignore /tmp/
                 if [ ! -f smsync.yaml ]; then
                   cp ${syncConfig} smsync.yaml
                 fi
                 ${getExe self'.packages.smsync} -y
+                mv /tmp/.stignore ./
+                mv /tmp/.stfolder ./
               '';
             serviceConfig = {
               Type = "exec";
@@ -136,6 +140,10 @@
           license = lib.licenses.gpl3;
           mainProgram = "smsync";
         };
+        runtimeDeps = with pkgs; [
+          ffmpeg
+          flac
+        ];
       });
     };
 }

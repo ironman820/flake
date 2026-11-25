@@ -18,6 +18,7 @@
           localisation
           nix
           python
+          servers
           ssh
           sops
           topology

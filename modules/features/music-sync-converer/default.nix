@@ -87,10 +87,17 @@
               in
               ''
                 set -eu
+                LOCKFILE=/tmp/musicsync.lock
+                trap 'rm $LOCKFILE' EXIT
+                if [ -f $LOCKFILE ]; then
+                  exit 0
+                fi
+                touch $LOCKFILE
                 ${getExe self'.packages.MusicSyncConverter} ${syncConfig}
+                rm $LOCKFILE
               '';
             serviceConfig = {
-              Type = "oneshot";
+              Type = "exec";
               User = cfg.service.user;
             };
           };

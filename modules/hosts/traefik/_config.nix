@@ -1,4 +1,9 @@
-{ config, ... }: {
+{ config, lib, ... }:
+let
+  entryPoints = "https";
+  tls = { };
+in
+{
   ironman = {
     bazarr.ip = "192.168.248.120";
     kcc.ip = "192.168.248.124";
@@ -26,116 +31,100 @@
         http = {
           routers = {
             dns = {
-              entryPoints = "https";
+              inherit entryPoints tls;
               middlewares = "secured";
               rule = "Host(`pdns.home.niceastman.com`)";
               service = "dns";
-              tls = { };
             };
             files = {
-              entryPoints = "https";
+              inherit entryPoints tls;
               middlewares = "default-headers";
               rule = "Host(`myshare.niceastman.com`)";
               service = "zipline";
-              tls = { };
             };
             huntarr = {
-              entryPoints = "https";
+              inherit entryPoints tls;
               middlewares = "secured";
               rule = "Host(`huntarr.home.niceastman.com`)";
               service = "huntarr";
-              tls = { };
             };
             jellyfin = {
-              entryPoints = "https";
+              inherit entryPoints tls;
               middlewares = "default-headers";
               rule = "Host(`mymedia.niceastman.com`)";
               service = "jellyfin";
-              tls = { };
             };
             nas = {
-              entryPoints = "https";
+              inherit entryPoints tls;
               middlewares = "secured";
               rule = "Host(`nas.home.niceastman.com`)";
               service = "nas";
-              tls = { };
             };
             prowlarr = {
-              entryPoints = "https";
+              inherit entryPoints tls;
               middlewares = "secured";
               rule = "Host(`prowlarr.home.niceastman.com`)";
               service = "prowlarr";
-              tls = { };
             };
             pve = {
-              entryPoints = "https";
+              inherit entryPoints tls;
               middlewares = "proxmox";
               rule = "Host(`pve.home.niceastman.com`)";
               service = "pve";
-              tls = { };
             };
             pve2 = {
-              entryPoints = "https";
+              inherit entryPoints tls;
               middlewares = "proxmox";
               rule = "Host(`pve2.home.niceastman.com`)";
               service = "pve2";
-              tls = { };
             };
             rcm2 = {
-              entryPoints = "https";
+              inherit entryPoints tls;
               middlewares = "secured";
               rule = "Host(`rcm2.home.niceastman.com`)";
               service = "rcm2";
-              tls = { };
             };
             sonarr = {
-              entryPoints = "https";
+              inherit entryPoints tls;
               middlewares = "secured";
               rule = "Host(`sonarr.home.niceastman.com`)";
               service = "sonarr";
-              tls = { };
             };
             sonarr2 = {
-              entryPoints = "https";
+              inherit entryPoints tls;
               middlewares = "secured";
               rule = "Host(`sonarr2.home.niceastman.com`)";
               service = "sonarr2";
-              tls = { };
             };
             sync = {
-              entryPoints = "https";
+              inherit entryPoints tls;
               middlewares = "secured";
               rule = "Host(`sync.home.niceastman.com`)";
               service = "syncthing";
-              tls = { };
             };
             torrent = {
-              entryPoints = "https";
+              inherit entryPoints tls;
               middlewares = "secured";
               rule = "Host(`torrent.home.niceastman.com`)";
               service = "qbittorrent";
-              tls = { };
             };
             torrent2 = {
-              entryPoints = "https";
+              inherit entryPoints tls;
               middlewares = "secured";
               rule = "Host(`torrent2.home.niceastman.com`)";
               service = "qbittorrent2";
-              tls = { };
             };
             ups = {
-              entryPoints = "https";
+              inherit entryPoints tls;
               middlewares = "secured";
               rule = "Host(`ups.home.niceastman.com`)";
               service = "peanut";
-              tls = { };
             };
             vaultwarden = {
-              entryPoints = "https";
+              inherit entryPoints tls;
               middlewares = "vaultwarden";
               rule = "Host(`pass.niceastman.com`)";
               service = "vaultwarden";
-              tls = { };
             };
           };
           services = {

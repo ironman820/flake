@@ -224,6 +224,14 @@ in
       };
       sshUser = "ironman";
     };
+    spoolman = {
+      hostname = "spoolman.home";
+      profiles.system = {
+        user = "root";
+        path = activate.nixos nxc.spoolman;
+      };
+      sshUser = "ironman";
+    };
     storage = {
       hostname = "storage.home";
       profiles.system = {

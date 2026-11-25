@@ -50,6 +50,14 @@
             port = 4533;
           };
         };
+        spoolman = {
+          inherit user;
+          ip = "192.168.248.105";
+          service = {
+            enable = true;
+            port = 7912;
+          };
+        };
         storage = {
           inherit user;
           ip = "192.168.248.100";

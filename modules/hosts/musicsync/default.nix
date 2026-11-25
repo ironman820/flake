@@ -9,10 +9,10 @@
       ./_config.nix
       inputs.disko.nixosModules.disko
       self.diskoConfigurations.musicsync
-      MusicSyncConverter
       proxmox
       server
       smbShares
+      smsync
       staticIP
       VM
     ];

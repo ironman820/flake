@@ -9,14 +9,12 @@ in
     smbShares.fs."/data".server = srv.storage.ip;
     staticIP.address = cfg.ip;
   };
-  programs.MusicSyncConverter = {
+  programs.smsync = {
     enable = true;
     service = {
       enable = true;
       sourceFolder = "/data/music";
       destinationFolder = "/data/player-sync";
-      makeMp3 = true;
-      mp3Bitrate = 320;
     };
   };
 }

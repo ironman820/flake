@@ -1,27 +1,15 @@
 { self, ... }: {
   flake.nixosModules.mybooksConfig =
-    { config, pkgs, ... }:
+    { config, ... }:
     let
-      cfg = config.ironman.servers.mybooks;
+      cfg = srv.mybooks;
+      srv = config.ironman.servers;
     in
     {
-      environment.systemPackages = [
-        pkgs.cifs-utils
-      ];
-      fileSystems."/data" = {
-        device = "//192.168.248.100/data";
-        fsType = "cifs";
-        options =
-          let
-            automount_opts = "x-systemd.automount,x-systemd.idle-timeout=60,x-systemd.device-timeout=5s,x-systemd.mount-timeout=5s";
-          in
-          [
-            "${automount_opts},uid=1000,gid=1000"
-          ];
-      };
       hardware.facter.reportPath = ./facter.json;
       ironman = {
         bookorbit.environmentFile = config.sops.secrets.bookorbit_env.path;
+        smbShares.fs."/data".server = srv.storage.ip;
         staticIP.address = cfg.ip;
       };
       networking = {

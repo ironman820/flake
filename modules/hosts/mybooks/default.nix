@@ -12,6 +12,7 @@
       mybooksConfig
       proxmox
       server
+      smbShares
       staticIP
       VM
     ];

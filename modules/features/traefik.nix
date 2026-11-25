@@ -3,17 +3,32 @@
   ...
 }:
 {
-  flake.nixosModules.traefik = { config, lib, ... }: {
-    options.ironman.traefik = {
-      enable = lib.mkEnableOption "Enable Traefik Server";
-    };
-    config =
-      let
-        cfg = config.ironman.traefik;
-      in
-      {
+  flake.nixosModules.traefik =
+    { config, lib, ... }:
+    let
+      inherit (lib)
+        mapAttrs'
+        mkEnableOption
+        mkIf
+        mkOption
+        nameValuePair
+        types
+        ;
+      cfg = config.ironman.traefik;
+      srv = config.ironman.servers;
+    in
+    {
+      options.ironman.traefik = {
+        baseDomain = mkOption {
+          default = "niceastman.com";
+          description = "Base domain name to resolve hostnames with";
+          type = types.str;
+        };
+        workServer = mkEnableOption "Is this a work server?";
+      };
+      config = {
         services.traefik = {
-          inherit (cfg) enable;
+          enable = true;
           dynamicConfigOptions = {
             http = {
               middlewares = {
@@ -64,24 +79,54 @@
                 sslheader.headers.customRequestHeaders.X-Forwarded-Proto = "https";
                 vaultwarden.headers.customRequestHeaders.X-Forwarded-Proto = "https";
               };
-              routers.traefik = {
-                entryPoints = "https";
-                middlewares = "secured";
-                rule = "Host(`proxy.home.niceastman.com`)";
-                service = "api@internal";
-                tls = {
-                  certResolver = "cloudflare";
-                  domains = [
-                    {
-                      main = "niceastman.com";
-                      sans = [
-                        "*.niceastman.com"
-                        "*.home.niceastman.com"
-                      ];
-                    }
-                  ];
+              routers = {
+                traefik = {
+                  entryPoints = "https";
+                  middlewares = "secured";
+                  rule = "Host(`proxy.home.niceastman.com`)";
+                  service = "api@internal";
+                  tls = {
+                    certResolver = "cloudflare";
+                    domains = [
+                      {
+                        main = cfg.baseDomain;
+                        sans = [
+                          "*.${cfg.baseDomain}"
+                          "*.home.${cfg.baseDomain}"
+                        ];
+                      }
+                    ];
+                  };
                 };
-              };
+              }
+              // mapAttrs' (
+                _: value:
+                nameValuePair value.service.name (
+                  mkIf (value.service.enable && (cfg.workServer == value.workServer)) {
+                    entryPoints = "https";
+                    middlewares = if value.publicFacing then "default-headers" else "secured";
+                    rule = "Host(`${value.service.name}.${cfg.baseDomain}`)";
+                    service = value.service.name;
+                    tls = { };
+                  }
+                )
+              ) srv;
+              services = mapAttrs' (
+                _: value:
+                nameValuePair value.service.name (
+                  mkIf (value.service.enable && (cfg.workServer == value.workServer)) {
+                    loadBalancer = {
+                      passHostHeader = true;
+                      servers = [
+                        {
+                          url = "http://${value.ip}:${toString value.service.port}";
+                        }
+                      ];
+                      serversTransport = "insecure";
+                    };
+                  }
+                )
+              ) srv;
             };
           };
           environmentFiles = [
@@ -95,5 +140,5 @@
           sopsFile = "${self.outPath}/.secrets/traefik.sops";
         };
       };
-  };
+    };
 }

@@ -27,6 +27,13 @@
         );
       };
       config.ironman.servers = {
+        storage = {
+          ip = "192.168.248.100";
+          service = {
+            enable = true;
+            port = 8384;
+          };
+        };
         thingport = {
           ip = "192.168.248.127";
           service.enable = true;

@@ -108,13 +108,6 @@
               service = "sonarr2";
               tls = { };
             };
-            storage = {
-              entryPoints = "https";
-              middlewares = "secured";
-              rule = "Host(`storage.home.niceastman.com`)";
-              service = "storage";
-              tls = { };
-            };
             sync = {
               entryPoints = "https";
               middlewares = "secured";
@@ -265,15 +258,6 @@
                   url = "http://192.168.248.110:8989";
                 }
               ];
-            };
-            storage.loadBalancer = {
-              passHostHeader = true;
-              servers = [
-                {
-                  url = "https://192.168.248.100:3923";
-                }
-              ];
-              serversTransport = "insecure";
             };
             syncthing.loadBalancer = {
               passHostHeader = true;

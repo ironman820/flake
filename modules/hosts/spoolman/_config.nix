@@ -5,7 +5,11 @@ in
 {
   hardware.facter.reportPath = ./facter.json;
   ironman = {
-    spoolman.corsOrigin = "https://${cfg.service.name}.niceastman.com";
+    smbShares.fs."/data".server = config.ironman.servers.storage.ip;
+    spoolman = {
+      corsOrigin = "https://${cfg.service.name}.niceastman.com";
+      dataDir = "/data/docker/spoolman";
+    };
     staticIP.address = cfg.ip;
   };
   networking = {

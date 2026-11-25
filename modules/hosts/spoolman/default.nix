@@ -11,6 +11,7 @@
       self.diskoConfigurations.spoolman
       proxmox
       server
+      smbShares
       spoolman
       staticIP
       VM

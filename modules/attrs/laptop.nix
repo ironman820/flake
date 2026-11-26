@@ -78,8 +78,11 @@
         };
         udisks2.enable = true;
       };
-      systemd.settings.Manager = {
-        DefaultTimeoutStopSec = "10s";
+      systemd = {
+        settings.Manager = {
+          DefaultTimeoutStopSec = "10s";
+        };
+        tmpfiles.settings."10-hibernation"."/sys/power/image_size".w.argument = "0";
       };
       zramSwap.enable = lib.mkDefault true;
     }

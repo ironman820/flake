@@ -6,7 +6,7 @@ in
 {
   flake.deploy.nodes = {
     bazarr = {
-      hostname = "bazarr";
+      hostname = "bazarr.home";
       profiles.system = {
         user = "root";
         path = activate.nixos nxc.bazarr;

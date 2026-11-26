@@ -28,6 +28,14 @@
         );
       };
       config.ironman.servers = {
+        bazarr = {
+          inherit user;
+          ip = "192.168.248.120";
+          service = {
+            enable = true;
+            port = 6767;
+          };
+        };
         musicsync = {
           inherit user;
           ip = "192.168.248.128";

@@ -8,9 +8,13 @@
     modules = with self.nixosModules; [
       ./_config.nix
       bazarr
+      inputs.disko.nixosModules.disko
+      self.diskoConfigurations.bazarr
       proxmox
-      proxmoxLXC
       server
+      smbShares
+      staticIP
+      VM
     ];
   };
 }

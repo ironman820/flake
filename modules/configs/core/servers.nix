@@ -33,7 +33,7 @@
           ip = "192.168.248.120";
           service = {
             enable = true;
-            port = 6767;
+            port = config.services.bazarr.settings.general.port;
           };
         };
         musicsync = {
@@ -46,7 +46,7 @@
           publicFacing = true;
           service = {
             enable = true;
-            port = 3000;
+            port = config.services.bookorbit.environment.PORT;
           };
         };
         mymusic = {
@@ -55,7 +55,7 @@
           publicFacing = true;
           service = {
             enable = true;
-            port = 4533;
+            port = config.services.navidrome.settings.Port;
           };
         };
         spoolman = {
@@ -63,7 +63,7 @@
           ip = "192.168.248.105";
           service = {
             enable = true;
-            port = 7912;
+            port = config.services.spoolman.port;
           };
         };
         storage = {

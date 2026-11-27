@@ -36,6 +36,14 @@
             port = config.services.bazarr.settings.general.port;
           };
         };
+        kcc = {
+          inherit user;
+          ip = "192.168.248.124";
+          service = {
+            enable = true;
+            port = 8654;
+          };
+        };
         musicsync = {
           inherit user;
           ip = "192.168.248.128";

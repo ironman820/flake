@@ -128,11 +128,6 @@
               user = "ironman";
             }
             // deployIdentity;
-            kcc = {
-              hostname = "192.168.248.124";
-              user = "ironman";
-            }
-            // deployIdentity;
             "meet" = {
               hostname = "meet.royell.org";
               user = "royell";
@@ -476,11 +471,6 @@
               hostname = "smx.royell.org";
               user = "royell";
             };
-            "soulseek.home" = {
-              hostname = "192.168.248.125";
-              user = "ironman";
-            }
-            // deployIdentity;
             "traefik.desk" = {
               hostname = "192.168.20.11";
               user = "ironman";

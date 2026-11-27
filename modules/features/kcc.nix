@@ -1,42 +1,14 @@
 {
   flake.nixosModules.kcc =
     {
-      config,
       lib,
       pkgs,
       ...
     }:
-    let
-      inherit (config.ironman) kcc;
-      inherit (lib)
-        mkEnableOption
-        mkIf
-        mkOption
-        ;
-      inherit (lib.types) bool str;
-    in
     {
-      options.ironman.kcc = {
-        enable = mkEnableOption "Enable the KCC server";
-        domain = mkOption {
-          default = "kcc.home";
-          description = "Domain to access KCC from";
-          type = str;
-        };
-        ip = mkOption {
-          default = "";
-          description = "KCC IP";
-          type = str;
-        };
-        private = mkOption {
-          default = true;
-          description = "Is the service only available on the local network?";
-          type = bool;
-        };
-      };
       config = {
         # Runtime
-        virtualisation = mkIf kcc.enable {
+        virtualisation = {
           docker.autoPrune.enable = true;
           oci-containers = {
             backend = "docker";
@@ -65,25 +37,7 @@
           };
         };
 
-        services.traefik.dynamicConfigOptions.http = {
-          routers.kcc = {
-            entryPoints = "https";
-            middlewares = if kcc.private then "secured" else "default-headers";
-            rule = "Host(`${kcc.domain}.niceastman.com`)";
-            service = "kcc";
-            tls = { };
-          };
-          services.kcc.loadBalancer = {
-            passHostHeader = true;
-            servers = [
-              {
-                url = "http://${kcc.ip}:8654";
-              }
-            ];
-            serversTransport = "insecure";
-          };
-        };
-        systemd = mkIf kcc.enable {
+        systemd = {
           services = {
             "docker-kcc-cloud" = {
               serviceConfig = {

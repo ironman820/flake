@@ -11,14 +11,14 @@
       ironman = {
         smbShares.fs."/data".server = srv.storage.ip;
         staticIP.address = cfg.ip;
-        # slsk = {
-        #   downloads = "${dlFolder}/music";
-        #   environmentFile = config.sops.secrets.slskd_env.path;
-        #   incomplete = "${dlFolder}/incomplete";
-        #   shares = [
-        #     "/data/music"
-        #   ];
-        # };
+        slsk = {
+          downloads = "${dlFolder}/music";
+          environmentFile = config.sops.secrets.slskd_env.path;
+          incomplete = "${dlFolder}/incomplete";
+          shares = [
+            "/data/music"
+          ];
+        };
       };
       networking = {
         inherit (cfg) hostName;

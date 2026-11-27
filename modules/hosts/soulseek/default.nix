@@ -10,7 +10,7 @@
       self.diskoConfigurations.slsk
       proxmox
       server
-      # slskd
+      slskd
       slskConfig
       staticIP
       smbShares

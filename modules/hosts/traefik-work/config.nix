@@ -11,7 +11,6 @@
         domain = "desk";
         ip = "192.168.20.104";
       };
-      traefik.enable = true;
     };
     networking.hostName = "traefik-work";
     services.traefik = {

@@ -2,7 +2,7 @@
   flake.nixosModules.spoolman =
     { config, lib, ... }:
     let
-      inherit (lib) mkOption;
+      inherit (lib) mkForce mkOption;
       inherit (lib.types) str;
       cfg = config.ironman.spoolman;
     in
@@ -37,7 +37,10 @@
             SPOOLMAN_CORS_ORIGIN = cfg.corsOrigin;
           };
         };
-        systemd.services.spoolman.serviceConfig.User = config.ironman.servers.spoolman.user;
+        systemd.services.spoolman.serviceConfig = {
+          DynamicUser = mkForce false;
+          User = config.ironman.servers.spoolman.user;
+        };
       };
     };
 }

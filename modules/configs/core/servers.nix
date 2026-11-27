@@ -58,6 +58,14 @@
             port = config.services.navidrome.settings.Port;
           };
         };
+        slsk = {
+          inherit user;
+          ip = "192.168.248.125";
+          service = {
+            enable = true;
+            port = config.services.slskd.settings.web.port;
+          };
+        };
         spoolman = {
           inherit user;
           ip = "192.168.248.105";

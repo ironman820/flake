@@ -14,7 +14,6 @@
       radarr
       rcm
       server
-      slskd
       sonobarr
       sonarqube
       traefik

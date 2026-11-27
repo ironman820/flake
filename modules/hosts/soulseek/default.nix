@@ -6,11 +6,15 @@
 {
   flake.nixosConfigurations.soulseek = inputs.nixpkgs.lib.nixosSystem {
     modules = with self.nixosModules; [
-      ./_config.nix
+      inputs.disko.nixosModules.disko
+      self.diskoConfigurations.slsk
       proxmox
-      proxmoxLXC
       server
-      slskd
+      # slskd
+      slskConfig
+      staticIP
+      smbShares
+      VM
     ];
   };
 }
